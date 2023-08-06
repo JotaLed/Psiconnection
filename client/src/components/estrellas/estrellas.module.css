@@ -1,0 +1,9 @@
+/* Card.module.css */
+.star {
+    color: #ccc; /* Color de las estrellas no marcadas */
+  }
+  
+.marked {
+    color: #fdd835; /* Color de las estrellas marcadas */
+  }
+  

@@ -1,0 +1,129 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  /* background-image: url("./endless-constellation.png"); */
+  background-color: #dce0e6;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+.form-container {
+  max-width: 2000px; 
+  margin: 50px auto;
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #606d8044; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex; 
+  margin-top: 200px ;
+}
+.form-container .right-side {
+  background-image: url("./imagenForm.png");
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+  padding: 200px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: xx-large;
+  font-weight: bold;
+  
+}
+.form-container h3{
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: x-large;
+  font-weight: bold;
+}
+.form-container input,
+.form-container select {
+  width: 100%;
+  max-width: 400px; 
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  
+}
+
+.form-container select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: url("arrow-down.svg") no-repeat right center;
+  background-size: 20px;
+  padding-right: 20px;
+  
+}
+/** Para todos los botones  */
+.form-container button {
+  padding: 10px;
+  background-color: #2B4C7E;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: large;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+/** Titulo Hola */
+.p1{ 
+  font-weight: bold;
+  margin-top: 20%;
+  margin-bottom: 10%; 
+  font-size:x-large;
+}
+/** etiquieta Selecicona tu tipo de usuario */
+.p2{ 
+  font-weight: bold;
+  margin-top: 20%;
+  margin-bottom: 10%; 
+  font-size:x-large;
+}
+.p3{
+  margin-bottom: 20px; /* Añadir un margen inferior para separar el texto de los botones */
+  font-weight: bold;
+  font-size: xx-large;
+}
+
+.form-container button:hover {
+  background-color: #567ebb;
+}
+
+.form-container select[id="text"] {
+  background-color: #fff;
+  background-image: url("arrow-down.svg");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 20px;
+}
+
+.form-container select[name="especialidades"] {
+  background-color: #fff;
+  background-image: url("arrow-down.svg");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 30px;
+}
+.form-label{
+  font-size: medium;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+ 
