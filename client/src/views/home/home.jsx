@@ -25,9 +25,11 @@ export default function Home() {
 
   }, []);
 
-  const prevHandler = () => {
-    const elements = filteredRecipes.length > 0 ? filteredRecipes.length : recipes.length;
+  const updateCurrentPage = () => {
+    setCurrentPage(0);
+  };
 
+  const prevHandler = () => {
     setCurrentPage(prevPage => Math.max(prevPage - 1, 0));
   }
   const nextHandler = () => {
@@ -47,7 +49,7 @@ export default function Home() {
     <div className={style.home}>
       <div className={style.col1}>
         {/* Columna para los filtros */}
-        <Filters />
+        <Filters update={updateCurrentPage}/>
       </div>
       
       <div className={style.col2}>
