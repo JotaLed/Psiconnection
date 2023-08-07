@@ -30,7 +30,7 @@
     top: 0; /* Ajusta la posición vertical en la parte superior */
     left: 0; /* Ajusta la posición horizontal en la parte izquierda */
     bottom: 0; /* Ajusta la altura del contenedor para ocupar toda la altura disponible */
-    margin-top: 5%;
+    margin-top: 6%;
 }
 
 .label {

@@ -50,10 +50,10 @@
   justify-content: center;
   margin-bottom: 10px;
   /* Puedes ajustar el margen inferior entre los botones y el label */
-  margin-top: 75%;
+  margin-top: 10%;
   gap: 20px;
   font-size: 17px;
-  margin-left: 20%;
+  margin-left: 13%;
 }
 
 .btn {
