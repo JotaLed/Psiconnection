@@ -6,26 +6,32 @@ import axios from "axios"
 
 export const setFilter = (filters) => {
     //comentario
-    return {type: SET_FILTER, payload: filters}
+    return { type: SET_FILTER, payload: filters }
 }
 
 export const setOrders = (order) => {
-    return {type: SET_ORDERS, payload: order}
+    return { type: SET_ORDERS, payload: order }
 }
 //Action de get psicologos
-export const getPsicologos =  () => {
+export const getPsicologos = () => {
     return async function (dispatch) {
         const apiData = await axios.get("http://localhost:3001/psiconection/");
         const psicologos = apiData.data
 
-        dispatch({ type: GET_PSICOLOGOS, payload: psicologos})
+        dispatch({ type: GET_PSICOLOGOS, payload: psicologos })
     }
 }//Action de get by ID
-export const loadDetail =  (id) => {
-    return async function (dispatch) {
-        const {data} = await axios.get(`http://localhost:3001/psiconection/${id}`);
-        const detail = data
+export const loadDetail = (id) => {
+    return( async function (dispatch) {
+        try {
+            const { data } = await axios.get(`http://localhost:3001/psiconection/${id}`);
+            const detail = data
+            return (dispatch({
+                type: LOAD_DETAIL, payload: detail
+            }))
+        } catch (error) {
+            console.log(error.message);
 
-        dispatch({ type:LOAD_DETAIL , payload: detail})
-    }
+        }
+    })
 }
