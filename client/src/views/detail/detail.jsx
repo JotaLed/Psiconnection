@@ -5,41 +5,39 @@ import s from "./detail.module.css"
 //importamos los hooks para el estado global dd
 import { useSelector } from "react-redux"
 
+//importamos las actions
+import { loadDetail } from "../../Redux/actions";
+
 const Detail = () => {
     //Estados locales 
     const { detailID } = useParams();
-    const [psicologo, setPiscologo] = useState({})
     //Estados globales 
-    const allPsyco = useSelector((store) => store.allPshychologists)
+    const psicology = useSelector((store) => store.psicoloDetail)
     //Useeffect
     useEffect(() => {
         const aux = async () => {
-            await setPiscologo(allPsyco.find((psyco) => {
-                return psyco.id == detailID
-
-            }))
+            await loadDetail(detailID)
         }
         aux()
-        console.log(psicologo);
+        console.log(psicology);
     }, [])
     //funciones 
 
     console.log(detailID);
-    console.log(allPsyco);
-    console.log(psicologo);
-    console.log(psicologo.imagen);
+    console.log(psicology);
+    console.log(psicology.imagen);
     return (
         <div className={s.detail_conteiner}>
             <div className={s.detail}>
                 <div className={s.view_psico}>
                     <div className={s.row1}>
                         <div className={s.foto_conteiner}>
-                            <img src={psicologo.imagen} />
+                            <img src={psicology.imagen} />
                         </div>
                         <div className={s.info_psyco}>
 
-                            <h1 className={s.name}>{psicologo.nombre}</h1>
-                            <h2 className={s.especialidad}>{psicologo.especializacion}</h2>
+                            <h1 className={s.name}>{psicology.nombre}</h1>
+                            <h2 className={s.especialidad}>{psicology.especializacion}</h2>
                             <h2 className={s.time}>Cuenta creada el 03/08/23</h2>
 
                             <div className={s.contactar}>
@@ -54,8 +52,8 @@ const Detail = () => {
                         <label className={s.label}>Datos del psicologo:</label>
                         <div className={s.info}>
                             <p>Fecha de nacimiento:</p>
-                            <p>Pais de origen: <span className={s.negrita}>{psicologo.pais}</span></p>
-                            <p>Genero: <span className={s.negrita}>{psicologo.genero}</span></p>
+                            <p>Pais de origen: <span className={s.negrita}>{psicology.pais}</span></p>
+                            <p>Genero: <span className={s.negrita}>{psicology.genero}</span></p>
                             <p>Licencia:</p>
 
                         </div>
