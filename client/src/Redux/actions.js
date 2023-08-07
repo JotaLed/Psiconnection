@@ -40,7 +40,7 @@ export const loadDetail = (id) => {
 export const searchByName = (apellido) =>{
     return async function(dispatch) {
         try{
-            const response = await axios.get(`http://localhost:3001/psiconection/?apellido=${apellido}`)
+            const response = await axios.get(`http://localhost:3001/psiconection/?name=${apellido}`)
             return dispatch({
                 type:'SEARCH_APELLIDO',
                 payload :response.data

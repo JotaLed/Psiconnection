@@ -1,8 +1,5 @@
 .content {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin-top: 20px;
     top: -1040px;
     left: 12%;
