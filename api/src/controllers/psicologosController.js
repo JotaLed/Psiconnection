@@ -4,17 +4,18 @@ const { encrypt, compare } = require('../helpers/handleBcrypt.js')
 const { Psicologo } = require('../db.js')
 
 
+
 //Búsqueda de todos los psicólogos
 const getPsicologosController = async () => {
   const psicologos = await Psicologo.findAll();
   return psicologos;
 };
 
-const getPsicologoByNameController = async (name) => {
-  const psicologoName = name.toLowerCase();
+const getPsicologoByNameController = async (apellido) => {
+  const psicologoName = apellido.toLowerCase();
   const dbResults = await Psicologo.findAll({
     where: {
-      title: {
+      apellido: {
         [Op.iLike]: `%${psicologoName}%`,
       },
     },
@@ -25,12 +26,11 @@ const getPsicologoByNameController = async (name) => {
 //Controlador para búsqueda por id
 const getDetailController = async (id) => {
   const detail = await Psicologo.findByPk(id);
-  if(!detail) {
-    throw new Error('No se encontro psicologo con ese id')
-  };
+  if (!detail) {
+    throw new Error("No se encontro psicologo con ese id");
+  }
   return detail;
 };
-
 
 // controlador de registro para crear psicologo http://localhost:3001/psiconection/registerPsicologo --- Psicologo
 
@@ -50,39 +50,38 @@ const createUsuarioPsicologo = async ({
   whatsAppUrl,
   telefono,
   descripcion,
-  fecha
+  fecha,
 }) => {
-  const passwordHash = await encrypt(contraseña)
+  const passwordHash = await encrypt(contraseña);
 
   // ! verificamos que el usuario no se encuentre por el mismo email
   const verifyExistEmail = await Psicologo.findAll({
     where: {
-      email: email
-    }
-  })
-  if (verifyExistEmail.length) throw new Error('El email ya se encuentra activo');
-  
+      email: email,
+    },
+  });
+  if (verifyExistEmail.length)
+    throw new Error("El email ya se encuentra activo");
 
-   //! verficcamos que no se repita el mismo nombre
+  //! verficcamos que no se repita el mismo nombre
   const verifyNombreApellido = await Psicologo.findAll({
     where: {
       nombre,
-      apellido 
-    }
-  })
-  if(verifyNombreApellido.length) throw new Error('Ya existe una persona con este mismo nombre');
+      apellido,
+    },
+  });
+  if (verifyNombreApellido.length)
+    throw new Error("Ya existe una persona con este mismo nombre");
 
-
-  //! verificamos que no se repita la misma licencia 
+  //! verificamos que no se repita la misma licencia
   const verifyLicencia = await Psicologo.findAll({
     where: {
-      licencia
-    }
-  })
-  if(verifyLicencia.length) throw new Error('Ya existe un usuario con esta misma licencia');
+      licencia,
+    },
+  });
+  if (verifyLicencia.length)
+    throw new Error("Ya existe un usuario con esta misma licencia");
 
-
-  
   //! si el email al registrarse no esta en la base de datos, entonces procede a crearse el nuevo psicologo
   const newPsicologoCreate = await Psicologo.create({
     nombre,
@@ -100,24 +99,25 @@ const createUsuarioPsicologo = async ({
     whatsAppUrl,
     telefono,
     descripcion,
-    fecha_registro: fecha
-  })
+    fecha_registro: fecha,
+  });
 
   return newPsicologoCreate;
 };
 
-
 //controlador asociacion de URL de foto a psicologo
-const uploadFoto = async ({ fotoURL, id}) => {
-  const updateFotoPsico = await Psicologo.update({ foto: fotoURL }, {
-    where: {
-      id: id
+const uploadFoto = async ({ fotoURL, id }) => {
+  const updateFotoPsico = await Psicologo.update(
+    { foto: fotoURL },
+    {
+      where: {
+        id: id,
+      },
     }
-  })
+  );
 
-  return updateFotoPsico
+  return updateFotoPsico;
 };
-
 
 // Controlador para actualizar datos de un psicólogo
 const putController = async (req, res) => {
@@ -183,5 +183,5 @@ module.exports = {
   putController,
   deleteController,
   getPsicologoByNameController,
-  getPsicologosController
+  getPsicologosController,
 };

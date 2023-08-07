@@ -6,7 +6,7 @@ import Orders from "../orders/orders";
 import './filters.module.css'
 
 
-const Filters = () => {
+const Filters = (props) => {
     const dispatch = useDispatch();
 
     const [filters, setFilters] = useState({
@@ -16,6 +16,7 @@ const Filters = () => {
         especialidad: "all",
     });
 
+    
     const handleFilterChange = (event) => {
         const { name, value } = event.target;
 
@@ -25,6 +26,8 @@ const Filters = () => {
     // Función para controlar filtros
     const handleFilters = () => {
         dispatch(setFilter(filters));
+        props.update()
+
     };
 
     const [isSidebarOpen, setSidebarOpen] = useState(false);
