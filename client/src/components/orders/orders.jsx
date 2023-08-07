@@ -12,9 +12,7 @@ const Orders = () => {
         dispatch(setOrders(value))
     }
 
-    useEffect(() => {
-        dispatch(setOrders(order))
-    }, [])
+  
     return (
         <div>
             <label className={style.label}>Ordenar por: </label>
