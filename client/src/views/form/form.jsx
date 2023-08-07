@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./form.css";
 import { validateForm } from "./validaciones";
 import axios from "axios";
@@ -25,6 +25,28 @@ const Form = () => {
     isLogin: false,
   });
 
+
+  //! TODO: estado para almacenar los paises
+  const [paises, setPaises] = useState([])
+
+
+  //! TODO: llamo a la api para traerme todos los paises y sus horarios
+  useEffect(()=>{
+    axios.get('https://restcountries.com/v3.1/all')
+    .then((response) => response.data)
+    .then((data) => { 
+      const paises = data.map((pais) => {
+        return {
+          nombre: pais.name.common,
+          zona_horaria: pais.timezones[0]
+        }
+      })
+      setPaises(paises)
+    })
+},[])
+console.log('todos los paises', paises)
+
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -32,6 +54,8 @@ const Form = () => {
       [name]: value,
     }));
   };
+
+
 
   // const handleUserTypeSelect = (roll) => {
   //   setFormData((prevData) => ({
@@ -346,7 +370,7 @@ const Form = () => {
                   onChange={handleChange}
                   required
                 />
-              </div>
+                </div>
 
               <div className="form-row">
                 <label htmlFor="whatsAppUrl">Link whatsApp:</label>
