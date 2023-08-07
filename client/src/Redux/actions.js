@@ -41,10 +41,14 @@ export const searchByName = (apellido) =>{
     return async function(dispatch) {
         try{
             const response = await axios.get(`http://localhost:3001/psiconection/?apellido=${apellido}`)
+            if(response.data.length === 0){
+                alert('Name not found!');
+        } else{
             return dispatch({
                 type:'SEARCH_APELLIDO',
-                payload :response.data
-            });
+                payload:response.data
+            })
+        }
         } catch(error){
             window.alert('Name not found!');
         }
