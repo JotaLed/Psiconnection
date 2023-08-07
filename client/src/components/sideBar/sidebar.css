@@ -2,7 +2,8 @@
 .navbar {
   background-color: #2b4c7e;
   color: #fff;
-  height: 11%;
+  min-height: 101px;
+  height: 11vh;
   position: fixed;
   top: 0;
   left: 0;

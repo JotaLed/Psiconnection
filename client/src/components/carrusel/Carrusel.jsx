@@ -3,7 +3,7 @@ import s from "../carrusel/Carrusel.module.css"
 //importamos las imagenenes
 import image1 from "../../Images/frases-carl-rogers-psicologia.jpg"
 import image2 from "../../Images/Screenshot_8.jpg"
-import image3 from "../../Images/psicologos-realmente-hacen-min-1024x576.jpg"
+import image3 from "../../Images/Screenshot_9.jpg"
 //importamos hooks
 import { useEffect, useRef, useState } from "react"
 
