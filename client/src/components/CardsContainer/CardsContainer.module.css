@@ -3,27 +3,26 @@ body {
     background-color: #dce0e6; /* Color de fondo deseado para toda la página */
     margin: 0; /* Eliminamos el margen predeterminado del body */
   }
-
+/* 
   .container-principal {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Alinear los elementos en la parte superior del contenedor */
-    align-items: flex-end; /* Alinear los elementos a la derecha del contenedor */
-    padding-top: 20%; /* Ajustar el padding superior según la distancia vertical que desees desde arriba */
-    padding-right: 20px; /* Ajustar el padding derecho según la distancia horizontal que desees desde la derecha */
-    overflow-y: auto; /* Permitir el desplazamiento vertical si el contenido excede la altura del contenedor */
-    position: relative; /* Agregar posición relativa para que el .wrapper esté posicionado de acuerdo con este contenedor */
+    justify-content: center; 
+    align-items: flex-end; 
+    padding-top: 20%;
+    padding-right: 20px; 
+    overflow-y: auto; 
+    position: relative; 
   }
-  /* cambio */
   .wrapper {
-    position: absolute; /* Cambiar a posición absoluta para que el .wrapper sea posicionado en relación con el .container-principal */
+    position: absolute; 
     top: 30%;
     left: 50%;
     transform: translateX(-40%);
-    z-index: 1; /* Asegurar que el .wrapper esté por encima del contenido dentro del .container */
+    z-index: 1; 
   }
-  
+   */
   .container {
     display: flex;
     flex-wrap: wrap;
