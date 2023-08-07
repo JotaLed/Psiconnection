@@ -1,9 +1,10 @@
-import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS } from "./actions";
+import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL } from "./actions";
 import store from "./store";
 const initialstate = {
   //Todos los psicologos
   allPshychologists: [],
   //Psicolos que se renderizan
+  psicoloDetail: {},
   psychologists: [],
   psychoOrdered: []
 }
@@ -81,30 +82,30 @@ const rootReducer = (state = initialstate, action) => {
 
 
 
-          case "desPu":
-            psyOrdered.sort((a, b) => {
-              if (a.valoracion === undefined && b.valoracion === undefined) {
-                return 0; // Ambos elementos no tienen puntuación, no hay cambio en el orden
-              } else if (a.valoracion === undefined) {
-                return 1; // El elemento 'a' no tiene puntuación, lo colocamos al final
-              } else if (b.valoracion === undefined) {
-                return -1; // El elemento 'b' no tiene puntuación, lo colocamos al final
-              } else {
-                return b.valoracion - a.valoracion; // Ambos elementos tienen puntuación, orden normal
-              }
-            });
-            allOrdered.sort((a, b) => {
-              if (a.valoracion === undefined && b.valoracion === undefined) {
-                return 0; // Ambos elementos no tienen puntuación, no hay cambio en el orden
-              } else if (a.valoracion === undefined) {
-                return 1; // El elemento 'a' no tiene puntuación, lo colocamos al final
-              } else if (b.valoracion === undefined) {
-                return -1; // El elemento 'b' no tiene puntuación, lo colocamos al final
-              } else {
-                return b.valoracion - a.valoracion; // Ambos elementos tienen puntuación, orden normal
-              }
-            });
-            break;
+        case "desPu":
+          psyOrdered.sort((a, b) => {
+            if (a.valoracion === undefined && b.valoracion === undefined) {
+              return 0; // Ambos elementos no tienen puntuación, no hay cambio en el orden
+            } else if (a.valoracion === undefined) {
+              return 1; // El elemento 'a' no tiene puntuación, lo colocamos al final
+            } else if (b.valoracion === undefined) {
+              return -1; // El elemento 'b' no tiene puntuación, lo colocamos al final
+            } else {
+              return b.valoracion - a.valoracion; // Ambos elementos tienen puntuación, orden normal
+            }
+          });
+          allOrdered.sort((a, b) => {
+            if (a.valoracion === undefined && b.valoracion === undefined) {
+              return 0; // Ambos elementos no tienen puntuación, no hay cambio en el orden
+            } else if (a.valoracion === undefined) {
+              return 1; // El elemento 'a' no tiene puntuación, lo colocamos al final
+            } else if (b.valoracion === undefined) {
+              return -1; // El elemento 'b' no tiene puntuación, lo colocamos al final
+            } else {
+              return b.valoracion - a.valoracion; // Ambos elementos tienen puntuación, orden normal
+            }
+          });
+          break;
         case "alf":
           psyOrdered.sort((a, b) => a.nombre.localeCompare(b.nombre));
           allOrdered.sort((a, b) => a.nombre.localeCompare(b.nombre));
@@ -115,6 +116,10 @@ const rootReducer = (state = initialstate, action) => {
 
 
       return { ...state, psychologists: psyOrdered, psychoOrdered: allOrdered };
+
+    case LOAD_DETAIL:
+      return { ...state, psicoloDetail: action.payload}
+
     case GET_PSICOLOGOS: 
       const psicologos = action.payload;
       const activos = psicologos.filter((psicologo) => psicologo.estado_cuenta.toLowerCase() === "activo")
