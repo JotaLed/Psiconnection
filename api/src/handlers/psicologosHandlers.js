@@ -52,7 +52,7 @@ const registerHandler = async (req, res, next) => {
     licencia,
     tarifa,
     especialidad,
-    whatsapp_url,
+    whatsAppUrl,
     telefono,
     descripcion,
   } = req.body;
@@ -72,7 +72,7 @@ const registerHandler = async (req, res, next) => {
     if (!tarifa) return res.status(403).json({ error: "tipo de pago vacio" });
     if (!especialidad)
       return res.status(403).json({ error: "especialidad vacio" });
-    if (!whatsapp_url) return res.status(403).json({ error: "WhatsApp vacio" });
+    if (!whatsAppUrl) return res.status(403).json({ error: "WhatsApp vacio" });
     if (!telefono) return res.status(403).json({ error: "telefono vacio" });
     if (!descripcion)
       return res.status(403).json({ error: "descripcion vacio" });
@@ -93,7 +93,7 @@ const registerHandler = async (req, res, next) => {
       licencia,
       tarifa,
       especialidad,
-      whatsapp_url,
+      whatsAppUrl,
       telefono,
       descripcion,
       fecha,
