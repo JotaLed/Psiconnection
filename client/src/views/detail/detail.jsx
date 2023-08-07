@@ -37,9 +37,11 @@ const Detail = () => {
                         </div>
                         <div className={s.info_psyco}>
                             <h1 className={s.name}>{psicology.nombre}</h1>
+                            <h2 className={s.especialidades}>Especialidades:</h2>
                             {psicology.especialidad?.map((espe, index) => {
+                                
                                 return (
-                                    <h2 key={index} className={s.especialidad}>{espe}</h2>
+                                    <p key={index} className={s.especialidad}>#{espe} <br></br></p>
                                 )
                             })}
                             <h2 className={s.time}>Cuenta creada el 03/08/23</h2>
