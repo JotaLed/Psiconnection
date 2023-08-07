@@ -3,8 +3,6 @@ require('dotenv').config();
 const { encrypt, compare } = require('../helpers/handleBcrypt.js')
 const { Psicologo } = require('../db.js')
 
-
-
 //Búsqueda de todos los psicólogos
 const getPsicologosController = async () => {
   const psicologos = await Psicologo.findAll();
