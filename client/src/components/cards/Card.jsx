@@ -16,7 +16,7 @@ export default function Cards(props) {
 
      
       <div className="card-body">
-        <h3 className={s.titulo}>{props.nombre}</h3>
+        <h3 className={s.titulo}>{props.nombre +" " + props.apellido}</h3>
       </div>
       <ul className="list-group list-group-flush">
     <li className="list-group-item"><StarRating value={props.valoracion}/></li>

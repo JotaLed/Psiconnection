@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Filters from "../../components/filters/filters";
 import Pagination from '../../components/Pagination/Pagination';
 import CardsContainer from '../../components/CardsContainer/CardsContainer';
+import { getPsicologos, setOrders } from '../../Redux/actions';
 //importamos estilo 
 import style from "../home/home.module.css"
 export default function Home() {
+  const dispatch = useDispatch();
   const ITEMS_PER_PAGE = 6;
   const piscologos = useSelector(state => state.psychologists);
   const [currentPage, setCurrentPage] = useState(0);
 
-  useEffect(() =>{
+  useEffect( () =>{
+    async function fetchData() {
     if(piscologos.length === 0){
-      //dispatch(getPsicologos())
+      await dispatch(getPsicologos())
     }
-  }, [piscologos]);
+    
+     dispatch(setOrders("alf"))}
+     fetchData()
+    
+    
+
+  }, []);
 
   const prevHandler = () => {
     const elements = filteredRecipes.length > 0 ? filteredRecipes.length : recipes.length;

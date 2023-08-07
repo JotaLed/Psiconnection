@@ -13,7 +13,7 @@ const Filters = () => {
         genero: "all",
         pais: "all",
         horario: "all",
-        especializacion: "all",
+        especialidad: "all",
     });
 
     const handleFilterChange = (event) => {
@@ -41,14 +41,14 @@ const Filters = () => {
             <div className={style.selectContainer}>
                 <select
                     className={style.select}
-                    name="especializacion"
+                    name="especialidad"
                     value={filters.especializacion}
                     onChange={handleFilterChange}
                 >
                     <option value="all">ALL</option>
-                    <option value={"terapia familiar"}>Terapia familiar</option>
-                    <option value={"terapia de pareja"}>Terapia de pareja</option>
-                    <option value={"terapia psicoanalitica"}>
+                    <option value={"Terapia familiar"}>Terapia familiar</option>
+                    <option value={"Terapia de pareja"}>Terapia de pareja</option>
+                    <option value={"Terapia psicoanalitica"}>
                         Terapia psicoanalitica
                     </option>
                 </select>
@@ -77,8 +77,8 @@ const Filters = () => {
                     onChange={handleFilterChange}
                 >
                     <option value="all">ALL</option>
-                    <option value="female">FEMALE</option>
-                    <option value="male">MALE</option>
+                    <option value="femenino">FEMALE</option>
+                    <option value="masculino">MALE</option>
                 </select>
             </div>
 

@@ -11,6 +11,7 @@ const Pagination = ({ currentPage, prevHandler, nextHandler, items }) => {
         <button className={style.btn} onClick={nextHandler}>Next</button>
       </div>
       <CardsContainer items={items}/>
+      
     </div>
   );
 };

@@ -18,7 +18,8 @@ const CardsContainer = ({ items }) => {
                     return <Card key={psicologo.id}
                         id={psicologo.id}
                         nombre={psicologo.nombre}
-                        imagen={psicologo.imagen}
+                        apellido={psicologo.apellido}
+                        imagen={psicologo.foto}
                         valoracion={psicologo.valoracion}
                         tarifa={psicologo.tarifa}
                         pais={psicologo.pais}
