@@ -6,21 +6,16 @@
     #1f1f20
 */
 .detail_conteiner {
-    min-height: 100vh;
-    padding-top: 200px;
-    background-color:#DCE0E6;
-    height: 100%;
-    display: flex;
-    grid-template-columns: 2f 1f;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    height: 100vh;
+    padding-top: 15vh;
+    background-color: #DCE0E6;
+    width: 100vw;
 }
-
 .detail {
     display: flex;
+    justify-content: center;
     height: 100vh;
-    width: 80%;
+    width: 100%;
     gap: 20px;
 }
 
@@ -29,8 +24,10 @@
     flex-direction: column;
     padding: 20px;
     background-color: #ffff;
+    min-width: 35vw;
+    min-height: 90vh;
     height: fit-content;
-    width: 60%;
+    width: 40%;
     border-radius: 20px;
 }
 
@@ -46,45 +43,45 @@
 }
 
 .info_psyco {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     position: relative;
     width: 50%;
     color: #2b4c7e;
-    justify-content: center;
-    align-items: end;
-
+    
 }
 
 .name {
     color: #2ab8fa;
-    position: absolute;
-    left: 30px;
-    top: 60px;
+    margin-top: 50px;
+    margin-left: 30px;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
     font-size: 40px;
-
-
+    
+    
 
 }
 
 .especialidad {
-    position: absolute;
-    left: 30px;
-    top: 120px;
+    margin-top: 20px;
+    margin-left: 30px;
     font-size: 30px;
     color: black;
 }
 
 .time {
-    position: absolute;
-    left: 30px;
+    margin-top: 20px;
+    margin-left: 30px;
     font-size: 20px;
     top: 170px;
     color: gray;
 }
 
 .contactar {
+    margin-top: 75px;
+    align-self: center;
     border-radius: 10px;
-    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -115,26 +112,26 @@
 .negrita {
     color: black;
     font-weight: bold;
-
+    
 }
 
 .descripcion {
     margin-left: 15px;
     font-size: 20px;
-
+    
 }
 
 .turno_conteiner {
-    position: fixed;
     padding: 20px;
     background-color: #ffff;
     height: 500px;
     left: 60%;
-    width: 500px;
+    min-width: 25vw;
     border-radius: 20px;
 }
 
 .row1 {
+    width: 100%;
     display: flex;
 }
 
