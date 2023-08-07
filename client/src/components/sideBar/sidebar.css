@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid #606D80; /* Color más vibrante */
+  border-bottom: 0px solid #606D80; /* Color más vibrante */
   z-index: 9999;
 }
 

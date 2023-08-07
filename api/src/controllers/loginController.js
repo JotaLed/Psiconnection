@@ -3,10 +3,6 @@ const { Psicologo, Usuario } = require('../db.js');
 
 const { tokenSign, tokenSignUser } = require('../helpers/generateTokens.js');
 
-
-
-
-
 const loginController = async ({email, contraseña}) => {
     const psicologo = await Psicologo.findOne({
         where: {

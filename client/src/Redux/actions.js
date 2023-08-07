@@ -2,6 +2,7 @@ export const SET_FILTER = "SET_FILTER";
 export const SET_ORDERS = "SET_ORDERS";
 export const GET_PSICOLOGOS = "GET_PSICOLOGOS";
 export const LOAD_DETAIL = "LOAD_DETAIL"
+export const SEARCH_NAME = "SEARCH_NAME"
 import axios from "axios"
 
 export const setFilter = (filters) => {
@@ -34,4 +35,19 @@ export const loadDetail = (id) => {
 
         }
     })
+}
+//action para buscar por name
+export const searchByName = (name) =>{
+    return async function(dispatch) {
+        try{
+            const response = await axios(`http://localhost:3001/psiconection/`)
+        
+            return dispatch({
+                type:'SEARCH_NAME',
+                payload :response.data
+            });
+        } catch(error){
+            window.alert('Name not found!');
+        }
+    }
 }
