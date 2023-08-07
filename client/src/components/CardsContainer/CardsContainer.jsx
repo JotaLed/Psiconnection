@@ -8,8 +8,6 @@ const CardsContainer = ({ items }) => {
         return <div>No hay recetas disponibles</div>
     }
 
-
-
     return (
         <div className={style.mainContainer}>
             <div className={style.container}>

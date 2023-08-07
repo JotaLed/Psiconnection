@@ -1,4 +1,4 @@
-import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL, SEARCH_NAME } from "./actions";
+import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL, SEARCH_APELLIDO } from "./actions";
 import store from "./store";
 const initialstate = {
   //Todos los psicologos
@@ -125,7 +125,7 @@ const rootReducer = (state = initialstate, action) => {
       const activos = psicologos.filter((psicologo) => psicologo.estado_cuenta.toLowerCase() === "activo")
       return {...state, psychologists: activos, allPshychologists: activos}
 
-      case SEARCH_NAME:
+      case SEARCH_APELLIDO:
         return {
           ...state,
           allPshychologists: action.payload,
