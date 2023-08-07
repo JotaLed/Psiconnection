@@ -36,7 +36,7 @@ Somos un equipo de estudiantes de Henry y este es nuestro proyecto final. Creamo
                             alt="Ana"
                         />
                         <a
-                            href="url_del_perfil_de_LinkedIn_del_estudiante_1"
+                            href="https://www.linkedin.com/in/ana-maria-alvarado-mu%C3%B1oz-b262311a2/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -50,10 +50,10 @@ Somos un equipo de estudiantes de Henry y este es nuestro proyecto final. Creamo
                     <div className={style.teamMember}>
                         <img className={style.imagen}
                             src={delfi}
-                            alt="Ana"
+                            alt="delfi"
                         />
                         <a
-                            href="url_del_perfil_de_LinkedIn_del_estudiante_1"
+                            href="https://www.linkedin.com/in/lic-delfina-de-los-santos-/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -67,10 +67,10 @@ Somos un equipo de estudiantes de Henry y este es nuestro proyecto final. Creamo
                     <div className={style.teamMember}>
                         <img className={style.imagen}
                             src={diego}
-                            alt="Ana"
+                            alt="diego"
                         />
                         <a
-                            href="url_del_perfil_de_LinkedIn_del_estudiante_1"
+                            href="https://www.linkedin.com"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -84,10 +84,10 @@ Somos un equipo de estudiantes de Henry y este es nuestro proyecto final. Creamo
                     <div className={style.teamMember}>
                         <img className={style.imagen}
                             src={facu}
-                            alt="Ana"
+                            alt="facu"
                         />
                         <a
-                            href="url_del_perfil_de_LinkedIn_del_estudiante_1"
+                            href="https://www.linkedin.com/in/facundo-santillan-32072226a/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -101,10 +101,10 @@ Somos un equipo de estudiantes de Henry y este es nuestro proyecto final. Creamo
                     <div className={style.teamMember}>
                         <img className={style.imagen}
                             src={joni}
-                            alt="Ana"
+                            alt="joni"
                         />
                         <a
-                            href="url_del_perfil_de_LinkedIn_del_estudiante_1"
+                            href="https://www.linkedin.com"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -118,10 +118,10 @@ Somos un equipo de estudiantes de Henry y este es nuestro proyecto final. Creamo
                     <div className={style.teamMember}>
                         <img className={style.imagen}
                             src={juan}
-                            alt="Ana"
+                            alt="juan"
                         />
                         <a
-                            href="url_del_perfil_de_LinkedIn_del_estudiante_1"
+                            href="https://www.linkedin.com"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -135,10 +135,10 @@ Somos un equipo de estudiantes de Henry y este es nuestro proyecto final. Creamo
                     <div className={style.teamMember}>
                         <img className={style.imagen}
                             src={lau}
-                            alt="Ana"
+                            alt="lau"
                         />
                         <a
-                            href="url_del_perfil_de_LinkedIn_del_estudiante_1"
+                            href="https://www.linkedin.com"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -152,10 +152,10 @@ Somos un equipo de estudiantes de Henry y este es nuestro proyecto final. Creamo
                     <div className={style.teamMember}>
                         <img className={style.imagen}
                             src={lucas}
-                            alt="Ana"
+                            alt="lucas"
                         />
                         <a
-                            href="url_del_perfil_de_LinkedIn_del_estudiante_1"
+                            href="https://www.linkedin.com"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
