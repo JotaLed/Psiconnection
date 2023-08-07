@@ -36,7 +36,7 @@ Somos un equipo de estudiantes de Henry y este es nuestro proyecto final. Creamo
                             alt="Ana"
                         />
                         <a
-                            href="https://www.linkedin.com"
+                            href="https://www.linkedin.com/in/ana-maria-alvarado-mu%C3%B1oz-b262311a2/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -53,7 +53,7 @@ Somos un equipo de estudiantes de Henry y este es nuestro proyecto final. Creamo
                             alt="delfi"
                         />
                         <a
-                            href="https://www.linkedin.com"
+                            href="https://www.linkedin.com/in/lic-delfina-de-los-santos-/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -87,7 +87,7 @@ Somos un equipo de estudiantes de Henry y este es nuestro proyecto final. Creamo
                             alt="facu"
                         />
                         <a
-                            href="https://www.linkedin.com"
+                            href="https://www.linkedin.com/in/facundo-santillan-32072226a/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
