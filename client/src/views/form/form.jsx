@@ -62,7 +62,7 @@ const Form = () => {
         fotoPerfil: "",
         isLogin: false,
       });
-    } else if (roll === "consultante") {
+    } else if (roll === "usuario") {
       setFormData({
         roll: roll,
         nombre: "",
@@ -104,9 +104,9 @@ const Form = () => {
         //registro para psicologo
         const response = await axios.post("http://localhost:3001/psiconection/registerPsicologo", formData);
         console.log("Registro exitoso:", response.data);
-      } else if (formData.roll === "consultante") {
+      } else if (formData.roll === "usuario") {
         //registro para consultante
-        const response = await axios.post("http://localhost:3001/consultante/registerConsultante", formData);
+        const response = await axios.post("http://localhost:3001/psiconection/registerUsuario", formData);
         console.log("Registro exitoso:", response.data);
       }
     }
@@ -135,7 +135,7 @@ const Form = () => {
             <div className="p2">Selecciona tu tipo de usuario:</div>
             <div>
               <button onClick={() => handleUserTypeSelect("psicologo")}>Soy Psicólogo</button>
-              <button onClick={() => handleUserTypeSelect("consultante")}>Soy Consultante</button>
+              <button onClick={() => handleUserTypeSelect("usuario")}>Soy Consultante</button>
             </div>
           </div>
           <div className="right-side">

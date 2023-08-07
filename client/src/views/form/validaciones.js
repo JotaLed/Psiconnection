@@ -127,11 +127,23 @@ export const validateForm = (formData) => {
     errors.licencia = "La licencia debe tener entre 2 y 50 caracteres.";
   }
   
-  if (roll === "psicologo" && !isValidLength(zona_horaria, 2, 5)) {
-    errors.zona_horaria = "La zona horaria debe tener entre 2 y 5 caracteres.";
+  if (roll === "psicologo" && !isValidLength(descripcion, 2, 1000)) {
+    errors.descripcion = "La descripcion debe tener mínimo 10 caracteres .";
   }
 
+  if (roll === "psicologo" && !isValidLength(tarifa, 2, 4)) {
+    errors.tarifa = "La tarifa debe tener entre 2 y 4 caracteres.";
+  }
 
+  if (roll === "psicologo" && !isValidLength(zona_horaria, 2, 4)) {
+    errors.zona_horaria = "La zona horaria debe ser valida.";
+  }
+
+  const urlPattern = /^https:\/\/wa\.me\/\d+\/\?text=.*/;
+
+if (roll === "psicologo" && !urlPattern.test(whatsAppUrl)) {
+  errors.whatsAppUrl = "El enlace de WhatsApp no es válido.";
+}
   return {
     isValid: Object.keys(errors).length === 0,
     errors,
