@@ -125,7 +125,11 @@ const rootReducer = (state = initialstate, action) => {
       const activos = psicologos.filter((psicologo) => psicologo.estado_cuenta.toLowerCase() === "activo")
       return {...state, psychologists: activos, allPshychologists: activos}
 
-
+      case SEARCH_NAME:
+        return {
+          ...state,
+          allPshychologists: action.payload,
+        };
       
     default: return state
   }
