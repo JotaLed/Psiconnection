@@ -1,4 +1,4 @@
-import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL } from "./actions";
+import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL, SEARCH_APELLIDO } from "./actions";
 import store from "./store";
 const initialstate = {
   //Todos los psicologos
@@ -12,6 +12,7 @@ const initialstate = {
 const rootReducer = (state = initialstate, action) => {
   //Cuando se haga el GET PSY se debe hacer que tanto allPsy como psy contentgan todos los psicologos
   switch (action.type) {
+
     case SET_FILTER:
       let psyFiltered = [...state.psychoOrdered]
 
@@ -77,11 +78,6 @@ const rootReducer = (state = initialstate, action) => {
           });
           break;
 
-
-
-
-
-
         case "desPu":
           psyOrdered.sort((a, b) => {
             if (a.valoracion === undefined && b.valoracion === undefined) {
@@ -124,6 +120,12 @@ const rootReducer = (state = initialstate, action) => {
       const psicologos = action.payload;
       const activos = psicologos.filter((psicologo) => psicologo.estado_cuenta.toLowerCase() === "activo")
       return {...state, psychologists: activos, allPshychologists: activos}
+
+      case SEARCH_APELLIDO:
+        return {
+          ...state,
+          psychologists: action.payload,
+        };
       
     default: return state
   }

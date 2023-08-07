@@ -1,0 +1,30 @@
+.content {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    margin-top: 20px;
+    top: 100px;
+    left:44%;
+  }
+  input[type='search'] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    width: 250px;
+  }
+  .submit {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #567ebb;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .submit:hover {
+    background-color: #0056b3;
+  }
+  

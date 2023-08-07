@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Filters from "../../components/filters/filters";
 import Pagination from '../../components/Pagination/Pagination';
 import CardsContainer from '../../components/CardsContainer/CardsContainer';
+import SearchBar from '../../components/searchBar/searchBar'
 import { getPsicologos, setOrders } from '../../Redux/actions';
 //importamos estilo 
 import style from "../home/home.module.css"
@@ -47,6 +48,7 @@ export default function Home() {
 
   return (
     <div className={style.home}>
+      
       <div className={style.col1}>
         {/* Columna para los filtros */}
         <Filters update={updateCurrentPage}/>
@@ -55,8 +57,10 @@ export default function Home() {
       <div className={style.col2}>
         {/* Columna para los contenedores de tarjetas */}
         <div className={style.pagination_conteiner}>
+          
           <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems}/>
         </div>
+        <SearchBar/>
         {/* <CardsContainer items={currentItems} /> */}
       </div>
       
