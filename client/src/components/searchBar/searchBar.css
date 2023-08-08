@@ -1,10 +1,9 @@
 .content {
     display: flex;
     justify-content: center;
-    position: absolute;
-    margin-top: 20px;
+    /* margin-top: 20px;
     top: 100px;
-    left:44%;
+    left:44%; */
   }
   input[type='search'] {
     padding: 10px;

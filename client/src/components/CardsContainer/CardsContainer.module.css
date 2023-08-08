@@ -2,6 +2,7 @@
 body {
     background-color: #dce0e6; /* Color de fondo deseado para toda la página */
     margin: 0; /* Eliminamos el margen predeterminado del body */
+    width: 100vw;
   }
 /* 
   .container-principal {
@@ -28,10 +29,9 @@ body {
     flex-wrap: wrap;
     justify-content: center; /* Centrar las tarjetas horizontalmente */
     gap: 20px;
-    min-width: 900px;
+    /* min-width: 900px; */
     max-width: 900px; /* Ancho máximo del contenedor */
     padding: 50px 20px; /* Ajustar los paddings superior e inferior según sea necesario */
     height: 145vh;
-    margin-left: 12%;
   }
   
