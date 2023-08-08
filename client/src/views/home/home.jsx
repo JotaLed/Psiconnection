@@ -48,20 +48,14 @@ export default function Home() {
 
   return (
     <div className={style.home}>
-      
       <div className={style.col1}>
-        {/* Columna para los filtros */}
         <Filters update={updateCurrentPage}/>
       </div>
-      
       <div className={style.col2}>
-        {/* Columna para los contenedores de tarjetas */}
-        <div className={style.pagination_conteiner}>
-          
-          <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems}/>
+        <div className={style.search_conteiner}>
+          <SearchBar/>
         </div>
-        <SearchBar/>
-        {/* <CardsContainer items={currentItems} /> */}
+        <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems}/>
       </div>
       
     </div>
