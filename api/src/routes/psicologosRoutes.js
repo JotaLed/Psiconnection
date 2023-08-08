@@ -5,7 +5,10 @@ const upload = require('../utils/upload');
 
 
 //midlewares //TODO: AUTHENTICATOR 
-const checkAuth  = require('../middlewares/auth.js');
+const {
+  checkAuth, 
+  verifyIdToken
+} = require('../middlewares/auth.js');
 const checkRollAuth = require('../middlewares/rollAuth.js');
 
 
@@ -23,6 +26,7 @@ const {
   checkDataUpdate,
   checkDataDelete,
   getPsicologosHandler,
+  getDetailAcount
 } = require("../handlers/psicologosHandlers.js");
 
 const psicologosRoutes = Router();
@@ -47,6 +51,13 @@ psicologosRoutes.post("/registerPsicologo", registerHandler);
 
 // ruta tipo put subir foto ruta http://localhost:3001/psiconection/uploadFoto/"id del psicologo"
 psicologosRoutes.put('/uploadFoto/:id', upload.single('foto'), subirFoto);
+
+// ruta tipo get obtener detalles de la cuenta ruta http://localhost:3001/psiconection/acount/"id del psicologo"
+//! con autentificacion
+// psicologosRoutes.get("/acount/:id",verifyIdToken, checkRollAuth(['psicologo']), getDetailAcount);
+
+//! sin con autentificacion 
+psicologosRoutes.get("/acount/:id", getDetailAcount);
 
 
 
