@@ -4,6 +4,8 @@ const {
   uploadFoto,
   getPsicologosController,
   getPsicologoByNameController,
+  putController,
+  deleteController,
 } = require("../controllers/psicologosController.js");
 
 const cloudinary = require("../utils/cloudinary.js");
@@ -130,18 +132,18 @@ const subirFoto = async (req, res) => {
 };
 
 //Handler de la ruta put para corroborar que al menos llego un dato para actualizar
-const checkDataUpdate = (req, res, next) => {
+const putHandler = async (req, res, next) => {
   const data = req.body;
 
   if (!data || Object.keys(data).length === 0) {
     return res.status(400).send("No llegó ningún dato");
   } else {
-    next();
+    await putController(req, res);
   }
 };
 
 //Handler de la ruta delete para verificar si llego por body id de tipo UUIDV4
-const checkDataDelete = (req, res, next) => {
+const deleteHandler = async (req, res, next) => {
   const { id } = req.body;
 
   const uuidv4Regex =
@@ -159,14 +161,14 @@ const checkDataDelete = (req, res, next) => {
       .send("El 'id' proporcionado no tiene el formato UUIDV4 válido.");
   }
 
-  next();
+  await deleteController(req, res);
 };
 
 module.exports = {
   registerHandler,
   getDetailHandler,
   subirFoto,
-  checkDataUpdate,
-  checkDataDelete,
+  putHandler,
+  deleteHandler,
   getPsicologosHandler,
 };

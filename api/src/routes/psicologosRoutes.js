@@ -1,27 +1,17 @@
+const { Router } = require("express");
+const upload = require("../utils/upload");
 
-const { Router } = require('express');
-const upload = require('../utils/upload');
-
-
-
-//midlewares //TODO: AUTHENTICATOR 
-const checkAuth  = require('../middlewares/auth.js');
-const checkRollAuth = require('../middlewares/rollAuth.js');
-
-
-//Controladores
-const {
-  putController,
-  deleteController,
-} = require("../controllers/psicologosController");
+//midlewares //TODO: AUTHENTICATOR
+const checkAuth = require("../middlewares/auth.js");
+const checkRollAuth = require("../middlewares/rollAuth.js");
 
 // handlers
 const {
   registerHandler,
   getDetailHandler,
   subirFoto,
-  checkDataUpdate,
-  checkDataDelete,
+  putHandler,
+  deleteHandler,
   getPsicologosHandler,
 } = require("../handlers/psicologosHandlers.js");
 
@@ -36,19 +26,16 @@ psicologosRoutes.get("/", getPsicologosHandler);
 psicologosRoutes.get("/:id", getDetailHandler);
 
 //Modificar información existente del psico
-psicologosRoutes.put("/update", checkDataUpdate, putController);
+psicologosRoutes.put("/update", putHandler);
 
 //Eliminar psico (cambia el estado)
-psicologosRoutes.delete("/delete", checkDataDelete, deleteController);
+psicologosRoutes.delete("/delete", deleteHandler);
 
 //! registro
 // ruta tipo post http://localhost:3001/psiconection/registerPsicologo --- Psicologo
 psicologosRoutes.post("/registerPsicologo", registerHandler);
 
 // ruta tipo put subir foto ruta http://localhost:3001/psiconection/uploadFoto/"id del psicologo"
-psicologosRoutes.put('/uploadFoto/:id', upload.single('foto'), subirFoto);
-
-
-
+psicologosRoutes.put("/uploadFoto/:id", upload.single("foto"), subirFoto);
 
 module.exports = psicologosRoutes;
