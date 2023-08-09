@@ -1,9 +1,13 @@
 const { Router } = require("express");
 const upload = require("../utils/upload");
 
-//midlewares //TODO: AUTHENTICATOR
-const { checkAuth, verifyIdToken } = require("../middlewares/auth.js");
-const checkRollAuth = require("../middlewares/rollAuth.js");
+//midlewares //TODO: AUTHENTICATOR 
+const {
+  checkAuth, 
+  verifyIdToken
+} = require('../middlewares/auth.js');
+const checkRollAuth = require('../middlewares/rollAuth.js');
+
 
 //Controladores
 const {
