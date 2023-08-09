@@ -21,7 +21,7 @@ const getPsicologosController = async () => {
 //   return dbResults;
 // };
 
-async function getPsicologoByNameController(nombreOApellido) {
+const getPsicologoByNameController = async (nombreOApellido) => {
  
     const psicologos = await Psicologo.findAll({
       where: {
