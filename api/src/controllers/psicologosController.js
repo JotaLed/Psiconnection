@@ -174,6 +174,11 @@ const deleteController = async (req, res) => {
   }
 };
 
+  const detailAcountPsicologo = async (id) => {
+    const psicologo = await Psicologo.findByPk(id) 
+       return psicologo 
+  };
+
 module.exports = {
   createUsuarioPsicologo,
   getDetailController,
@@ -182,4 +187,5 @@ module.exports = {
   deleteController,
   getPsicologoByNameController,
   getPsicologosController,
+  detailAcountPsicologo
 };

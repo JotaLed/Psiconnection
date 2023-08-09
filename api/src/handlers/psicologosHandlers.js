@@ -6,6 +6,7 @@ const {
   getPsicologoByNameController,
   putController,
   deleteController,
+  detailAcountPsicologo
 } = require("../controllers/psicologosController.js");
 
 const cloudinary = require("../utils/cloudinary.js");
@@ -164,6 +165,18 @@ const deleteHandler = async (req, res, next) => {
   await deleteController(req, res);
 };
 
+
+const getDetailAcount = async (req, res) => {
+  const { id } = req.params;
+    try {
+      const psicologo = await detailAcountPsicologo(id)
+      return res.status(200).json(psicologo)
+    } catch (error) {
+      res.status(400).json({error:error.message})
+      
+    }
+}
+
 module.exports = {
   registerHandler,
   getDetailHandler,
@@ -171,4 +184,5 @@ module.exports = {
   putHandler,
   deleteHandler,
   getPsicologosHandler,
+  getDetailAcount
 };
