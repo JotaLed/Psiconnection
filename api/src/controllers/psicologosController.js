@@ -132,8 +132,39 @@ const putController = async (req, res) => {
 
     const dataToUpdate = req.body;
 
+    const allowedFields = [
+      "email",
+      "contraseña",
+      "pais",
+      "zona_horaria",
+      "genero",
+      "tarifa",
+      "horario",
+      "especialidad",
+      "whatsapp_url",
+      "telefono",
+      "foto",
+      "descripcion",
+    ];
+
+    const notAllowedFields = [];
+
     for (const campo in dataToUpdate) {
-      psicologo[campo] = dataToUpdate[campo];
+      if (campo !== "id" && !allowedFields.includes(campo)) {
+        notAllowedFields.push(campo);
+      } else {
+        psicologo[campo] = dataToUpdate[campo];
+      }
+    }
+
+    if (notAllowedFields.length > 0) {
+      return res
+        .status(400)
+        .send(
+          `Los siguientes campos no están permitidos para actualización: ${notAllowedFields.join(
+            ", "
+          )}`
+        );
     }
 
     await psicologo.save();
@@ -146,7 +177,10 @@ const putController = async (req, res) => {
     console.error("Error al actualizar datos del psicólogo:", error);
     res
       .status(500)
-      .send("Ocurrió un error al actualizar los datos del psicólogo.");
+      .send(
+        "Ocurrió un error al actualizar los datos del psicólogo: " +
+          error.message
+      );
   }
 };
 
@@ -174,10 +208,10 @@ const deleteController = async (req, res) => {
   }
 };
 
-  const detailAcountPsicologo = async (id) => {
-    const psicologo = await Psicologo.findByPk(id) 
-       return psicologo 
-  };
+const detailAcountPsicologo = async (id) => {
+  const psicologo = await Psicologo.findByPk(id);
+  return psicologo;
+};
 
 module.exports = {
   createUsuarioPsicologo,
@@ -187,5 +221,5 @@ module.exports = {
   deleteController,
   getPsicologoByNameController,
   getPsicologosController,
-  detailAcountPsicologo
+  detailAcountPsicologo,
 };
