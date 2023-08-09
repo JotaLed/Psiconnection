@@ -64,33 +64,58 @@ const uploadUserPhoto = async ({ id, fotoUserURL }) => {
 // Controlador para actualizar datos de un user
 const putController = async (req, res) => {
   try {
-    const userId = req.body.id;
+    const usuarioId = req.body.id;
 
-    const user = await Usuario.findByPk(userId);
+    const usuario = await Usuario.findByPk(usuarioId);
 
-    if (!user) {
-      return res
-        .status(404)
-        .send("El psicólogo no existe en la base de datos.");
+    if (!usuario) {
+      return res.status(404).send("El usuario no existe en la base de datos.");
     }
 
     const dataToUpdate = req.body;
 
-    for (const campo in dataToUpdate) {
-      user[campo] = dataToUpdate[campo];
+    // Propiedades permitidas para actualización
+    const allowedProperties = [
+      "nombre",
+      "apellido",
+      "fecha_nacimiento",
+      "pais",
+      "genero",
+      "email",
+      "contraseña",
+      "telefono",
+      "foto",
+      "fecha_registro",
+      "estado_cuenta",
+      "roll",
+    ];
+
+    const notAllowedProperties = ["estado_cuenta", "fecha_registro", "roll"];
+
+    for (const property in dataToUpdate) {
+      if (allowedProperties.includes(property)) {
+        if (notAllowedProperties.includes(property)) {
+          return res
+            .status(400)
+            .send(`La propiedad '${property}' no puede ser modificada.`);
+        }
+        usuario[property] = dataToUpdate[property];
+      }
     }
 
-    await user.save();
+    await usuario.save();
 
     res.status(200).send({
       message: "Los datos del usuario se actualizaron correctamente.",
-      usuarioActualizado: user,
+      usuarioActualizado: usuario,
     });
   } catch (error) {
     console.error("Error al actualizar datos del usuario:", error);
     res
       .status(500)
-      .send("Ocurrió un error al actualizar los datos del usuario.");
+      .send(
+        "Ocurrió un error al actualizar los datos del usuario: " + error.message
+      );
   }
 };
 
