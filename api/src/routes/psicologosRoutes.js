@@ -1,3 +1,10 @@
+const { Router } = require("express");
+const upload = require("../utils/upload");
+
+
+
+
+
 
 const { Router } = require('express');
 const upload = require('../utils/upload');
@@ -18,13 +25,14 @@ const {
   deleteController,
 } = require("../controllers/psicologosController");
 
+
 // handlers
 const {
   registerHandler,
   getDetailHandler,
   subirFoto,
-  checkDataUpdate,
-  checkDataDelete,
+  putHandler,
+  deleteHandler,
   getPsicologosHandler,
   getDetailAcount
 } = require("../handlers/psicologosHandlers.js");
@@ -40,10 +48,10 @@ psicologosRoutes.get("/", getPsicologosHandler);
 psicologosRoutes.get("/:id", getDetailHandler);
 
 //Modificar información existente del psico
-psicologosRoutes.put("/update", checkDataUpdate, putController);
+psicologosRoutes.put("/update", putHandler);
 
 //Eliminar psico (cambia el estado)
-psicologosRoutes.delete("/delete", checkDataDelete, deleteController);
+psicologosRoutes.delete("/delete", deleteHandler);
 
 //! registro
 // ruta tipo post http://localhost:3001/psiconection/registerPsicologo --- Psicologo
@@ -58,7 +66,6 @@ psicologosRoutes.put('/uploadFoto/:id', upload.single('foto'), subirFoto);
 
 //! sin con autentificacion 
 psicologosRoutes.get("/acount/:id", getDetailAcount);
-
 
 
 
