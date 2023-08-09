@@ -9,17 +9,33 @@ const getPsicologosController = async () => {
   return psicologos;
 };
 
-const getPsicologoByNameController = async (apellido) => {
-  const psicologoName = apellido.toLowerCase();
-  const dbResults = await Psicologo.findAll({
-    where: {
-      apellido: {
-        [Op.iLike]: `%${psicologoName}%`,
-      },
-    },
-  });
-  return dbResults;
-};
+// const getPsicologoByNameController = async (apellido) => {
+//   const psicologoName = apellido.toLowerCase();
+//   const dbResults = await Psicologo.findAll({
+//     where: {
+//       apellido: {
+//         [Op.iLike]: `%${psicologoName}%`,
+//       },
+//     },
+//   });
+//   return dbResults;
+// };
+
+async function getPsicologoByNameController(nombreOApellido) {
+ 
+    const psicologos = await Psicologo.findAll({
+      where: {
+        [Op.or]: [
+          { nombre: { [Op.iLike]: `%${nombreOApellido}%` } }, // Búsqueda por nombre (ignorando mayúsculas y minúsculas)
+          { apellido: { [Op.iLike]: `%${nombreOApellido}%` } } // Búsqueda por apellido (ignorando mayúsculas y minúsculas)
+        ]
+      }
+    });
+    if(!psicologos.length) throw new Error('Error al buscar psicólogos por nombre o apellido');
+
+    return psicologos
+
+}
 
 //Controlador para búsqueda por id
 const getDetailController = async (id) => {
