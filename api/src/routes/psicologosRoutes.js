@@ -1,16 +1,6 @@
 const { Router } = require("express");
 const upload = require("../utils/upload");
 
-
-
-
-
-
-const { Router } = require('express');
-const upload = require('../utils/upload');
-
-
-
 //midlewares //TODO: AUTHENTICATOR 
 const {
   checkAuth, 
