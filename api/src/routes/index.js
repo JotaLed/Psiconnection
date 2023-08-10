@@ -4,6 +4,7 @@ const { Router } = require("express");
 const psicologosRoutes = require('./psicologosRoutes.js');
 const userRoutes = require('./userRoutes.js');
 const loginRouter = require('./loginRouter.js')
+const routerPayment = require('./payments.routes.js')
 
 const router = Router();
 
@@ -11,6 +12,7 @@ const router = Router();
 router.use('/psiconection', psicologosRoutes);
 router.use('/psiconection', userRoutes);
 router.use('/psiconection', loginRouter);
+router.use('/psiconection/payment', routerPayment);
 
 router.use("/", (req, res) => {
   res.status(200).send("/");
