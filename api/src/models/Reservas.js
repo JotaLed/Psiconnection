@@ -17,6 +17,7 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        //estado
         estado: {
             type: DataTypes.STRING,
             allowNull: false
