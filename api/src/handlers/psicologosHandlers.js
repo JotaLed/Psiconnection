@@ -4,6 +4,9 @@ const {
   uploadFoto,
   getPsicologosController,
   getPsicologoByNameController,
+  putController,
+  deleteController,
+  detailAcountPsicologo
 } = require("../controllers/psicologosController.js");
 
 const cloudinary = require("../utils/cloudinary.js");
@@ -52,7 +55,7 @@ const registerHandler = async (req, res, next) => {
     licencia,
     tarifa,
     especialidad,
-    whatsapp_url,
+    whatsAppUrl,
     telefono,
     descripcion,
   } = req.body;
@@ -72,7 +75,7 @@ const registerHandler = async (req, res, next) => {
     if (!tarifa) return res.status(403).json({ error: "tipo de pago vacio" });
     if (!especialidad)
       return res.status(403).json({ error: "especialidad vacio" });
-    if (!whatsapp_url) return res.status(403).json({ error: "WhatsApp vacio" });
+    if (!whatsAppUrl) return res.status(403).json({ error: "WhatsApp vacio" });
     if (!telefono) return res.status(403).json({ error: "telefono vacio" });
     if (!descripcion)
       return res.status(403).json({ error: "descripcion vacio" });
@@ -93,7 +96,7 @@ const registerHandler = async (req, res, next) => {
       licencia,
       tarifa,
       especialidad,
-      whatsapp_url,
+      whatsAppUrl,
       telefono,
       descripcion,
       fecha,
@@ -130,18 +133,18 @@ const subirFoto = async (req, res) => {
 };
 
 //Handler de la ruta put para corroborar que al menos llego un dato para actualizar
-const checkDataUpdate = (req, res, next) => {
+const putHandler = async (req, res, next) => {
   const data = req.body;
 
   if (!data || Object.keys(data).length === 0) {
     return res.status(400).send("No llegó ningún dato");
   } else {
-    next();
+    await putController(req, res);
   }
 };
 
 //Handler de la ruta delete para verificar si llego por body id de tipo UUIDV4
-const checkDataDelete = (req, res, next) => {
+const deleteHandler = async (req, res, next) => {
   const { id } = req.body;
 
   const uuidv4Regex =
@@ -159,14 +162,27 @@ const checkDataDelete = (req, res, next) => {
       .send("El 'id' proporcionado no tiene el formato UUIDV4 válido.");
   }
 
-  next();
+  await deleteController(req, res);
 };
+
+
+const getDetailAcount = async (req, res) => {
+  const { id } = req.params;
+    try {
+      const psicologo = await detailAcountPsicologo(id)
+      return res.status(200).json(psicologo)
+    } catch (error) {
+      res.status(400).json({error:error.message})
+      
+    }
+}
 
 module.exports = {
   registerHandler,
   getDetailHandler,
   subirFoto,
-  checkDataUpdate,
-  checkDataDelete,
+  putHandler,
+  deleteHandler,
   getPsicologosHandler,
+  getDetailAcount
 };

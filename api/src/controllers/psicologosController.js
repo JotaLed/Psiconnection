@@ -9,17 +9,33 @@ const getPsicologosController = async () => {
   return psicologos;
 };
 
-const getPsicologoByNameController = async (apellido) => {
-  const psicologoName = apellido.toLowerCase();
-  const dbResults = await Psicologo.findAll({
-    where: {
-      apellido: {
-        [Op.iLike]: `%${psicologoName}%`,
-      },
-    },
-  });
-  return dbResults;
-};
+// const getPsicologoByNameController = async (apellido) => {
+//   const psicologoName = apellido.toLowerCase();
+//   const dbResults = await Psicologo.findAll({
+//     where: {
+//       apellido: {
+//         [Op.iLike]: `%${psicologoName}%`,
+//       },
+//     },
+//   });
+//   return dbResults;
+// };
+
+const getPsicologoByNameController = async (nombreOApellido) => {
+ 
+    const psicologos = await Psicologo.findAll({
+      where: {
+        [Op.or]: [
+          { nombre: { [Op.iLike]: `%${nombreOApellido}%` } }, // Búsqueda por nombre (ignorando mayúsculas y minúsculas)
+          { apellido: { [Op.iLike]: `%${nombreOApellido}%` } } // Búsqueda por apellido (ignorando mayúsculas y minúsculas)
+        ]
+      }
+    });
+    if(!psicologos.length) throw new Error('Error al buscar psicólogos por nombre o apellido');
+
+    return psicologos
+
+}
 
 //Controlador para búsqueda por id
 const getDetailController = async (id) => {
@@ -93,8 +109,8 @@ const createUsuarioPsicologo = async ({
     genero,
     licencia,
     tarifa,
-    especialidad: especialidad,
-    whatsAppUrl,
+    especialidad: [especialidad],
+    whatsapp_url: whatsAppUrl,
     telefono,
     descripcion,
     fecha_registro: fecha,
@@ -132,8 +148,39 @@ const putController = async (req, res) => {
 
     const dataToUpdate = req.body;
 
+    const allowedFields = [
+      "email",
+      "contraseña",
+      "pais",
+      "zona_horaria",
+      "genero",
+      "tarifa",
+      "horario",
+      "especialidad",
+      "whatsapp_url",
+      "telefono",
+      "foto",
+      "descripcion",
+    ];
+
+    const notAllowedFields = [];
+
     for (const campo in dataToUpdate) {
-      psicologo[campo] = dataToUpdate[campo];
+      if (campo !== "id" && !allowedFields.includes(campo)) {
+        notAllowedFields.push(campo);
+      } else {
+        psicologo[campo] = dataToUpdate[campo];
+      }
+    }
+
+    if (notAllowedFields.length > 0) {
+      return res
+        .status(400)
+        .send(
+          `Los siguientes campos no están permitidos para actualización: ${notAllowedFields.join(
+            ", "
+          )}`
+        );
     }
 
     await psicologo.save();
@@ -146,7 +193,10 @@ const putController = async (req, res) => {
     console.error("Error al actualizar datos del psicólogo:", error);
     res
       .status(500)
-      .send("Ocurrió un error al actualizar los datos del psicólogo.");
+      .send(
+        "Ocurrió un error al actualizar los datos del psicólogo: " +
+          error.message
+      );
   }
 };
 
@@ -174,6 +224,11 @@ const deleteController = async (req, res) => {
   }
 };
 
+const detailAcountPsicologo = async (id) => {
+  const psicologo = await Psicologo.findByPk(id);
+  return psicologo;
+};
+
 module.exports = {
   createUsuarioPsicologo,
   getDetailController,
@@ -182,4 +237,5 @@ module.exports = {
   deleteController,
   getPsicologoByNameController,
   getPsicologosController,
+  detailAcountPsicologo,
 };
