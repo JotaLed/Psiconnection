@@ -44,7 +44,7 @@ psicologosRoutes.delete("/delete", deleteHandler);
 
 //! registro
 // ruta tipo post http://localhost:3001/psiconection/registerPsicologo --- Psicologo
-psicologosRoutes.post("/registerPsicologo", registerHandler);
+psicologosRoutes.post("/registerPsicologo", upload.fields([{ name: 'fotoPerfil' }, { name: 'licencia' }]), registerHandler);
 
 // ruta tipo put subir foto ruta http://localhost:3001/psiconection/uploadFoto/"id del psicologo"
 psicologosRoutes.put("/uploadFoto/:id", upload.single("foto"), subirFoto);
