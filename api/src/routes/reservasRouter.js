@@ -1,10 +1,14 @@
-const { Router } = require('express');
-const {reservarCitaHandler, getAllCitasHandler} = require('../handlers/reservasHandler')
+const { Router } = require("express");
+const {
+  reservarCitaHandler,
+  getAllCitasHandler,
+  getAllAppointmentsHandler,
+} = require("../handlers/reservasHandler");
 
 const reservasRouter = Router();
 
 reservasRouter.post("/reservarCita", reservarCitaHandler);
 
+reservasRouter.get("/reservarCita", getAllAppointmentsHandler);
 
-
-module.exports = reservasRouter; 
+module.exports = reservasRouter;
