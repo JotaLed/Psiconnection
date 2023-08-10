@@ -16,6 +16,10 @@ module.exports = (sequelize) => {
         hora: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        estado: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     }, {
         timestamps: false
