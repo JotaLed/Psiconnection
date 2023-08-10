@@ -6,7 +6,7 @@ const {
   getPsicologoByNameController,
   putController,
   deleteController,
-  detailAcountPsicologo
+  detailAcountPsicologo,
 } = require("../controllers/psicologosController.js");
 
 const cloudinary = require("../utils/cloudinary.js");
@@ -138,10 +138,83 @@ const putHandler = async (req, res, next) => {
 
   if (!data || Object.keys(data).length === 0) {
     return res.status(400).send("No llegó ningún dato");
-  } else {
-    await putController(req, res);
   }
+
+  const uuidv4Regex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+  if (!data.id) {
+    return res
+      .status(400)
+      .send("Se requiere un 'id' en el cuerpo de la solicitud.");
+  }
+
+  if (!uuidv4Regex.test(data.id)) {
+    return res
+      .status(400)
+      .send("El 'id' proporcionado no tiene el formato UUIDV4 válido.");
+  }
+
+  const validFields = [
+    "email",
+    "contraseña",
+    "pais",
+    "zona_horaria",
+    "genero",
+    "tarifa",
+    "horario",
+    "especialidad",
+    "whatsapp_url",
+    "telefono",
+    "foto",
+    "descripcion",
+  ];
+
+  const invalidFields = [];
+
+  for (const field in data) {
+    if (field === "id") {
+      continue; // Saltar la validación para el campo "id"
+    }
+    if (!validFields.includes(field)) {
+      invalidFields.push(field);
+    } else {
+      if (field === "email" && !isValidEmail(data[field])) {
+        return res.status(400).send("El formato del email no es válido");
+      }
+      if (field === "genero" && !isValidGender(data[field])) {
+        return res.status(400).send("El género proporcionado no es válido");
+      }
+      if (field === "especialidad" && typeof data[field] !== "string") {
+        return res
+          .status(400)
+          .send("La especialidad proporcionada no es un string válido");
+      }
+    }
+  }
+
+  if (invalidFields.length > 0) {
+    return res
+      .status(400)
+      .send(
+        `Los siguientes campos no son válidos: ${invalidFields.join(", ")}`
+      );
+  }
+
+  await putController(req, res);
 };
+
+// Función para validar formato de email
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Función para validar género
+function isValidGender(gender) {
+  const validGenders = ["Masculino", "Femenino", "Otro", "Sin especificar"];
+  return validGenders.includes(gender);
+}
 
 //Handler de la ruta delete para verificar si llego por body id de tipo UUIDV4
 const deleteHandler = async (req, res, next) => {
@@ -165,17 +238,15 @@ const deleteHandler = async (req, res, next) => {
   await deleteController(req, res);
 };
 
-
 const getDetailAcount = async (req, res) => {
   const { id } = req.params;
-    try {
-      const psicologo = await detailAcountPsicologo(id)
-      return res.status(200).json(psicologo)
-    } catch (error) {
-      res.status(400).json({error:error.message})
-      
-    }
-}
+  try {
+    const psicologo = await detailAcountPsicologo(id);
+    return res.status(200).json(psicologo);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 module.exports = {
   registerHandler,
@@ -184,5 +255,5 @@ module.exports = {
   putHandler,
   deleteHandler,
   getPsicologosHandler,
-  getDetailAcount
+  getDetailAcount,
 };
