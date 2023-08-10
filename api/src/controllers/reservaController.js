@@ -1,4 +1,4 @@
-const { Psicologo, Usuario } = require('../db')
+const { Psicologo, Usuario, Reserva } = require('../db')
 
 
 const reservaCita = async ({ idPsico, idUser, fecha, hora }) => {
@@ -15,13 +15,21 @@ const reservaCita = async ({ idPsico, idUser, fecha, hora }) => {
             through: nuevaReserva
         });
 
+
         return newReserva;
 
     } catch (error) {
-        throw new Error("Erros al intentar reservar la cita")
+        console.log(error);
+        
+        throw new Error("Error al intentar reservar la cita")
     }
 };
 
 
+  
 
-module.exports = {reservaCita};
+
+
+
+
+module.exports = {reservaCita };

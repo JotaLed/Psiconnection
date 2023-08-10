@@ -15,6 +15,8 @@ router.use('/psiconection', psicologosRoutes);
 router.use('/psiconection', userRoutes);
 router.use('/psiconection/citas', reservasRouter);
 router.use('/psiconection', loginRouter);
+
+
 router.use("/", (req, res) => {
   res.status(200).send("/");
 });
