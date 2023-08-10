@@ -3,6 +3,7 @@ const {
   uploadUserPhoto,
   putController,
   deleteController,
+  detailAcountUsuario
 } = require("../controllers/userControllers.js");
 const obtenerFechaActual = require("../helpers/getFecha.js");
 const cloudinary = require("../utils/cloudinary.js");
@@ -104,68 +105,22 @@ const deleteHandler = async (req, res, next) => {
   await deleteController(req, res);
 };
 
+ const getDetailAcount =  async (req, res) => {
+    const { id } = req.params
+    try {
+      const response = await detailAcountUsuario(id)
+      return res.status(200).json(response)
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({error:error.message})
+    }
+ }
+
 module.exports = {
   userCreateHandler,
   subirFotoUser,
   putHandler,
   deleteHandler,
+  getDetailAcount
 };
 
-// id: {
-//     type: DataTypes.UUID,
-//     defaultValue: DataTypes.UUIDV4,
-//     primaryKey: true,
-// },
-// nombre: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-// },
-// apellido: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-// },
-// fecha_nacimiento: {
-//     type: DataTypes.DATE,
-//     allowNull: false
-// },
-// pais: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-// },
-// genero: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-// },
-// email: {
-//     type: DataTypes.STRING,
-//     allowNull:false,
-//     unique: true
-// },
-// contraseña: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-//     unique: true
-// },
-// telefono: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-// },
-// foto: {
-//     type: DataTypes.STRING,
-//     allowNull: true,
-//     validate: {
-//         isUrl: true
-//       }
-// },
-// fecha_registro: {
-//     type: DataTypes.DATE,
-//     allowNull: false
-// },
-// estado_cuenta: {
-//     type: DataTypes.STRING,
-//     allowNull: true
-// },
-// roll: {
-//     type: DataTypes.STRING,
-//     defaultValue: 'user'
-// }
