@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'react-calendar/dist/Calendar.css';
+import './App.css'
 //importamos react calendar 
 import Calendar from 'react-calendar'
 // /,Estos son los horarios posibles 
@@ -12,9 +13,11 @@ import Calendar from 'react-calendar'
 //   , 20 - 21
 
 //   , /
+
+
 export default function Turnos() {
     //arreglo de citas de psicologos harcode 
-    const disponibilidad = { dias: ["lunes", "miercoles", "viernes"], horarios: ["17-18", "15-16"] }
+    const disponibilidad = { dias: ["Mon", "Wed", "Fri"], horarios: ["17-18", "15-16"] }
 
     const horasPosibles = ["12-13", "13-14", "14-15", "15-16", "17-18", "18-19", "20-21"]
     const citas = [
@@ -41,22 +44,46 @@ export default function Turnos() {
 
         }
     )
+    //useEffect
+    useEffect(() => {
+        console.log(date);
+
+    }, [])
 
 
 
     //funciones
+    const isValidate = (date) => {
+        return !disponibilidad.dias.includes(date.toDateString().split(" ")[0]);
+    };
+    const isPastDate = (date) => {
+        const today = new Date();
+        return date < today;
+    };
+    const tileClassName = (date) => {
+        let className = ""
+        if (isValidate(date) || isPastDate(date)) {
+            className = 'weekend-day'
+            return className
+        }
+        return null
+    };
     const OnChange = (date) => {
         //Steamos el estado del date
         setDate(date);
-        //Seteamos el div con los horarios
-        setFlagH(true)
 
         //reiniciamos el estado de envio del turno 
         setNewTurno({
             fecha: "",
             hora: ""
         })
-
+        let day = date.toDateString().split(" ")[0] //Esto es las primeras 3 letras del dia de la semana
+        if (!disponibilidad.dias.includes(day) || isPastDate(date)) {
+            setFlagH(false)
+            return alert("este dia no esta disponible")
+        }
+        //Seteamos el div con los horarios
+        setFlagH(true)
         //Buscamos los horario de ese dia 
         let foundFecha = citas.filter((cita) => cita.fecha == date.toLocaleDateString())
 
@@ -90,13 +117,13 @@ export default function Turnos() {
     }
 
     console.log(newTurno);
+    console.log(date.toDateString().split(" ")[0]);
 
     return (
         <div>
             <Calendar
                 onChange={OnChange}
-                initialDateFrom="2023-01-01"
-                initialDateTo="2023-12-31"
+                tileClassName={({ date }) => tileClassName(date)}
                 align="start"
                 locale="en-GB"
                 showCompare={false}
