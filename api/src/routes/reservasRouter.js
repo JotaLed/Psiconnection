@@ -1,8 +1,10 @@
 const { Router } = require('express');
-const {reservarCitaHandler} = require('../handlers/reservasHandler')
+const {reservarCitaHandler, getAllCitasHandler} = require('../handlers/reservasHandler')
 
 const reservasRouter = Router();
 
-reservasRouter.get("/reservarCita", reservarCitaHandler);
+reservasRouter.post("/reservarCita", reservarCitaHandler);
 
-module.exports = reservasRouter;
+
+
+module.exports = reservasRouter; 

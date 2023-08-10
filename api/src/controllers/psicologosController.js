@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { encrypt, compare } = require("../helpers/handleBcrypt.js");
-const { Psicologo } = require("../db.js");
+const { Psicologo, Reserva, Usuario } = require("../db.js");
 const { Op } = require("sequelize");
 
 //Búsqueda de todos los psicólogos
@@ -225,8 +225,43 @@ const deleteController = async (req, res) => {
 };
 
 const detailAcountPsicologo = async (id) => {
+
   const psicologo = await Psicologo.findByPk(id);
-  return psicologo;
+
+  const citas = await Reserva.findAll({
+    where: {
+      PsicologoId: id
+    }
+  })
+
+ const usuariosMap = citas.map(async (cita) => {
+    const usuario = await Usuario.findByPk(cita.UsuarioId);
+    return usuario;
+  });
+ 
+  const usuarios = await Promise.all(usuariosMap);
+
+
+  const usuarioCita = citas.map((cita) => {
+    const usuario = usuarios.find((usuario) => usuario.id === cita.UsuarioId);
+    return {
+      IdCita: cita.id,
+      Fecha: cita.fecha,
+      Hora: cita.hora,
+      usuarioId: usuario.id,
+      usuarioNombre: usuario.nombre,
+      usuarioApellido: usuario.apellido,
+      usuarioPais: usuario.pais
+    };
+  });
+
+  console.log(usuarioCita);
+  
+  const piscologoCita = {
+    psicologo: psicologo,
+    cita: usuarioCita
+  }
+  return  piscologoCita ;
 };
 
 module.exports = {

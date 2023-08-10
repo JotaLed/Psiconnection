@@ -12,4 +12,8 @@ const reservarCitaHandler = async(req, res) => {
 }
 
 
-module.exports = {reservarCitaHandler};
+
+
+module.exports = {
+    reservarCitaHandler
+};
