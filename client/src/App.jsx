@@ -1,6 +1,7 @@
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Home from './views/home/home'
+import Account from './views/Account/Account'
 import SideBar from './components/sideBar/sideBar'
 import './App.css'
 
@@ -33,7 +34,7 @@ function App() {
         <Route path='/home' element={<Home />} /> 
         <Route path='/nosotros' element={<Nosotros/>}></Route>
         <Route path="/detail/:detailID" element={<Detail/>}></Route>
-
+        <Route path='/account/:id' element={<Account/>}/>
       </Routes>
     </div>
   )

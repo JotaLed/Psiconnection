@@ -16,7 +16,7 @@ userRoutes.post("/registerUsuario", userCreateHandler);
 userRoutes.put("/uploadFotoUser/:id", upload.single("foto"), subirFotoUser);
 
 //Modificar información existente del user
-userRoutes.put("/update", putHandler);
+userRoutes.put("/updateuser", putHandler);
 
 //Eliminar user (cambia el estado)
 userRoutes.delete("/delete", deleteHandler);

@@ -1,7 +1,7 @@
 .container {
     width: 70%;
     max-width: 1200px;
-    margin:  50% auto 0; /* Ajustar el margen superior y el centrado horizontal */
+    margin:  10% auto 0; /* Ajustar el margen superior y el centrado horizontal */
     padding: 20px;
     display: flex; /* Aplicamos flexbox al contenedor */
     flex-direction: column; /* Alineamos los elementos en una columna vertical */

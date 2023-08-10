@@ -3,6 +3,7 @@ export const SET_ORDERS = "SET_ORDERS";
 export const GET_PSICOLOGOS = "GET_PSICOLOGOS";
 export const LOAD_DETAIL = "LOAD_DETAIL"
 export const SEARCH_APELLIDO = "SEARCH_APELLIDO"
+export const UPDATE_PSIC = "UPDATE_PSIC";
 import axios from "axios"
 
 export const setFilter = (filters) => {
@@ -53,4 +54,15 @@ export const searchByName = (apellido) =>{
             window.alert('Name not found!');
         }
     }
+}
+
+export const updatePsic = (dataToUpdate) => {
+    axios.put("http://localhost:3001/psiconection/update", dataToUpdate)
+  .then(response => {
+    window.alert("Datos actualizados!")
+  })
+  .catch(error => {
+   console.log("error")
+    // Manejar errores en caso de que la solicitud falle
+  });
 }
