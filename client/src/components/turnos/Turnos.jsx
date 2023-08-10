@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import 'react-calendar/dist/Calendar.css';
-import './App.css'
 //importamos react calendar 
 import Calendar from 'react-calendar'
 // /,Estos son los horarios posibles 
