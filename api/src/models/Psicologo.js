@@ -84,11 +84,11 @@ module.exports = (sequelize) => {
         defaultValue: "activo",
         allowNull: true,
       },
-      validacion_cuenta: {
-        type: DataTypes.STRING,
-        defaultValue: "activo",
-        allowNull: true,
-      },
+      // validacion_cuenta: {
+      //   type: DataTypes.STRING,
+      //   defaultValue: "activo",
+      //   allowNull: true,
+      // },
       fecha_registro: {
         type: DataTypes.DATE,
         allowNull: false,
