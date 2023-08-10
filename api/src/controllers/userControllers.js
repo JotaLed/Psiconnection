@@ -181,7 +181,7 @@ const detailAcountUsuario = async (id) => {
 
     return info
 
-}
+};
 
 module.exports = {
   createUserController,
