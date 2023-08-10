@@ -56,6 +56,14 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      dias: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false
+      },
+      horas: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false
+      },
       especialidad: {
         type: DataTypes.ARRAY(DataTypes.STRING),
       },
