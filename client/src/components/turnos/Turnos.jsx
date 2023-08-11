@@ -4,14 +4,25 @@ import 'react-calendar/dist/Calendar.css';
 //importamos react calendar 
 import "../turnos/Turnoss.css"
 import Calendar from 'react-calendar'
+import { useLocation } from 'react-router-dom';
 
+import { useSelector, useDispatch } from "react-redux"
+import { loadDetail } from '../../Redux/actions';
 
+export default function Turnos({ dias, horas }) {
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const psicology = useSelector((store) => store.psicoloDetail)
+    const id = location.pathname.split('/').at(-1);
 
-export default function Turnos() {
+    useEffect(()=>{
+        dispatch(loadDetail(id))
+    },[])
+console.log(psicology);
     //arreglo de citas de psicologos harcode 
-    const disponibilidad = { dias: ["Thu", "Wed", "Fri"], horarios: ["17-18", "15-16"] }
+    
+    const disponibilidad = { dias: [...dias], horarios: [...horas] }
 
-    const horasPosibles = ["06-07", "07-08", "08-09", "09-10", "10-11", "11-12", "12-13", "13-14", "14-15", "15-16", "17-18", "18-19", "20-21"]
     const citas = [
         { fecha: "14/8/2023", horario: ["17-18"] },//Necesitp comparar que el date no coincida con la fecha y 
         { fecha: "15/8/2023", horario: ["12-13"] },
@@ -37,7 +48,7 @@ export default function Turnos() {
         }
     )
     const [buttonActive, setButtonActive] = useState({
-        "Estado para los buttons":false
+        "Estado para los buttons": false
     })
     //useEffect
     useEffect(() => {
@@ -108,7 +119,7 @@ export default function Turnos() {
     }
     const addTurno = (hora) => {
         setNewTurno({ ...newTurno, fecha: selectTurno.fecha, hora: hora })
-        setButtonActive({[hora]:true})
+        setButtonActive({ [hora]: true })
 
     }
 
@@ -125,31 +136,31 @@ export default function Turnos() {
                 locale="en-GB"
                 showCompare={false}
             />
-            {flagH === true ?<div className='contenedor'>
-                    <h3 className='horario'>Selecione su horaio:</h3>
-                    <div className='horas_conteiner'>
-                        {disponibilidad.horarios.map((hora, index) => {
-                            if (selectTurno.horas.includes(hora)) {
-                                return (
-                                    <div key={index} className="unvalidate">
-                                        <label>{hora}</label>
-                                    </div>
-                                )
-                            }
-                            else
-                                return (
-                                    <div key={index} className={buttonActive[hora] ? "validate_active" : "validate"}>
-                                        <label onClick={() => addTurno(hora)}>{hora}</label>
-                                    </div>
-                                )
-                        })}
-                    </div>
-                    <div className="pedir_turno">
-                                <p>📅</p>
-                                <p>Pedir turno</p>
-                    </div>
-
+            {flagH === true ? <div className='contenedor'>
+                <h3 className='horario'>Selecione su horaio:</h3>
+                <div className='horas_conteiner'>
+                    {disponibilidad.horarios.map((hora, index) => {
+                        if (selectTurno.horas.includes(hora)) {
+                            return (
+                                <div key={index} className="unvalidate">
+                                    <label>{hora}</label>
+                                </div>
+                            )
+                        }
+                        else
+                            return (
+                                <div key={index} className={buttonActive[hora] ? "validate_active" : "validate"}>
+                                    <label onClick={() => addTurno(hora)}>{hora}</label>
+                                </div>
+                            )
+                    })}
                 </div>
+                <div className="pedir_turno">
+                    <p>📅</p>
+                    <p>Pedir turno</p>
+                </div>
+
+            </div>
                 : <div>
                     Seleccione un dia en el calendario para consultar sus horarios
                 </div>
