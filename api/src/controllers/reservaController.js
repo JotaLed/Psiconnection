@@ -1,6 +1,6 @@
 const { Psicologo, Usuario, Reserva } = require("../db");
 
-const reservaCita = async ({ idPsico, idUser, fecha, hora }) => {
+const reservaCita = async ({ idPsico, idUser, fecha, hora, estado }) => {
   try {
     const psicologo = await Psicologo.findByPk(idPsico);
     const usuario = await Usuario.findByPk(idUser);
@@ -8,6 +8,7 @@ const reservaCita = async ({ idPsico, idUser, fecha, hora }) => {
     const nuevaReserva = {
       fecha: fecha,
       hora: hora,
+      estado: estado
     };
 
     const newReserva = await psicologo.addUsuario(usuario, {
