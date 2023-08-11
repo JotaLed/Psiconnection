@@ -28,12 +28,12 @@ async function verifySpecialties() {
 
       await Especialidad.bulkCreate(nuevasEspecialidades);
 
-      console.log("Especialidades creadas y guardadas:", missingEspecialidades);
+      // console.log("Especialidades creadas y guardadas:", missingEspecialidades);
     } else {
-      console.log("Todas las especialidades ya existen en la base de datos.");
+      // console.log("Todas las especialidades ya existen en la base de datos.");
     }
   } catch (error) {
-    console.error("Error al verificar y crear especialidades:", error);
+    // console.error("Error al verificar y crear especialidades:", error);
   }
 }
 
