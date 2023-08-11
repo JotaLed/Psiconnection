@@ -25,6 +25,7 @@ const Detail = () => {
             await dispatch(loadDetail(detailID))
         }
         aux()
+        return 
         console.log(psicology);
     }, [])
     //funciones 
@@ -44,7 +45,7 @@ const Detail = () => {
                             <h1 className={s.name}>{psicology.nombre}</h1>
                             <h2 className={s.especialidades}>Especialidades:</h2>
                             {psicology.especialidad?.map((espe, index) => {
-                                
+
                                 return (
                                     <p key={index} className={s.especialidad}>#{espe} <br></br></p>
                                 )
@@ -73,8 +74,11 @@ const Detail = () => {
                 </div>
                 <div className={s.turno_conteiner}>
                     <h1>Pide tu turno!</h1>
-                    <Turnos/>
-                    
+                    {psicology.nombre? <Turnos
+                        dias={psicology.dias}
+                        horas={psicology.horas}
+                    />: null}
+
                 </div>
             </div>
         </div>
