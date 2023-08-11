@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import s from "./detail.module.css"
+
+
 //importamos los hooks para el estado global dd
 import { useSelector, useDispatch } from "react-redux"
 
@@ -70,7 +72,7 @@ const Detail = () => {
                     </div>
                 </div>
                 <div className={s.turno_conteiner}>
-                    <h1>Turnos del psicologo</h1>
+                    <h1>Pide tu turno!</h1>
                     <Turnos/>
                     
                 </div>

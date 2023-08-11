@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from 'react'
+//IMportamos el calendario 
 import 'react-calendar/dist/Calendar.css';
 //importamos react calendar 
+import "../turnos/Turnoss.css"
 import Calendar from 'react-calendar'
-// /,Estos son los horarios posibles 
-//   , 12 - 13
-//   , 13 - 14
-//   , 14 - 15
-//   , 15 - 16
-//   , 17 - 18
-//   , 18 - 19
-//   , 20 - 21
 
-//   , /
 
 
 export default function Turnos() {
     //arreglo de citas de psicologos harcode 
     const disponibilidad = { dias: ["Mon", "Wed", "Fri"], horarios: ["17-18", "15-16"] }
 
-    const horasPosibles = ["12-13", "13-14", "14-15", "15-16", "17-18", "18-19", "20-21"]
+    const horasPosibles = ["06-07", "07-08", "08-09", "09-10", "10-11", "11-12", "12-13", "13-14", "14-15", "15-16", "17-18", "18-19", "20-21"]
     const citas = [
-        { fecha: "12/8/2023", horario: ["17-18"] },//Necesitp comparar que el date no coincida con la fecha y 
+        { fecha: "14/8/2023", horario: ["17-18"] },//Necesitp comparar que el date no coincida con la fecha y 
         { fecha: "15/8/2023", horario: ["12-13"] },
         { fecha: "19/8/2023", horario: ["12-13"] },
-        { fecha: "19/8/2023", horario: ["20-21"] },
+        { fecha: "14/8/2023", horario: ["20-21"] },
     ]
 
     //estados locales 
@@ -43,6 +36,9 @@ export default function Turnos() {
 
         }
     )
+    const [buttonActive, setButtonActive] = useState({
+        "Estado para los buttons":false
+    })
     //useEffect
     useEffect(() => {
         console.log(date);
@@ -62,10 +58,11 @@ export default function Turnos() {
     const tileClassName = (date) => {
         let className = ""
         if (isValidate(date) || isPastDate(date)) {
-            className = 'weekend-day'
+            className = 'unvalidate-day'
             return className
         }
-        return null
+        className = "validate-day"
+        return className
     };
     const OnChange = (date) => {
         //Steamos el estado del date
@@ -110,16 +107,17 @@ export default function Turnos() {
 
     }
     const addTurno = (hora) => {
-        console.log(hora);
         setNewTurno({ ...newTurno, fecha: selectTurno.fecha, hora: hora })
+        setButtonActive({[hora]:true})
 
     }
 
     console.log(newTurno);
-    console.log(date.toDateString().split(" ")[0]);
+    // console.log(date.toDateString().split(" ")[0]);
+    console.log(buttonActive);
 
     return (
-        <div>
+        <div className='turnos'>
             <Calendar
                 onChange={OnChange}
                 tileClassName={({ date }) => tileClassName(date)}
@@ -127,24 +125,36 @@ export default function Turnos() {
                 locale="en-GB"
                 showCompare={false}
             />
-            {flagH === true &&
-                <div>
-                    {horasPosibles.map((hora, index) => {
-                        if (selectTurno.horas.includes(hora)) {
-                            return (
-                                <div key={index} className="unvalidate">
-                                    <p>{hora}</p>
-                                </div>
-                            )
-                        }
-                        else
-                            return (
-                                <div key={index} className="validate">
-                                    <p onClick={() => addTurno(hora)}>{hora}</p>
-                                </div>
-                            )
-                    })}
-                </div>}
+            {flagH === true ?<div className='contenedor'>
+                    <h3 className='horario'>Selecione su horaio:</h3>
+                    <div className='horas_conteiner'>
+                        {horasPosibles.map((hora, index) => {
+                            if (selectTurno.horas.includes(hora)) {
+                                return (
+                                    <div key={index} className="unvalidate">
+                                        <label>{hora}</label>
+                                    </div>
+                                )
+                            }
+                            else
+                                return (
+                                    <div key={index} className={buttonActive[hora] ? "validate_active" : "validate"}>
+                                        <label onClick={() => addTurno(hora)}>{hora}</label>
+                                    </div>
+                                )
+                        })}
+                    </div>
+                    <div className="pedir_turno">
+                                <p>📅</p>
+                                <p>Pedir turno</p>
+                    </div>
+
+                </div>
+                : <div>
+                    Seleccione un dia en el calendario para consultar sus horarios
+                </div>
+            }
+
         </div>
     )
 }
