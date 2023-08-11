@@ -17,14 +17,15 @@ export const setOrders = (order) => {
 //Action de get psicologos
 export const getPsicologos = () => {
     return async function (dispatch) {
-        const apiData = await axios.get("http://localhost:3001/psiconection/");
-        const psicologos = apiData.data
+            const apiData = await axios.get("http://localhost:3001/psiconection/");
+            const psicologos = apiData.data
+           dispatch({ type: GET_PSICOLOGOS, payload: psicologos })
+        
 
-        dispatch({ type: GET_PSICOLOGOS, payload: psicologos })
     }
 }//Action de get by ID
 export const loadDetail = (id) => {
-    return( async function (dispatch) {
+    return (async function (dispatch) {
         try {
             const { data } = await axios.get(`http://localhost:3001/psiconection/${id}`);
             const detail = data
@@ -38,19 +39,19 @@ export const loadDetail = (id) => {
     })
 }
 //action para buscar por name
-export const searchByName = (apellido) =>{
-    return async function(dispatch) {
-        try{
+export const searchByName = (apellido) => {
+    return async function (dispatch) {
+        try {
             const response = await axios.get(`http://localhost:3001/psiconection/?apellido=${apellido}`)
-            if(response.data.length === 0){
+            if (response.data.length === 0) {
                 alert('Name not found!');
-        } else{
-            return dispatch({
-                type:'SEARCH_APELLIDO',
-                payload:response.data
-            })
-        }
-        } catch(error){
+            } else {
+                return dispatch({
+                    type: 'SEARCH_APELLIDO',
+                    payload: response.data
+                })
+            }
+        } catch (error) {
             window.alert('Name not found!');
         }
     }
@@ -58,11 +59,11 @@ export const searchByName = (apellido) =>{
 
 export const updatePsic = (dataToUpdate) => {
     axios.put("http://localhost:3001/psiconection/update", dataToUpdate)
-  .then(response => {
-    window.alert("Datos actualizados!")
-  })
-  .catch(error => {
-   console.log("error")
-    // Manejar errores en caso de que la solicitud falle
-  });
+        .then(response => {
+            window.alert("Datos actualizados!")
+        })
+        .catch(error => {
+            console.log("error")
+            // Manejar errores en caso de que la solicitud falle
+        });
 }
