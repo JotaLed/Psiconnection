@@ -101,10 +101,10 @@ const registerHandler = async (req, res, next) => {
     if (!apellido) return res.status(403).json({ error: "apellido vacio" });
     if (!email) return res.status(403).json({ error: "email vacio" });
     if (!fecha_nacimiento) return res.status(403).json({ age: "nombre vacio" });
-    if (!contraseña) return res.status(403).json({ error: "password vacio" });
+    if (!password) return res.status(403).json({ error: "password vacio" });
     if (!pais) return res.status(403).json({ error: "pais vacio" });
     if (!genero) return res.status(403).json({ error: "genero vacio" });
-//     if (!licenciaUrl) return res.status(403).json({ error: "licencia vacia" });
+    if (!licenciaUrl) return res.status(403).json({ error: "licencia vacia" });
     if (!tarifa) return res.status(403).json({ error: "tipo de pago vacio" });
     if (!especialidad) return res.status(403).json({ error: "especialidad vacio" });
     if (!whatsAppUrl) return res.status(403).json({ error: "WhatsApp vacio" });
@@ -113,7 +113,7 @@ const registerHandler = async (req, res, next) => {
     if (!zona_horaria) return res.status(403).json({ error: "zona horaria vacio" });
     if (!dias) return res.status(403).json({ error: "días vacio" });
     if (!horas) return res.status(403).json({ error: "horas vacio" });
-//     if (!fotoPerfilUrl) return res.status(403).json({ error: "foto vacio" });
+    if (!fotoPerfilUrl) return res.status(403).json({ error: "foto vacio" });
 
 
     const usuarioPsicologo = await createUsuarioPsicologo({
@@ -133,8 +133,8 @@ const registerHandler = async (req, res, next) => {
       telefono,
       descripcion,
       fecha,
-//       fotoPerfilUrl,
-//       licenciaUrl
+      fotoPerfilUrl,
+      licenciaUrl
     });
 
     return res.status(200).json(usuarioPsicologo);

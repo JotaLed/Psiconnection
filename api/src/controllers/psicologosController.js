@@ -64,8 +64,8 @@ const createUsuarioPsicologo = async ({
   telefono,
   descripcion,
   fecha,
-//   fotoPerfilUrl,
-//   licenciaUrl
+  fotoPerfilUrl,
+  licenciaUrl
 }) => {
   const passwordHash = await encrypt(password);
 
@@ -100,14 +100,14 @@ const createUsuarioPsicologo = async ({
     dias: [...dias],
     horas: [...horas],
     genero,
-//     licencia:licenciaUrl,
+    licencia:licenciaUrl,
     tarifa,
     especialidad: [...especialidad],
     whatsapp_url: whatsAppUrl,
     telefono,
     descripcion,
     fecha_registro: fecha,
-//     foto: fotoPerfilUrl
+    foto: fotoPerfilUrl
   });
 
   return newPsicologoCreate;
