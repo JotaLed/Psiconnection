@@ -47,7 +47,7 @@ const registerHandler = async (req, res, next) => {
     apellido,
     email,
     fecha_nacimiento,
-    contraseña,
+    password,
     pais,
     zona_horaria,
     dias,
@@ -57,10 +57,43 @@ const registerHandler = async (req, res, next) => {
     especialidad,
     whatsAppUrl,
     telefono,
-    descripcion,
+    descripcion
   } = req.body;
   const fecha = obtenerFechaActual();
+  const fotoPerfilFile = req.files['fotoPerfil'][0];
+  const licenciaFile = req.files['licencia'][0];
   console.log(fecha);
+  
+  function getUrlImage(filePath) {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(filePath, function (err, result) {
+        if (err) {
+          reject(new Error("No se pudo subir la imagen"));
+        } else {
+          const url = result.secure_url;
+          resolve(url);
+        }
+      });
+    });
+  }
+
+  //! funcion para pdf 
+  async function uploadPDF(filePath) {
+    try {
+      const result = await cloudinary.uploader.upload(filePath, {
+        resource_type: 'raw', // Indicar que se trata de un archivo sin procesar
+        // folder: 'pdfs' // Carpeta en Cloudinary donde se almacenará el PDF
+      });
+  
+      const url = result.secure_url;
+      return url;
+    } catch (error) {
+      throw new Error('No se pudo subir el archivo PDF a Cloudinary');
+    }
+  }
+
+  const fotoPerfilUrl = await getUrlImage(fotoPerfilFile.path);
+  const licenciaUrl = await getUrlImage(licenciaFile.path);
 
   try {
     //! validaciones
@@ -71,6 +104,7 @@ const registerHandler = async (req, res, next) => {
     if (!contraseña) return res.status(403).json({ error: "password vacio" });
     if (!pais) return res.status(403).json({ error: "pais vacio" });
     if (!genero) return res.status(403).json({ error: "genero vacio" });
+//     if (!licenciaUrl) return res.status(403).json({ error: "licencia vacia" });
     if (!tarifa) return res.status(403).json({ error: "tipo de pago vacio" });
     if (!especialidad) return res.status(403).json({ error: "especialidad vacio" });
     if (!whatsAppUrl) return res.status(403).json({ error: "WhatsApp vacio" });
@@ -79,13 +113,15 @@ const registerHandler = async (req, res, next) => {
     if (!zona_horaria) return res.status(403).json({ error: "zona horaria vacio" });
     if (!dias) return res.status(403).json({ error: "días vacio" });
     if (!horas) return res.status(403).json({ error: "horas vacio" });
-    
+//     if (!fotoPerfilUrl) return res.status(403).json({ error: "foto vacio" });
+
+
     const usuarioPsicologo = await createUsuarioPsicologo({
       nombre,
       apellido,
       email,
       fecha_nacimiento,
-      contraseña,
+      password,
       pais,
       zona_horaria,
       dias,
@@ -97,6 +133,8 @@ const registerHandler = async (req, res, next) => {
       telefono,
       descripcion,
       fecha,
+//       fotoPerfilUrl,
+//       licenciaUrl
     });
 
     return res.status(200).json(usuarioPsicologo);

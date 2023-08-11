@@ -70,6 +70,7 @@ const Detail = () => {
                     </div>
                 </div>
                 <div className={s.turno_conteiner}>
+                    <h1>Turnos del psicologo</h1>
                     <Turnos/>
                     
                 </div>
