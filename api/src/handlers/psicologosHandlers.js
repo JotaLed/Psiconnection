@@ -6,7 +6,7 @@ const {
   getPsicologoByNameController,
   putController,
   deleteController,
-  detailAcountPsicologo
+  detailAcountPsicologo,
 } = require("../controllers/psicologosController.js");
 
 const cloudinary = require("../utils/cloudinary.js");
@@ -47,20 +47,53 @@ const registerHandler = async (req, res, next) => {
     apellido,
     email,
     fecha_nacimiento,
-    contraseña,
+    password,
     pais,
     zona_horaria,
-    horario,
+    dias,
+    horas,
     genero,
-    licencia,
     tarifa,
     especialidad,
     whatsAppUrl,
     telefono,
-    descripcion,
+    descripcion
   } = req.body;
   const fecha = obtenerFechaActual();
+  // const fotoPerfilFile = req.files['fotoPerfil'][0];
+  // const licenciaFile = req.files['licencia'][0];
   console.log(fecha);
+  
+  function getUrlImage(filePath) {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(filePath, function (err, result) {
+        if (err) {
+          reject(new Error("No se pudo subir la imagen"));
+        } else {
+          const url = result.secure_url;
+          resolve(url);
+        }
+      });
+    });
+  }
+
+  //! funcion para pdf 
+  async function uploadPDF(filePath) {
+    try {
+      const result = await cloudinary.uploader.upload(filePath, {
+        resource_type: 'raw', // Indicar que se trata de un archivo sin procesar
+        // folder: 'pdfs' // Carpeta en Cloudinary donde se almacenará el PDF
+      });
+  
+      const url = result.secure_url;
+      return url;
+    } catch (error) {
+      throw new Error('No se pudo subir el archivo PDF a Cloudinary');
+    }
+  }
+
+  // const fotoPerfilUrl = await getUrlImage(fotoPerfilFile.path);
+  // const licenciaUrl = await getUrlImage(licenciaFile.path);
 
   try {
     //! validaciones
@@ -68,38 +101,40 @@ const registerHandler = async (req, res, next) => {
     if (!apellido) return res.status(403).json({ error: "apellido vacio" });
     if (!email) return res.status(403).json({ error: "email vacio" });
     if (!fecha_nacimiento) return res.status(403).json({ age: "nombre vacio" });
-    if (!contraseña) return res.status(403).json({ error: "password vacio" });
+    if (!password) return res.status(403).json({ error: "password vacio" });
     if (!pais) return res.status(403).json({ error: "pais vacio" });
     if (!genero) return res.status(403).json({ error: "genero vacio" });
-    if (!licencia) return res.status(403).json({ error: "lecencia vacia" });
+//     if (!licenciaUrl) return res.status(403).json({ error: "licencia vacia" });
     if (!tarifa) return res.status(403).json({ error: "tipo de pago vacio" });
-    if (!especialidad)
-      return res.status(403).json({ error: "especialidad vacio" });
+    if (!especialidad) return res.status(403).json({ error: "especialidad vacio" });
     if (!whatsAppUrl) return res.status(403).json({ error: "WhatsApp vacio" });
     if (!telefono) return res.status(403).json({ error: "telefono vacio" });
-    if (!descripcion)
-      return res.status(403).json({ error: "descripcion vacio" });
-    if (!zona_horaria)
-      return res.status(403).json({ error: "zona horaria vacio" });
-    if (!horario) return res.status(403).json({ error: "horario vacio" });
+    if (!descripcion) return res.status(403).json({ error: "descripcion vacio" });
+    if (!zona_horaria) return res.status(403).json({ error: "zona horaria vacio" });
+    if (!dias) return res.status(403).json({ error: "días vacio" });
+    if (!horas) return res.status(403).json({ error: "horas vacio" });
+//     if (!fotoPerfilUrl) return res.status(403).json({ error: "foto vacio" });
+
 
     const usuarioPsicologo = await createUsuarioPsicologo({
       nombre,
       apellido,
       email,
       fecha_nacimiento,
-      contraseña,
+      password,
       pais,
       zona_horaria,
-      horario,
+      dias,
+      horas,
       genero,
-      licencia,
       tarifa,
       especialidad,
       whatsAppUrl,
       telefono,
       descripcion,
       fecha,
+//       fotoPerfilUrl,
+//       licenciaUrl
     });
 
     return res.status(200).json(usuarioPsicologo);
@@ -138,10 +173,83 @@ const putHandler = async (req, res, next) => {
 
   if (!data || Object.keys(data).length === 0) {
     return res.status(400).send("No llegó ningún dato");
-  } else {
-    await putController(req, res);
   }
+
+  const uuidv4Regex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+  if (!data.id) {
+    return res
+      .status(400)
+      .send("Se requiere un 'id' en el cuerpo de la solicitud.");
+  }
+
+  if (!uuidv4Regex.test(data.id)) {
+    return res
+      .status(400)
+      .send("El 'id' proporcionado no tiene el formato UUIDV4 válido.");
+  }
+
+  const validFields = [
+    "email",
+    "contraseña",
+    "pais",
+    "zona_horaria",
+    "genero",
+    "tarifa",
+    "horario",
+    "especialidad",
+    "whatsapp_url",
+    "telefono",
+    "foto",
+    "descripcion",
+  ];
+
+  const invalidFields = [];
+
+  for (const field in data) {
+    if (field === "id") {
+      continue; // Saltar la validación para el campo "id"
+    }
+    if (!validFields.includes(field)) {
+      invalidFields.push(field);
+    } else {
+      if (field === "email" && !isValidEmail(data[field])) {
+        return res.status(400).send("El formato del email no es válido");
+      }
+      if (field === "genero" && !isValidGender(data[field])) {
+        return res.status(400).send("El género proporcionado no es válido");
+      }
+      if (field === "especialidad" && typeof data[field] !== "string") {
+        return res
+          .status(400)
+          .send("La especialidad proporcionada no es un string válido");
+      }
+    }
+  }
+
+  if (invalidFields.length > 0) {
+    return res
+      .status(400)
+      .send(
+        `Los siguientes campos no son válidos: ${invalidFields.join(", ")}`
+      );
+  }
+
+  await putController(req, res);
 };
+
+// Función para validar formato de email
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Función para validar género
+function isValidGender(gender) {
+  const validGenders = ["Masculino", "Femenino", "Otro", "Sin especificar"];
+  return validGenders.includes(gender);
+}
 
 //Handler de la ruta delete para verificar si llego por body id de tipo UUIDV4
 const deleteHandler = async (req, res, next) => {
@@ -165,17 +273,15 @@ const deleteHandler = async (req, res, next) => {
   await deleteController(req, res);
 };
 
-
 const getDetailAcount = async (req, res) => {
   const { id } = req.params;
-    try {
-      const psicologo = await detailAcountPsicologo(id)
-      return res.status(200).json(psicologo)
-    } catch (error) {
-      res.status(400).json({error:error.message})
-      
-    }
-}
+  try {
+    const psicologo = await detailAcountPsicologo(id);
+    return res.status(200).json(psicologo);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 module.exports = {
   registerHandler,
@@ -184,5 +290,5 @@ module.exports = {
   putHandler,
   deleteHandler,
   getPsicologosHandler,
-  getDetailAcount
+  getDetailAcount,
 };

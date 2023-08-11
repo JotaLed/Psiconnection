@@ -4,11 +4,34 @@ import styles from './Account.module.css';
 import { useSelector, useDispatch } from "react-redux"
 import { loadDetail, updatePsic } from '../../Redux/actions';
 import { useParams } from "react-router-dom";
+import Description from './formComponents/description';
 
 
 const Account = () => {
     const [selectedTab, setSelectedTab] = useState('profile');
 
+    // const psicology = useSelector((store) => store.psicoloDetail)
+    // const psicology = {
+    //     nombre: "Luis",
+    //     apellido: "Hernández",
+    //     fecha_nacimiento: "1992-03-25",
+    //     email: "luis@hernandez.com",
+    //     contraseña: "securepassword",
+    //     pais: "Venezuela",
+    //     zona_horaria: "GMT-4",
+    //     genero: "Masculino",
+    //     licencia: "789457",
+    //     tarifa: "300",
+    //     horario: "PM",
+    //     whatsapp_url: "https://wa.me/1818181818",
+    //     telefono: "1818181818",
+    //     foto: "https://i.pinimg.com/564x/12/75/40/127540404fd8f8b0e423a8e599245701.jpg",
+    //     descripcion: "En el vasto y misterioso comano, imbuido de En el vasto y misterioso cosmos, innumerables estrellas parpadean como diamantes en la negrura del espacio. Galaxias espirales, nebulosas resplandecientes y cúmulos estelares adornan la bóveda celeste con su magnificencia cósm  cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan l cúmulos estelares adornan la bóveda celeste con su magnificencia cósma bóveda celeste con su magnificencia cósmcúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm",
+    //     estado_cuenta: "Activo",
+    //     fecha_registro: "2023-08-03",
+    //     especialidad: ["Psicología infantil", "Psicología de pareja"],
+    //     valoracion: 4
+    // }
     const psicology = useSelector((store) => store.psicoloDetail)
     const dispatch = useDispatch()
     const { id } = useParams();
@@ -16,12 +39,31 @@ const Account = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [dateToUpdate, setDateToUpdate] = useState({
         id: id,
-        foto: psicology.foto,
-        email: psicology.email,
-
     })
+    const [imagen, setImagen] = useState(psicology.foto);
+    const [esp, setEsp] = useState(psicology.especialidad)
+    const [description, setDescription] = useState(psicology.descripcion)
+    const opcionesEspecialidades = [
+        'Psicología de pareja',
+        'Psicología infantil',
+        'Psicología cognitivo-conductual',
+        'Psicoanálisis',
+        'Sexología'
+    ];
+    const paises = [
+        "Argentina",
+        "Colombia",
+        "México",
+        "Venezuela"
+    ]
 
+    const generos = [
+        "Femenino",
+        "Masculino",
+        "Otro"
+    ]
 
+  
 
 
 
@@ -30,39 +72,61 @@ const Account = () => {
         const aux = async () => {
             await dispatch(loadDetail(id))
             setIsLoading(false);
+            setImagen(psicology.foto)
+            // console.log(imagen)
 
 
         }
         aux()
-    }, [])
+    }, [psicology.foto])
 
     const isValidEmail = (email) => {
         // Expresión regular para validar el formato del correo electrónico
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
         return emailRegex.test(email);
-      };
-      
+    };
+
     const handleTabChange = (tab) => {
         setSelectedTab(tab);
     };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setDateToUpdate({ ...dateToUpdate, [name]: value })
+        if (name === "foto") {
+            setImagen(value);
+
+        }
+        if (name === "tarifa" && value < 1) {
+            return
+        }
+        setDateToUpdate({ ...dateToUpdate, [name]: value });
 
     }
     const handleSubmit = () => {
-
+        console.log(dateToUpdate)
         // Validar el formato del correo electrónico antes de enviar los datos al servidor
-        if (!isValidEmail(dateToUpdate.email)) {
+        if (dateToUpdate.email && !isValidEmail(dateToUpdate.email)) {
             const title = "Email incorrecto";
             const message = "Debe ingresar un correo electrónico válido.";
             window.alert(`${title}\n${message}`);
             return;
-          }
-        
+        }
+
+
+
         dispatch(updatePsic(dateToUpdate))
 
+    }
+   
+
+    const handleOptionChange = (optionValue) => {
+        if (esp.includes(optionValue)) {
+            setEsp(esp.filter(option => option !== optionValue));
+        } else {
+            setEsp([...esp, optionValue]);
+        }
+
+        setDateToUpdate({ ...dateToUpdate, especialidad: esp })
     }
 
     function capitalizeFirstLetter(name) {
@@ -80,11 +144,14 @@ const Account = () => {
         return <div>Cargando...</div>;
     }
 
-    // if (!psicology) {
-    //     // Manejar el caso donde no se encuentra el psicólogo
-    //     return <div>El psicólogo no existe.</div>;
-    // }
-    console.log(dateToUpdate)
+    const handleKeyPress = (event) => {
+        const keyCode = event.which || event.keyCode;
+        if (keyCode === 45) { // 45 es el código de tecla para el signo "-"
+            event.preventDefault();
+        }
+    };
+
+
 
     return (
         <div className={styles.accountContainer}>
@@ -103,7 +170,7 @@ const Account = () => {
                             onClick={() => handleTabChange('reservations')}
                             className={`${styles.customNavLink} ${selectedTab === 'reservations' ? styles.active : ''}`}
                         >
-                            Reservas
+                            Citas
                         </Nav.Link>
                     </Nav.Item>
                     <Nav.Link onClick={() => handleTabChange('logout')} className={styles.customNavLink}>
@@ -129,12 +196,14 @@ const Account = () => {
                                             Editar Perfil
                                         </h1>
                                         <Form onSubmit={handleSubmit}>
+                                            <div className={styles.propiedades}>
                                             {/* Campos de edición */}
+                                            
                                             <Form.Group >
                                                 <Form.Label>Nombre</Form.Label>
                                                 <Form.Control
                                                     type="text"
-                                                    name="foto"
+                                                    name="nombre"
                                                     placeholder={psicology.nombre}
                                                     readOnly
                                                 />
@@ -143,7 +212,7 @@ const Account = () => {
                                                 <Form.Label>Apellido</Form.Label>
                                                 <Form.Control
                                                     type="text"
-                                                    name="foto"
+                                                    name="apellido"
                                                     placeholder={psicology.apellido}
                                                     readOnly
                                                 />
@@ -151,6 +220,7 @@ const Account = () => {
                                             <Form.Group >
                                                 <Form.Label>Correo</Form.Label>
                                                 <Form.Control
+                                                    onChange={handleChange}
                                                     type="text"
                                                     name="email"
                                                     defaultValue={psicology.email}
@@ -162,17 +232,115 @@ const Account = () => {
                                                     onChange={handleChange}
                                                     type="text"
                                                     name="foto"
-                                                    defaultValue={psicology.foto}
+                                                    defaultValue={imagen}
 
                                                 />
                                             </Form.Group>
-                                            {/* Agrega campos de edición similares para otros campos */}
+                                            <Form.Group controlId="options">
+                                                <Form.Label className={styles.prop}>Especialidades:</Form.Label>
+                                                <div className="text-left">
+                                                    {opcionesEspecialidades.map(opcion => (
+                                                        !psicology.especialidad.includes(opcion) && (
+                                                            <Form.Check
+                                                                key={opcion}
+                                                                type="checkbox"
+                                                                label={opcion}
+                                                                value={opcion}
+                                                                checked={esp.includes(opcion)}
+
+                                                                onChange={() => handleOptionChange(opcion)}
+                                                            />
+                                                        )
+                                                    ))}
+                                                </div>
+                                            </Form.Group>
+                                            <Form.Group>
+                                                <Form.Label className={styles.prop}>País:</Form.Label>
+                                                <Form.Select
+                                                    name="pais"
+                                                    onChange={handleChange}
+                                                    defaultValue={psicology.pais}
+                                                >
+                                                    {paises.map(opcion => (
+
+                                                        <option key={opcion} value={opcion}>
+                                                            {opcion}
+                                                        </option>
+                                                    ))}
+                                                </Form.Select>
+                                            </Form.Group>
+                                            <Form.Group >
+                                                <Form.Label className={styles.prop}>Zona horaria: </Form.Label>
+                                                <Form.Control
+                                                    type="text"
+                                                    name="zona_horaria"
+                                                    placeholder={psicology.zona_horaria}
+                                                    onChange={handleChange}
+                                                />
+                                            </Form.Group>
+                                            <Form.Group>
+                                                <Form.Label className={styles.prop}>Género:</Form.Label>
+                                                <Form.Select
+                                                    name="genero"
+                                                    onChange={handleChange}
+                                                    defaultValue={psicology.genero}
+                                                >
+                                                    {generos.map(opcion => (
+
+                                                        <option key={opcion} value={opcion}>
+                                                            {opcion}
+                                                        </option>
+                                                    ))}
+                                                </Form.Select>
+                                            </Form.Group>
+                                            <Form.Group>
+                                                <Form.Label className={styles.prop}>Tárifa:</Form.Label>
+                                                <Form.Control
+                                                    type="number"
+                                                    name="tarifa"
+                                                    defaultValue={psicology.tarifa}
+                                                    min="1" // Puedes ajustar el valor mínimo permitido si es necesario
+                                                    step="1" // Define el incremento/decremento al usar las flechas
+                                                    onKeyPress={handleKeyPress}
+
+                                                    onChange={handleChange}
+                                                />
+                                            </Form.Group>
+                                            <Form.Group>
+                                                <Form.Label className={styles.prop}>Horario:</Form.Label>
+                                                <Form.Control
+                                                    type="text"
+                                                    name="horario"
+                                                    defaultValue={psicology.horario}
+                                                    onChange={handleChange}
+                                                />
+                                            </Form.Group>
+                                            <Form.Group >
+                                                <Form.Label className={styles.prop}>Whatsapp:</Form.Label>
+                                                <Form.Control
+                                                    type="text"
+                                                    name="whatsapp_url"
+                                                    placeholder={psicology.whatsapp_url}
+                                                    onChange={handleChange}
+                                                />
+                                            </Form.Group>
+                                            <Form.Group >
+                                                <Form.Label className={styles.prop}>Telefono:</Form.Label>
+                                                <Form.Control
+                                                    type="text"
+                                                    name="telefono"
+                                                    placeholder={psicology.telefono}
+                                                    onChange={handleChange}
+                                                />
+                                            </Form.Group>
+                                            </div>
+                                            <Description/>
                                             <Button variant="outline-primary" type="submit">
                                                 Guardar Cambios
                                             </Button>
                                         </Form>
                                     </>) : (<>
-                                        
+
                                         <h1 className={styles.title}>
                                             {psicology?.genero === "femenino" ?
                                                 `Bienvenida, ${capitalizeFirstLetter(psicology.nombre)} ${capitalizeFirstLetter(psicology.apellido)}` :
@@ -185,7 +353,7 @@ const Account = () => {
                                             ))}
                                         </div>
                                         <div className={styles.foto_conteiner}>
-                                            <img src={psicology.foto} />
+                                            <img src={imagen} />
                                         </div>
                                         <div className={`${styles.infoConteiner}`}>
 
@@ -196,7 +364,7 @@ const Account = () => {
                                             <h2 className={styles.subtitle}><b>Zona Horaria:</b> {psicology.zona_horaria}</h2>
                                             <h2 className={styles.subtitle}><b>Género:</b> {capitalizeFirstLetter(psicology.genero)}</h2>
                                             <h2 className={styles.subtitle}><b>Tarifa:</b> ${psicology.tarifa}</h2>
-                                            <h2 className={styles.subtitle}><b>Whatsapp:</b> {psicology.whatsapp_url}</h2>
+                                            <h2 className={styles.subtitle}><b>Whatsapp:</b> <a href={psicology.whatsapp_url} target="_blank" rel="noopener noreferrer"> {psicology.whatsapp_url}</a></h2>
                                             <h2 className={styles.subtitle}><b>Telefono:</b> {psicology.telefono}</h2>
                                             <h2 className={styles.subtitle}><b>Fecha de registro:</b> {formatDate(psicology.fecha_registro)}</h2>
                                         </div>
@@ -239,7 +407,7 @@ const Account = () => {
                             </>
                         )}
                         {selectedTab === 'reservations' && (
-                            <h2>Mis Reservas</h2>
+                            <h2>Mis Citas</h2>
                         )}
                         {selectedTab === 'logout' && (
                             <h2>Cerrar Sesión</h2>

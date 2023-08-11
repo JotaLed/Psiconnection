@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { encrypt, compare } = require("../helpers/handleBcrypt.js");
-const { Psicologo } = require("../db.js");
+const { Psicologo, Reserva, Usuario, Especialidad } = require("../db.js");
 const { Op } = require("sequelize");
 
 //Búsqueda de todos los psicólogos
@@ -22,20 +22,19 @@ const getPsicologosController = async () => {
 // };
 
 const getPsicologoByNameController = async (nombreOApellido) => {
- 
-    const psicologos = await Psicologo.findAll({
-      where: {
-        [Op.or]: [
-          { nombre: { [Op.iLike]: `%${nombreOApellido}%` } }, // Búsqueda por nombre (ignorando mayúsculas y minúsculas)
-          { apellido: { [Op.iLike]: `%${nombreOApellido}%` } } // Búsqueda por apellido (ignorando mayúsculas y minúsculas)
-        ]
-      }
-    });
-    if(!psicologos.length) throw new Error('Error al buscar psicólogos por nombre o apellido');
+  const psicologos = await Psicologo.findAll({
+    where: {
+      [Op.or]: [
+        { nombre: { [Op.iLike]: `%${nombreOApellido}%` } }, // Búsqueda por nombre (ignorando mayúsculas y minúsculas)
+        { apellido: { [Op.iLike]: `%${nombreOApellido}%` } }, // Búsqueda por apellido (ignorando mayúsculas y minúsculas)
+      ],
+    },
+  });
+  if (!psicologos.length)
+    throw new Error("Error al buscar psicólogos por nombre o apellido");
 
-    return psicologos
-
-}
+  return psicologos;
+};
 
 //Controlador para búsqueda por id
 const getDetailController = async (id) => {
@@ -53,20 +52,22 @@ const createUsuarioPsicologo = async ({
   apellido,
   email,
   fecha_nacimiento,
-  contraseña,
+  password,
   pais,
   zona_horaria,
-  horario,
+  dias,
+  horas,
   genero,
-  licencia,
   tarifa,
   especialidad,
   whatsAppUrl,
   telefono,
   descripcion,
   fecha,
+//   fotoPerfilUrl,
+//   licenciaUrl
 }) => {
-  const passwordHash = await encrypt(contraseña);
+  const passwordHash = await encrypt(password);
 
   // ! verificamos que el usuario no se encuentre por el mismo email
   const verifyExistEmail = await Psicologo.findAll({
@@ -77,25 +78,16 @@ const createUsuarioPsicologo = async ({
   if (verifyExistEmail.length)
     throw new Error("El email ya se encuentra activo");
 
-  //! verficcamos que no se repita el mismo nombre
-  const verifyNombreApellido = await Psicologo.findAll({
-    where: {
-      nombre,
-      apellido,
-    },
-  });
-  if (verifyNombreApellido.length)
-    throw new Error("Ya existe una persona con este mismo nombre");
 
-  //! verificamos que no se repita la misma licencia
-  const verifyLicencia = await Psicologo.findAll({
-    where: {
-      licencia,
-    },
-  });
-  if (verifyLicencia.length)
-    throw new Error("Ya existe un usuario con esta misma licencia");
 
+  // //! verificamos que no se repita la misma licencia
+  // const verifyLicencia = await Psicologo.findAll({
+  //   where: {
+  //     licencia,
+  //   },
+  // });
+  // if (verifyLicencia.length)
+  //   throw new Error("Ya existe un usuario con esta misma licencia");
   //! si el email al registrarse no esta en la base de datos, entonces procede a crearse el nuevo psicologo
   const newPsicologoCreate = await Psicologo.create({
     nombre,
@@ -105,15 +97,17 @@ const createUsuarioPsicologo = async ({
     contraseña: passwordHash,
     pais,
     zona_horaria,
-    horario,
+    dias: [...dias],
+    horas: [...horas],
     genero,
-    licencia,
+//     licencia:licenciaUrl,
     tarifa,
-    especialidad: [especialidad],
+    especialidad: [...especialidad],
     whatsapp_url: whatsAppUrl,
     telefono,
     descripcion,
     fecha_registro: fecha,
+//     foto: fotoPerfilUrl
   });
 
   return newPsicologoCreate;
@@ -148,39 +142,31 @@ const putController = async (req, res) => {
 
     const dataToUpdate = req.body;
 
-    const allowedFields = [
-      "email",
-      "contraseña",
-      "pais",
-      "zona_horaria",
-      "genero",
-      "tarifa",
-      "horario",
-      "especialidad",
-      "whatsapp_url",
-      "telefono",
-      "foto",
-      "descripcion",
-    ];
-
-    const notAllowedFields = [];
-
+    // Modificar campos del psicólogo según los datos proporcionados
     for (const campo in dataToUpdate) {
-      if (campo !== "id" && !allowedFields.includes(campo)) {
-        notAllowedFields.push(campo);
-      } else {
+      if (campo !== "id" && campo !== "especialidad") {
         psicologo[campo] = dataToUpdate[campo];
       }
     }
 
-    if (notAllowedFields.length > 0) {
-      return res
-        .status(400)
-        .send(
-          `Los siguientes campos no están permitidos para actualización: ${notAllowedFields.join(
-            ", "
-          )}`
-        );
+    // Si se proporciona la propiedad "especialidad" en el cuerpo de la solicitud
+    if (
+      dataToUpdate.especialidad &&
+      typeof dataToUpdate.especialidad === "string"
+    ) {
+      const especialidadEncontrada = await Especialidad.findOne({
+        where: { especialidad: dataToUpdate.especialidad },
+      });
+
+      if (especialidadEncontrada) {
+        // Si psicologo.especialidad es un array de arrays, conviértelo en un array plano
+        if (Array.isArray(psicologo.especialidad[0])) {
+          psicologo.especialidad = psicologo.especialidad[0];
+        }
+
+        // Agregar la nueva especialidad al array
+        psicologo.especialidad.push(especialidadEncontrada.especialidad);
+      }
     }
 
     await psicologo.save();
@@ -226,7 +212,40 @@ const deleteController = async (req, res) => {
 
 const detailAcountPsicologo = async (id) => {
   const psicologo = await Psicologo.findByPk(id);
-  return psicologo;
+
+  const citas = await Reserva.findAll({
+    where: {
+      PsicologoId: id,
+    },
+  });
+
+  const usuariosMap = citas.map(async (cita) => {
+    const usuario = await Usuario.findByPk(cita.UsuarioId);
+    return usuario;
+  });
+
+  const usuarios = await Promise.all(usuariosMap);
+
+  const usuarioCita = citas.map((cita) => {
+    const usuario = usuarios.find((usuario) => usuario.id === cita.UsuarioId);
+    return {
+      IdCita: cita.id,
+      Fecha: cita.fecha,
+      Hora: cita.hora,
+      usuarioId: usuario.id,
+      usuarioNombre: usuario.nombre,
+      usuarioApellido: usuario.apellido,
+      usuarioPais: usuario.pais,
+    };
+  });
+
+  console.log(usuarioCita);
+
+  const piscologoCita = {
+    psicologo: psicologo,
+    cita: usuarioCita,
+  };
+  return piscologoCita;
 };
 
 module.exports = {

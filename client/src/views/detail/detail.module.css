@@ -13,13 +13,13 @@
 }
 .detail {
     display: flex;
-    justify-content: center;
     height: 100vh;
     width: 100%;
     gap: 20px;
 }
 
 .view_psico {
+    margin-left: 13vw;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -96,8 +96,6 @@
     background-color: #567ebb;
     font-size: 20px;
     color: #fff;
-    top: 300px;
-    left: 164px;
     width: 134px;
     height: 70px;
 
@@ -129,12 +127,18 @@
 }
 
 .turno_conteiner {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
     background-color: #ffff;
-    height: 500px;
-    left: 60%;
+    height: 650px;
+    width: 30vw;
+    right: 15vw;
     min-width: 25vw;
     border-radius: 20px;
+
 }
 
 .row1 {

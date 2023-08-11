@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       fecha_nacimiento: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       email: {
@@ -45,16 +45,20 @@ module.exports = (sequelize) => {
       },
       licencia: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true,
       },
       tarifa: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      horario: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      dias: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false
+      },
+      horas: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false
       },
       especialidad: {
         type: DataTypes.ARRAY(DataTypes.STRING),
@@ -84,11 +88,11 @@ module.exports = (sequelize) => {
         defaultValue: "activo",
         allowNull: true,
       },
-      validacion_cuenta: {
-        type: DataTypes.STRING,
-        defaultValue: "activo",
-        allowNull: true,
-      },
+      // validacion_cuenta: {
+      //   type: DataTypes.STRING,
+      //   defaultValue: "activo",
+      //   allowNull: true,
+      // },,
       fecha_registro: {
         type: DataTypes.DATE,
         allowNull: false,
