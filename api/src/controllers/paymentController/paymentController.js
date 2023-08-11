@@ -27,20 +27,24 @@ const createOrder = async (req, res) => {
             }
         ],
         back_urls:{
-                success:'https://918f-190-138-148-106.ngrok.io/psiconection/payment/success',
-                failure:'https://918f-190-138-148-106.ngrok.io/psiconection/payment/failure',
-                pending:'https://918f-190-138-148-106.ngrok.io/psiconection/payment/pending'
+                success:'http://localhost:3001/psiconnection/payment/success',
+                failure:'http://localhost:3001/psiconnection/payment/failure',
+                pending:'http://localhost:3001/psiconnection/payment/pending'
         },
-        notification_url:'https://918f-190-138-148-106.ngrok.io/psiconection/payment/webhook'
+        notification_url:'https://22a6-190-138-148-106.ngrok.io/webhook'
     })
     console.log(result)
-
     res.send('creando orden')
 };
-
-const receiveWebhook = (req, res) => {
-console.log(req.query)
-res.send('webhook')
+const receiveWebhook = async (req, res) => {
+const payment = req.query
+try {
+    if(payment.type === 'payment'){
+        const data = await mercadopago.payment.findById(payment['data.id'])
+    }
+        res.status(204)
+} catch (error) {
+    res.status(500).json({ error: error.message })}
 };
 
 module.exports = {
