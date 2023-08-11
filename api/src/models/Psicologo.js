@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       fecha_nacimiento: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       email: {
@@ -45,14 +45,10 @@ module.exports = (sequelize) => {
       },
       licencia: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true,
       },
       tarifa: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      horario: {
         type: DataTypes.STRING,
         allowNull: false,
       },

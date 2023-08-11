@@ -50,7 +50,8 @@ const registerHandler = async (req, res, next) => {
     password,
     pais,
     zona_horaria,
-    horario,
+    dias,
+    horas,
     genero,
     tarifa,
     especialidad,
@@ -103,15 +104,17 @@ const registerHandler = async (req, res, next) => {
     if (!contraseña) return res.status(403).json({ error: "password vacio" });
     if (!pais) return res.status(403).json({ error: "pais vacio" });
     if (!genero) return res.status(403).json({ error: "genero vacio" });
-    if (!licenciaUrl) return res.status(403).json({ error: "licencia vacia" });
+//     if (!licenciaUrl) return res.status(403).json({ error: "licencia vacia" });
     if (!tarifa) return res.status(403).json({ error: "tipo de pago vacio" });
     if (!especialidad) return res.status(403).json({ error: "especialidad vacio" });
     if (!whatsAppUrl) return res.status(403).json({ error: "WhatsApp vacio" });
     if (!telefono) return res.status(403).json({ error: "telefono vacio" });
     if (!descripcion) return res.status(403).json({ error: "descripcion vacio" });
     if (!zona_horaria) return res.status(403).json({ error: "zona horaria vacio" });
-    if (!horario) return res.status(403).json({ error: "horario vacio" });
-    if (!fotoPerfilUrl) return res.status(403).json({ error: "foto vacio" });
+    if (!dias) return res.status(403).json({ error: "días vacio" });
+    if (!horas) return res.status(403).json({ error: "horas vacio" });
+//     if (!fotoPerfilUrl) return res.status(403).json({ error: "foto vacio" });
+
 
     const usuarioPsicologo = await createUsuarioPsicologo({
       nombre,
@@ -121,7 +124,8 @@ const registerHandler = async (req, res, next) => {
       password,
       pais,
       zona_horaria,
-      horario,
+      dias,
+      horas,
       genero,
       tarifa,
       especialidad,
@@ -129,8 +133,8 @@ const registerHandler = async (req, res, next) => {
       telefono,
       descripcion,
       fecha,
-      fotoPerfilUrl,
-      licenciaUrl
+//       fotoPerfilUrl,
+//       licenciaUrl
     });
 
     return res.status(200).json(usuarioPsicologo);

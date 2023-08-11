@@ -55,7 +55,8 @@ const createUsuarioPsicologo = async ({
   password,
   pais,
   zona_horaria,
-  horario,
+  dias,
+  horas,
   genero,
   tarifa,
   especialidad,
@@ -63,8 +64,8 @@ const createUsuarioPsicologo = async ({
   telefono,
   descripcion,
   fecha,
-  fotoPerfilUrl,
-  licenciaUrl
+//   fotoPerfilUrl,
+//   licenciaUrl
 }) => {
   const passwordHash = await encrypt(password);
 
@@ -78,6 +79,7 @@ const createUsuarioPsicologo = async ({
     throw new Error("El email ya se encuentra activo");
 
 
+
   // //! verificamos que no se repita la misma licencia
   // const verifyLicencia = await Psicologo.findAll({
   //   where: {
@@ -86,7 +88,6 @@ const createUsuarioPsicologo = async ({
   // });
   // if (verifyLicencia.length)
   //   throw new Error("Ya existe un usuario con esta misma licencia");
-
   //! si el email al registrarse no esta en la base de datos, entonces procede a crearse el nuevo psicologo
   const newPsicologoCreate = await Psicologo.create({
     nombre,
@@ -96,16 +97,17 @@ const createUsuarioPsicologo = async ({
     contraseña: passwordHash,
     pais,
     zona_horaria,
-    horario,
+    dias: [...dias],
+    horas: [...horas],
     genero,
-    licencia:licenciaUrl,
+//     licencia:licenciaUrl,
     tarifa,
-    especialidad: [especialidad],
+    especialidad: [...especialidad],
     whatsapp_url: whatsAppUrl,
     telefono,
     descripcion,
     fecha_registro: fecha,
-    foto: fotoPerfilUrl
+//     foto: fotoPerfilUrl
   });
 
   return newPsicologoCreate;
