@@ -9,7 +9,7 @@ import Calendar from 'react-calendar'
 
 export default function Turnos() {
     //arreglo de citas de psicologos harcode 
-    const disponibilidad = { dias: ["Mon", "Wed", "Fri"], horarios: ["17-18", "15-16"] }
+    const disponibilidad = { dias: ["Thu", "Wed", "Fri"], horarios: ["17-18", "15-16"] }
 
     const horasPosibles = ["06-07", "07-08", "08-09", "09-10", "10-11", "11-12", "12-13", "13-14", "14-15", "15-16", "17-18", "18-19", "20-21"]
     const citas = [
