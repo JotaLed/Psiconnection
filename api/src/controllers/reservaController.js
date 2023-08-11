@@ -27,4 +27,34 @@ const getAllAppointmentsController = async () => {
   return appointments;
 };
 
-module.exports = { reservaCita };
+const putController = async (req, res) => {
+  try {
+    const reservaId = req.body.id;
+    const nuevoEstado = req.body.estado;
+
+    const reserva = await Reserva.findByPk(reservaId);
+
+    if (!reserva) {
+      return res.status(404).send("La reserva no existe en la base de datos.");
+    }
+
+    reserva.estado = nuevoEstado;
+
+    await reserva.save();
+
+    res.status(200).send({
+      message: "El estado de la reserva se actualizó correctamente.",
+      reservaActualizada: reserva,
+    });
+  } catch (error) {
+    console.error("Error al actualizar estado de la reserva:", error);
+    res
+      .status(500)
+      .send(
+        "Ocurrió un error al actualizar el estado de la reserva: " +
+          error.message
+      );
+  }
+};
+
+module.exports = { reservaCita, putController, getAllAppointmentsController };

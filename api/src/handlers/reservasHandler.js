@@ -1,6 +1,7 @@
 const {
   reservaCita,
   getAllAppointmentsController,
+  putController,
 } = require("../controllers/reservaController");
 
 const reservarCitaHandler = async (req, res) => {
@@ -22,7 +23,49 @@ const getAllAppointmentsHandler = async (req, res) => {
   }
 };
 
+const putHandler = async (req, res) => {
+  const data = req.body;
+
+  const requiredProperties = ["id", "estado"];
+  const propertyTypes = {
+    id: "string",
+    estado: "string",
+  };
+
+  const missingProperties = [];
+  const invalidTypeProperties = [];
+
+  for (const property of requiredProperties) {
+    if (!(property in data)) {
+      missingProperties.push(property);
+    } else if (typeof data[property] !== propertyTypes[property]) {
+      invalidTypeProperties.push(property);
+    }
+  }
+
+  if (missingProperties.length > 0) {
+    return res
+      .status(400)
+      .send(
+        `Faltan las siguientes propiedades: ${missingProperties.join(", ")}`
+      );
+  }
+
+  if (invalidTypeProperties.length > 0) {
+    return res
+      .status(400)
+      .send(
+        `Las siguientes propiedades tienen tipos inválidos: ${invalidTypeProperties.join(
+          ", "
+        )}`
+      );
+  }
+
+  await putController(req, res);
+};
+
 module.exports = {
   reservarCitaHandler,
   getAllAppointmentsHandler,
+  putHandler,
 };
