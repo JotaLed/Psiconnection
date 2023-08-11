@@ -50,9 +50,9 @@ const registerHandler = async (req, res, next) => {
     contraseña,
     pais,
     zona_horaria,
-    horario,
+    dias,
+    horas,
     genero,
-    licencia,
     tarifa,
     especialidad,
     whatsAppUrl,
@@ -71,18 +71,15 @@ const registerHandler = async (req, res, next) => {
     if (!contraseña) return res.status(403).json({ error: "password vacio" });
     if (!pais) return res.status(403).json({ error: "pais vacio" });
     if (!genero) return res.status(403).json({ error: "genero vacio" });
-    if (!licencia) return res.status(403).json({ error: "lecencia vacia" });
     if (!tarifa) return res.status(403).json({ error: "tipo de pago vacio" });
-    if (!especialidad)
-      return res.status(403).json({ error: "especialidad vacio" });
+    if (!especialidad) return res.status(403).json({ error: "especialidad vacio" });
     if (!whatsAppUrl) return res.status(403).json({ error: "WhatsApp vacio" });
     if (!telefono) return res.status(403).json({ error: "telefono vacio" });
-    if (!descripcion)
-      return res.status(403).json({ error: "descripcion vacio" });
-    if (!zona_horaria)
-      return res.status(403).json({ error: "zona horaria vacio" });
-    if (!horario) return res.status(403).json({ error: "horario vacio" });
-
+    if (!descripcion) return res.status(403).json({ error: "descripcion vacio" });
+    if (!zona_horaria) return res.status(403).json({ error: "zona horaria vacio" });
+    if (!dias) return res.status(403).json({ error: "días vacio" });
+    if (!horas) return res.status(403).json({ error: "horas vacio" });
+    
     const usuarioPsicologo = await createUsuarioPsicologo({
       nombre,
       apellido,
@@ -91,9 +88,9 @@ const registerHandler = async (req, res, next) => {
       contraseña,
       pais,
       zona_horaria,
-      horario,
+      dias,
+      horas,
       genero,
-      licencia,
       tarifa,
       especialidad,
       whatsAppUrl,
