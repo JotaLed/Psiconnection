@@ -60,8 +60,8 @@ const registerHandler = async (req, res, next) => {
     descripcion
   } = req.body;
   const fecha = obtenerFechaActual();
-  const fotoPerfilFile = req.files['fotoPerfil'][0];
-  const licenciaFile = req.files['licencia'][0];
+  // const fotoPerfilFile = req.files['fotoPerfil'][0];
+  // const licenciaFile = req.files['licencia'][0];
   console.log(fecha);
   
   function getUrlImage(filePath) {
@@ -92,8 +92,8 @@ const registerHandler = async (req, res, next) => {
     }
   }
 
-  const fotoPerfilUrl = await getUrlImage(fotoPerfilFile.path);
-  const licenciaUrl = await getUrlImage(licenciaFile.path);
+  // const fotoPerfilUrl = await getUrlImage(fotoPerfilFile.path);
+  // const licenciaUrl = await getUrlImage(licenciaFile.path);
 
   try {
     //! validaciones
@@ -101,7 +101,7 @@ const registerHandler = async (req, res, next) => {
     if (!apellido) return res.status(403).json({ error: "apellido vacio" });
     if (!email) return res.status(403).json({ error: "email vacio" });
     if (!fecha_nacimiento) return res.status(403).json({ age: "nombre vacio" });
-    if (!contraseña) return res.status(403).json({ error: "password vacio" });
+    if (!password) return res.status(403).json({ error: "password vacio" });
     if (!pais) return res.status(403).json({ error: "pais vacio" });
     if (!genero) return res.status(403).json({ error: "genero vacio" });
 //     if (!licenciaUrl) return res.status(403).json({ error: "licencia vacia" });
