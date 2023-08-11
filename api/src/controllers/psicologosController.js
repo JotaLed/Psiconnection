@@ -232,6 +232,7 @@ const detailAcountPsicologo = async (id) => {
       IdCita: cita.id,
       Fecha: cita.fecha,
       Hora: cita.hora,
+      Estado: cita.estado,
       usuarioId: usuario.id,
       usuarioNombre: usuario.nombre,
       usuarioApellido: usuario.apellido,
