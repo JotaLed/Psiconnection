@@ -62,7 +62,7 @@ export const validateForm = (formData) => {
   apellido,
   email,
   fecha_nacimiento,
-  contraseña,
+  password,
   pais,
   zona_horaria,
   horario,
@@ -78,7 +78,7 @@ export const validateForm = (formData) => {
 
   const errors = {};
 
-  if (!nombre || !apellido || !pais || !fecha_nacimiento || !genero || !email || !contraseña || !telefono  ) {
+  if (!nombre || !apellido || !pais || !fecha_nacimiento || !genero || !email || !password || !telefono  ) {
     errors.general = "Todos los campos son obligatorios.";
   }
 
@@ -86,7 +86,7 @@ export const validateForm = (formData) => {
     errors.email = "Ingresa un correo electrónico válido.";
   }
 
-  if (!isValidPassword(contraseña)) {
+  if (!isValidPassword(password)) {
     errors.contraseña = "La contraseña debe ser alfanumérica y tener al menos 6 caracteres.";
   }
 

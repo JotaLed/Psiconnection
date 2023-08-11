@@ -44,7 +44,7 @@ const Form = () => {
       setPaises(paises)
     })
 },[])
-console.log('todos los paises', paises)
+// console.log('todos los paises', paises)
 
 
   const handleChange = (event) => {
@@ -72,19 +72,21 @@ console.log('todos los paises', paises)
         apellido: "",
         email: "",
         fecha_nacimiento: "",
-        contraseña: "",
+        password: "",
         pais: "",
         zona_horaria: "",
         horario: "",
         genero: "",
-        licencia: "",
         tarifa: "",
         especialidad: "",
         whatsAppUrl: "",
         telefono: "",
         descripcion: "",
-        fotoPerfil: "",
         isLogin: false,
+        licencia: null,
+        fotoPerfil: null,
+        dias: '',
+        horas: ''
       });
     } else if (roll === "usuario") {
       setFormData({
@@ -95,7 +97,7 @@ console.log('todos los paises', paises)
         pais: "",
         genero: "",
         email: "",
-        contraseña: "",
+        password: "",
         telefono: "",
         isLogin: false,
       });
@@ -104,41 +106,90 @@ console.log('todos los paises', paises)
   
   const [formErrors, setFormErrors] = useState({});
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   console.log(formData); // Agregar esta línea para imprimir los datos del formulario
+  //   const { isValid, errors } = validateForm(formData);
+
+  //   if (!isValid) {
+  //     console.log("El formulario no es válido. Por favor, revisa los campos.");
+  //     console.log(errors); // Agregar esta línea para ver los errores específicos
+  //     setFormErrors(errors);
+  //     return;
+  //   }
+  //   console.log("Formulario válido, datos enviados:", formData);
+  //   //! Acá envío los datos al back 
+  //   try {
+  //     if (formData.isLogin) {
+  //       // Iniciar sesión
+  //       const response = await axios.post("/api/login", formData);
+  //       console.log("Inicio de sesión exitoso:", response.data);
+  //     } else {
+  //        // Registro de nuevo usuario
+  //     if (formData.roll === "psicologo") {
+  //       //registro para psicologo
+  //       const response = await axios.post("http://localhost:3001/psiconection/registerPsicologo", formData);
+  //       console.log("Registro exitoso:", response.data);
+  //     } else if (formData.roll === "usuario") {
+  //       //registro para consultante
+  //       const response = await axios.post("http://localhost:3001/psiconection/registerUsuario", formData);
+  //       console.log("Registro exitoso:", response.data);
+  //     }
+  //   }
+  //   } catch (error) {
+  //     console.error("Error al enviar los datos:", error);
+  //     setFormErrors({ general: "Ocurrió un error. Por favor, inténtalo de nuevo más tarde." });
+  //   }
+  // };
+
+  //! submit de info modificacion para volverlo funcional 
+
+  //!! subir archivos 
+  const [previewSource, setPreviewSource] = useState('');
+  const [selectdFile, setSelectedFile] = useState('');
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData); // Agregar esta línea para imprimir los datos del formulario
-    const { isValid, errors } = validateForm(formData);
-
-    if (!isValid) {
-      console.log("El formulario no es válido. Por favor, revisa los campos.");
-      console.log(errors); // Agregar esta línea para ver los errores específicos
-      setFormErrors(errors);
-      return;
-    }
-    console.log("Formulario válido, datos enviados:", formData);
-    //! Acá envío los datos al back 
-    try {
-      if (formData.isLogin) {
-        // Iniciar sesión
-        const response = await axios.post("/api/login", formData);
-        console.log("Inicio de sesión exitoso:", response.data);
-      } else {
-         // Registro de nuevo usuario
-      if (formData.roll === "psicologo") {
-        //registro para psicologo
-        const response = await axios.post("http://localhost:3001/psiconection/registerPsicologo", formData);
-        console.log("Registro exitoso:", response.data);
-      } else if (formData.roll === "usuario") {
-        //registro para consultante
-        const response = await axios.post("http://localhost:3001/psiconection/registerUsuario", formData);
-        console.log("Registro exitoso:", response.data);
+      const formDataToSend = new FormData();
+      for (let key in formData) {
+      if (formData.hasOwnProperty(key)) {
+      formDataToSend.append(key, formData[key]);
       }
     }
+
+    console.log('formdataJS',formDataToSend)
+    try {
+      const response =  (await axios.post("http://localhost:3001/psiconection/registerPsicologo", formDataToSend)).data
+      if(response){
+        window.alert('success')
+      }
     } catch (error) {
-      console.error("Error al enviar los datos:", error);
-      setFormErrors({ general: "Ocurrió un error. Por favor, inténtalo de nuevo más tarde." });
+      if(error){
+        console.log(error)
+        window.alert('Error')
+      }
     }
-  };
+}
+
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0]
+  // console.log('type', file.type)
+  // const type = file.type
+  // console.log(type)
+  // if(type.startsWith('image/')){
+  //   previewFile(file);
+  //   setSelectedFile(file)
+  // }
+  console.log(file)
+ setFormData({
+    ...formData,
+    [event.target.name]: event.target.files[0]
+  });
+};
+
+console.log('form',formData)
+
 
   // Función para cambiar entre modo de inicio de sesión y modo de registro
   const toggleLogin = () => {
@@ -190,10 +241,10 @@ console.log('todos los paises', paises)
               <div className="form-row">
                 <label htmlFor="contraseña">Contraseña:</label>
                 <input
-                  type="contraseña"
-                  id="contraseña"
-                  name="contraseña"
-                  value={formData.contraseña}
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
                   onChange={handleChange}
                   required
                 />
@@ -300,9 +351,9 @@ console.log('todos los paises', paises)
                 <label htmlFor="contraseña">Contraseña:</label>
                 <input
                   type="password"
-                  id="contraseña"
-                  name="contraseña"
-                  value={formData.contraseña}
+                  id="password"
+                  name="password"
+                  value={formData.password}
                   onChange={handleChange}
                   required
                 />
@@ -328,18 +379,7 @@ console.log('todos los paises', paises)
                     </select>
                   </div>
 
-                  <div className="form-row">
-                <label htmlFor="licencia">Licencia:</label>
-                <input
-                  type="text"
-                  id="licencia"
-                  name="licencia"
-                  value={formData.licencia}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-row">
+                <div className="form-row">
                 <label htmlFor="tarifa">Tarifa:</label>
                 <input
                   type="text"
@@ -352,15 +392,39 @@ console.log('todos los paises', paises)
               </div>
 
               <div className="form-row">
+                <label htmlFor="tarifa">Dias:</label>
+                <input
+                  type="text"
+                  id="dias"
+                  name="dias"
+                  value={formData.dias}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-row">
+                <label htmlFor="tarifa">Horas:</label>
+                <input
+                  type="text"
+                  id="horas"
+                  name="horas"
+                  value={formData.horas}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              {/* <div className="form-row">
                 <label htmlFor="horario">Horario:</label>
                 <select id="horario" name="horario" value={formData.horario} onChange={handleChange} required>
                   <option value="">Seleccione...</option>
                   <option value="am">AM</option>
                   <option value="pm">PM</option>
                 </select>
-              </div>
+              </div> */}
 
-                    <div className="form-row">
+                <div className="form-row">
                 <label htmlFor="zona_horaria">Zona horaria:</label>
                 <input
                   type="text"
@@ -395,17 +459,40 @@ console.log('todos los paises', paises)
                   required
                 />
               </div>
+        
+              {/* <div className="form-row">
+                <label htmlFor="licencia">Licencia:</label>
+                <input
+                  type="text"
+                  id="licencia"
+                  name="licencia"
+                  value={formData.licencia}
+                  onChange={handleChange}
+                  required
+                />
+              </div> */}
+                
+                <label htmlFor="licencia">Licencia:</label>
+                  <input
+                    type="file"
+                    id="licencia"
+                    name="licencia"
+                    onChange={handleFileChange}
+                    required
+                  />
 
                   <label htmlFor="fotoPerfil">Foto de Perfil:</label>
                   <input
                     type="file"
                     id="fotoPerfil"
                     name="fotoPerfil"
-                    value={formData.fotoPerfil}
-                    onChange={handleChange}
+                    onChange={handleFileChange}
                     required
                   />
+
+
                  </div>
+
                 </>
               )}
 
