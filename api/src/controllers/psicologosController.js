@@ -55,9 +55,9 @@ const createUsuarioPsicologo = async ({
   contraseña,
   pais,
   zona_horaria,
-  horario,
+  dias,
+  horas,
   genero,
-  licencia,
   tarifa,
   especialidad,
   whatsAppUrl,
@@ -86,14 +86,6 @@ const createUsuarioPsicologo = async ({
   if (verifyNombreApellido.length)
     throw new Error("Ya existe una persona con este mismo nombre");
 
-  //! verificamos que no se repita la misma licencia
-  const verifyLicencia = await Psicologo.findAll({
-    where: {
-      licencia,
-    },
-  });
-  if (verifyLicencia.length)
-    throw new Error("Ya existe un usuario con esta misma licencia");
 
   //! si el email al registrarse no esta en la base de datos, entonces procede a crearse el nuevo psicologo
   const newPsicologoCreate = await Psicologo.create({
@@ -104,11 +96,11 @@ const createUsuarioPsicologo = async ({
     contraseña: passwordHash,
     pais,
     zona_horaria,
-    horario,
+    dias: [...dias],
+    horas: [...horas],
     genero,
-    licencia,
     tarifa,
-    especialidad: [especialidad],
+    especialidad: [...especialidad],
     whatsapp_url: whatsAppUrl,
     telefono,
     descripcion,
