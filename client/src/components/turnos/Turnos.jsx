@@ -128,7 +128,7 @@ export default function Turnos() {
             {flagH === true ?<div className='contenedor'>
                     <h3 className='horario'>Selecione su horaio:</h3>
                     <div className='horas_conteiner'>
-                        {horasPosibles.map((hora, index) => {
+                        {disponibilidad.horarios.map((hora, index) => {
                             if (selectTurno.horas.includes(hora)) {
                                 return (
                                     <div key={index} className="unvalidate">
