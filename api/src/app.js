@@ -11,12 +11,18 @@ server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
-  // res.header("Access-Control-Allow-Origin", "http://localhost:3000/");
-  // res.header("Access-Control-Allow-Origin", "http://localhost:5173");
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://psiconnection-drtzip4aq-jotaled.vercel.app"
-  );
+  const allowedOrigins = [
+    "https://psiconnection-drtzip4aq-jotaled.vercel.app",
+    "https://psiconnection.vercel.app",
+    // Agrega más orígenes si es necesario
+  ];
+
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
