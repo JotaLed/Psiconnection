@@ -1,0 +1,58 @@
+/* Navbar.css */
+.navbar {
+  background-color: #2b4c7e;
+  color: #fff;
+  min-height: 101px;
+  height: 11vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #606D80; /* Color más vibrante */
+  z-index: 9999;
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-size: 1.8rem; /* Tamaño ligeramente más grande */
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold; /* Añadimos negrita para destacar el logo */
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  margin-bottom: 0; /* Eliminamos el margen inferior */
+}
+
+.nav-item {
+  margin-right: 25px; /* Un poco más de espacio entre los ítems */
+}
+
+.nav-item:last-child {
+  margin-right: 0;
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1rem; /* Tamaño ligeramente más grande */
+  transition: color 0.3s ease;
+}
+
+.nav-item a:hover {
+  color: #606D80; /* Color más vibrante al hacer hover */
+  transform: translateY(-2px); /* Efecto de elevación */
+}

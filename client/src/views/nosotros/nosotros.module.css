@@ -1,0 +1,68 @@
+.container {
+    width: 70%;
+    max-width: 1200px;
+    margin:  10% auto 0; /* Ajustar el margen superior y el centrado horizontal */
+    padding: 20px;
+    display: flex; /* Aplicamos flexbox al contenedor */
+    flex-direction: column; /* Alineamos los elementos en una columna vertical */
+    justify-content: center; /* Centramos verticalmente los elementos */
+    
+  }
+
+
+  
+  .introSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+
+}
+  
+.introImage {
+    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+    height: auto; /* La altura se ajustará proporcionalmente */
+    max-height: 400px; /* Puedes ajustar este valor según tus necesidades */
+    margin-bottom: 20px;
+    border-radius: 10px; /* Añade bordes redondeados */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Añade una sombra */
+  }
+  
+  .teamSection {
+    text-align: center;
+    margin-top: 70px;
+  }
+  
+  .teamMembers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .teamMember {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .imagen {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+
+  .linkedinLogo{
+    width: 20px;
+    height: 20px;
+  }
+  
+  .title{
+    font-size: 44px;
+    color: #2b4c7e;
+    margin-bottom: 60px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  

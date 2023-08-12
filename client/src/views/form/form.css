@@ -1,0 +1,123 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  background-color: #dce0e6;
+  display: grid;
+}
+.form-container {
+  width: 50%;
+  margin: auto;
+  margin-top: 5%;
+  display: flex;
+  gap: 20px;
+}
+/** PErmite poner la imagen inicial al lado del hola, selciona...  */
+.form-content {
+  display: grid;
+  grid-template-columns:2fr 2fr;
+}
+
+/** imagen que está en la selcción de usuario   */
+.right-side img {
+  width: 100%; 
+}
+/** imagen que está en el registro y login    */
+.right-side2 img {
+  width: 100%; 
+  margin-top: 50%;
+
+}
+
+/* Estilo para el resto de elementos del formulario (labels, inputs, select, etc.) */
+.form .form-row {
+  display: grid;
+  gap: 5px; /* Espacio entre las columnas */
+  
+}
+.form .form-row input,
+.form .form-row select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form .error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Para todos los botones */
+.form-container button {
+  padding: 10px;
+  background-color: #2b4c7e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: large;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+/* Efecto botones al seleccionar */
+.form-container button:hover {
+  background-color: #567ebb;
+}
+
+/* No tienes cuenta */
+.form-container p {
+  font-weight: normal;
+  margin-top: 5%;
+  font-size: xx-large;
+  text-align: center;
+}
+
+/* Titulo Hola */
+.p1 {
+  font-weight: bold;
+  margin-top: 20%;
+  margin-bottom: 10%;
+  font-size: x-large;
+}
+
+/* Etiqueta Selecciona tu tipo de usuario */
+.p2 {
+  font-weight: normal;
+  margin-top: 5%;
+  font-size: x-large;
+}
+
+/* Etiqueta Registrate */
+.p3 {
+  margin-top: 5%;
+  margin-bottom: 10%;
+  font-size: x-large;
+  text-align: center;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Opciones genero, especialidades */
+.form-container select[name="genero"],
+.form-container select[name="especialidad"],
+.form-container select[name="horario"] {
+  background-color: #fff;
+  background-size: 5%;
+}
+
+.form-container select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: url("arrow-down.svg") no-repeat right center;
+}
+
+.form-container label {
+  font-size: medium;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
