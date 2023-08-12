@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux"
 import { loadDetail } from '../../Redux/actions';
 
-export default function Turnos({ dias, horas }) {
+export default function Turnos({ dias, horas}) {
     const dispatch = useDispatch();
     const location = useLocation();
     const psicology = useSelector((store) => store.psicoloDetail)
@@ -129,7 +129,7 @@ console.log(psicology);
 
     return (
         <div className='turnos'>
-            <Calendar
+                <Calendar
                 onChange={OnChange}
                 tileClassName={({ date }) => tileClassName(date)}
                 align="start"
@@ -137,7 +137,11 @@ console.log(psicology);
                 showCompare={false}
             />
             {flagH === true ? <div className='contenedor'>
-                <h3 className='horario'>Selecione su horaio:</h3>
+                <h3 className='horario'>Selecione su horario:</h3>
+                <div className='info_truno'>
+                    <p className='precio'>Precio del turno:{psicology.tarifa}$</p> 
+                    <p className='dia'>Dia selecionado:{selectTurno.fecha}</p>
+                </div>
                 <div className='horas_conteiner'>
                     {disponibilidad.horarios.map((hora, index) => {
                         if (selectTurno.horas.includes(hora)) {
