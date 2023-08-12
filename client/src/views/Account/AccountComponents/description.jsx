@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-const Description = () => {
+const Description = ({descrip, handleChange}) => {
   const [description, setDescription] = useState('');
 
-  const handleChange = (event) => {
+  const handleDescription = (event) => {
     const { value } = event.target;
     if (value.length <= 900) {
       setDescription(value);
@@ -20,9 +20,15 @@ const Description = () => {
       <Form.Control
         as="textarea"
         rows={4}
+        name="descripcion"
         value={description}
-        onChange={handleChange}
+        onChange={(event) => {
+          handleDescription(event); // Llamamos a la función local
+          handleChange(event); // Llamamos a la función pasada como prop
+      }}
         maxLength={maxCharCount}
+        placeholder={descrip}
+
       />
       <Form.Text className="text-muted">
         {remainingChars} caracteres restantes
