@@ -1,6 +1,6 @@
 //importamos el logo
-import logo from "../../Images/Screenshot_7.jpg"
-//importamos el estilo 
+import logo from "../../Images/Screenshot_15.jpg"
+//importamos el estilo s
 import s from "../landing/landing.module.css"
 //importamos componentes 
 import Carrusul from "../../components/carrusel/Carrusel"
@@ -16,10 +16,11 @@ export default function Landing() {
                 <Carrusul></Carrusul>
             </div> 
             <div className={s.col2}>
-                <h1 className={s.title_landing}>¡Bienevenido a Psicconection!.</h1>
-                <p className={s.description_landing}>
+                <img src={logo} alt="" />
+                {/* <h1 className={s.title_landing}>¡Bienevenido a Psicconection!.</h1> */}
+                {/* <p className={s.description_landing}>
                     Conéctate con psicólogos de alta calidad y servicio excepcional. Charla, consulta y cuida tu bienestar mental aquí
-                </p>
+                </p> */}
 
                 <Link to="/home">
                     <button>GET IN</button>
