@@ -147,17 +147,46 @@ const putController = async (req, res) => {
       }
     }
 
-    // Actualizar el array de especialidades si se proporciona
+    // Validar especialidades si se proporcionan
     if (dataToUpdate.especialidad && Array.isArray(dataToUpdate.especialidad)) {
-      psicologo.especialidad = dataToUpdate.especialidad;
+      const especialidadesEncontradas = await Promise.all(
+        dataToUpdate.especialidad.map(async (especialidad) => {
+          const especialidadEncontrada = await Especialidad.findOne({
+            where: { especialidad },
+          });
+          return especialidadEncontrada ? especialidad : null;
+        })
+      );
+
+      // Filtrar para eliminar especialidades que no se encontraron
+      const especialidadesValidas = especialidadesEncontradas.filter(
+        (especialidad) => especialidad !== null
+      );
+
+      // Si todas las especialidades son válidas, actualizar el psicólogo
+      if (especialidadesValidas.length === dataToUpdate.especialidad.length) {
+        psicologo.especialidad = especialidadesValidas;
+        await psicologo.save();
+        res.status(200).send({
+          message: "Los datos del psicólogo se actualizaron correctamente.",
+          psicologoActualizado: psicologo,
+        });
+      } else {
+        const especialidadesInvalidas = dataToUpdate.especialidad.filter(
+          (especialidad, index) => !especialidadesValidas[index]
+        );
+        res.status(400).send({
+          message: "Las siguientes especialidades no existen:",
+          especialidadesNoExistentes: especialidadesInvalidas,
+        });
+      }
+    } else {
+      await psicologo.save();
+      res.status(200).send({
+        message: "Los datos del psicólogo se actualizaron correctamente.",
+        psicologoActualizado: psicologo,
+      });
     }
-
-    await psicologo.save();
-
-    res.status(200).send({
-      message: "Los datos del psicólogo se actualizaron correctamente.",
-      psicologoActualizado: psicologo,
-    });
   } catch (error) {
     console.error("Error al actualizar datos del psicólogo:", error);
     res
