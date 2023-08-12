@@ -4,34 +4,19 @@ import styles from './Account.module.css';
 import { useSelector, useDispatch } from "react-redux"
 import { loadDetail, updatePsic } from '../../Redux/actions';
 import { useParams } from "react-router-dom";
-import Description from './formComponents/description';
+import Description from './AccountComponents/description';
+import BasicInfo from './AccountComponents/basicInfo';
+import Foto from './AccountComponents/foto';
+import Paises from './AccountComponents/Paises';
+import Horario from './AccountComponents/Horario';
+import ProfileInfo from './AccountComponents/ProfileInfo';
 
 
 const Account = () => {
     const [selectedTab, setSelectedTab] = useState('profile');
 
     // const psicology = useSelector((store) => store.psicoloDetail)
-    // const psicology = {
-    //     nombre: "Luis",
-    //     apellido: "Hernández",
-    //     fecha_nacimiento: "1992-03-25",
-    //     email: "luis@hernandez.com",
-    //     contraseña: "securepassword",
-    //     pais: "Venezuela",
-    //     zona_horaria: "GMT-4",
-    //     genero: "Masculino",
-    //     licencia: "789457",
-    //     tarifa: "300",
-    //     horario: "PM",
-    //     whatsapp_url: "https://wa.me/1818181818",
-    //     telefono: "1818181818",
-    //     foto: "https://i.pinimg.com/564x/12/75/40/127540404fd8f8b0e423a8e599245701.jpg",
-    //     descripcion: "En el vasto y misterioso comano, imbuido de En el vasto y misterioso cosmos, innumerables estrellas parpadean como diamantes en la negrura del espacio. Galaxias espirales, nebulosas resplandecientes y cúmulos estelares adornan la bóveda celeste con su magnificencia cósm  cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan l cúmulos estelares adornan la bóveda celeste con su magnificencia cósma bóveda celeste con su magnificencia cósmcúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm cúmulos estelares adornan la bóveda celeste con su magnificencia cósm",
-    //     estado_cuenta: "Activo",
-    //     fecha_registro: "2023-08-03",
-    //     especialidad: ["Psicología infantil", "Psicología de pareja"],
-    //     valoracion: 4
-    // }
+    
     const psicology = useSelector((store) => store.psicoloDetail)
     const dispatch = useDispatch()
     const { id } = useParams();
@@ -40,9 +25,9 @@ const Account = () => {
     const [dateToUpdate, setDateToUpdate] = useState({
         id: id,
     })
-    const [imagen, setImagen] = useState(psicology.foto);
-    const [esp, setEsp] = useState(psicology.especialidad)
-    const [description, setDescription] = useState(psicology.descripcion)
+    const [imagen, setImagen] = useState();
+    console.log(imagen)
+    const [esp, setEsp] = useState()
     const opcionesEspecialidades = [
         'Psicología de pareja',
         'Psicología infantil',
@@ -50,22 +35,6 @@ const Account = () => {
         'Psicoanálisis',
         'Sexología'
     ];
-    const paises = [
-        "Argentina",
-        "Colombia",
-        "México",
-        "Venezuela"
-    ]
-
-    const generos = [
-        "Femenino",
-        "Masculino",
-        "Otro"
-    ]
-
-  
-
-
 
     //Useeffect
     useEffect(() => {
@@ -73,12 +42,12 @@ const Account = () => {
             await dispatch(loadDetail(id))
             setIsLoading(false);
             setImagen(psicology.foto)
-            // console.log(imagen)
-
-
+            setEsp(psicology.especialidad)
         }
         aux()
-    }, [psicology.foto])
+    }, [id, dispatch, psicology.foto])
+
+ 
 
     const isValidEmail = (email) => {
         // Expresión regular para validar el formato del correo electrónico
@@ -100,10 +69,15 @@ const Account = () => {
             return
         }
         setDateToUpdate({ ...dateToUpdate, [name]: value });
+        console.log(dateToUpdate)
 
     }
     const handleSubmit = () => {
-        console.log(dateToUpdate)
+        const emptyFields = Object.values(dateToUpdate).some(value => value === "");
+        if (emptyFields) {
+            window.alert("Por favor no dejar campos vacios.");
+            return;
+        }
         // Validar el formato del correo electrónico antes de enviar los datos al servidor
         if (dateToUpdate.email && !isValidEmail(dateToUpdate.email)) {
             const title = "Email incorrecto";
@@ -112,12 +86,14 @@ const Account = () => {
             return;
         }
 
+        
+
 
 
         dispatch(updatePsic(dateToUpdate))
 
     }
-   
+
 
     const handleOptionChange = (optionValue) => {
         if (esp.includes(optionValue)) {
@@ -129,32 +105,22 @@ const Account = () => {
         setDateToUpdate({ ...dateToUpdate, especialidad: esp })
     }
 
-    function capitalizeFirstLetter(name) {
-        return name.charAt(0).toUpperCase() + name.slice(1);
-    }
 
-    const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-        const date = new Date(dateString);
-        return date.toLocaleDateString(undefined, options);
-    };
+
+
 
     if (isLoading) {
         // Mostrar un mensaje de carga mientras se busca el psicólogo
         return <div>Cargando...</div>;
     }
 
-    const handleKeyPress = (event) => {
-        const keyCode = event.which || event.keyCode;
-        if (keyCode === 45) { // 45 es el código de tecla para el signo "-"
-            event.preventDefault();
-        }
-    };
 
 
 
     return (
         <div className={styles.accountContainer}>
+
+
             <div className={styles.sidebar}>
                 <Nav className="flex-column">
                     <Nav.Item>
@@ -183,7 +149,6 @@ const Account = () => {
                     <Card.Body className={`${styles.cardBody}`}>
                         {selectedTab === 'profile' && (
                             <>
-
                                 {!isEditing && (
                                     <Button variant="link" onClick={() => setIsEditing(true)}>
                                         <i className="fas fa-pencil-alt"></i> Editar
@@ -197,213 +162,43 @@ const Account = () => {
                                         </h1>
                                         <Form onSubmit={handleSubmit}>
                                             <div className={styles.propiedades}>
-                                            {/* Campos de edición */}
-                                            
-                                            <Form.Group >
-                                                <Form.Label>Nombre</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    name="nombre"
-                                                    placeholder={psicology.nombre}
-                                                    readOnly
-                                                />
-                                            </Form.Group>
-                                            <Form.Group >
-                                                <Form.Label>Apellido</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    name="apellido"
-                                                    placeholder={psicology.apellido}
-                                                    readOnly
-                                                />
-                                            </Form.Group>
-                                            <Form.Group >
-                                                <Form.Label>Correo</Form.Label>
-                                                <Form.Control
-                                                    onChange={handleChange}
-                                                    type="text"
-                                                    name="email"
-                                                    defaultValue={psicology.email}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group >
-                                                <Form.Label>Foto</Form.Label>
-                                                <Form.Control
-                                                    onChange={handleChange}
-                                                    type="text"
-                                                    name="foto"
-                                                    defaultValue={imagen}
+                                                <BasicInfo handleChange={handleChange} psicology={psicology} />
 
-                                                />
-                                            </Form.Group>
-                                            <Form.Group controlId="options">
-                                                <Form.Label className={styles.prop}>Especialidades:</Form.Label>
-                                                <div className="text-left">
-                                                    {opcionesEspecialidades.map(opcion => (
-                                                        !psicology.especialidad.includes(opcion) && (
-                                                            <Form.Check
-                                                                key={opcion}
-                                                                type="checkbox"
-                                                                label={opcion}
-                                                                value={opcion}
-                                                                checked={esp.includes(opcion)}
+                                                <Foto handleChange={handleChange} imagen={imagen} />
 
-                                                                onChange={() => handleOptionChange(opcion)}
-                                                            />
-                                                        )
-                                                    ))}
-                                                </div>
-                                            </Form.Group>
-                                            <Form.Group>
-                                                <Form.Label className={styles.prop}>País:</Form.Label>
-                                                <Form.Select
-                                                    name="pais"
-                                                    onChange={handleChange}
-                                                    defaultValue={psicology.pais}
-                                                >
-                                                    {paises.map(opcion => (
+                                                <Paises handleChange={handleChange} zona_horaria={psicology.zona_horaria} pais={psicology.pais} />
 
-                                                        <option key={opcion} value={opcion}>
-                                                            {opcion}
-                                                        </option>
-                                                    ))}
-                                                </Form.Select>
-                                            </Form.Group>
-                                            <Form.Group >
-                                                <Form.Label className={styles.prop}>Zona horaria: </Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    name="zona_horaria"
-                                                    placeholder={psicology.zona_horaria}
-                                                    onChange={handleChange}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group>
-                                                <Form.Label className={styles.prop}>Género:</Form.Label>
-                                                <Form.Select
-                                                    name="genero"
-                                                    onChange={handleChange}
-                                                    defaultValue={psicology.genero}
-                                                >
-                                                    {generos.map(opcion => (
+                                                <Form.Group controlId="options">
+                                                    <Form.Label className={styles.prop}>Especialidades:</Form.Label>
+                                                    <div className="text-left">
+                                                        {opcionesEspecialidades.map(opcion => (
+                                                            
+                                                                <Form.Check
+                                                                    key={opcion}
+                                                                    type="checkbox"
+                                                                    label={opcion}
+                                                                    value={opcion}
+                                                                    checked={esp.includes(opcion)} 
+                                                                    onChange={() => handleOptionChange(opcion)}
+                                                                />
+                                                            
+                                                        ))}
+                                                    </div>
+                                                </Form.Group>
 
-                                                        <option key={opcion} value={opcion}>
-                                                            {opcion}
-                                                        </option>
-                                                    ))}
-                                                </Form.Select>
-                                            </Form.Group>
-                                            <Form.Group>
-                                                <Form.Label className={styles.prop}>Tárifa:</Form.Label>
-                                                <Form.Control
-                                                    type="number"
-                                                    name="tarifa"
-                                                    defaultValue={psicology.tarifa}
-                                                    min="1" // Puedes ajustar el valor mínimo permitido si es necesario
-                                                    step="1" // Define el incremento/decremento al usar las flechas
-                                                    onKeyPress={handleKeyPress}
+                                                <Horario handleChange={handleChange} horario={psicology.horario} />
 
-                                                    onChange={handleChange}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group>
-                                                <Form.Label className={styles.prop}>Horario:</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    name="horario"
-                                                    defaultValue={psicology.horario}
-                                                    onChange={handleChange}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group >
-                                                <Form.Label className={styles.prop}>Whatsapp:</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    name="whatsapp_url"
-                                                    placeholder={psicology.whatsapp_url}
-                                                    onChange={handleChange}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group >
-                                                <Form.Label className={styles.prop}>Telefono:</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    name="telefono"
-                                                    placeholder={psicology.telefono}
-                                                    onChange={handleChange}
-                                                />
-                                            </Form.Group>
                                             </div>
-                                            <Description/>
+                                            <Description descrip={psicology.descripcion} handleChange={handleChange} />
                                             <Button variant="outline-primary" type="submit">
                                                 Guardar Cambios
                                             </Button>
                                         </Form>
-                                    </>) : (<>
+                                    </>) : (<> <ProfileInfo psicology={psicology} imagen={imagen} />
 
-                                        <h1 className={styles.title}>
-                                            {psicology?.genero === "femenino" ?
-                                                `Bienvenida, ${capitalizeFirstLetter(psicology.nombre)} ${capitalizeFirstLetter(psicology.apellido)}` :
-                                                `Bienvenido, ${capitalizeFirstLetter(psicology.nombre)} ${capitalizeFirstLetter(psicology.apellido)}`}
-                                        </h1>
-                                        <div className={styles.specialties}>
-
-                                            {psicology.especialidad?.map((espe, index) => (
-                                                <p key={index}>#{espe}</p>
-                                            ))}
-                                        </div>
-                                        <div className={styles.foto_conteiner}>
-                                            <img src={imagen} />
-                                        </div>
-                                        <div className={`${styles.infoConteiner}`}>
-
-                                            <h2 className={styles.subtitle}><b>País: </b>{capitalizeFirstLetter(psicology.pais)}</h2>
-
-                                            <h2 className={styles.subtitle}><b>Fecha de nacimiento:</b> {formatDate(psicology.fecha_nacimiento)}</h2>
-                                            <h2 className={styles.subtitle}><b>Email:</b> {psicology.email}</h2>
-                                            <h2 className={styles.subtitle}><b>Zona Horaria:</b> {psicology.zona_horaria}</h2>
-                                            <h2 className={styles.subtitle}><b>Género:</b> {capitalizeFirstLetter(psicology.genero)}</h2>
-                                            <h2 className={styles.subtitle}><b>Tarifa:</b> ${psicology.tarifa}</h2>
-                                            <h2 className={styles.subtitle}><b>Whatsapp:</b> <a href={psicology.whatsapp_url} target="_blank" rel="noopener noreferrer"> {psicology.whatsapp_url}</a></h2>
-                                            <h2 className={styles.subtitle}><b>Telefono:</b> {psicology.telefono}</h2>
-                                            <h2 className={styles.subtitle}><b>Fecha de registro:</b> {formatDate(psicology.fecha_registro)}</h2>
-                                        </div>
-                                        <div className={styles.descripcionTitle}>
-                                            <h2 className={styles.subtitle}><b>Descripción</b></h2>
-                                        </div>                                        <div className={styles.descripcion}>
-                                            {psicology.descripcion}
-                                        </div> </>)}
+                                    </>)}
 
                                 </div>
-
-
-                                {/* <Form onSubmit={handleSubmit}>
-                                    <Form.Group controlId="password">
-                                        <Form.Label>Contraseña</Form.Label>
-                                        <Form.Control
-                                            type="password"
-                                            placeholder="Nueva contra   seña"
-                                            value={password}
-                                            onChange={handlePasswordChange}
-                                        />
-                                        <Button variant="outline-primary" type="submit">
-                                            Editar
-                                        </Button>
-                                    </Form.Group>
-                                    <Form.Group controlId="description">
-                                        <Form.Label>Descripción</Form.Label>
-                                        <Form.Control
-                                            as="textarea"
-                                            rows={4}
-                                            placeholder="Nueva descripción"
-                                            value={description}
-                                            onChange={handleDescriptionChange}
-                                        />
-                                        <Button variant="outline-primary" type="submit">
-                                            Editar
-                                        </Button>
-                                    </Form.Group>
-                                 </Form> */}
                             </>
                         )}
                         {selectedTab === 'reservations' && (
