@@ -4,11 +4,20 @@ const {
   putController,
 } = require("../controllers/reservaController");
 
+// utils 
+const mailer= require('../helpers/emailers.js')
+
 const reservarCitaHandler = async (req, res) => {
   const { idPsico, idUser, fecha, hora, estado } = req.body;
   try {
     const postReserva = await reservaCita({ idPsico, idUser, fecha, hora, estado });
-    res.status(200).json(postReserva);
+
+    // let dataValues = postReserva[0]
+    // console.log('la reserva', dataValues);
+    
+
+      res.status(200).json(postReserva);
+
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

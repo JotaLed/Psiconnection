@@ -1,5 +1,10 @@
 const { Psicologo, Usuario, Reserva } = require("../db");
 
+
+
+const emailer = require('../helpers/emailers.js')
+
+
 const reservaCita = async ({ idPsico, idUser, fecha, hora, estado }) => {
   try {
     const psicologo = await Psicologo.findByPk(idPsico);
@@ -14,8 +19,16 @@ const reservaCita = async ({ idPsico, idUser, fecha, hora, estado }) => {
     const newReserva = await psicologo.addUsuario(usuario, {
       through: nuevaReserva,
     });
-
-    return newReserva;
+    if(newReserva){
+      const data = newReserva[0].dataValues
+      // console.log('data', data);
+      // console.log(newReserva[0].dataValues.fecha);
+      // console.log(newReserva[0].dataValues.hora);
+      // console.log(newReserva[0].dataValues.estado);
+       await emailer.sendMailReserva({newReserva: data, psicologo, usuario})
+       
+      return newReserva;
+    }
   } catch (error) {
     console.log(error);
 

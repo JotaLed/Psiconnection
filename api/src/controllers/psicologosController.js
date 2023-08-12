@@ -223,7 +223,7 @@ const detailAcountPsicologo = async (id) => {
     };
   });
 
-  console.log(usuarioCita);
+
 
   const piscologoCita = {
     psicologo: psicologo,
