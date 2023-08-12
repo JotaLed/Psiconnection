@@ -58,13 +58,13 @@ const registerHandler = async (req, res, next) => {
     especialidad,
     whatsAppUrl,
     telefono,
-    descripcion
+    descripcion,
   } = req.body;
   const fecha = obtenerFechaActual();
   // const fotoPerfilFile = req.files['fotoPerfil'][0];
   // const licenciaFile = req.files['licencia'][0];
   console.log(fecha);
-  
+
   function getUrlImage(filePath) {
     return new Promise((resolve, reject) => {
       cloudinary.uploader.upload(filePath, function (err, result) {
@@ -78,18 +78,18 @@ const registerHandler = async (req, res, next) => {
     });
   }
 
-  //! funcion para pdf 
+  //! funcion para pdf
   async function uploadPDF(filePath) {
     try {
       const result = await cloudinary.uploader.upload(filePath, {
-        resource_type: 'raw', // Indicar que se trata de un archivo sin procesar
+        resource_type: "raw", // Indicar que se trata de un archivo sin procesar
         // folder: 'pdfs' // Carpeta en Cloudinary donde se almacenará el PDF
       });
-  
+
       const url = result.secure_url;
       return url;
     } catch (error) {
-      throw new Error('No se pudo subir el archivo PDF a Cloudinary');
+      throw new Error("No se pudo subir el archivo PDF a Cloudinary");
     }
   }
 
@@ -105,17 +105,19 @@ const registerHandler = async (req, res, next) => {
     if (!password) return res.status(403).json({ error: "password vacio" });
     if (!pais) return res.status(403).json({ error: "pais vacio" });
     if (!genero) return res.status(403).json({ error: "genero vacio" });
-//     if (!licenciaUrl) return res.status(403).json({ error: "licencia vacia" });
+    //     if (!licenciaUrl) return res.status(403).json({ error: "licencia vacia" });
     if (!tarifa) return res.status(403).json({ error: "tipo de pago vacio" });
-    if (!especialidad) return res.status(403).json({ error: "especialidad vacio" });
+    if (!especialidad)
+      return res.status(403).json({ error: "especialidad vacio" });
     if (!whatsAppUrl) return res.status(403).json({ error: "WhatsApp vacio" });
     if (!telefono) return res.status(403).json({ error: "telefono vacio" });
-    if (!descripcion) return res.status(403).json({ error: "descripcion vacio" });
-    if (!zona_horaria) return res.status(403).json({ error: "zona horaria vacio" });
+    if (!descripcion)
+      return res.status(403).json({ error: "descripcion vacio" });
+    if (!zona_horaria)
+      return res.status(403).json({ error: "zona horaria vacio" });
     if (!dias) return res.status(403).json({ error: "días vacio" });
     if (!horas) return res.status(403).json({ error: "horas vacio" });
-//     if (!fotoPerfilUrl) return res.status(403).json({ error: "foto vacio" });
-
+    //     if (!fotoPerfilUrl) return res.status(403).json({ error: "foto vacio" });
 
     const usuarioPsicologo = await createUsuarioPsicologo({
       nombre,
@@ -134,8 +136,8 @@ const registerHandler = async (req, res, next) => {
       telefono,
       descripcion,
       fecha,
-//       fotoPerfilUrl,
-//       licenciaUrl
+      //       fotoPerfilUrl,
+      //       licenciaUrl
     });
     if(usuarioPsicologo){
       console.log('psicologo', usuarioPsicologo);
@@ -226,10 +228,19 @@ const putHandler = async (req, res, next) => {
       if (field === "genero" && !isValidGender(data[field])) {
         return res.status(400).send("El género proporcionado no es válido");
       }
-      if (field === "especialidad" && typeof data[field] !== "string") {
-        return res
-          .status(400)
-          .send("La especialidad proporcionada no es un string válido");
+      if (field === "especialidad") {
+        if (!Array.isArray(data[field])) {
+          return res.status(400).send("La especialidad no es un array válido");
+        }
+        for (const item of data[field]) {
+          if (typeof item !== "string") {
+            return res
+              .status(400)
+              .send(
+                "Uno de los elementos en 'especialidad' no es un string válido"
+              );
+          }
+        }
       }
     }
   }
