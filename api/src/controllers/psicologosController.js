@@ -64,8 +64,8 @@ const createUsuarioPsicologo = async ({
   telefono,
   descripcion,
   fecha,
-//   fotoPerfilUrl,
-//   licenciaUrl
+  //   fotoPerfilUrl,
+  //   licenciaUrl
 }) => {
   const passwordHash = await encrypt(password);
 
@@ -77,8 +77,6 @@ const createUsuarioPsicologo = async ({
   });
   if (verifyExistEmail.length)
     throw new Error("El email ya se encuentra activo");
-
-
 
   // //! verificamos que no se repita la misma licencia
   // const verifyLicencia = await Psicologo.findAll({
@@ -100,14 +98,14 @@ const createUsuarioPsicologo = async ({
     dias: [...dias],
     horas: [...horas],
     genero,
-//     licencia:licenciaUrl,
+    //     licencia:licenciaUrl,
     tarifa,
     especialidad: [...especialidad],
     whatsapp_url: whatsAppUrl,
     telefono,
     descripcion,
     fecha_registro: fecha,
-//     foto: fotoPerfilUrl
+    //     foto: fotoPerfilUrl
   });
 
   return newPsicologoCreate;
@@ -149,24 +147,9 @@ const putController = async (req, res) => {
       }
     }
 
-    // Si se proporciona la propiedad "especialidad" en el cuerpo de la solicitud
-    if (
-      dataToUpdate.especialidad &&
-      typeof dataToUpdate.especialidad === "string"
-    ) {
-      const especialidadEncontrada = await Especialidad.findOne({
-        where: { especialidad: dataToUpdate.especialidad },
-      });
-
-      if (especialidadEncontrada) {
-        // Si psicologo.especialidad es un array de arrays, conviértelo en un array plano
-        if (Array.isArray(psicologo.especialidad[0])) {
-          psicologo.especialidad = psicologo.especialidad[0];
-        }
-
-        // Agregar la nueva especialidad al array
-        psicologo.especialidad.push(especialidadEncontrada.especialidad);
-      }
+    // Actualizar el array de especialidades si se proporciona
+    if (dataToUpdate.especialidad && Array.isArray(dataToUpdate.especialidad)) {
+      psicologo.especialidad = dataToUpdate.especialidad;
     }
 
     await psicologo.save();
