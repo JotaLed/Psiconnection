@@ -5,7 +5,7 @@ import Account from "./views/Account/Account";
 import SideBar from "./components/sideBar/sideBar";
 import "./App.css";
 import axios from "axios";
-axios.defaults.baseURL = "psiconnection-production.up.railway.app/";
+axios.defaults.baseURL = "https://psiconnection-production.up.railway.app/";
 
 //Hooks:
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
