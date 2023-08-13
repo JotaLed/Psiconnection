@@ -24,7 +24,53 @@ const Detail = () => {
   return (
     <div className={s.detail_conteiner}>
       <div className={s.detail}>
-        <div className={s.view_psico}>{/* ...contenido del detalle... */}</div>
+        <div className={s.view_psico}>
+          <div className={s.row1}>
+            <div className={s.foto_conteiner}>
+              <img src={psicology.foto} />
+            </div>
+            <div className={s.info_psyco}>
+              <h1 className={s.name}>
+                {psicology.nombre
+                  ? capitalizeFirstLetter(psicology.nombre)
+                  : ""}
+              </h1>
+              <h2 className={s.especialidades}>Especialidades:</h2>
+              {psicology.especialidad?.map((espe, index) => {
+                return (
+                  <p key={index} className={s.especialidad}>
+                    #{espe} <br></br>
+                  </p>
+                );
+              })}
+              <h2 className={s.time}>Cuenta creada el 03/08/23</h2>
+              <div className={s.contactar}>
+                <p>📱</p>
+                <p>Contanctar</p>
+              </div>
+            </div>
+          </div>
+          <div className={s.row2}>
+            <label className={s.label}>Datos del psicologo:</label>
+            <div className={s.info}>
+              <p>
+                Fecha de nacimiento:
+                <span className={s.negrita}>{psicology.fecha_nacimiento}</span>
+              </p>
+              <p>
+                Pais de origen:{" "}
+                <span className={s.negrita}>{psicology.pais}</span>
+              </p>
+              <p>
+                Genero: <span className={s.negrita}>{psicology.genero}</span>
+              </p>
+            </div>
+          </div>
+          <div className={s.row3}>
+            <label className={s.label}>Descripción:</label>
+            <div className={s.descripcion}>{psicology.descripcion}</div>
+          </div>
+        </div>
         <div className={s.turno_conteiner}>
           <h1>Pide tu turno!</h1>
           {psicology.nombre ? (
