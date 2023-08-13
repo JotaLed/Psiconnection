@@ -6,8 +6,12 @@ const {
   detailAcountUsuario,
   getUserController,
 } = require("../controllers/userControllers.js");
+
+// helpers, midlwares  y utils 
 const obtenerFechaActual = require("../helpers/getFecha.js");
 const cloudinary = require("../utils/cloudinary.js");
+const emailer = require('../helpers/emailers.js')
+
 
 const userCreateHandler = async (req, res) => {
   const {
@@ -45,7 +49,11 @@ const userCreateHandler = async (req, res) => {
       telefono,
       fecha,
     });
-    return res.status(200).json(newUser);
+
+    if(newUser){
+     await emailer.sendMailRegister(newUser)
+      return res.status(200).json(newUser);
+    }
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
