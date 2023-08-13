@@ -3,6 +3,18 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
+const { auth } = require("express-openid-connect");
+require("dotenv").config();
+
+//auth0 config
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.AUTH0_SECRET,
+  baseURL: process.env.AUTH0_BASEURL,
+  clientID: process.env.AUTH0_CLIENTID,
+  issuerBaseURL: process.env.AUTH0_ISSUERBASEURL,
+};
 
 const server = express();
 
@@ -21,6 +33,12 @@ server.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
+
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+server.use(auth(config));
+// server.post("/callback", (req, res) => {
+//   res.redirect("http://localhost:3001/psiconection");
+// });
 
 server.use("/", routes);
 
