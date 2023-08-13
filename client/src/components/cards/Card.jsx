@@ -5,6 +5,12 @@ import StarRating from '../estrellas/estrellas';
 import { Link } from 'react-router-dom';
 
 export default function Cards(props) {
+
+  
+  function capitalizeFirstLetter(name) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
   return (
     <Link to={`/detail/${props.id}`}>
       {/* <div className={s.cartaPrueba}>
@@ -16,7 +22,7 @@ export default function Cards(props) {
 
      
       <div className="card-body">
-        <h3 className={s.titulo}>{props.nombre +" " + props.apellido}</h3>
+        <h3 className={s.titulo}>{capitalizeFirstLetter(props.nombre) +" " + capitalizeFirstLetter(props.apellido)}</h3>
       </div>
       <ul className="list-group list-group-flush">
     <li className="list-group-item"><StarRating value={props.valoracion}/></li>

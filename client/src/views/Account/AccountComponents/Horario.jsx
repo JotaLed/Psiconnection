@@ -2,7 +2,7 @@ import { Form } from 'react-bootstrap';
 import styles from '../Account.module.css';
 
 const Horario = ({horario, handleChange}) => {
-    return 
+    return (
     <Form.Group>
         <Form.Label className={styles.prop}>Horario:</Form.Label>
         <Form.Control
@@ -11,7 +11,7 @@ const Horario = ({horario, handleChange}) => {
             defaultValue={horario}
             onChange={handleChange}
         />
-    </Form.Group>
+    </Form.Group>)
 }
 
 export default Horario;

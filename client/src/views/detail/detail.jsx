@@ -29,10 +29,13 @@ const Detail = () => {
         console.log(psicology);
     }, [])
     //funciones 
-
-    console.log(detailID);
-    console.log(psicology);
-    console.log(psicology.imagen);
+    
+    function capitalizeFirstLetter(name) {
+        return name.charAt(0).toUpperCase() + name.slice(1);
+    }
+    // console.log(detailID);
+    // console.log(psicology);
+    // console.log(psicology.imagen);
     return (
         <div className={s.detail_conteiner}>
             <div className={s.detail}>
@@ -42,7 +45,7 @@ const Detail = () => {
                             <img src={psicology.foto} />
                         </div>
                         <div className={s.info_psyco}>
-                            <h1 className={s.name}>{psicology.nombre}</h1>
+                            <h1 className={s.name}>{capitalizeFirstLetter(psicology.nombre)}</h1>
                             <h2 className={s.especialidades}>Especialidades:</h2>
                             {psicology.especialidad?.map((espe, index) => {
 

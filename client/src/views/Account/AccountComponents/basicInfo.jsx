@@ -9,7 +9,7 @@ const generos = [
 
 const handleKeyPress = (event) => {
     const keyCode = event.keyCode;
-    if (keyCode === 45) { // 45 es el código de tecla para el signo "-"
+    if (keyCode === 45 && event.target.name === "tarifa") {
         event.preventDefault();
     }
 };
@@ -19,6 +19,11 @@ const handleKeyDown = (event) => {
     if (!allowedKeys.includes(event.key) && isNaN(event.key)) {
         event.preventDefault();
     }
+};
+
+const isValidUrl = (url) => {
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    return urlPattern.test(url);
 };
 
 const BasicInfo = ({handleChange, psicology }) => {
@@ -77,15 +82,20 @@ const BasicInfo = ({handleChange, psicology }) => {
                 onChange={handleChange}
             />
         </Form.Group>
-        <Form.Group >
-            <Form.Label className={styles.prop}>Whatsapp:</Form.Label>
-            <Form.Control
-                type="text"
-                name="whatsapp_url"
-                defaultValue={psicology.whatsapp_url}
-                onChange={handleChange}
-            />
-        </Form.Group>
+        <Form.Group>
+                <Form.Label className={styles.prop}>Whatsapp:</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="whatsapp_url"
+                    defaultValue={psicology.whatsapp_url}
+                    onChange={(event) => {
+                        const { name, value } = event.target;
+                        if (name === "whatsapp_url" && isValidUrl(value)) {
+                            handleChange(event);
+                        }
+                    }}
+                />
+            </Form.Group>
         <Form.Group >
             <Form.Label className={styles.prop}>Telefono:</Form.Label>
             <Form.Control

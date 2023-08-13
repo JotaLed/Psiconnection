@@ -7,8 +7,13 @@ const ProfileInfo = ({ psicology, imagen }) => {
     }
 
     const formatDate = (dateString) => {
+        if(dateString.length < 11){
+            return dateString
+        }
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         const date = new Date(dateString);
+
+        
         return date.toLocaleDateString(undefined, options);
     };
     return (
@@ -19,7 +24,7 @@ const ProfileInfo = ({ psicology, imagen }) => {
                 }
             </h1>
             <div className={styles.specialties}>
-
+                {console.log(psicology.especialidad)}
                 {psicology.especialidad?.map((espe, index) => (
                     <p key={index}>#{espe}</p>
                 ))}
@@ -31,8 +36,7 @@ const ProfileInfo = ({ psicology, imagen }) => {
 
                 <h2 className={styles.subtitle}><b>País: </b>{capitalizeFirstLetter(psicology.pais)}</h2>
 
-                <h2 className={styles.subtitle}><b>Fecha de nacimiento:</b> {(psicology.fecha_nacimiento)}</h2>
-                {/* <h2 className={styles.subtitle}><b>Fecha de nacimiento:</b> {formatDate(psicology.fecha_nacimiento)}</h2> */}
+                <h2 className={styles.subtitle}><b>Fecha de nacimiento:</b> {formatDate(psicology.fecha_nacimiento)}</h2>
                 <h2 className={styles.subtitle}><b>Email:</b> {psicology.email}</h2>
                 <h2 className={styles.subtitle}><b>Zona Horaria:</b> {psicology.zona_horaria}</h2>
                 <h2 className={styles.subtitle}><b>Género:</b> {capitalizeFirstLetter(psicology.genero)}</h2>

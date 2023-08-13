@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 const Foto = ({handleChange, imagen}) => {
     return(
     <Form.Group >
-        <Form.Label>Foto</Form.Label>
+        <Form.Label><b>Foto</b></Form.Label>
         <Form.Control
             onChange={handleChange}
             type="text"
