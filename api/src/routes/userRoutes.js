@@ -32,10 +32,10 @@ userRoutes.put("/updateuser", putHandler);
 userRoutes.delete("/delete", deleteHandler);
 
 // ruta tipo get sin auth http://localhost:3001/psiconection/usuario/acount/id
-// userRoutes.get("/usuario/acount/:id", getDetailAcount);
+userRoutes.get("/usuario/acount/:id", getDetailAcount);
 
 //! con autentificacion
-userRoutes.get("/usuario/acount/:id",verifyIdToken, checkRollAuth(['usuario']), getDetailAcount);
+// userRoutes.get("/usuario/acount/:id",verifyIdToken, checkRollAuth(['usuario']), getDetailAcount);
 
 // ruta tipo get obtener todas 
 userRoutes.get('/usuarios/all', (req, res) => {

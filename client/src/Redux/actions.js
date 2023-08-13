@@ -4,6 +4,8 @@ export const GET_PSICOLOGOS = "GET_PSICOLOGOS";
 export const LOAD_DETAIL = "LOAD_DETAIL"
 export const SEARCH_APELLIDO = "SEARCH_APELLIDO"
 export const UPDATE_PSIC = "UPDATE_PSIC";
+export const GET_SPECIALITIES = "GET_SPECIALITIES"
+export const GET_DETAIL= "GET_DETAIL"
 import axios from "axios"
 
 export const setFilter = (filters) => {
@@ -58,12 +60,40 @@ export const searchByName = (apellido) => {
 }
 
 export const updatePsic = (dataToUpdate) => {
-    axios.put("http://localhost:3001/psiconection/update", dataToUpdate)
-        .then(response => {
-            window.alert("Datos actualizados!")
-        })
-        .catch(error => {
-            console.log("error")
-            // Manejar errores en caso de que la solicitud falle
-        });
+
+    return async function (){
+        axios.put("http://localhost:3001/psiconection/update", dataToUpdate)
+    }
+
+}
+
+export const getSpecialities = () => {
+    return async function (dispatch) {
+        try {
+            const apiData= await axios.get(`http://localhost:3001/psiconection/specialties`);
+            const especialidades = apiData.data
+            return (dispatch({
+                type: GET_SPECIALITIES, payload: especialidades
+            }))
+        } catch (error) {
+            console.log(error.message);
+
+        }
+    }
+}
+
+export const getDetail = (id) => {
+    return async function (dispatch) {
+        try {
+            const apiData= await axios.get(`http://localhost:3001/psiconection/acount/${id}`);
+            const psicologo = apiData.data
+            console.log(psicologo)
+            return (dispatch({
+                type: GET_DETAIL, payload: psicologo
+            }))
+        } catch (error) {
+            console.log(error.message);
+
+        }
+    }
 }
