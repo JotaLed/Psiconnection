@@ -3,7 +3,8 @@ const {
   uploadUserPhoto,
   putController,
   deleteController,
-  detailAcountUsuario
+  detailAcountUsuario,
+  getUserController,
 } = require("../controllers/userControllers.js");
 const obtenerFechaActual = require("../helpers/getFecha.js");
 const cloudinary = require("../utils/cloudinary.js");
@@ -74,6 +75,15 @@ const subirFotoUser = async (req, res) => {
   }
 };
 
+const getHandler = async (req, res) => {
+  try {
+    const users = await getUserController();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 //Handler de la ruta put para corroborar que al menos llego un dato para actualizar
 const putHandler = async (req, res, next) => {
   const data = req.body;
@@ -105,22 +115,22 @@ const deleteHandler = async (req, res, next) => {
   await deleteController(req, res);
 };
 
- const getDetailAcount =  async (req, res) => {
-    const { id } = req.params
-    try {
-      const response = await detailAcountUsuario(id)
-      return res.status(200).json(response)
-    } catch (error) {
-      console.log(error);
-      res.status(400).json({error:error.message})
-    }
- }
+const getDetailAcount = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await detailAcountUsuario(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error: error.message });
+  }
+};
 
 module.exports = {
   userCreateHandler,
   subirFotoUser,
   putHandler,
   deleteHandler,
-  getDetailAcount
+  getDetailAcount,
+  getHandler,
 };
-
