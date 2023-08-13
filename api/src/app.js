@@ -24,7 +24,7 @@ server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
   const allowedOrigins = [
-    "https://psiconnection-drtzip4aq-jotaled.vercel.app",//
+    //"https://psiconnection-drtzip4aq-jotaled.vercel.app",
     "https://psiconnection-6obk46mug-jotaled.vercel.app",
     "https://psiconnection.vercel.app",
     "http://localhost:3000/",
