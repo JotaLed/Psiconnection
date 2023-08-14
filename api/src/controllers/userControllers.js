@@ -61,6 +61,11 @@ const uploadUserPhoto = async ({ id, fotoUserURL }) => {
   return updateFoto;
 };
 
+const getUserController = async () => {
+  const users = await Usuario.findAll();
+  return [users];
+};
+
 // Controlador para actualizar datos de un user
 const putController = async (req, res) => {
   try {
@@ -143,44 +148,43 @@ const deleteController = async (req, res) => {
   }
 };
 
-
-
 const detailAcountUsuario = async (id) => {
-    const usuario = await Usuario.findByPk(id)
-    
-    const citas = await Reserva.findAll({
-      where: {
-        UsuarioId: id
-      }
-    })
+  const usuario = await Usuario.findByPk(id);
 
-    const psicologosMap = citas.map(async (cita) => {
-      const psicologo = await Psicologo.findByPk(cita.PsicologoId);
-      return psicologo;
-    });
-    const psicologos = await Promise.all(psicologosMap);
-    console.log(psicologos);
-    
-    const psicologoCita = citas.map((cita) => {
-      const psicologo = psicologos.find((psicologo) => psicologo.id === cita.PsicologoId);
-      return {
-        IdCita: cita.id,
-        Fecha: cita.fecha,
-        Hora: cita.hora,
-        psicologoId: psicologo.id,
-        psicologoNombre: psicologo.nombre,
-        psicologoApellido: psicologo.apellido,
-        psicologoPais: psicologo.pais
-      };
-    });
+  const citas = await Reserva.findAll({
+    where: {
+      UsuarioId: id,
+    },
+  });
 
-    const info = {
-      usuario: usuario,
-      citas: psicologoCita
-    }
+  const psicologosMap = citas.map(async (cita) => {
+    const psicologo = await Psicologo.findByPk(cita.PsicologoId);
+    return psicologo;
+  });
+  const psicologos = await Promise.all(psicologosMap);
+  console.log(psicologos);
 
-    return info
+  const psicologoCita = citas.map((cita) => {
+    const psicologo = psicologos.find(
+      (psicologo) => psicologo.id === cita.PsicologoId
+    );
+    return {
+      IdCita: cita.id,
+      Fecha: cita.fecha,
+      Hora: cita.hora,
+      psicologoId: psicologo.id,
+      psicologoNombre: psicologo.nombre,
+      psicologoApellido: psicologo.apellido,
+      psicologoPais: psicologo.pais,
+    };
+  });
 
+  const info = {
+    usuario: usuario,
+    citas: psicologoCita,
+  };
+
+  return info;
 };
 
 module.exports = {
@@ -188,5 +192,6 @@ module.exports = {
   uploadUserPhoto,
   putController,
   deleteController,
-  detailAcountUsuario
+  detailAcountUsuario,
+  getUserController,
 };

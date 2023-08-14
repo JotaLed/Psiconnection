@@ -2,7 +2,6 @@ const server = require("./src/app.js");
 require("dotenv").config();
 const { PORT } = process.env;
 const verifySpecialties = require("./src/helpers/verifySpecialties.js");
-
 const { conn } = require("./src/db.js");
 
 conn.sync({ force: false }).then(async () => {
