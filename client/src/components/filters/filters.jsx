@@ -57,19 +57,7 @@ const Filters = (props) => {
                 </select>
             </div>
 
-            <label className={style.label}>Horario</label>
-            <div className={style.selectContainer}>
-                <select
-                    className={style.select}
-                    name="horario"
-                    value={filters.horario}
-                    onChange={handleFilterChange}
-                >
-                    <option value="all">ALL</option>
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                </select>
-            </div>
+           
 
             <label className={style.label}>Género</label>
             <div className={style.selectContainer}>

@@ -4,19 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetail } from "../../../Redux/actions";
 import { Table, Button } from "react-bootstrap";
 
-const CitasPsic = () => {
-    const dispatch = useDispatch();
-    const psicologo = useSelector((store) => store.psicologo);
-
-    const { id } = useParams();
-
-    useEffect(() => {
-        const aux = async () => {
-            await dispatch(getDetail(id));
-        };
-        aux();
-    }, [dispatch, id]);
-
+const CitasClient = ({client}) => {
+    
     const handleCancelCita = (idCita) => {
         
     };
@@ -28,32 +17,30 @@ const CitasPsic = () => {
     return (
         <div>
             <h2>Mis Citas</h2><br></br>
-            {psicologo.cita?  <Table striped bordered hover>
+            {client.citas?  <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Cita</th>
-                        <th>Usuario</th>
-                        <th>País del Usuario</th>
+                        <th>Psicólogo</th>
+                        <th>País del Psicólogo</th>
                         <th>Fecha</th>
                         <th>Hora</th>
-                        <th>Estado</th> 
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {psicologo.cita.map((cita, index) => (
+                    {client.citas.map((cita, index) => (
                         <tr key={cita.IdCita}>
                             <td>{index + 1}</td>
-                            <td>{capitalizeFirstLetter(cita.usuarioNombre)} {capitalizeFirstLetter(cita.usuarioApellido)}</td>
-                            <td>{cita.usuarioPais}</td>
+                            <td>{capitalizeFirstLetter(cita.psicologoNombre)} {capitalizeFirstLetter(cita.psicologoApellido)}</td>
+                            <td>{cita.psicologoPais}</td>
 
                             <td>{cita.Fecha}</td>
                             <td>{cita.Hora}</td>
-                            <td>{capitalizeFirstLetter(cita.Estado)}</td>
                             <td>
-                                {cita.Estado.toLowerCase() !== "finalizado" && <Button variant="danger" onClick={() => handleCancelCita(cita.IdCita)}>
+                                <Button variant="danger" onClick={() => handleCancelCita(cita.IdCita)}>
                                     Cancelar Cita
-                                </Button>}
+                                </Button>
                             </td>
                         </tr>
                     ))}
@@ -63,4 +50,4 @@ const CitasPsic = () => {
     );
 };
 
-export default CitasPsic;
+export default CitasClient;

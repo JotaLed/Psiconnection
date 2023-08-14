@@ -5,7 +5,8 @@ import Account from "./views/Account/Account";
 import SideBar from "./components/sideBar/sideBar";
 import "./App.css";
 import axios from "axios";
-axios.defaults.baseURL = "https://psiconnection-production.up.railway.app/";
+// axios.defaults.baseURL = "https://psiconnection-production.up.railway.app/";
+axios.defaults.baseURL = "http://localhost:3001/";
 
 //Hooks:
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ import Landing from "./views/landing/landing";
 import Form from "./views/form/form";
 import Detail from "./views/detail/detail";
 import Nosotros from "./views/nosotros/nosotros";
+import ClientAccount from "./views/Account/ClientAccount";
 
 //importmos components:
 
@@ -36,6 +38,8 @@ function App() {
         <Route path="/nosotros" element={<Nosotros />}></Route>
         <Route path="/detail/:detailID" element={<Detail />}></Route>
         <Route path="/account/:id" element={<Account />} />
+        <Route path="/account/client/:id" element={<ClientAccount/>} />
+
       </Routes>
     </div>
   );

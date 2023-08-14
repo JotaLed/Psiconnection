@@ -13,7 +13,6 @@ const CardsContainer = ({ items }) => {
     return (
         <div className={style.mainContainer}>
             <div className={style.container}>
-                {console.log(psicologos)}
                 {items.map((psicologo) => {
                     return <Card key={psicologo.id}
                         id={psicologo.id}

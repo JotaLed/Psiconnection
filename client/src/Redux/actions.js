@@ -6,6 +6,8 @@ export const SEARCH_APELLIDO = "SEARCH_APELLIDO";
 export const UPDATE_PSIC = "UPDATE_PSIC";
 export const GET_SPECIALITIES = "GET_SPECIALITIES";
 export const GET_DETAIL = "GET_DETAIL";
+export const GET_DETAIL_CLIENT = "GET_DETAIL_CLIENT";
+export const GET_DETAIL_PSICOLOGO = "GET_DETAIL_PSICOLOGO";
 import axios from "axios";
 
 export const setFilter = (filters) => {
@@ -59,8 +61,11 @@ export const searchByName = (apellido) => {
 
 export const updatePsic = (dataToUpdate) => {
   return async function () {
-    axios.put("/psiconection/update", dataToUpdate);
-  };
+    console.log(dataToUpdate)
+    await axios.put("/psiconection/update", dataToUpdate)
+    .then(response => console.log(response))
+    .catch(error => console.log("Error en la solicitud PUT", error));
+  }
 };
 
 export const getSpecialities = () => {
@@ -83,7 +88,6 @@ export const getDetail = (id) => {
     try {
       const apiData = await axios.get(`/psiconection/acount/${id}`);
       const psicologo = apiData.data;
-      console.log(psicologo);
       return dispatch({
         type: GET_DETAIL,
         payload: psicologo,
@@ -93,3 +97,41 @@ export const getDetail = (id) => {
     }
   };
 };
+
+export const getDetailClient = (id) => {
+  return async function (dispatch) {
+    try {
+      const apiData = await axios.get(`psiconection/usuario/acount/${id}`);
+      const cliente = apiData.data;
+      console.log(cliente)
+      return dispatch({
+        type: GET_DETAIL_CLIENT,
+        payload: cliente,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const updateClient = (dataToUpdate)=> {
+  return async function () {
+    await axios.put("/psiconection/updateuser", dataToUpdate)
+    .then(response => console.log(response))
+    .catch(error => console.log("Error en la solicitud PUT", error));
+  }
+}
+
+export const deletePiscologo = (id) => {
+  return async function () {
+    try {
+      await axios.delete('/psiconection/delete/', {
+          data: { id: id }
+      });
+  } catch (error) {
+      console.error('Error al eliminar:', error);
+  }
+  }
+   
+}
+
