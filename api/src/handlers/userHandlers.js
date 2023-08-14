@@ -3,10 +3,15 @@ const {
   uploadUserPhoto,
   putController,
   deleteController,
-  detailAcountUsuario
+  detailAcountUsuario,
+  getUserController,
 } = require("../controllers/userControllers.js");
+
+// helpers, midlwares  y utils 
 const obtenerFechaActual = require("../helpers/getFecha.js");
 const cloudinary = require("../utils/cloudinary.js");
+const emailer = require('../helpers/emailers.js')
+
 
 const userCreateHandler = async (req, res) => {
   const {
@@ -44,7 +49,11 @@ const userCreateHandler = async (req, res) => {
       telefono,
       fecha,
     });
-    return res.status(200).json(newUser);
+
+    if(newUser){
+     await emailer.sendMailRegister(newUser)
+      return res.status(200).json(newUser);
+    }
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
@@ -71,6 +80,15 @@ const subirFotoUser = async (req, res) => {
     res.status(200).json(updatedUserPhoto);
   } catch (error) {
     return res.status(400).json({ error: error.message });
+  }
+};
+
+const getHandler = async (req, res) => {
+  try {
+    const users = await getUserController();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
 
@@ -105,22 +123,22 @@ const deleteHandler = async (req, res, next) => {
   await deleteController(req, res);
 };
 
- const getDetailAcount =  async (req, res) => {
-    const { id } = req.params
-    try {
-      const response = await detailAcountUsuario(id)
-      return res.status(200).json(response)
-    } catch (error) {
-      console.log(error);
-      res.status(400).json({error:error.message})
-    }
- }
+const getDetailAcount = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await detailAcountUsuario(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error: error.message });
+  }
+};
 
 module.exports = {
   userCreateHandler,
   subirFotoUser,
   putHandler,
   deleteHandler,
-  getDetailAcount
+  getDetailAcount,
+  getHandler,
 };
-
