@@ -27,9 +27,9 @@ const createOrder = async (req, res) => {
             }
         ],
         back_urls:{
-                success:'http://localhost:3001/psiconnection/payment/success',
-                failure:'http://localhost:3001/psiconnection/payment/failure',
-                pending:'http://localhost:3001/psiconnection/payment/pending'
+                success:'http://localhost:5173/detail/164fd47a-abcf-4ae9-afff-b68d582ae778',
+                failure:'http://localhost:5173/detail/164fd47a-abcf-4ae9-afff-b68d582ae778',
+                pending:'http://localhost:5173/detail/164fd47a-abcf-4ae9-afff-b68d582ae778'
         },
         notification_url:'https://22a6-190-138-148-106.ngrok.io/webhook'
     })

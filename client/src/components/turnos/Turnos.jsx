@@ -168,12 +168,11 @@ console.log(psicology);
                     })}
                 </div>
 
-                <button onClick={handleCheckoutClick}>
-                <div className="pedir_turno">
+                <div onClick={handleCheckoutClick} className="pedir_turno">
                     <p>📅</p>
                     <p>Pedir turno</p>
                 </div>
-                </button>
+
                 
             </div>
                 : <div>
