@@ -24,7 +24,7 @@ const userCreateHandler = async (req, res) => {
     contraseña,
     telefono,
   } = req.body;
-  const fecha = obtenerFechaActual();
+  const fecha = await obtenerFechaActual();
   console.log(fecha);
 
   try {
@@ -55,6 +55,8 @@ const userCreateHandler = async (req, res) => {
       return res.status(200).json(newUser);
     }
   } catch (error) {
+    console.log(error);
+    
     return res.status(400).json({ error: error.message });
   }
 };
