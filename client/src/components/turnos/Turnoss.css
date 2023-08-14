@@ -1,4 +1,19 @@
-.turnos{
+/* 
+    #dce0e6
+    #606d80
+    #567ebb
+    #2b4c7e
+    #1f1f20
+*/
+
+.react-calendar__tile:hover {
+    background-color: inherit;
+    color: inherit;
+    border: none;
+    cursor: default;
+}
+
+.turnos {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,51 +21,80 @@
     width: 90%;
 }
 
-.unvalidate-day{
-    background-color: lightgray;
+.unvalidate-day {
+    background-color: #fff;
     /* Cambia el color de fondo */
     /* Puedes ajustar la apariencia de los días */
     /* Otros estilos personalizados según tu preferencia */
+    color: red;
+
+    & :hover {
+        background-color: #fff;
+    }
 }
-.validate-day{
-    background-color:  #2b4c7e;
+
+.validate-day {
+    background-color: #2b4c7e;
     color: aliceblue;
-    
+
 }
-.contenedor{
+
+.contenedor {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.horaios{
+.info_turno{
+    display: flex;
+    width: 100%;
+}
+.precio{
+    margin-top: 10px;
+    align-self: flex-start;
+    font-size: 15px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.dia{
+    margin-top: 10px;
+    align-self: flex-end;
+    font-size: 15px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.horaios {
     text-align: center;
 }
-.horas_conteiner{
+
+.horas_conteiner {
     display: flex;
     align-items: center;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     gap: 18px;
-    
+
 }
-.validate{
+
+.validate {
     border-radius: 5px;
     padding: 5px;
     font-size: 10;
     border: #2b4c7e 1px solid;
     cursor: pointer;
-    
-    
+
+
 }
-.validate label{
+
+.validate label {
     cursor: pointer;
 }
-.validate_active{
+
+.validate_active {
     border-radius: 5px;
     padding: 5px;
     font-size: 10;
     background-color: rgb(190, 187, 187);
     border: #2b4c7e 1px solid;
 }
+
 .unvalidate {
     border-radius: 5px;
     padding: 5px;
@@ -58,7 +102,8 @@
     background-color: rgba(255, 0, 0, 0.423);
 
 }
-.pedir_turno{
+
+.pedir_turno {
     margin-top: 30px;
     display: flex;
     justify-content: center;
@@ -74,7 +119,8 @@
     color: aliceblue;
     cursor: pointer;
 }
-.pedir_turno p{
+
+.pedir_turno p {
     font-size: 20px;
 
 

@@ -127,13 +127,13 @@
 }
 
 .turno_conteiner {
-    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
     background-color: #ffff;
-    height: 650px;
+    min-height: 650px;
+    height: fit-content;
     width: 30vw;
     right: 15vw;
     min-width: 25vw;

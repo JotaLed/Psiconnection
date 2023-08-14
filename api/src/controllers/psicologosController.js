@@ -64,8 +64,8 @@ const createUsuarioPsicologo = async ({
   telefono,
   descripcion,
   fecha,
-//   fotoPerfilUrl,
-//   licenciaUrl
+  //   fotoPerfilUrl,
+  //   licenciaUrl
 }) => {
   const passwordHash = await encrypt(password);
 
@@ -77,8 +77,6 @@ const createUsuarioPsicologo = async ({
   });
   if (verifyExistEmail.length)
     throw new Error("El email ya se encuentra activo");
-
-
 
   // //! verificamos que no se repita la misma licencia
   // const verifyLicencia = await Psicologo.findAll({
@@ -100,14 +98,14 @@ const createUsuarioPsicologo = async ({
     dias: [...dias],
     horas: [...horas],
     genero,
-//     licencia:licenciaUrl,
+    //     licencia:licenciaUrl,
     tarifa,
     especialidad: [...especialidad],
     whatsapp_url: whatsAppUrl,
     telefono,
     descripcion,
     fecha_registro: fecha,
-//     foto: fotoPerfilUrl
+    //     foto: fotoPerfilUrl
   });
 
   return newPsicologoCreate;
@@ -149,32 +147,46 @@ const putController = async (req, res) => {
       }
     }
 
-    // Si se proporciona la propiedad "especialidad" en el cuerpo de la solicitud
-    if (
-      dataToUpdate.especialidad &&
-      typeof dataToUpdate.especialidad === "string"
-    ) {
-      const especialidadEncontrada = await Especialidad.findOne({
-        where: { especialidad: dataToUpdate.especialidad },
-      });
+    // Validar especialidades si se proporcionan
+    if (dataToUpdate.especialidad && Array.isArray(dataToUpdate.especialidad)) {
+      const especialidadesEncontradas = await Promise.all(
+        dataToUpdate.especialidad.map(async (especialidad) => {
+          const especialidadEncontrada = await Especialidad.findOne({
+            where: { especialidad },
+          });
+          return especialidadEncontrada ? especialidad : null;
+        })
+      );
 
-      if (especialidadEncontrada) {
-        // Si psicologo.especialidad es un array de arrays, conviértelo en un array plano
-        if (Array.isArray(psicologo.especialidad[0])) {
-          psicologo.especialidad = psicologo.especialidad[0];
-        }
+      // Filtrar para eliminar especialidades que no se encontraron
+      const especialidadesValidas = especialidadesEncontradas.filter(
+        (especialidad) => especialidad !== null
+      );
 
-        // Agregar la nueva especialidad al array
-        psicologo.especialidad.push(especialidadEncontrada.especialidad);
+      // Si todas las especialidades son válidas, actualizar el psicólogo
+      if (especialidadesValidas.length === dataToUpdate.especialidad.length) {
+        psicologo.especialidad = especialidadesValidas;
+        await psicologo.save();
+        res.status(200).send({
+          message: "Los datos del psicólogo se actualizaron correctamente.",
+          psicologoActualizado: psicologo,
+        });
+      } else {
+        const especialidadesInvalidas = dataToUpdate.especialidad.filter(
+          (especialidad, index) => !especialidadesValidas[index]
+        );
+        res.status(400).send({
+          message: "Las siguientes especialidades no existen:",
+          especialidadesNoExistentes: especialidadesInvalidas,
+        });
       }
+    } else {
+      await psicologo.save();
+      res.status(200).send({
+        message: "Los datos del psicólogo se actualizaron correctamente.",
+        psicologoActualizado: psicologo,
+      });
     }
-
-    await psicologo.save();
-
-    res.status(200).send({
-      message: "Los datos del psicólogo se actualizaron correctamente.",
-      psicologoActualizado: psicologo,
-    });
   } catch (error) {
     console.error("Error al actualizar datos del psicólogo:", error);
     res
@@ -232,6 +244,7 @@ const detailAcountPsicologo = async (id) => {
       IdCita: cita.id,
       Fecha: cita.fecha,
       Hora: cita.hora,
+      Estado: cita.estado,
       usuarioId: usuario.id,
       usuarioNombre: usuario.nombre,
       usuarioApellido: usuario.apellido,
@@ -239,7 +252,7 @@ const detailAcountPsicologo = async (id) => {
     };
   });
 
-  console.log(usuarioCita);
+
 
   const piscologoCita = {
     psicologo: psicologo,

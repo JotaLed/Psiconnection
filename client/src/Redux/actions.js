@@ -1,11 +1,14 @@
 export const SET_FILTER = "SET_FILTER";
 export const SET_ORDERS = "SET_ORDERS";
 export const GET_PSICOLOGOS = "GET_PSICOLOGOS";
-export const LOAD_DETAIL = "LOAD_DETAIL"
-export const SEARCH_APELLIDO = "SEARCH_APELLIDO"
+export const LOAD_DETAIL = "LOAD_DETAIL";
+export const SEARCH_APELLIDO = "SEARCH_APELLIDO";
 export const UPDATE_PSIC = "UPDATE_PSIC";
-export const PAYMENT_PSICO = "PAYMENT_PSICO";
-import axios from "axios"
+export const GET_SPECIALITIES = "GET_SPECIALITIES";
+export const GET_DETAIL = "GET_DETAIL";
+export const GET_DETAIL_CLIENT = "GET_DETAIL_CLIENT";
+export const GET_DETAIL_PSICOLOGO = "GET_DETAIL_PSICOLOGO";
+import axios from "axios";
 
 export const setFilter = (filters) => {
     //comentario
@@ -67,14 +70,4 @@ export const updatePsic = (dataToUpdate) => {
             console.log("error")
             // Manejar errores en caso de que la solicitud falle
         });
-}
-
-export const payment = () => {
-    return async function(dispatch){
-            const response = await axios.post(`http://localhost:3001/psiconnection/payment/create-order`)
-            return dispatch({
-                type: 'PAYMENT_PSICO',
-                payload: response.data,
-            });
-        };
-    };
+};

@@ -18,17 +18,24 @@
 .navbar-container {
   width: 100%;
   max-width: 1200px;
-  padding: 0 20px;
+  /* padding: 0 20px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.navbar-logo_conteiner{
+  height:90px;
+  width: 200px;
+}
+
 .navbar-logo {
-  font-size: 1.8rem; /* Tamaño ligeramente más grande */
+  /* font-size: 1.8rem; Tamaño ligeramente más grande */
   text-decoration: none;
   color: #fff;
   font-weight: bold; /* Añadimos negrita para destacar el logo */
+  height: 100%;
+  width: 100%;
 }
 
 .nav-menu {
