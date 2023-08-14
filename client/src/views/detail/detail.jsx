@@ -32,21 +32,21 @@ const Detail = () => {
             <div className={s.info_psyco}>
               <h1 className={s.name}>
                 {psicology.nombre
-                  ? capitalizeFirstLetter(psicology.nombre)
+                  ? capitalizeFirstLetter(psicology.nombre+" "+psicology.apellido)
                   : ""}
               </h1>
               <h2 className={s.especialidades}>Especialidades:</h2>
               {psicology.especialidad?.map((espe, index) => {
                 return (
                   <p key={index} className={s.especialidad}>
-                    #{espe} <br></br>
+                    #{espe}<br></br>
                   </p>
                 );
               })}
               <h2 className={s.time}>Cuenta creada el 03/08/23</h2>
               <div className={s.contactar}>
                 <p>📱</p>
-                <p>Contanctar</p>
+                <p>Contactar</p>
               </div>
             </div>
           </div>

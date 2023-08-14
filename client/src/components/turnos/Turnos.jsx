@@ -152,9 +152,9 @@ console.log(psicology);
             />
             {flagH === true ? <div className='contenedor'>
                 <h3 className='horario'>Selecione su horario:</h3>
-                <div className='info_truno'>
-                    <p className='precio'>Precio del turno:{psicology.tarifa}$</p> 
-                    <p className='dia'>Dia selecionado:{selectTurno.fecha}</p>
+                <div className='info_turno'>
+                    <p className='dia'>Dia selecionado: {selectTurno.fecha}</p>
+                    <p className='precio'>Precio del turno: {psicology.tarifa}$</p> 
                 </div>
                 <div className='horas_conteiner'>
                     {disponibilidad.horarios.map((hora, index) => {
