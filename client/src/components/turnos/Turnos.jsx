@@ -167,12 +167,14 @@ console.log(psicology);
                             )
                     })}
                 </div>
+
                 <button onClick={handleCheckoutClick}>
                 <div className="pedir_turno">
                     <p>📅</p>
                     <p>Pedir turno</p>
                 </div>
                 </button>
+                
             </div>
                 : <div>
                     Seleccione un dia en el calendario para consultar sus horarios
