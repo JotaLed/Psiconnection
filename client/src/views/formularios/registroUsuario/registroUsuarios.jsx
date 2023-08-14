@@ -37,7 +37,7 @@ const RegistroUsuario = () => {
     console.log('imagen', image);
     // Envio al backend
     try {
-      const response = await axios.post("/psiconection/registerUsuario", formData);
+      const response = await axios.post("http://localhost:3001/psiconection/registerUsuario", formData);
       // Realiza alguna acción en base a la respuesta del servidor
       if (response.status === 200) {
         setRegistrationSuccess(true);
