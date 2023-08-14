@@ -52,9 +52,7 @@ const Account = () => {
             await dispatch(getSpecialities())
             setIsLoading(false);
             setImagen(psicology.foto)
-            // console.log(imagen)
-
-
+            setEsp(psicology.especialidad)
         }
         aux()
     }, [id, dispatch, psicology.foto])

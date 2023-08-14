@@ -87,7 +87,6 @@ const ClientAccount = () => {
     return (
         <div className={styles.accountContainer}>
 
-
             <div className={styles.sidebar}>
                 <ProfileBar handleTabChange={handleTabChange} selectedTab={selectedTab} />
             </div>
