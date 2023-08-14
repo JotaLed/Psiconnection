@@ -47,7 +47,10 @@ const RegistroPsicologo = () => {
 
     // Envio al backend
     try {
-      const response = await axios.post("psiconection/registerPsicologo", formData);
+
+   
+      const response = await axios.post("http://localhost:3001/psiconection/registerPsicologo", formData);
+
       // Realiza alguna acción en base a la respuesta del servidor
       if (response.status === 200) {
         setRegistrationSuccess(true);
