@@ -1,0 +1,58 @@
+.contenedorFormularioGeneral {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrado vertical */
+  align-items: center; /* Centrado horizontal */
+  height: 100vh; /* Ajusta la altura del contenedor al 100% del viewport */
+  background-image: linear-gradient(rgba(253, 253, 253, 0.185), rgba(253, 253, 253, 0.616)), url('./fondoBotones.png');
+  background-size: 100% 180%;
+  background-repeat: no-repeat;
+}
+
+.contenidoFormularioGeneral h1 {
+  font-size: 30px;
+  color: #000000; 
+  font-weight: bold;
+  background-color: transparent;
+}
+h2 {
+  justify-content: center;
+  margin-top: 20px;
+  font-size: 30px;
+  color: #000000; 
+  font-weight: bold;
+}
+
+p {
+  font-size: 25px;
+  color: black; 
+  font-weight: bold;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 30px; /* Mayor espacio superior para los botones */
+}
+
+.button-groupLogin {
+  display: flex;
+  gap: 50px; /* Mayor espacio entre los botones */
+  margin-left: 120px;
+}
+.custom-buttonLogin {
+  margin-top: 15px; /* Espacio superior entre el párrafo y los botones */
+  align-items: center;
+  gap: 50px; /* Mayor espacio entre los botones */
+  background-color: #2b4c7e;
+  color: white; /* Texto en blanco para resaltar sobre el fondo */
+  padding: 15px; /* Mayor tamaño de los botones */
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: medium;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.custom-buttonLogin:hover {
+  background-color: #1c375b; /* Color más oscuro al pasar el mouse */
+}
