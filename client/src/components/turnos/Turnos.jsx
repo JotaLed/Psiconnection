@@ -25,10 +25,10 @@ console.log(psicology);
     const disponibilidad = { dias: [...dias], horarios: [...horas] }
 
     const citas = [
-        { fecha: "14/8/2023", horario: ["17-18"] },//Necesitp comparar que el date no coincida con la fecha y 
-        { fecha: "15/8/2023", horario: ["12-13"] },
-        { fecha: "19/8/2023", horario: ["12-13"] },
-        { fecha: "14/8/2023", horario: ["20-21"] },
+        // { fecha: "14/8/2023", horario: ["17-18"] },//Necesitp comparar que el date no coincida con la fecha y 
+        // { fecha: "15/8/2023", horario: ["12-13"] },
+        // { fecha: "19/8/2023", horario: ["12-13"] },
+        // { fecha: "14/8/2023", horario: ["20-21"] },
     ]
 
     //estados locales 
@@ -127,12 +127,18 @@ console.log(psicology);
     console.log(newTurno);
     // console.log(date.toDateString().split(" ")[0]);
     console.log(buttonActive);
+    console.log(selectTurno);
 
     const handleCheckoutClick = async () => {
-        const response = await axios.post(`http://localhost:3001/psiconnection/payment/create-order`)
-        const link = response.data.body.init_point
-        console.log(response.data.body.init_point)
-        window.location.href = link
+        try {
+            const response = await axios.post(`http://localhost:3001/psiconnection/payment/create-order?tarifa=${psicology.tarifa}`)
+            const link = response.data.body.init_point
+            console.log(response.data.body.init_point)
+            window.location.href = link
+        } catch (error) {
+            console.log(error);
+            
+        }
     }
 
     return (
