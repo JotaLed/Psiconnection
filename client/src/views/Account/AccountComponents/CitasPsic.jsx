@@ -27,6 +27,7 @@ const CitasPsic = () => {
 
     return (
         <div>
+            {console.log(psicologo.cita)}
             <h2>Mis Citas</h2><br></br>
             {psicologo.cita?  <Table striped bordered hover>
                 <thead>
