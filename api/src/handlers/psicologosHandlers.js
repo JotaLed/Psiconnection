@@ -109,7 +109,7 @@ const registerHandler = async (req, res, next) => {
     if (!tarifa) return res.status(403).json({ error: "tipo de pago vacio" });
     if (!especialidad)
       return res.status(403).json({ error: "especialidad vacio" });
-    if (!whatsAppUrl) return res.status(403).json({ error: "WhatsApp vacio" });
+    //if (!whatsAppUrl) return res.status(403).json({ error: "WhatsApp vacio" });
     if (!telefono) return res.status(403).json({ error: "telefono vacio" });
     if (!descripcion)
       return res.status(403).json({ error: "descripcion vacio" });

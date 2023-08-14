@@ -4,10 +4,9 @@ import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import 'boxicons/css/boxicons.min.css';
-import { isValidName, isValidDate, isValidTel } from '../validaciones';
+import { isValidName, isValidDate, isValidTel, isValidPassword } from '../validaciones';
 import './registroPsicologo.css';
 import fetchCountriesList from './fetchCountriesList';
-
 
 
 const RegistroPsicologo = () => {
@@ -17,7 +16,10 @@ const RegistroPsicologo = () => {
   const [selectedHours, setSelectedHours] = useState([]); // Estado para las horas seleccionadas
   const [countriesList, setCountriesList] = useState([]);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
+ // Estado para las especialidades seleccionadas
+ const [selectedSpecialties, setSelectedSpecialties] = useState([]);
+ 
   useEffect(() => {
     const fetchCountries = async () => {
       const countries = await fetchCountriesList();
@@ -29,11 +31,14 @@ const RegistroPsicologo = () => {
   const onSubmit = async (formData) => {
 
 
-      formData.roll = "psicologo",
-      formData.dias = selectedDays,
-      formData.horas = selectedHours,
-      formData.foto = image
-    
+      formData.roll = "psicologo";
+      formData.dias = selectedDays;
+      formData.horas = selectedHours;
+      formData.foto = image;
+      formData.zona_horaria = "est";
+      const selectedSpecialtyValues = selectedSpecialties.map(option => option.value);
+      formData.especialidad = selectedSpecialtyValues;
+      formData.descripcion = formData.descripcion || ''; // En caso de que sea undefined
 
     console.log('Datos a enviar:', formData);
     console.log('Días seleccionados:', selectedDays);
@@ -42,7 +47,7 @@ const RegistroPsicologo = () => {
 
     // Envio al backend
     try {
-      const response = await axios.post("/psiconection/registerPsicologo", formData);
+      const response = await axios.post("psiconection/registerPsicologo", formData);
       // Realiza alguna acción en base a la respuesta del servidor
       if (response.status === 200) {
         setRegistrationSuccess(true);
@@ -186,23 +191,23 @@ const upLoadImage = async (e) =>{
   <label>
     <i className="bx bxs-calendar"></i> Fecha de Nacimiento:
     <Controller
-      name="fecha_nacimiento"
-      control={control}
-      defaultValue=""
-      rules={{
-        required: 'Este campo es requerido',
-        validate: {
-          isValidDate: (value) => isValidDate(value) || 'Debes tener al menos 18 años'
-        }
-      }}
-      render={({ field }) => (
-        <input
-          {...field}
-          type="date"
-          placeholder="Selecciona tu fecha de nacimiento"
-        />
-      )}
+  name="fecha_nacimiento"
+  control={control}
+  defaultValue=""
+  rules={{
+    required: 'Este campo es requerido',
+    validate: {
+      isValidDate: (value) => isValidDate(value) || 'Debes tener al menos 18 años'
+    }
+  }}
+  render={({ field }) => (
+    <input
+      {...field}
+      type="date"
+      placeholder="Selecciona tu fecha de nacimiento"
     />
+  )}
+/>
   </label>
   {errors.fechaNacimiento && (
     <p className="errores">{errors.fechaNacimiento.message}</p>
@@ -261,7 +266,72 @@ const upLoadImage = async (e) =>{
     <p className="errores">{errors.telefono.message}</p>
   )}
 </div>
+<div className="form-groupPsico">
+            <label>
+              <i className="bx bxs-envelope"></i>
+              <Controller
+                name="email"
+                control={control}
+                defaultValue=""
+                rules={{ pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i }}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="email"
+                    placeholder="Email del Psicologo"
+                  />
+                )}
+              />
+            </label>
+            {errors.email?.type === 'pattern' && (
+              <p className='errores'>Formato de email incorrecto</p>
+            )}
 
+            <label>
+              <i className="bx bxs-lock-alt"></i>
+              <Controller
+                name="password"
+                control={control}
+                defaultValue=""
+                rules={{ validate: isValidPassword }}
+                render={({ field }) => (
+                  <div className="password-input">
+                  <input
+                    {...field}
+                    type={showPassword ? 'text' : 'password'} // Cambio de tipo aquí
+                    placeholder="Contraseña"
+                  />
+      
+                  <i
+                    className={`bx ${showPassword ? 'bxs-hide' : 'bxs-show'}`}
+                    onClick={() => setShowPassword(!showPassword)}
+                  ></i>
+                </div>
+              )}
+            />
+            </label>
+            {errors.password && (
+              <p className='errores'>Debe tener más de 6 caracteres alfanuméricos</p>
+            )}
+          </div>
+          {/* //*DESCRIPCION*/}
+<div className="form-groupRegPsico">
+  <label>
+    <i className="bx bx-message"></i> Descripción de la experiencia:
+    <Controller
+      name="descripcion"
+      control={control}
+      defaultValue=""
+      render={({ field }) => (
+        <textarea
+          {...field}
+          rows={4}
+          placeholder="Añade una descripción de tu experiencia"
+        />
+      )}
+    />
+  </label>
+</div>
 
 
 
@@ -278,7 +348,7 @@ const upLoadImage = async (e) =>{
             name='file'
             onChange={upLoadImage}
 />
-{/* /(<img src={image} style={{width: "300px"}}/>) */}
+/(<img src={image} style={{width: "150px"}}/>)
         </label>
       </div>
   {/* //* días */}
@@ -373,6 +443,49 @@ const upLoadImage = async (e) =>{
   />
   {errors.hora && <p className="errores">{errors.hora.message}</p>}
 </div>
+{/* //*tarifa */}
+<div className="form-groupRegPsico">
+  <label>
+    <i className="bx bx-dollar"></i> Tarifa:
+    <Controller
+  name="tarifa" // Nombre del campo en el objeto formData
+  control={control}
+  defaultValue=""
+  rules={{
+    required: 'Ingresa la tarifa'
+  }}
+  render={({ field }) => (
+    <input
+      {...field}
+      type="text" // Cambia el tipo a text
+      placeholder="Ingresa la tarifa en USD"
+    />
+  )}
+/>
+
+  </label>
+  {errors.tarifa && (
+    <p className="errores">{errors.tarifa.message}</p>
+  )}
+</div>
+{/* //*Especialidad */}
+ <div className="form-groupRegPsico">
+              <label>
+                <i className="bx bx-book"></i> Especialidad:
+                <Select
+                  isMulti
+                  options={[
+                    { value: 'clinica', label: 'Psicología Clínica' },
+                    { value: 'educativa', label: 'Psicología Educativa' },
+                    { value: 'organizacional', label: 'Psicología Organizacional' },
+                    // Agrega más especialidades aquí
+                  ]}
+                  value={selectedSpecialties}
+                  onChange={(selectedOptions) => setSelectedSpecialties(selectedOptions)}
+                  placeholder="Selecciona tus specialidades"
+                />
+              </label>
+            </div>
 
           </div>
 
