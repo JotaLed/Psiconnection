@@ -1,0 +1,108 @@
+.containerLoginUsuario{
+  display: flex;
+  justify-content: center; /* Centrado vertical */
+  align-items: center; /* Centrado horizontal */
+  height: 100vh; /* Ajusta la altura del contenedor al 100% del viewport */
+  background-image: linear-gradient(rgba(253, 253, 253, 0.192), rgba(253, 253, 253, 0.164)), url('../fondoLogin.png') ;
+  background-size: 100% auto; /* Ancho al 100%, altura automática */
+  background-repeat: no-repeat;
+  background-position: center; /* Centra la imagen en el contenedor */
+  }
+
+/** Se aplicican al formulario */
+  .login-formUsu {
+    margin-top: 7%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-formUsu h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .login-formUsu h3 {
+    margin-bottom: 20px;
+    font-weight: normal;
+  }
+
+.form-groupUsu label {
+    display: flex;
+    align-items: center; /* Alineamos los elementos verticalmente */
+    margin-bottom: 10px;
+  }
+  /* Añadimos espacio entre el ícono y el campo de contraseña */
+  .form-groupUsu label .bx {
+    margin-right: 5px;
+  }
+  
+  /* Estilos para el campo de contraseña */
+  .password-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .password-input input {
+    flex: 1;
+  }
+  
+  .password-input i {
+    cursor: pointer;
+    margin-left: 5px; /* Agrega un margen a la izquierda para separar el ícono del campo */
+  }
+
+  .btn-primary {
+    display: block;
+    margin-left: 80px;
+    padding: 8px;
+    background-color: #2b4c7e;
+    color: white;
+    border-radius: 3px;
+    transition: background-color 0.3s ease-in-out;
+}
+.btn-primary:hover {
+  background-color: #1c375b; 
+}
+  .errores {
+    color: red;
+    font-size:small;
+  }
+
+  /* Icons */
+.bx {
+    font-size: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  
+  .google-login-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrado vertical */
+    align-items: center; /* Centrado horizontal */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(254, 255, 255);
+    border-radius: 20px;
+    border-color: black;
+
+  }
+  .google-login-button h4 {
+    margin-top: 10px;
+    font-size: medium;
+  }
+  .google-login-button button {
+    margin-top: 10px;
+    font-size: medium;
+    background-color:  rgba(255, 0, 0, 0.247) ;
+
+    align-items: center;
+
+  }
+   
+.register-link{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
