@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 //IMportamos el calendario 
 import 'react-calendar/dist/Calendar.css';
 //importamos react calendar 
@@ -127,6 +128,13 @@ console.log(psicology);
     // console.log(date.toDateString().split(" ")[0]);
     console.log(buttonActive);
 
+    const handleCheckoutClick = async () => {
+        const response = await axios.post(`http://localhost:3001/psiconnection/payment/create-order`)
+        const link = response.data.body.init_point
+        console.log(response.data.body.init_point)
+        window.location.href = link
+    }
+
     return (
         <div className='turnos'>
                 <Calendar
@@ -159,17 +167,20 @@ console.log(psicology);
                             )
                     })}
                 </div>
+
+                <button onClick={handleCheckoutClick}>
                 <div className="pedir_turno">
                     <p>📅</p>
                     <p>Pedir turno</p>
                 </div>
-
+                </button>
+                
             </div>
                 : <div>
                     Seleccione un dia en el calendario para consultar sus horarios
                 </div>
             }
-
+        
         </div>
     )
 }
