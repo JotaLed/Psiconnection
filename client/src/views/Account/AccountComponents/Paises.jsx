@@ -25,7 +25,7 @@ const Paises = ({pais, handleChange, zona_horaria}) => {
                 ))}
             </Form.Select>
         </Form.Group>
-        <Form.Group >
+       {zona_horaria && <Form.Group >
             <Form.Label className={styles.prop}>Zona horaria: </Form.Label>
             <Form.Control
                 type="text"
@@ -33,7 +33,7 @@ const Paises = ({pais, handleChange, zona_horaria}) => {
                 placeholder={zona_horaria}
                 onChange={handleChange}
             />
-        </Form.Group></>
+        </Form.Group>}</>
 }
 
 export default Paises

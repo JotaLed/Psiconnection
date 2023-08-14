@@ -18,6 +18,7 @@ import Landing from "./views/landing/landing";
 import Form from "./views/form/form";
 import Detail from "./views/detail/detail";
 import Nosotros from "./views/nosotros/nosotros";
+import ClientAccount from "./views/Account/ClientAccount";
 
 //importmos components:
 
@@ -36,6 +37,8 @@ function App() {
         <Route path="/nosotros" element={<Nosotros />}></Route>
         <Route path="/detail/:detailID" element={<Detail />}></Route>
         <Route path="/account/:id" element={<Account />} />
+        <Route path="/account/client/:id" element={<ClientAccount/>} />
+
       </Routes>
     </div>
   );

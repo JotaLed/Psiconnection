@@ -1,26 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Card, Nav, Button, Form } from 'react-bootstrap';
-import styles from './Account.module.css';
-import { useSelector, useDispatch } from "react-redux"
-import { loadDetail, updatePsic, getSpecialities } from '../../Redux/actions';
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Description from './AccountComponents/description';
+import styles from './Account.module.css';
+import ProfileBar from "./AccountComponents/ProfileBar";
+import React, { useState, useEffect } from 'react';
+import { Card, Nav, Button, Form } from 'react-bootstrap';
+import {updateClient, getDetailClient } from '../../Redux/actions';
 import BasicInfo from './AccountComponents/basicInfo';
 import Foto from './AccountComponents/foto';
 import Paises from './AccountComponents/Paises';
-import Horario from './AccountComponents/Horario';
 import ProfileInfo from './AccountComponents/ProfileInfo';
-import ProfileBar from './AccountComponents/ProfileBar';
 import CitasPsic from './AccountComponents/CitasPsic';
+import CitasClient from "./AccountComponents/CitasClient";
 
 
-const Account = () => {
+
+const ClientAccount = () => {
     const [selectedTab, setSelectedTab] = useState('profile');
 
     // const psicology = useSelector((store) => store.psicoloDetail)
 
-    const psicology = useSelector((store) => store.psicoloDetail)
-    const opcionesEspecialidades = useSelector((store) => store.especialidades)
+    const client = useSelector((store) => store.cliente)
     const dispatch = useDispatch()
     const { id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
@@ -28,42 +27,23 @@ const Account = () => {
     const [dateToUpdate, setDateToUpdate] = useState({
         id: id,
     })
-    const [imagen, setImagen] = useState();
-    const [esp, setEsp] = useState()
-    // const opcionesEspecialidades = [
-    //     'Psicología de pareja',
-    //     'Psicología infantil',
-    //     'Psicología cognitivo-conductual',
-    //     'Psicoanálisis',
-    //     'Sexología'
-    // ];
+    // const [imagen, setImagen] = useState(client.usuario?.foto);
 
     //Useeffect
-
-    const loadData = useCallback(async () => {
-        await dispatch(loadDetail(id));
-        await dispatch(getSpecialities());
-        setIsLoading(false);
-    }, [id, dispatch]);
-
     useEffect(() => {
         const aux = async () => {
-            await dispatch(loadDetail(id))
-            await dispatch(getSpecialities())
+            await dispatch(getDetailClient(id))
             setIsLoading(false);
-            setImagen(psicology.foto)
-            setEsp(psicology.especialidad)
+            // setImagen(client.usuario.foto)
+
+
         }
         aux()
-    }, [id, dispatch, psicology.foto])
 
-    useEffect(() => {
-        loadData();
-    }, [loadData]);
+    }, [dispatch, id, client.usuario?.foto])
 
-    useEffect(() => {
-        setDateToUpdate({ ...dateToUpdate, especialidad: esp })
-    }, [esp])
+  
+
     const isValidEmail = (email) => {
         // Expresión regular para validar el formato del correo electrónico
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -76,13 +56,7 @@ const Account = () => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        if (name === "foto") {
-            setImagen(value);
-
-        }
-        if (name === "tarifa" && value < 1) {
-            return
-        }
+        
         setDateToUpdate({ ...dateToUpdate, [name]: value });
     }
     const handleSubmit = async () => {
@@ -98,26 +72,18 @@ const Account = () => {
             window.alert(`${title}\n${message}`);
             return;
         }
-        dispatch(updatePsic(dateToUpdate));
+        await dispatch(updateClient(dateToUpdate));
+
+       
+            await dispatch(getDetailClient(id));
+        
     }
 
-
-    const handleOptionChange = (optionValue) => {
-        if (esp.includes(optionValue)) {
-            setEsp(esp.filter(option => option !== optionValue));
-
-        } else {
-            setEsp([...esp, optionValue]);
-        }
-
-    }
 
     if (isLoading) {
         return <div>Cargando...</div>; // Mostrar un mensaje de carga mientras se busca el psicólogo
     }
-
-    console.log(opcionesEspecialidades)
-
+   
     return (
         <div className={styles.accountContainer}>
 
@@ -143,29 +109,18 @@ const Account = () => {
                                         </h1>
                                         <Form onSubmit={handleSubmit}>
                                             <div className={styles.propiedades}>
-                                                <BasicInfo handleChange={handleChange} psicology={psicology} />
-                                                <Foto handleChange={handleChange} imagen={imagen} />
-                                                <Paises handleChange={handleChange} zona_horaria={psicology.zona_horaria} pais={psicology.pais} />
-
-                                                <Form.Group controlId="options">
-                                                    <Form.Label className={styles.prop}>Especialidades:</Form.Label>
-                                                    <div className={styles.textLeft}>
-                                                        {opcionesEspecialidades.map(opcion => (
-
-                                                            <Form.Check key={opcion} type="checkbox" label={opcion} value={opcion} checked={esp.includes(opcion)}
-                                                                onChange={() => handleOptionChange(opcion)} />
-                                                        ))}
-                                                    </div>
-                                                </Form.Group>
-
+                                                <BasicInfo handleChange={handleChange} client={client.usuario} />
+                                                <Foto handleChange={handleChange} imagen={client.usuario.foto} />
+                                                <Paises handleChange={handleChange}  pais={client.usuario.pais} />
 
                                             </div>
-                                            <Description descrip={psicology.descripcion} handleChange={handleChange} />
                                             <Button variant="outline-primary" type="submit">
                                                 Guardar Cambios
                                             </Button>
                                         </Form>
-                                    </>) : (<> <ProfileInfo psicology={psicology} imagen={imagen} id={id} />
+                                    </>) : 
+                                    (<> 
+                                    <ProfileInfo client={client.usuario} imagen={client.usuario?.foto} id={id} />
 
                                     </>)}
 
@@ -174,7 +129,7 @@ const Account = () => {
                         )}
                         {selectedTab === 'reservations' && (
                            <div> 
-                            <CitasPsic/></div>
+                            <CitasClient client={client}/></div>
                         )}
                         {selectedTab === 'logout' && (
                             <h2>Cerrar Sesión</h2>
@@ -184,6 +139,5 @@ const Account = () => {
             </div>
         </div>
     );
-};
-
-export default Account;
+}
+export default ClientAccount;
