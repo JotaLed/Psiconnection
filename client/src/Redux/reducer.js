@@ -153,7 +153,7 @@ const rootReducer = (state = initialstate, action) => {
     default: return state
   }
 
-
+//reducers
 }
 
 export default rootReducer;
