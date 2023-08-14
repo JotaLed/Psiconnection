@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 //IMportamos el calendario 
 import 'react-calendar/dist/Calendar.css';
 //importamos react calendar 
@@ -109,12 +110,18 @@ export default function Turnos() {
     const addTurno = (hora) => {
         setNewTurno({ ...newTurno, fecha: selectTurno.fecha, hora: hora })
         setButtonActive({[hora]:true})
-
     }
 
     console.log(newTurno);
     // console.log(date.toDateString().split(" ")[0]);
     console.log(buttonActive);
+
+    const handleCheckoutClick = async () => {
+        const response = await axios.post(`http://localhost:3001/psiconnection/payment/create-order`)
+        const link = response.data.body.init_point
+        console.log(response.data.body.init_point)
+        window.location.href = link
+    }
 
     return (
         <div className='turnos'>
@@ -123,10 +130,10 @@ export default function Turnos() {
                 tileClassName={({ date }) => tileClassName(date)}
                 align="start"
                 locale="en-GB"
-                showCompare={false}
-            />
+                showCompare={false}/>
+
             {flagH === true ?<div className='contenedor'>
-                    <h3 className='horario'>Selecione su horaio:</h3>
+                    <h3 className='horario'>Selecione su horario:</h3>
                     <div className='horas_conteiner'>
                         {horasPosibles.map((hora, index) => {
                             if (selectTurno.horas.includes(hora)) {
@@ -144,17 +151,20 @@ export default function Turnos() {
                                 )
                         })}
                     </div>
-                    <div className="pedir_turno">
+                    
+                    <button id="checkout" onClick={handleCheckoutClick} target="_blank" rel="noreferrer">
+                        <div className="pedir_turno"
+                             id='ckeckout'>
                                 <p>📅</p>
                                 <p>Pedir turno</p>
-                    </div>
-
+                        </div>
+                    </button>
                 </div>
                 : <div>
                     Seleccione un dia en el calendario para consultar sus horarios
                 </div>
             }
-
+        
         </div>
     )
 }

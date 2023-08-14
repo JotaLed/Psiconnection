@@ -4,6 +4,7 @@ export const GET_PSICOLOGOS = "GET_PSICOLOGOS";
 export const LOAD_DETAIL = "LOAD_DETAIL"
 export const SEARCH_APELLIDO = "SEARCH_APELLIDO"
 export const UPDATE_PSIC = "UPDATE_PSIC";
+export const PAYMENT_PSICO = "PAYMENT_PSICO";
 import axios from "axios"
 
 export const setFilter = (filters) => {
@@ -67,3 +68,13 @@ export const updatePsic = (dataToUpdate) => {
             // Manejar errores en caso de que la solicitud falle
         });
 }
+
+export const payment = () => {
+    return async function(dispatch){
+            const response = await axios.post(`http://localhost:3001/psiconnection/payment/create-order`)
+            return dispatch({
+                type: 'PAYMENT_PSICO',
+                payload: response.data,
+            });
+        };
+    };

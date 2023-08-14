@@ -34,7 +34,7 @@ const createOrder = async (req, res) => {
         notification_url:'https://22a6-190-138-148-106.ngrok.io/webhook'
     })
     console.log(result)
-    res.send('creando orden')
+    res.send(result)
 };
 const receiveWebhook = async (req, res) => {
 const payment = req.query

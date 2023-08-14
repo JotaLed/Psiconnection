@@ -62,11 +62,6 @@ const Account = () => {
         "Masculino",
         "Otro"
     ]
-
-  
-
-
-
     //Useeffect
     useEffect(() => {
         const aux = async () => {
@@ -74,7 +69,6 @@ const Account = () => {
             setIsLoading(false);
             setImagen(psicology.foto)
             // console.log(imagen)
-
 
         }
         aux()
