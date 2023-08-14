@@ -6,12 +6,12 @@
     #1f1f20
 */
 
-.react-calendar__tile:hover {
+/* .react-calendar__tile:hover {
     background-color: inherit;
     color: inherit;
     border: none;
     cursor: default;
-}
+} */
 
 .turnos {
     display: flex;
@@ -23,42 +23,41 @@
 
 .unvalidate-day {
     background-color: #fff;
-    /* Cambia el color de fondo */
-    /* Puedes ajustar la apariencia de los días */
-    /* Otros estilos personalizados según tu preferencia */
     color: red;
+    cursor: not-allowed;
 
-    & :hover {
-        background-color: #fff;
-    }
 }
 
 .validate-day {
     background-color: #2b4c7e;
     color: aliceblue;
-
 }
 
 .contenedor {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-.info_turno{
-    display: flex;
     width: 100%;
 }
-.precio{
-    margin-top: 10px;
-    align-self: flex-start;
-    font-size: 15px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+.info_turno{
+    margin-top: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
-.dia{
-    margin-top: 10px;
-    align-self: flex-end;
+.precio{
     font-size: 15px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: beige;
+    border: 1px solid #ddd; /* Borde sutil */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}   
+.dia{
+    font-size: 15px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: beige;
+    border: 1px solid #ddd; /* Borde sutil */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra suave */
 }
 
 .horaios {
