@@ -26,7 +26,7 @@ server.use((req, res, next) => {
   const allowedOrigins = [
     "http://localhost:3000",
     "http://localhost:5173",
-    "https://psiconnection-m8yv9r379-jotaled.vercel.app",
+    "https://psiconnection-fm8cx03wt-jotaled.vercel.app",
     // Agrega más orígenes si es necesario
   ];
 
