@@ -30,9 +30,9 @@ const createOrder = async (req, res) => {
       // success:'/home',
       // failure:'/home',
       // pending:'/home'
-      success: "https://psiconnectiondev.vercel.app//home",
-      failure: "https://psiconnectiondev.vercel.app//home",
-      pending: "https://psiconnectiondev.vercel.app//home",
+      success: "https://psiconnectiondev.vercel.app/home",
+      failure: "https://psiconnectiondev.vercel.app/home",
+      pending: "https://psiconnectiondev.vercel.app/home",
     },
     notification_url: "https://9188-190-138-148-106.ngrok.io/webhook",
   });
