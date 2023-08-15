@@ -126,13 +126,12 @@ export default function Turnos({ dias, horas }) {
   // console.log(date.toDateString().split(" ")[0]);
   console.log(buttonActive);
   console.log(selectTurno);
-
-    const handleCheckoutClick = async () => {
-            const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}`)
-            const link = response.data.body.init_point
-            window.location.href = link
-    }
-  };
+  
+  const handleCheckoutClick = async () => {
+          const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}`)
+          const link = response.data.body.init_point
+          window.location.href = link
+  }
 
   return (
     <div className="turnos">
@@ -172,18 +171,16 @@ export default function Turnos({ dias, horas }) {
             })}
           </div>
 
-                <div onClick={handleCheckoutClick} className="pedir_turno">
-                    <p>📅</p>
-                    <p>Pedir turno</p>
-                </div>
-
-                
-            </div>
-                : <div>
-                    Seleccione un dia en el calendario para consultar sus horarios
-                </div>
-            }
-        
+          <div onClick={handleCheckoutClick} className="pedir_turno">
+            <p>📅</p>
+            <p>Pedir turno</p>
+          </div>
         </div>
-    )
-}
+      ) : (
+        <div>
+          Seleccione un dia en el calendario para consultar sus horarios
+        </div>
+      )}
+    </div>
+  );
+      }
