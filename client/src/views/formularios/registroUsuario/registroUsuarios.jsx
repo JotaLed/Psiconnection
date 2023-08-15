@@ -265,10 +265,55 @@ const upLoadImage = async (e) =>{
 {/* /(<img src={image} style={{width: "300px"}}/>) */}
         </label>
       </div>
+      <div className="form-groupUsu">
+            <label>
+              <i className="bx bxs-envelope"></i>
+              <Controller
+                name="email"
+                control={control}
+                defaultValue=""
+                rules={{ pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i }}
+                render={({ field }) => (
+                  <input
+                  {...field}
+                  type="email"
+                  placeholder="Email del Usuario"
+                  />
+                  )}
+                  />
+            </label>
+            {errors.email?.type === 'pattern' && (
+              <p className='errores'>Formato de email incorrecto</p>
+              )}
 
+            <label>
+              <i className="bx bxs-lock-alt"></i>
+              <Controller
+                name="password"
+                control={control}
+                defaultValue=""
+                rules={{ validate: isValidPassword }}
+                render={({ field }) => (
+                  <div className="password-input">
+                  <input
+                    {...field}
+                    type={showPassword ? 'text' : 'password'} // Cambio de tipo aquí
+                    placeholder="Contraseña"
+                    />
+      
+                  <i
+                    className={`bx ${showPassword ? 'bxs-hide' : 'bxs-show'}`}
+                    onClick={() => setShowPassword(!showPassword)}
+                    ></i>
+                </div>
+              )}
+              />
+            </label>
+            {errors.password && (
+              <p className='errores'>Debe tener más de 6 caracteres alfanuméricos</p>
+              )}
+          </div>
  
-
-
           </div>
 
           {/* //!!! Botón de registro */}
