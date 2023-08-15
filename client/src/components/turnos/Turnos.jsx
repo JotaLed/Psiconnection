@@ -130,15 +130,9 @@ console.log(psicology);
     console.log(selectTurno);
 
     const handleCheckoutClick = async () => {
-        try {
-            const response = await axios.post(`http://localhost:3001/psiconnection/payment/create-order?tarifa=${psicology.tarifa}`)
+            const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}`)
             const link = response.data.body.init_point
-            console.log(response.data.body.init_point)
             window.location.href = link
-        } catch (error) {
-            console.log(error);
-            
-        }
     }
 
     return (
@@ -174,7 +168,7 @@ console.log(psicology);
                     })}
                 </div>
 
-                <div onClick={handleCheckoutClick} className="pedir_turno">
+                <div onClick={handleCheckoutClick} className="pedir_turno" target="_blank">
                     <p>📅</p>
                     <p>Pedir turno</p>
                 </div>

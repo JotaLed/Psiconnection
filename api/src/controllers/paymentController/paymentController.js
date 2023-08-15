@@ -14,6 +14,7 @@ const tarifaPsico = async() => {
 }
 
 const createOrder = async (req, res) => {
+    const {tarifa} = req.query
     mercadopago.configure({
         access_token:'TEST-2593734153674674-081009-5fd5772eadcab328bf94d4ddeaea0d72-1444277109'
     })
@@ -21,17 +22,17 @@ const createOrder = async (req, res) => {
         items:[
             {
                 title: 'Sesion psicologo',
-                unit_price:100,
+                unit_price:Number(tarifa),
                 currency_id:'USD',
                 quantity:1,
             }
         ],
         back_urls:{
-                success:'http://localhost:5173/detail/164fd47a-abcf-4ae9-afff-b68d582ae778',
-                failure:'http://localhost:5173/detail/164fd47a-abcf-4ae9-afff-b68d582ae778',
-                pending:'http://localhost:5173/detail/164fd47a-abcf-4ae9-afff-b68d582ae778'
+                success:'/home',
+                failure:'/home',
+                pending:'/home'
         },
-        notification_url:'https://22a6-190-138-148-106.ngrok.io/webhook'
+        notification_url:'https://9188-190-138-148-106.ngrok.io/webhook'
     })
     console.log(result)
     res.send(result)
