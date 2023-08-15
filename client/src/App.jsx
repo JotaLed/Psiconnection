@@ -24,7 +24,7 @@ import ClientAccount from "./views/Account/ClientAccount";
 import FormularioGeneral from "./views/formularios/FormularioGeneral";
 
 //importmos components:
-import LoginUsuario from "./views/formularios/loginUsuario/loginUsuario"; // Asegúrate de usar mayúsculas en las letras iniciales
+import LoginUsuario from "./views/formularios/loginUsuario/loginUsuario"; // Asegúrate de usar mayúsculas en las letras iniciales/
 import LoginPsicologo from "./views/formularios/loginPsicologo/loginPsicologo";
 
 import RegistroUsuario from "./views/formularios/registroUsuario/registroUsuarios";
