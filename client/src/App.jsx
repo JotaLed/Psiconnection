@@ -12,7 +12,7 @@ axios.defaults.baseURL = "https://psiconnection-production.up.railway.app/";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-//imports generales:
+//imports generales::
 
 //importamos views:
 import Landing from "./views/landing/landing";
