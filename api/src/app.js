@@ -24,7 +24,7 @@ server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
   const allowedOrigins = [
-    "http://localhost:3000/",
+    "http://localhost:3000",
     "http://localhost:5173",
     // Agrega más orígenes si es necesario
   ];
