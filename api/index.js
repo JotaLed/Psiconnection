@@ -14,3 +14,4 @@ conn.sync({ force: false }).then(async () => {
 
   changePendingAppointments.start();
 });
+//
