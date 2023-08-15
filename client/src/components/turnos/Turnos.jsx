@@ -25,10 +25,10 @@ console.log(psicology);
     const disponibilidad = { dias: [...dias], horarios: [...horas] }
 
     const citas = [
-        // { fecha: "14/8/2023", horario: ["17-18"] },//Necesitp comparar que el date no coincida con la fecha y 
-        // { fecha: "15/8/2023", horario: ["12-13"] },
-        // { fecha: "19/8/2023", horario: ["12-13"] },
-        // { fecha: "14/8/2023", horario: ["20-21"] },
+        { fecha: "14/8/2023", horario: ["17-18"] },//Necesitp comparar que el date no coincida con la fecha y 
+        { fecha: "15/8/2023", horario: ["12-13"] },
+        { fecha: "18/8/2023", horario: ["3-4"] },
+        { fecha: "14/8/2023", horario: ["20-21"] },
     ]
 
     //estados locales 
