@@ -39,6 +39,7 @@ const RegistroPsicologo = () => {
       const selectedSpecialtyValues = selectedSpecialties.map(option => option.value);
       formData.especialidad = selectedSpecialtyValues;
       formData.descripcion = formData.descripcion || ''; // En caso de que sea undefined
+      formData.licencia = licenseUrl;
 
     console.log('Datos a enviar:', formData);
     console.log('Días seleccionados:', selectedDays);
@@ -74,10 +75,34 @@ const RegistroPsicologo = () => {
       }
     });
   };
-
+  
+  {/* //* CARGA DE PDF*/}
+  const handleLicenseUpload = async (e) => {
+    const file = e.target.files[0];
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "ppddfs"); // Ajusta el nombre del preset de Cloudinary
+    data.append("pdfs", "licenses");
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dzphgeome/upload",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const fileData = await response.json();
+      console.log(fileData);
+      // Guarda la URL del archivo PDF en tu estado
+      // Puedes guardarla en el mismo estado donde guardas la imagen de perfil
+    } catch (error) {
+      console.error("Error al subir el archivo:", error);
+    }
+  };
+  
+{/* //* CARGA DE IMAGENES*/}
 const [ image, setImage] = useState("");
 const [ loading, setLoading] = useState(false)
-
 const upLoadImage = async (e) =>{
   const files = e.target.files;
   const data = new FormData();
@@ -107,7 +132,7 @@ const upLoadImage = async (e) =>{
         {/* Formulario de registro */}
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="row">
           <div className="form-columnPsico col-md-6">
-   {/* //* Nombre */}
+{/* //* Nombre */}
             <div className="form-groupRegPsico">
               <label>
                 <i className="bx bxs-user"></i> Nombre:
@@ -164,7 +189,7 @@ const upLoadImage = async (e) =>{
               )}
             </div>
 {/* //* GENERO */}
-            <div className="form-groupRegPsico">
+ <div className="form-groupRegPsico">
   <label>
   <i class='bx bx-male-female'></i> Género:
     <Controller
@@ -269,6 +294,7 @@ const upLoadImage = async (e) =>{
     <p className="errores">{errors.telefono.message}</p>
   )}
 </div>
+{/* //* EMAIL */}
 <div className="form-groupPsico">
             <label>
               <i className="bx bxs-envelope"></i>
@@ -354,6 +380,20 @@ const upLoadImage = async (e) =>{
 /(<img src={image} style={{width: "150px"}}/>)
         </label>
       </div>
+
+{/*//* LICENCIA */}
+<div className="form-groupRegPsico">
+  <label>
+    <i className="bx bxs-file-pdf"></i> Subir Licencia (PDF):
+    <input
+      type="file"
+      accept=".pdf" // Asegúrate de que solo se permitan archivos PDF
+      onChange={handleLicenseUpload} // Maneja la función para subir el archivo
+    />
+  </label>
+</div>
+
+   
   {/* //* días */}
    <div className="form-groupRegPsico">
    <label>
