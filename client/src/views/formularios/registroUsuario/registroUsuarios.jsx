@@ -4,17 +4,15 @@ import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import 'boxicons/css/boxicons.min.css';
-import { isValidName, isValidDate, isValidTel } from '../validaciones';
+import { isValidName, isValidDate, isValidTel, isValidPassword } from '../validaciones';
 import './registroUsuario.css';
 import fetchCountriesList from '../registroPsicologo/fetchCountriesList';
 
 
 const RegistroUsuario = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
-  const [errorMessage, setErrorMessage] = useState('');
-  const [selectedDays, setSelectedDays] = useState([]); // Estado para los días seleccionados
-  const [selectedHours, setSelectedHours] = useState([]); // Estado para las horas seleccionadas
   const [countriesList, setCountriesList] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   useEffect(() => {
@@ -28,22 +26,18 @@ const RegistroUsuario = () => {
   const onSubmit = async (formData) => {
 
       formData.roll = "usuario",
-      formData.dias = selectedDays,
-      formData.horas = selectedHours,
+
       formData.foto = image
     
     console.log('Datos a enviar:', formData);
-    console.log('Días seleccionados:', selectedDays);
-    console.log('imagen', image);
+
     // Envio al backend
     try {
       const response = await axios.post("http://localhost:3001/psiconection/registerUsuario", formData);
-      // Realiza alguna acción en base a la respuesta del servidor
+    
       if (response.status === 200) {
         setRegistrationSuccess(true);
-        // Resetea los campos del formulario
-        setSelectedDays([]);
-        setSelectedHours([]);
+
         setImage(""); // Limpiar la imagen seleccionada
       }
     } catch (error) {
@@ -133,10 +127,10 @@ const upLoadImage = async (e) =>{
                   )}
                 />
               </label>
-              {errors.nombre?.type === 'required' && (
+              {errors.apellido?.type === 'required' && (
                 <p className="errores">Este campo es requerido</p>
               )}
-              {errors.nombre?.type === 'validate' && (
+              {errors.apellido?.type === 'validate' && (
                 <p className="errores">El nombre debe tener más de 3 letras y menos de 50</p>
               )}
             </div>
@@ -265,10 +259,55 @@ const upLoadImage = async (e) =>{
 {/* /(<img src={image} style={{width: "300px"}}/>) */}
         </label>
       </div>
+      <div className="form-groupUsu">
+            <label>
+              <i className="bx bxs-envelope"></i>
+              <Controller
+                name="email"
+                control={control}
+                defaultValue=""
+                rules={{ pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i }}
+                render={({ field }) => (
+                  <input
+                  {...field}
+                  type="email"
+                  placeholder="Email del Usuario"
+                  />
+                  )}
+                  />
+            </label>
+            {errors.email?.type === 'pattern' && (
+              <p className='errores'>Formato de email incorrecto</p>
+              )}
 
+            <label>
+              <i className="bx bxs-lock-alt"></i>
+              <Controller
+                name="password"
+                control={control}
+                defaultValue=""
+                rules={{ validate: isValidPassword }}
+                render={({ field }) => (
+                  <div className="password-input">
+                  <input
+                    {...field}
+                    type={showPassword ? 'text' : 'password'} // Cambio de tipo aquí
+                    placeholder="Contraseña"
+                    />
+      
+                  <i
+                    className={`bx ${showPassword ? 'bxs-hide' : 'bxs-show'}`}
+                    onClick={() => setShowPassword(!showPassword)}
+                    ></i>
+                </div>
+              )}
+              />
+            </label>
+            {errors.password && (
+              <p className='errores'>Debe tener más de 6 caracteres alfanuméricos</p>
+              )}
+          </div>
  
-
-
           </div>
 
           {/* //!!! Botón de registro */}

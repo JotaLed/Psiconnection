@@ -2,6 +2,7 @@ const { loginController } = require('../controllers/loginController.js')
 
 const loginHandler = async (req, res) => {
     const { email, contraseña} = req.body
+    // const contraseña = password
     try {
 
     //! Validaciones... 

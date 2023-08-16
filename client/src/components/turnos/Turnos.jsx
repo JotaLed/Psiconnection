@@ -54,58 +54,47 @@ export default function Turnos({ dias, horas }) {
     const disponibilidad = { dias: [...dias], horarios: [...horas] }
 
 
-    //estados locales 
-    const [date, setDate] = useState(new Date());
-    const [flagH, setFlagH] = useState(false) //Aca vamos a setear los horarios que vegengan del psicologo 
-    const [selectTurno, setSelectTurno] = useState(
-        {
-            fecha: "",
-            horas: []
-
-        }
-    )
-    const [newTurno, setNewTurno] = useState(
-        {
-            fecha: "",
-            hora: ""
-
-        }
-    )
-    const [buttonActive, setButtonActive] = useState({
-        "Estado para los buttons": false
-    })
+  //estados locales
+  const [date, setDate] = useState(new Date());
+  const [flagH, setFlagH] = useState(false); //Aca vamos a setear los horarios que vegengan del psicologo
+  const [selectTurno, setSelectTurno] = useState({
+    fecha: "",
+    horas: [],
+  });
+  const [newTurno, setNewTurno] = useState({
+    fecha: "",
+    hora: "",
+  });
 
 
-    //useEffect
-    useEffect(() => {
-        console.log(date);
+  const [buttonActive, setButtonActive] = useState({
+    "Estado para los buttons": false,
+  });
+  //useEffect
+  useEffect(() => {
+    console.log(date);
+  }, []);
 
-    }, [])
-
-
-
-
-
-    //funciones
-    const isValidate = (date) => {
-        return !disponibilidad.dias.includes(date.toDateString().split(" ")[0]);
-    };
-    const isPastDate = (date) => {
-        const today = new Date();
-        return date < today;
-    };
-    const tileClassName = (date) => {
-        let className = ""
-        if (isValidate(date) || isPastDate(date)) {
-            className = 'unvalidate-day'
-            return className
-        }
-        className = "validate-day"
-        return className
-    };
-    const OnChange = (date) => {
-        //Steamos el estado del date
-        setDate(date);
+  //funciones
+  const isValidate = (date) => {
+    return !disponibilidad.dias.includes(date.toDateString().split(" ")[0]);
+  };
+  const isPastDate = (date) => {
+    const today = new Date();
+    return date < today;
+  };
+  const tileClassName = (date) => {
+    let className = "";
+    if (isValidate(date) || isPastDate(date)) {
+      className = "unvalidate-day";
+      return className;
+    }
+    className = "validate-day";
+    return className;
+  };
+  const OnChange = (date) => {
+    //Steamos el estado del date
+    setDate(date);
 
         //reiniciamos el estado de envio del turno 
         setNewTurno({
@@ -125,96 +114,105 @@ export default function Turnos({ dias, horas }) {
         
         
 
-        //Preguntamos si existen fechas con horaios tomados 
-        if (foundFecha.length) {
-
-            //preguntamos is la fache tiene mas de una horario ocupado 
-            if (foundFecha.length > 1) {
-                let hours = []
-                foundFecha.forEach((c) => {
-                    hours = [...hours, ...c.horario]
-                })
-                setSelectTurno({ ...selectTurno, fecha: foundFecha[0].fecha, horas: hours })
-            }
-            else {
-                setSelectTurno({ ...selectTurno, fecha: foundFecha[0].fecha, horas: foundFecha[0].horario })
-
-            }
-        }
-        else {
-            setSelectTurno({ ...selectTurno, fecha: date.toLocaleDateString(), horas: [] })
-        }
-        console.log(selectTurno);
-
+    //Preguntamos si existen fechas con horaios tomados
+    if (foundFecha.length) {
+      //preguntamos is la fache tiene mas de una horario ocupado
+      if (foundFecha.length > 1) {
+        let hours = [];
+        foundFecha.forEach((c) => {
+          hours = [...hours, ...c.horario];
+        });
+        setSelectTurno({
+          ...selectTurno,
+          fecha: foundFecha[0].fecha,
+          horas: hours,
+        });
+      } else {
+        setSelectTurno({
+          ...selectTurno,
+          fecha: foundFecha[0].fecha,
+          horas: foundFecha[0].horario,
+        });
+      }
+    } else {
+      setSelectTurno({
+        ...selectTurno,
+        fecha: date.toLocaleDateString(),
+        horas: [],
+      });
     }
-    const addTurno = (hora) => {
-        setNewTurno({ ...newTurno, fecha: selectTurno.fecha, hora: hora })
-        setButtonActive({ [hora]: true })
-
-    }
-
-    console.log(newTurno);
-    // console.log(date.toDateString().split(" ")[0]);
-    console.log(buttonActive);
     console.log(selectTurno);
+  };
+  const addTurno = (hora) => {
+    setNewTurno({ ...newTurno, fecha: selectTurno.fecha, hora: hora });
+    setButtonActive({ [hora]: true });
+  };
 
-    const handleCheckoutClick = async () => {
-        try {
-            const response = await axios.post(`http://localhost:3001/psiconnection/payment/create-order?tarifa=${psicology.tarifa}`)
-            const link = response.data.body.init_point
-            console.log(response.data.body.init_point)
-            window.location.href = link
-        } catch (error) {
-            console.log(error);
+  console.log('Turno para elegir =>', newTurno);
+  // console.log(date.toDateString().split(" ")[0]);
+  console.log(buttonActive);
+  console.log(selectTurno);
 
-        }
+  const handleCheckoutClick = async () => {
+    try {
+        const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}&hora=${newTurno.hora}&fecha=${newTurno.fecha}&id=${psicology.idPsico}`)
+        const link = response.data.body.init_point
+        console.log(link)
+        window.location.href = link
+    } catch (error) {
+        console.log(error)
     }
+         
+  }
 
-    return (
-        <div className='turnos'>
-            <Calendar
-                onChange={OnChange}
-                tileClassName={({ date }) => tileClassName(date)}
-                align="start"
-                locale="en-GB"
-                showCompare={false}
-            />
-            {flagH === true ? <div className='contenedor'>
-                <h3 className='horario'>Selecione su horario:</h3>
-                <div className='info_truno'>
-                    <p className='precio'>Precio del turno:{psicology.tarifa}$</p>
-                    <p className='dia'>Dia selecionado:{selectTurno.fecha}</p>
-                </div>
-                <div className='horas_conteiner'>
-                    {disponibilidad.horarios.map((hora, index) => {
-                        if (selectTurno.horas.includes(hora)) {
-                            return (
-                                <div key={index} className="unvalidate">
-                                    <label>{hora}</label>
-                                </div>
-                            )
-                        }
-                        else
-                            return (
-                                <div key={index} className={buttonActive[hora] ? "validate_active" : "validate"}>
-                                    <label onClick={() => addTurno(hora)}>{hora}</label>
-                                </div>
-                            )
-                    })}
-                </div>
+  return (
+    <div className="turnos">
+      <Calendar
+        onChange={OnChange}
+        tileClassName={({ date }) => tileClassName(date)}
+        align="start"
+        locale="en-GB"
+        showCompare={false}
+      />
+      {flagH === true ? (
+        <div className="contenedor">
+          <h3 className="horario">Selecione su horario:</h3>
+          <div className="info_turno">
+            <p className="dia">Dia selecionado: {selectTurno.fecha}</p>
+            <p className="precio">Precio del turno: {psicology.tarifa}$</p>
+          </div>
+          <div className="horas_conteiner">
+            {disponibilidad.horarios.map((hora, index) => {
+              if (selectTurno.horas.includes(hora)) {
+                return (
+                  <div key={index} className="unvalidate">
+                    <label>{hora}</label>
+                  </div>
+                );
+              } else
+                return (
+                  <div
+                    key={index}
+                    className={
+                      buttonActive[hora] ? "validate_active" : "validate"
+                    }
+                  >
+                    <label onClick={() => addTurno(hora)}>{hora}</label>
+                  </div>
+                );
+            })}
+          </div>
 
-                <div onClick={handleCheckoutClick} className="pedir_turno">
-                    <p>📅</p>
-                    <p>Pedir turno</p>
-                </div>
-
-
-            </div>
-                : <div>
-                    Seleccione un dia en el calendario para consultar sus horarios
-                </div>
-            }
-
+          <div onClick={handleCheckoutClick} className="pedir_turno">
+            <p>📅</p>
+            <p>Pedir turno</p>
+          </div>
         </div>
-    )
-}
+      ) : (
+        <div>
+          Seleccione un dia en el calendario para consultar sus horarios
+        </div>
+      )}
+    </div>
+  );
+      }

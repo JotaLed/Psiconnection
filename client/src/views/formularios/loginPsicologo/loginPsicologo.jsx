@@ -4,11 +4,21 @@ import './loginPsicologo.css';
 import { isValidPassword } from '../validaciones';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPsicologo = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
+  const [showPassword, setShowPassword] = useState(false); 
+
+  const navigate = useNavigate();
+  const [token, setToken] = useState('');
+
+  const handleWindow = () => {
+    localStorage.setItem('authToken', token); 
+    // Guarda el token en localStorage
+    navigate('/nosotros');
+  };
 
   const onSubmit = async (formData) => {
     if (!formData.email || !formData.password) {
@@ -17,21 +27,29 @@ const LoginPsicologo = () => {
     }
 
     try {
-      // Realiza la solicitud al backend para verificar el inicio de sesión
       const response = await axios.post('http://localhost:3001/psiconection/login', formData);
-
+      console.log(response)
+      console.log('Response from server:', response.data);
+      console.log('Token:', response.data.info.tokenSession);
       if (response.status === 200) {
-       
+        const userRole = response.data.info.roll;
+
+        if (userRole !== 'psicologo') { 
+        // si es dife a psico error y no realiza la redirección
+          window.alert('Por favor inicie sesión como psicologo');
+        } else {
+          setToken(response.data.info.tokenSession); 
+          // Aquí estás guardando el token en el estado tokenSession
+          handleWindow();
+        }
       } else {
-        // Inicio de sesión fallido, muestra un mensaje de error
         setErrorMessage('Credenciales inválidas');
       }
     } catch (error) {
-      // Maneja los errores
       console.error('Error al realizar la solicitud:', error);
+      window.alert(error.response.data.error);
     }
   };
-
   return (
     <div className="containerLoginPisco">
       <form onSubmit={handleSubmit(onSubmit)} noValidate>

@@ -10,8 +10,7 @@ import fetchCountriesList from './fetchCountriesList';
 
 
 const RegistroPsicologo = () => {
-  const { handleSubmit, control, formState: { errors } } = useForm();
-  const [errorMessage, setErrorMessage] = useState('');
+  const { handleSubmit, control, formState: { errors }, reset } = useForm();
   const [selectedDays, setSelectedDays] = useState([]); // Estado para los días seleccionados
   const [selectedHours, setSelectedHours] = useState([]); // Estado para las horas seleccionadas
   const [countriesList, setCountriesList] = useState([]);
@@ -19,7 +18,8 @@ const RegistroPsicologo = () => {
   const [showPassword, setShowPassword] = useState(false);
  // Estado para las especialidades seleccionadas
  const [selectedSpecialties, setSelectedSpecialties] = useState([]);
- 
+ const [fileData, setFileData] = useState(null);
+
   useEffect(() => {
     const fetchCountries = async () => {
       const countries = await fetchCountriesList();
@@ -39,6 +39,7 @@ const RegistroPsicologo = () => {
       const selectedSpecialtyValues = selectedSpecialties.map(option => option.value);
       formData.especialidad = selectedSpecialtyValues;
       formData.descripcion = formData.descripcion || ''; // En caso de que sea undefined
+      formData.licencia = fileData.url;
 
     console.log('Datos a enviar:', formData);
     console.log('Días seleccionados:', selectedDays);
@@ -57,7 +58,9 @@ const RegistroPsicologo = () => {
         // Resetea los campos del formulario
         setSelectedDays([]);
         setSelectedHours([]);
-        setImage(""); // Limpiar la imagen seleccionada
+        setImage(""); 
+         // Resetea el formulario después de un registro exitoso
+         reset();
       }
     } catch (error) {
       // Maneja los errores
@@ -74,10 +77,34 @@ const RegistroPsicologo = () => {
       }
     });
   };
-
+  
+  {/* //* CARGA DE PDF*/}
+  const handleLicenseUpload = async (e) => {
+    const file = e.target.files[0];
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "ppddfs"); // Ajusta el nombre del preset de Cloudinary
+    data.append("pdfs", "licenses");
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dzphgeome/upload",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const fileData = await response.json();
+      console.log(fileData);
+      setFileData(fileData); // Guardar los datos del archivo en el estado
+     
+    } catch (error) {
+      console.error("Error al subir el archivo:", error);
+    }
+  };
+  
+{/* //* CARGA DE IMAGENES*/}
 const [ image, setImage] = useState("");
 const [ loading, setLoading] = useState(false)
-
 const upLoadImage = async (e) =>{
   const files = e.target.files;
   const data = new FormData();
@@ -107,7 +134,7 @@ const upLoadImage = async (e) =>{
         {/* Formulario de registro */}
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="row">
           <div className="form-columnPsico col-md-6">
-   {/* //* Nombre */}
+{/* //* Nombre */}
             <div className="form-groupRegPsico">
               <label>
                 <i className="bx bxs-user"></i> Nombre:
@@ -164,7 +191,7 @@ const upLoadImage = async (e) =>{
               )}
             </div>
 {/* //* GENERO */}
-            <div className="form-groupRegPsico">
+ <div className="form-groupRegPsico">
   <label>
   <i class='bx bx-male-female'></i> Género:
     <Controller
@@ -269,6 +296,7 @@ const upLoadImage = async (e) =>{
     <p className="errores">{errors.telefono.message}</p>
   )}
 </div>
+{/* //* EMAIL */}
 <div className="form-groupPsico">
             <label>
               <i className="bx bxs-envelope"></i>
@@ -354,6 +382,20 @@ const upLoadImage = async (e) =>{
 /(<img src={image} style={{width: "150px"}}/>)
         </label>
       </div>
+
+{/*//* LICENCIA */}
+<div className="form-groupRegPsico">
+  <label>
+    <i className="bx bxs-file-pdf"></i> Subir Licencia (PDF):
+    <input
+      type="file"
+      accept=".pdf" // Asegúrate de que solo se permitan archivos PDF
+      onChange={handleLicenseUpload} // Maneja la función para subir el archivo
+    />
+  </label>
+</div>
+
+   
   {/* //* días */}
    <div className="form-groupRegPsico">
    <label>
