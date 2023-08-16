@@ -30,12 +30,12 @@ const LoginPsicologo = () => {
       const response = await axios.post('http://localhost:3001/psiconection/login', formData);
       console.log(response)
       console.log('Response from server:', response.data);
-      console.log('Token:', response.data.info.tokenSessionUser);
+      console.log('Token:', response.data.info.tokenSession);
       if (response.status === 200) {
         const userRole = response.data.info.roll;
 
         if (userRole !== 'psicologo') { 
-        // si es dife a usuario error y no realiza la redirección
+        // si es dife a psico error y no realiza la redirección
           window.alert('Por favor inicie sesión como psicologo');
         } else {
           setToken(response.data.info.tokenSession); 
