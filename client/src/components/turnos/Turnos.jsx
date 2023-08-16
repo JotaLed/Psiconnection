@@ -129,17 +129,28 @@ export default function Turnos({ dias, horas }) {
   console.log(buttonActive);
   console.log(selectTurno);
 
+  const turno = {
+    idPsico: "6462cf98-c531-41b3-9586-1d1b9b38cef1",
+    idUser: "4ad79818-65ab-4330-a3d9-87970d408790",
+    fecha: "29/01/24",
+    hora: "10-11",
+    estado: "activo",
+    tarifa: "50"
+}
+
   const handleCheckoutClick = async () => {
     try {
-        const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}&hora=${newTurno.hora}&fecha=${newTurno.fecha}&id=${psicology.idPsico}`)
+        const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}`, turno)
+        console.log("link mercadoPago",response)
         const link = response.data.body.init_point
-        console.log(link)
-        window.location.href = link
+        // window.location.href = link   
+        window.open(link, '_blank');
+        const cita = await axios.post(`psiconnection/citas/reservarCita`, turno)
+
     } catch (error) {
         console.log(error)
     }
-         
-  }
+  };
 
   return (
     <div className="turnos">
@@ -179,7 +190,7 @@ export default function Turnos({ dias, horas }) {
             })}
           </div>
 
-          <div onClick={handleCheckoutClick} className="pedir_turno">
+          <div  onClick={handleCheckoutClick} className="pedir_turno" target="_blank" >
             <p>📅</p>
             <p>Pedir turno</p>
           </div>
