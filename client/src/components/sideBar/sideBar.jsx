@@ -18,9 +18,18 @@ export default function Sidebar() {
           <li className="nav-item">
             <Link to="/nosotros">About us</Link>
           </li>
+          {/* {
+            !login ? <li className="nav-item">
+            <Link to="/form">Sign up</Link>
+          </li>
+          :<li className="nav-item">
+          <Link to="/acount:id">Perfil</Link>
+        </li>
+          } */}
           <li className="nav-item">
             <Link to="/form">Sign up</Link>
           </li>
+
         </ul>
       </div>
     </nav>
