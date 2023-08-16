@@ -1,22 +1,25 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
-//importmas browserRouter
-import { BrowserRouter } from "react-router-dom";
-//Imports para la utilizacion de redux
-import store from "./Redux/store";
 import { Provider } from "react-redux";
 import { Auth0Provider } from "@auth0/auth0-react";
+import store from "./Redux/store";
 
-const domain = "dev-j2pay3qttg6wtsey.us.auth0.com";
-const clientId = "cFFZWgwFiriqen5VK1Ut23IwXw9kprH0";
+const onRedirectCallback = (appState) => {
+  // Redirigir a la URL deseada después del inicio de sesión
+  window.location.href = "http://localhost:5173/registroUsuario";
+};
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const root = createRoot(document.getElementById("root"));
+
+root.render(
   <Provider store={store}>
     <Auth0Provider
-      domain={domain}
-      clientId={clientId}
+      domain={"dev-sdzlhz4u3748bi1n.us.auth0.com"}
+      clientId={"pqcJSZZkLUgo8FLZD2vpRH76UsQVNcb5"}
+      onRedirectCallback={onRedirectCallback} // Usar la función de redirección
       redirectUri={window.location.origin}
     >
       <BrowserRouter>
@@ -25,5 +28,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </Auth0Provider>
   </Provider>
 );
-
-//comentario
