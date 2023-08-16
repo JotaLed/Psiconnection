@@ -11,9 +11,6 @@ import fetchCountriesList from '../registroPsicologo/fetchCountriesList';
 
 const RegistroUsuario = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
-  const [errorMessage, setErrorMessage] = useState('');
-  const [selectedDays, setSelectedDays] = useState([]); // Estado para los días seleccionados
-  const [selectedHours, setSelectedHours] = useState([]); // Estado para las horas seleccionadas
   const [countriesList, setCountriesList] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
