@@ -18,7 +18,7 @@ const LoginUsuario = () => {
 
 // Guardar un token en el localStorage después de un inicio de sesión exitoso
 const handleWindow = () => {
-  localStorage.setItem('authToken', token); // Guarda el token en localStorage
+  localStorage.setItem('authToken', JSON.stringify(token)); // Guarda el token en localStorage
   navigate('/home');
 };
 
@@ -42,7 +42,7 @@ const handleWindow = () => {
           // Si el rol es diferente psicologo, muestra un mensaje y no realiza la redirección
           window.alert('Por favor inicie sesión como usuario');
         } else {
-          setToken(response.data.info.tokenSession); // Aquí estás guardando el token en el estado
+          setToken(response.data.info.tokenSessionUser); // Aquí estás guardando el token en el estado
           // Si el rol es otro, realiza la redirección
           handleWindow();
         }
@@ -54,6 +54,7 @@ const handleWindow = () => {
       window.alert(error.response.data.error);
     }
   };
+
 
   const onGoogleSignIn = () => {
     // Redirigir al flujo de inicio de sesión de Auth0 con Google como proveedor
