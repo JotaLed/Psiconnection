@@ -22,15 +22,15 @@
 }
 
 .unvalidate-day {
-    background-color: #fff;
+    background-color: #d3d3d3;
     color: red;
     cursor: not-allowed;
 
 }
 
 .validate-day {
-    background-color: #2b4c7e;
-    color: aliceblue;
+    background-color: #fff;
+    color: black;
 }
 
 .contenedor {

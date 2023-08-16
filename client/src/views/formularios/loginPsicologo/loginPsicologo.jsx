@@ -5,7 +5,6 @@ import './loginPsicologo.css';
 import { isValidPassword } from '../validaciones';
 import axios, { formToJSON } from 'axios';
 import { Link } from 'react-router-dom';
-import { isValidPassword } from '../validaciones';
 
 const LoginPsicologo = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
