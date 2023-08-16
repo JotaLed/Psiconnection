@@ -55,13 +55,17 @@ const LoginUsuario = () => {
           // Si el rol es diferente psicologo, muestra un mensaje y no realiza la redirección
           window.alert("Por favor inicie sesión como usuario");
         } else {
-          setToken(response.data.info.tokenSessionUser); // Aquí estás guardando el token en el estado
+          
+           //! cambios 
+          const tokenString = JSON.stringify(response.data.info.tokenSessionUser)
+
+          // setToken(response.data.info.tokenSessionUser); // Aquí estás guardando el token en el estado
           // Si el rol es otro, realiza la redirección
-          handleWindow();
+          // handleWindow();
+          localStorage.setItem("authToken", tokenString); // Guarda el token en localStorage
+          navigate("/home");
         }
-      } else {
-        setErrorMessage("Credenciales inválidas");
-      }
+      } 
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
       window.alert(error.response.data.error);
