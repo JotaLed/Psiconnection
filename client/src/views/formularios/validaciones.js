@@ -1,6 +1,7 @@
 const isValidPassword = (value) => {
     // Expresión regular para validar contraseña
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z0-9ñÑ@$!%*?&])[A-Za-z0-9ñÑ@$!%*?&]{6,}$/;
+
     return passwordRegex.test(value); // Verifica si la contraseña cumple con la expresión regular
   };
   export { isValidPassword}

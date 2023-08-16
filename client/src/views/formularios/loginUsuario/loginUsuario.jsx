@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import './loginUsuario.css';
 import { isValidPassword } from '../validaciones';
 import axios from 'axios';
@@ -10,35 +11,53 @@ const LoginUsuario = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
-  const [performValidations, setPerformValidations] = useState(true); // Estado para controlar las validaciones
+ // const [performValidations, setPerformValidations] = useState(true); // Estado para controlar las validaciones
+  const navigate = useNavigate();
 
+  const [token, setToken] = useState('');
+
+// Guardar un token en el localStorage después de un inicio de sesión exitoso
+const handleWindow = () => {
+  localStorage.setItem('authToken', token); // Guarda el token en localStorage
+  navigate('/home');
+};
+
+// Recuperar un token del localStorage en otro componente
+//const authToken = localStorage.getItem('authToken');
 
   const onSubmit = async (formData) => {
-    if (performValidations) { // Realizar validaciones solo si está habilitado
-    if (!formData.email || !formData.password) {
+    if (!formData.email || !formData.contraseña) {
       setErrorMessage('Todos los campos son requeridos');
       return;
     }
-  }
-    try {
-      // Realiza la solicitud al backend para verificar el inicio de sesión
-      const response = await axios.post('http://localhost:3001/psiconection/login', formData);
 
+    try {
+      const response = await axios.post('http://localhost:3001/psiconection/login', formData);
+      console.log('Response from server:', response.data);
+      console.log('Token:', response.data.info.tokenSession);
       if (response.status === 200) {
-       
+        const userRole = response.data.info.roll;
+
+        if (userRole === 'psicologo') {
+          // Si el rol es diferente psicologo, muestra un mensaje y no realiza la redirección
+          window.alert('Por favor inicie sesión como usuario');
+        } else {
+          setToken(response.data.info.tokenSession); // Aquí estás guardando el token en el estado
+          // Si el rol es otro, realiza la redirección
+          handleWindow();
+        }
       } else {
-        // Inicio de sesión fallido, muestra un mensaje de error
         setErrorMessage('Credenciales inválidas');
       }
     } catch (error) {
-      // Maneja los errores
       console.error('Error al realizar la solicitud:', error);
+      window.alert(error.response.data.error);
     }
   };
 
   const onGoogleSignIn = () => {
     // Redirigir al flujo de inicio de sesión de Auth0 con Google como proveedor
-    window.location.href = 'URL_DEL_FLUJO_DE_INICIO_DE_SESION_DE_AUTH0';
+    window.location.href = 'URL_DE_INICIO_DE_SESION_DE_AUTH0';
   };
 
   return (
@@ -87,7 +106,7 @@ const LoginUsuario = () => {
             <label>
               <i className="bx bxs-lock-alt"></i>
               <Controller
-                name="password"
+                name="contraseña"
                 control={control}
                 defaultValue=""
                 rules={{ validate: isValidPassword }}
