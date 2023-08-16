@@ -8,10 +8,15 @@ import { Link } from 'react-router-dom';
 //import { useAuth0 } from '@auth0/auth0-react';
 
 const LoginUsuario = () => {
-  const { handleSubmit, control, formState: { errors } } = useForm();
-  const [errorMessage, setErrorMessage] = useState('');
+  const { isAuthenticated } = useAuth0();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
+  const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
- // const [performValidations, setPerformValidations] = useState(true); // Estado para controlar las validaciones
+  // const [performValidations, setPerformValidations] = useState(true); // Estado para controlar las validaciones
   const navigate = useNavigate();
   //const { loginWithRedirect } = useAuth0();
   const [token, setToken] = useState('');
@@ -24,14 +29,15 @@ const handleWindow = () => {
   navigate('/home');
 };
 
-// Recuperar un token del localStorage en otro componente
-//const authToken = localStorage.getItem('authToken');
+  // Recuperar un token del localStorage en otro componente
+  //const authToken = localStorage.getItem('authToken');
 
   const onSubmit = async (formData) => {
     if (!formData.email || !formData.password) {
       setErrorMessage('Todos los campos son requeridos');
       return;
     }
+    console.log("formState", formData);
 
     try {
       const response = await axios.post('http://localhost:3001/psiconection/login', formData);
@@ -40,38 +46,37 @@ const handleWindow = () => {
       console.log('Token:', response.data.info.tokenSessionUser);
       if (response.status === 200) {
         const userRole = response.data.info.roll;
-
-        if (userRole === 'psicologo') {
+        console.log("roll", userRole);
+        if (userRole === "psicologo") {
           // Si el rol es diferente psicologo, muestra un mensaje y no realiza la redirección
-          window.alert('Por favor inicie sesión como usuario');
+          window.alert("Por favor inicie sesión como usuario");
         } else {
           setToken(response.data.info.tokenSessionUser); // Aquí estás guardando el token en el estado
           // Si el rol es otro, realiza la redirección
           handleWindow();
         }
-      } else {
-        setErrorMessage('Credenciales inválidas');
       }
     } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
+      console.error("Error al realizar la solicitud:", error);
       window.alert(error.response.data.error);
     }
   };
 
+  console.log("formToken", token);
+
   const onGoogleSignIn = () => {
     // Redirigir al flujo de inicio de sesión de Auth0 con Google como proveedor
-    window.location.href = 'URL_DE_INICIO_DE_SESION_DE_AUTH0';
+    window.location.href = "URL_DE_INICIO_DE_SESION_DE_AUTH0";
   };
 
   return (
     <div className="containerLoginUsuario">
-    
       <div className="login-formUsu">
         <h2>¡Bienvenidos Usuarios!</h2>
         <h3>Para ingresar a nuestra comunidad, inicia sesión:</h3>
 
-{/* //! Botón de inicio de sesión con Google */}
-        <div className="google-login-button">
+        {/* //! Botón de inicio de sesión con Google */}
+        {/* <div className="google-login-button">
           <button
             className="g-signin2"
             onClick={onGoogleSignIn}
@@ -79,7 +84,9 @@ const handleWindow = () => {
         <i class='bx bxl-google bx-burst' ></i> 
           </button>
   <h4>Inicia sesión con Google</h4>
-        </div>
+        </div> */}
+        {console.log(isAuthenticated)}
+        {isAuthenticated ? <LogoutButtonAuth0 /> : <LoginButtonAuth0 />}
 
         {/* Formulario de inicio de sesión local */}
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -120,42 +127,67 @@ const handleWindow = () => {
                     type={showPassword ? 'text' : 'password'} // Cambio de tipo aquí
                     placeholder="Contraseña"
                     />
-      
-                  <i
-                    className={`bx ${showPassword ? 'bxs-hide' : 'bxs-show'}`}
-                    onClick={() => setShowPassword(!showPassword)}
-                    ></i>
-                </div>
+                  )}
+                />
+              </label>
+              {errors.email?.type === "pattern" && (
+                <p className="errores">Formato de email incorrecto</p>
               )}
-              />
-            </label>
-            {errors.password && (
-              <p className='errores'>Debe tener más de 6 caracteres alfanuméricos</p>
-              )}
-          </div>
-          <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
 
-{/* Enlace para ir a la página de registro */}
-<div className="register-link">
-          ¿No tienes una cuenta?{' '}
-          <Link to="/registroUsuario" className="register-link-text">
-            Regístrate aquí
-          </Link>
-          </div>         
-{/* //! Volver a la pagina de selección roll */}
-                <div className="link-back">
-                  {/* Enlace para volver a la página anterior */}
-                  <Link to="/form" className="back-link">Volver</Link>
-                  </div>
-         </div>
-              </form>
-              </div>
-              
-              </div>
-   
-    
+              <label>
+                <i className="bx bxs-lock-alt"></i>
+                <Controller
+                  name="contraseña"
+                  control={control}
+                  defaultValue=""
+                  rules={{ validate: isValidPassword }}
+                  render={({ field }) => (
+                    <div className="password-input">
+                      <input
+                        {...field}
+                        type={showPassword ? "text" : "password"} // Cambio de tipo aquí
+                        placeholder="Contraseña"
+                      />
+
+                      <i
+                        className={`bx ${
+                          showPassword ? "bxs-hide" : "bxs-show"
+                        }`}
+                        onClick={() => setShowPassword(!showPassword)}
+                      ></i>
+                    </div>
+                  )}
+                />
+              </label>
+              {errors.password && (
+                <p className="errores">
+                  Debe tener más de 6 caracteres alfanuméricos
+                </p>
+              )}
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Iniciar Sesión
+            </button>
+
+            {/* Enlace para ir a la página de registro */}
+            <div className="register-link">
+              ¿No tienes una cuenta?{" "}
+              <Link to="/registroUsuario" className="register-link-text">
+                Regístrate aquí
+              </Link>
+            </div>
+            {/* //! Volver a la pagina de selección roll */}
+            <div className="link-back">
+              {/* Enlace para volver a la página anterior */}
+              <Link to="/form" className="back-link">
+                Volver
+              </Link>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   );
-}
+};
 
 export default LoginUsuario;
-
