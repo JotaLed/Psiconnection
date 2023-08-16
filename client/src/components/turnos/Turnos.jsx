@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 //IMportamos el calendario 
 import 'react-calendar/dist/Calendar.css';
 //importamos react calendar 
@@ -8,28 +8,51 @@ import Calendar from 'react-calendar'
 import { useLocation } from 'react-router-dom';
 
 import { useSelector, useDispatch } from "react-redux"
-import { loadDetail } from '../../Redux/actions';
+import { loadDetail, getAppointment } from '../../Redux/actions';
 
-export default function Turnos({ dias, horas}) {
+export default function Turnos({ dias, horas }) {
     const dispatch = useDispatch();
     const location = useLocation();
     const psicology = useSelector((store) => store.psicoloDetail)
+    const appointments = useSelector((store) => store.appointments);
     const id = location.pathname.split('/').at(-1);
 
-    useEffect(()=>{
-        dispatch(loadDetail(id))
-    },[])
-console.log(psicology);
-    //arreglo de citas de psicologos harcode 
-    
+
+    //useEffect que me trae los estados globales al montarse la página
+    useEffect(() => {
+        dispatch(loadDetail(id));
+        dispatch(getAppointment());
+    }, [])
+
+
+    const psicoAppointmentsFound = appointments.filter((a) => a.PsicologoId === psicology.id && a.estado === "activo");
+
+
+
+    const citas = psicoAppointmentsFound.map((c) => {
+        return {fecha: c.fecha, horario:[c.hora]}
+    })
+
+
+
+
+    const citasPsico = [...citas];
+    console.log("citas", citasPsico);
+
+    // console.log(psicoAppointmentsFound);
+
+
+
+    // const citas = [
+    //     { fecha: "14/8/2023", horario: ["17-18"] },
+    //     { fecha: "15/8/2023", horario: ["12-13"] },
+    //     { fecha: "15/8/2023", horario: ["11-12"] },
+    //     { fecha: "19/8/2023", horario: ["12-13"] },
+    //     { fecha: "14/8/2023", horario: ["20-21"] },
+    // ]
+
     const disponibilidad = { dias: [...dias], horarios: [...horas] }
 
-    const citas = [
-        // { fecha: "14/8/2023", horario: ["17-18"] },//Necesitp comparar que el date no coincida con la fecha y 
-        // { fecha: "15/8/2023", horario: ["12-13"] },
-        // { fecha: "19/8/2023", horario: ["12-13"] },
-        // { fecha: "14/8/2023", horario: ["20-21"] },
-    ]
 
     //estados locales 
     const [date, setDate] = useState(new Date());
@@ -51,11 +74,15 @@ console.log(psicology);
     const [buttonActive, setButtonActive] = useState({
         "Estado para los buttons": false
     })
+
+
     //useEffect
     useEffect(() => {
         console.log(date);
 
     }, [])
+
+
 
 
 
@@ -93,8 +120,10 @@ console.log(psicology);
         //Seteamos el div con los horarios
         setFlagH(true)
         //Buscamos los horario de ese dia 
-        let foundFecha = citas.filter((cita) => cita.fecha == date.toLocaleDateString())
-
+        // let foundFecha = citas.map((cita) => console.log(cita.fecha))
+        let foundFecha = citasPsico.filter((cita) => cita.fecha == date.toLocaleDateString())
+        
+        
 
         //Preguntamos si existen fechas con horaios tomados 
         if (foundFecha.length) {
@@ -137,13 +166,13 @@ console.log(psicology);
             window.location.href = link
         } catch (error) {
             console.log(error);
-            
+
         }
     }
 
     return (
         <div className='turnos'>
-                <Calendar
+            <Calendar
                 onChange={OnChange}
                 tileClassName={({ date }) => tileClassName(date)}
                 align="start"
@@ -153,7 +182,7 @@ console.log(psicology);
             {flagH === true ? <div className='contenedor'>
                 <h3 className='horario'>Selecione su horario:</h3>
                 <div className='info_truno'>
-                    <p className='precio'>Precio del turno:{psicology.tarifa}$</p> 
+                    <p className='precio'>Precio del turno:{psicology.tarifa}$</p>
                     <p className='dia'>Dia selecionado:{selectTurno.fecha}</p>
                 </div>
                 <div className='horas_conteiner'>
@@ -179,13 +208,13 @@ console.log(psicology);
                     <p>Pedir turno</p>
                 </div>
 
-                
+
             </div>
                 : <div>
                     Seleccione un dia en el calendario para consultar sus horarios
                 </div>
             }
-        
+
         </div>
     )
 }
