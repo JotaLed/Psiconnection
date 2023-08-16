@@ -21,17 +21,18 @@ const userCreateHandler = async (req, res) => {
     pais,
     genero,
     email,
-    contraseña,
+    password,
     telefono,
   } = req.body;
   const fecha = await obtenerFechaActual();
+  const contraseña = password;
   console.log(fecha);
 
   try {
     //! validaciones
     if (!nombre) return res.status(403).json({ error: "Nombre vacio." });
     if (!apellido) return res.status(403).json({ error: "Apellido vacio." });
-    if (!contraseña) return res.status(403).json({ error: "Nombre vacio." });
+    if (!contraseña) return res.status(403).json({ error: "Contraseña vacia." });
     if (!fecha_nacimiento)
       return res.status(403).json({ error: "Edad vacio." });
     if (!pais) return res.status(403).json({ error: "Pais vacio." });

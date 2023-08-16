@@ -1,35 +1,58 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-//IMportamos el calendario
-import "react-calendar/dist/Calendar.css";
-//importamos react calendar
-import "../turnos/Turnoss.css";
-import Calendar from "react-calendar";
-import { useLocation } from "react-router-dom";
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+//IMportamos el calendario 
+import 'react-calendar/dist/Calendar.css';
+//importamos react calendar 
+import "../turnos/Turnoss.css"
+import Calendar from 'react-calendar'
+import { useLocation } from 'react-router-dom';
 
-import { useSelector, useDispatch } from "react-redux";
-import { loadDetail } from "../../Redux/actions";
+import { useSelector, useDispatch } from "react-redux"
+import { loadDetail, getAppointment } from '../../Redux/actions';
 
 export default function Turnos({ dias, horas }) {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const psicology = useSelector((store) => store.psicoloDetail);
-  const id = location.pathname.split("/").at(-1);
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const psicology = useSelector((store) => store.psicoloDetail)
+    const appointments = useSelector((store) => store.appointments);
+    const id = location.pathname.split('/').at(-1);
 
-  useEffect(() => {
-    dispatch(loadDetail(id));
-  }, []);
-  console.log(psicology);
-  //arreglo de citas de psicologos harcode
 
-  const disponibilidad = { dias: [...dias], horarios: [...horas] };
+    //useEffect que me trae los estados globales al montarse la página
+    useEffect(() => {
+        dispatch(loadDetail(id));
+        dispatch(getAppointment());
+    }, [])
 
-  const citas = [
-    // { fecha: "14/8/2023", horario: ["17-18"] },//Necesitp comparar que el date no coincida con la fecha y
-    // { fecha: "15/8/2023", horario: ["12-13"] },
-    // { fecha: "19/8/2023", horario: ["12-13"] },
-    // { fecha: "14/8/2023", horario: ["20-21"] },
-  ];
+
+    const psicoAppointmentsFound = appointments.filter((a) => a.PsicologoId === psicology.id && a.estado === "activo");
+
+
+
+    const citas = psicoAppointmentsFound.map((c) => {
+        return {fecha: c.fecha, horario:[c.hora]}
+    })
+
+
+
+
+    const citasPsico = [...citas];
+    console.log("citas", citasPsico);
+
+    // console.log(psicoAppointmentsFound);
+
+
+
+    // const citas = [
+    //     { fecha: "14/8/2023", horario: ["17-18"] },
+    //     { fecha: "15/8/2023", horario: ["12-13"] },
+    //     { fecha: "15/8/2023", horario: ["11-12"] },
+    //     { fecha: "19/8/2023", horario: ["12-13"] },
+    //     { fecha: "14/8/2023", horario: ["20-21"] },
+    // ]
+
+    const disponibilidad = { dias: [...dias], horarios: [...horas] }
+
 
   //estados locales
   const [date, setDate] = useState(new Date());
@@ -42,6 +65,8 @@ export default function Turnos({ dias, horas }) {
     fecha: "",
     hora: "",
   });
+
+
   const [buttonActive, setButtonActive] = useState({
     "Estado para los buttons": false,
   });
@@ -71,22 +96,23 @@ export default function Turnos({ dias, horas }) {
     //Steamos el estado del date
     setDate(date);
 
-    //reiniciamos el estado de envio del turno
-    setNewTurno({
-      fecha: "",
-      hora: "",
-    });
-    let day = date.toDateString().split(" ")[0]; //Esto es las primeras 3 letras del dia de la semana
-    if (!disponibilidad.dias.includes(day) || isPastDate(date)) {
-      setFlagH(false);
-      return alert("este dia no esta disponible");
-    }
-    //Seteamos el div con los horarios
-    setFlagH(true);
-    //Buscamos los horario de ese dia
-    let foundFecha = citas.filter(
-      (cita) => cita.fecha == date.toLocaleDateString()
-    );
+        //reiniciamos el estado de envio del turno 
+        setNewTurno({
+            fecha: "",
+            hora: ""
+        })
+        let day = date.toDateString().split(" ")[0] //Esto es las primeras 3 letras del dia de la semana
+        if (!disponibilidad.dias.includes(day) || isPastDate(date)) {
+            setFlagH(false)
+            return alert("este dia no esta disponible")
+        }
+        //Seteamos el div con los horarios
+        setFlagH(true)
+        //Buscamos los horario de ese dia 
+        // let foundFecha = citas.map((cita) => console.log(cita.fecha))
+        let foundFecha = citasPsico.filter((cita) => cita.fecha == date.toLocaleDateString())
+        
+        
 
     //Preguntamos si existen fechas con horaios tomados
     if (foundFecha.length) {
@@ -122,15 +148,21 @@ export default function Turnos({ dias, horas }) {
     setButtonActive({ [hora]: true });
   };
 
-  console.log(newTurno);
+  console.log('Turno para elegir =>', newTurno);
   // console.log(date.toDateString().split(" ")[0]);
   console.log(buttonActive);
   console.log(selectTurno);
-  
+
   const handleCheckoutClick = async () => {
-          const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}`)
-          const link = response.data.body.init_point
-          window.location.href = link
+    try {
+        const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}&hora=${newTurno.hora}&fecha=${newTurno.fecha}&id=${psicology.idPsico}`)
+        const link = response.data.body.init_point
+        console.log(link)
+        window.location.href = link
+    } catch (error) {
+        console.log(error)
+    }
+         
   }
 
   return (

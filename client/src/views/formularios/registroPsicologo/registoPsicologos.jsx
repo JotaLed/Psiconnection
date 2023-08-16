@@ -10,8 +10,7 @@ import fetchCountriesList from './fetchCountriesList';
 
 
 const RegistroPsicologo = () => {
-  const { handleSubmit, control, formState: { errors } } = useForm();
-  const [errorMessage, setErrorMessage] = useState('');
+  const { handleSubmit, control, formState: { errors }, reset } = useForm();
   const [selectedDays, setSelectedDays] = useState([]); // Estado para los días seleccionados
   const [selectedHours, setSelectedHours] = useState([]); // Estado para las horas seleccionadas
   const [countriesList, setCountriesList] = useState([]);
@@ -19,7 +18,8 @@ const RegistroPsicologo = () => {
   const [showPassword, setShowPassword] = useState(false);
  // Estado para las especialidades seleccionadas
  const [selectedSpecialties, setSelectedSpecialties] = useState([]);
- 
+ const [fileData, setFileData] = useState(null);
+
   useEffect(() => {
     const fetchCountries = async () => {
       const countries = await fetchCountriesList();
@@ -39,7 +39,7 @@ const RegistroPsicologo = () => {
       const selectedSpecialtyValues = selectedSpecialties.map(option => option.value);
       formData.especialidad = selectedSpecialtyValues;
       formData.descripcion = formData.descripcion || ''; // En caso de que sea undefined
-      formData.licencia = licenseUrl;
+      formData.licencia = fileData.url;
 
     console.log('Datos a enviar:', formData);
     console.log('Días seleccionados:', selectedDays);
@@ -58,7 +58,9 @@ const RegistroPsicologo = () => {
         // Resetea los campos del formulario
         setSelectedDays([]);
         setSelectedHours([]);
-        setImage(""); // Limpiar la imagen seleccionada
+        setImage(""); 
+         // Resetea el formulario después de un registro exitoso
+         reset();
       }
     } catch (error) {
       // Maneja los errores
@@ -93,8 +95,8 @@ const RegistroPsicologo = () => {
       );
       const fileData = await response.json();
       console.log(fileData);
-      // Guarda la URL del archivo PDF en tu estado
-      // Puedes guardarla en el mismo estado donde guardas la imagen de perfil
+      setFileData(fileData); // Guardar los datos del archivo en el estado
+     
     } catch (error) {
       console.error("Error al subir el archivo:", error);
     }
