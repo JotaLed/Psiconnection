@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 //import { useHistory } from 'react-router-dom';
 import './loginPsicologo.css';
-import { isValidPassword } from '../validaciones';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { isValidPassword } from '../validaciones';
 
 const LoginPsicologo = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
@@ -13,7 +13,7 @@ const LoginPsicologo = () => {
  // const history = useHistory();
 
   const onSubmit = async (formData) => {
-    if (!formData.email || !formData.password) {
+    if (!formData.email || !formData.contraseña) {
       setErrorMessage('Todos los campos son requeridos');
       return;
     }
@@ -68,7 +68,7 @@ const LoginPsicologo = () => {
             <label>
               <i className="bx bxs-lock-alt"></i>
               <Controller
-                name="password"
+                name="contraseña"
                 control={control}
                 defaultValue=""
                 rules={{ validate: isValidPassword }}
