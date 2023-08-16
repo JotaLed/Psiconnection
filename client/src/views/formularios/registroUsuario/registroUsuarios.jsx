@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import 'boxicons/css/boxicons.min.css';
-import { isValidName, isValidDate, isValidTel } from '../validaciones';
+import { isValidName, isValidDate, isValidTel, isValidPassword } from '../validaciones';
 import './registroUsuario.css';
 import fetchCountriesList from '../registroPsicologo/fetchCountriesList';
 
@@ -15,6 +15,7 @@ const RegistroUsuario = () => {
   const [selectedDays, setSelectedDays] = useState([]); // Estado para los días seleccionados
   const [selectedHours, setSelectedHours] = useState([]); // Estado para las horas seleccionadas
   const [countriesList, setCountriesList] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   useEffect(() => {
@@ -28,22 +29,18 @@ const RegistroUsuario = () => {
   const onSubmit = async (formData) => {
 
       formData.roll = "usuario",
-      formData.dias = selectedDays,
-      formData.horas = selectedHours,
+
       formData.foto = image
     
     console.log('Datos a enviar:', formData);
-    console.log('Días seleccionados:', selectedDays);
-    console.log('imagen', image);
+
     // Envio al backend
     try {
       const response = await axios.post("http://localhost:3001/psiconection/registerUsuario", formData);
-      // Realiza alguna acción en base a la respuesta del servidor
+    
       if (response.status === 200) {
         setRegistrationSuccess(true);
-        // Resetea los campos del formulario
-        setSelectedDays([]);
-        setSelectedHours([]);
+
         setImage(""); // Limpiar la imagen seleccionada
       }
     } catch (error) {
@@ -133,10 +130,10 @@ const upLoadImage = async (e) =>{
                   )}
                 />
               </label>
-              {errors.nombre?.type === 'required' && (
+              {errors.apellido?.type === 'required' && (
                 <p className="errores">Este campo es requerido</p>
               )}
-              {errors.nombre?.type === 'validate' && (
+              {errors.apellido?.type === 'validate' && (
                 <p className="errores">El nombre debe tener más de 3 letras y menos de 50</p>
               )}
             </div>
