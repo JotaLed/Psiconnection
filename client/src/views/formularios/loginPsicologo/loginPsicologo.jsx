@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+//import { useHistory } from 'react-router-dom';
 import './loginPsicologo.css';
 import { isValidPassword } from '../validaciones';
-import axios from 'axios';
+import axios, { formToJSON } from 'axios';
 import { Link } from 'react-router-dom';
 
 const LoginPsicologo = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
+ // const history = useHistory();
+
+
 
   const onSubmit = async (formData) => {
     if (!formData.email || !formData.password) {
@@ -17,17 +21,25 @@ const LoginPsicologo = () => {
     }
 
     try {
+
       // Realiza la solicitud al backend para verificar el inicio de sesión
       const response = await axios.post('http://localhost:3001/psiconection/login', formData);
 
+      console.log(response)
+
       if (response.status === 200) {
-       
+       // const userRole = response.data.rol;
+
+        if (userRole === 'psicologo') {
+          //history.push('/home'); // Redirige al perfil del psicólogo
+        } else {
+          setErrorMessage('Credenciales inválidas');
+        }
       } else {
-        // Inicio de sesión fallido, muestra un mensaje de error
         setErrorMessage('Credenciales inválidas');
       }
     } catch (error) {
-      // Maneja los errores
+
       console.error('Error al realizar la solicitud:', error);
     }
   };
