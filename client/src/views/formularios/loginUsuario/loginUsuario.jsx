@@ -7,8 +7,10 @@ import { Link } from "react-router-dom";
 import LoginButton from "../../../components/loginButton";
 import LogoutButton from "../../../components/LogoutButton";
 import Profile from "../../../components/Profile";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const LoginUsuario = () => {
+  const { isAuthenticated, isLoading } = useAuth0();
   const {
     handleSubmit,
     control,
@@ -49,14 +51,15 @@ const LoginUsuario = () => {
     window.location.href = "URL_DEL_FLUJO_DE_INICIO_DE_SESION_DE_AUTH0";
   };
 
+  if (isLoading) return <h1>Loading...</h1>;
+
   return (
     <div className="containerLoginUsuario">
       <div className="login-formUsu">
         <h2>¡Bienvenidos Usuarios!</h2>
         <h3>Para ingresar a nuestra comunidad, inicia sesión:</h3>
-        <LoginButton />
+        {isAuthenticated ? <LogoutButton /> : <LoginButton />}
         <Profile />
-        <LogoutButton />
         {/* //! Botón de inicio de sesión con Google */}
         <div className="google-login-button">
           <button className="g-signin2" onClick={onGoogleSignIn}>
