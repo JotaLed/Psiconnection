@@ -8,6 +8,7 @@ export const GET_SPECIALITIES = "GET_SPECIALITIES";
 export const GET_DETAIL = "GET_DETAIL";
 export const GET_DETAIL_CLIENT = "GET_DETAIL_CLIENT";
 export const GET_DETAIL_PSICOLOGO = "GET_DETAIL_PSICOLOGO";
+export const GET_APPOINTMENTS = "GET_APPOINTMENTS";
 import axios from "axios";
 
 // export const setFilter = (filters) => {
@@ -194,3 +195,18 @@ export const deletePiscologo = (id) => {
         }
     }
 }
+
+export const getAppointment = () => {
+    return async function (dispatch) {
+        try {
+            const appointments = await axios.get('/psiconection/citas/reservarCita');
+            const allAppointments = appointments.data;
+            return dispatch({
+                type: GET_APPOINTMENTS,
+                payload: allAppointments
+            })
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+};
