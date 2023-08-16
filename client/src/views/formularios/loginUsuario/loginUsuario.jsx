@@ -17,10 +17,14 @@ const LoginUsuario = () => {
   const [token, setToken] = useState('');
 
 // Guardar un token en el localStorage después de un inicio de sesión exitoso
-const handleWindow = () => {
-  localStorage.setItem('authToken', JSON.stringify(token)); // Guarda el token en localStorage
-  navigate('/home');
+const handleWindow =  () => {
+    // Guarda el token en localStorage
+
+  // navigate('/home');
 };
+
+
+
 
 // Recuperar un token del localStorage en otro componente
 //const authToken = localStorage.getItem('authToken');
@@ -30,30 +34,36 @@ const handleWindow = () => {
       setErrorMessage('Todos los campos son requeridos');
       return;
     }
+    console.log('formState', formData)
 
     try {
       const response = await axios.post('http://localhost:3001/psiconection/login', formData);
-      console.log('Response from server:', response.data);
-      console.log('Token:', response.data.info.tokenSession);
+      // console.log(response.data.info.tokenSessionUser)
+      // console.log('Response from server:', response.data);
+      // console.log('Token:', response.data.info.tokenSessionUser);
       if (response.status === 200) {
         const userRole = response.data.info.roll;
-
+          console.log("roll",userRole)
         if (userRole === 'psicologo') {
           // Si el rol es diferente psicologo, muestra un mensaje y no realiza la redirección
           window.alert('Por favor inicie sesión como usuario');
         } else {
-          setToken(response.data.info.tokenSessionUser); // Aquí estás guardando el token en el estado
-          // Si el rol es otro, realiza la redirección
-          handleWindow();
+          const token = response.data.info.tokenSessionUser
+          // setToken(token);
+          localStorage.setItem('authToken', JSON.stringify(token));
+          navigate('/home')
+
         }
-      } else {
-        setErrorMessage('Credenciales inválidas');
-      }
+        
+     }    
     } catch (error) {
       console.error('Error al realizar la solicitud:', error);
       window.alert(error.response.data.error);
+      
     }
   };
+
+  console.log('formToken',token)
 
 
   const onGoogleSignIn = () => {
