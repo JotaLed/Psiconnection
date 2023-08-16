@@ -8,8 +8,11 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import store from "./Redux/store";
 
 const onRedirectCallback = (appState) => {
-  // Redirigir a la URL deseada después del inicio de sesión
   window.location.href = "http://localhost:5173/registroUsuario";
+};
+
+const onLogout = () => {
+  window.location.href = "http://localhost:5173/home";
 };
 
 const root = createRoot(document.getElementById("root"));
@@ -19,7 +22,8 @@ root.render(
     <Auth0Provider
       domain={"dev-sdzlhz4u3748bi1n.us.auth0.com"}
       clientId={"pqcJSZZkLUgo8FLZD2vpRH76UsQVNcb5"}
-      onRedirectCallback={onRedirectCallback} // Usar la función de redirección
+      onRedirectCallback={onRedirectCallback}
+      onLogout={onLogout}
       redirectUri={window.location.origin}
     >
       <BrowserRouter>
