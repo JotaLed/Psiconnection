@@ -1,53 +1,57 @@
 require("dotenv").config();
 const { Psicologo } = require("../../db");
 const { Op } = require("sequelize");
-const { getPsicologosController } = require('../psicologosController')
-const mercadopago = require('mercadopago')
+const { getPsicologosController } = require("../psicologosController");
+const mercadopago = require("mercadopago");
 
-const tarifaPsico = async() => { 
-    const response = await Psicologo.findAll({
-        attributes: [
-            'tarifa',
-        ],
-    })
-   return response
-}
+const tarifaPsico = async () => {
+  const response = await Psicologo.findAll({
+    attributes: ["tarifa"],
+  });
+  return response;
+};
 
 const createOrder = async (req, res) => {
-    mercadopago.configure({
-        access_token:'TEST-2593734153674674-081009-5fd5772eadcab328bf94d4ddeaea0d72-1444277109'
-    })
-    const result = await mercadopago.preferences.create({
-        items:[
-            {
-                title: 'Sesion psicologo',
-                unit_price:100,
-                currency_id:'USD',
-                quantity:1,
-            }
-        ],
-        back_urls:{
-                success:'http://localhost:5173/detail/164fd47a-abcf-4ae9-afff-b68d582ae778',
-                failure:'http://localhost:5173/detail/164fd47a-abcf-4ae9-afff-b68d582ae778',
-                pending:'http://localhost:5173/detail/164fd47a-abcf-4ae9-afff-b68d582ae778'
-        },
-        notification_url:'https://22a6-190-138-148-106.ngrok.io/webhook'
-    })
-    console.log(result)
-    res.send(result)
+  const { tarifa } = req.query;
+  mercadopago.configure({
+    access_token:
+      "TEST-2593734153674674-081009-5fd5772eadcab328bf94d4ddeaea0d72-1444277109",
+  });
+  const result = await mercadopago.preferences.create({
+    items: [
+      {
+        title: "Sesion psicologo",
+        unit_price: Number(tarifa),
+        currency_id: "USD",
+        quantity: 1,
+      },
+    ],
+    back_urls: {
+      // success:'/home',
+      // failure:'/home',
+      // pending:'/home'
+      success: "https://psiconnectiondev.vercel.app/home",
+      failure: "https://psiconnectiondev.vercel.app/home",
+      pending: "https://psiconnectiondev.vercel.app/home",
+    },
+    notification_url: "https://9188-190-138-148-106.ngrok.io/webhook",
+  });
+  console.log(result);
+  res.send(result);
 };
 const receiveWebhook = async (req, res) => {
-const payment = req.query
-try {
-    if(payment.type === 'payment'){
-        const data = await mercadopago.payment.findById(payment['data.id'])
+  const payment = req.query;
+  try {
+    if (payment.type === "payment") {
+      const data = await mercadopago.payment.findById(payment["data.id"]);
     }
-        res.status(204)
-} catch (error) {
-    res.status(500).json({ error: error.message })}
+    res.status(204);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 module.exports = {
-    createOrder,
-    receiveWebhook,
+  createOrder,
+  receiveWebhook,
 };

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 //import { useHistory } from 'react-router-dom';
 import './loginPsicologo.css';
-import axios from 'axios';
+import { isValidPassword } from '../validaciones';
+import axios, { formToJSON } from 'axios';
 import { Link } from 'react-router-dom';
 import { isValidPassword } from '../validaciones';
 
@@ -12,6 +13,8 @@ const LoginPsicologo = () => {
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
  // const history = useHistory();
 
+
+
   const onSubmit = async (formData) => {
     if (!formData.email || !formData.contraseña) {
       setErrorMessage('Todos los campos son requeridos');
@@ -19,7 +22,11 @@ const LoginPsicologo = () => {
     }
 
     try {
+
+      // Realiza la solicitud al backend para verificar el inicio de sesión
       const response = await axios.post('http://localhost:3001/psiconection/login', formData);
+
+      console.log(response)
 
       if (response.status === 200) {
        // const userRole = response.data.rol;
@@ -33,6 +40,7 @@ const LoginPsicologo = () => {
         setErrorMessage('Credenciales inválidas');
       }
     } catch (error) {
+
       console.error('Error al realizar la solicitud:', error);
     }
   };
