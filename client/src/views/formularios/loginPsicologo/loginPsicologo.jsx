@@ -43,6 +43,7 @@ const LoginPsicologo = () => {
           // Aquí estás guardando el token en el estado tokenSession
           const tokenString = JSON.stringify(response.data.info.tokenSession)
           window.localStorage.setItem('authToken',tokenString)
+          navigate('/home')
       }
       } 
       // else {

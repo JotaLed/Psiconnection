@@ -3,7 +3,7 @@ import { Card, Nav, Button, Form } from 'react-bootstrap';
 import styles from './Account.module.css';
 import { useSelector, useDispatch } from "react-redux"
 import { loadDetail, updatePsic, getSpecialities } from '../../Redux/actions';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Description from './AccountComponents/description';
 import BasicInfo from './AccountComponents/basicInfo';
 import Foto from './AccountComponents/foto';
@@ -39,6 +39,8 @@ const Account = () => {
     // ];
 
     //Useeffect
+
+    const navigate = useNavigate();
 
     const loadData = useCallback(async () => {
         await dispatch(loadDetail(id));
@@ -118,6 +120,12 @@ const Account = () => {
 
     console.log(opcionesEspecialidades)
 
+    const logout = async () => {
+        await window.localStorage.clear()
+          navigate('/')
+         
+      }
+
     return (
         <div className={styles.accountContainer}>
 
@@ -177,8 +185,9 @@ const Account = () => {
                             <CitasPsic/></div>
                         )}
                         {selectedTab === 'logout' && (
-                            <h2>Cerrar Sesión</h2>
+                            <h2 onClick={ () => { logout() }}>Cerrar Sesión</h2>
                         )}
+                        <h2 onClick={() => { logout() }}>Logout</h2>
                     </Card.Body>
                 </Card>
             </div>

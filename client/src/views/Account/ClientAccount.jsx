@@ -88,8 +88,8 @@ const ClientAccount = () => {
     }
 
     const logout = async () => {
-      await window.localStorage.removeItem('authToken')
-        // navigate('/')
+      await window.localStorage.clear()
+        navigate('/')
        
     }
    
