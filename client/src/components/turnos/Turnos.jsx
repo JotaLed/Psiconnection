@@ -131,7 +131,7 @@ export default function Turnos({ dias, horas }) {
 
   const handleCheckoutClick = async () => {
     try {
-        const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}&hora=${newTurno.hora}&fecha=${newTurno.fecha}`)
+        const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}&hora=${newTurno.hora}&fecha=${newTurno.fecha}&id=${psicology.idPsico}`)
         const link = response.data.body.init_point
         console.log(link)
         window.location.href = link

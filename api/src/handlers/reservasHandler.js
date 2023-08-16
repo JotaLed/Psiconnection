@@ -8,8 +8,8 @@ const {
 const mailer= require('../helpers/emailers.js')
 
 const reservarCitaHandler = async (req, res) => {
-  const { idPsico, idUser, estado, hora, fecha } = req.body;
-  // const { hora, fecha } = req.query
+  const { idUser, estado } = req.body;
+   const { hora, fecha, idPsico } = req.query
 
   try {
     const postReserva = await reservaCita({ idPsico, idUser, estado, hora, fecha });
