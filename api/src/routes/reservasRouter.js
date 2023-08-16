@@ -14,4 +14,5 @@ reservasRouter.get("/reservarCita", getAllAppointmentsHandler);
 
 reservasRouter.put("/reservarCita", putHandler);
 
+
 module.exports = reservasRouter;

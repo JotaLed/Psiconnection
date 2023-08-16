@@ -1,20 +1,10 @@
 require("dotenv").config();
-const { Psicologo } = require("../../db");
-const { Op } = require("sequelize");
-const { getPsicologosController } = require('../psicologosController')
 const mercadopago = require('mercadopago')
 
-const tarifaPsico = async() => { 
-    const response = await Psicologo.findAll({
-        attributes: [
-            'tarifa',
-        ],
-    })
-   return response
-}
-
 const createOrder = async (req, res) => {
-    const {tarifa} = req.query
+    const { tarifa } = req.query;
+    const { hora, fecha } = req.query
+
     mercadopago.configure({
         access_token:'TEST-2593734153674674-081009-5fd5772eadcab328bf94d4ddeaea0d72-1444277109'
     })
@@ -28,14 +18,14 @@ const createOrder = async (req, res) => {
             }
         ],
         back_urls:{
-                success:'/home',
-                failure:'/home',
-                pending:'/home'
+                success:`http://localhost:3001/psiconnection/citas/reservarCita?hora=${hora}&fecha=${fecha}`,
+                failure:'http://localhost:5173/home',
+                pending:'http://localhost:5173/home'
         },
-        notification_url:'https://9188-190-138-148-106.ngrok.io/webhook'
+        notification_url:'https://88fe-190-138-148-106.ngrok.io/webhook'
     })
     console.log(result)
-    res.send(result)
+    
 };
 const receiveWebhook = async (req, res) => {
 const payment = req.query
