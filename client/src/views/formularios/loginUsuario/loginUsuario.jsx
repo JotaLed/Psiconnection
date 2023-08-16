@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +5,7 @@ import './loginUsuario.css';
 import { isValidPassword } from '../validaciones';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+//import { useAuth0 } from '@auth0/auth0-react';
 
 const LoginUsuario = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
@@ -13,9 +13,11 @@ const LoginUsuario = () => {
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
  // const [performValidations, setPerformValidations] = useState(true); // Estado para controlar las validaciones
   const navigate = useNavigate();
-
+  //const { loginWithRedirect } = useAuth0();
   const [token, setToken] = useState('');
-
+//  const onAuth0SignIn = () => {
+//     loginWithRedirect();
+//   };
 // Guardar un token en el localStorage después de un inicio de sesión exitoso
 const handleWindow = () => {
   localStorage.setItem('authToken', token); // Guarda el token en localStorage
@@ -26,15 +28,16 @@ const handleWindow = () => {
 //const authToken = localStorage.getItem('authToken');
 
   const onSubmit = async (formData) => {
-    if (!formData.email || !formData.contraseña) {
+    if (!formData.email || !formData.password) {
       setErrorMessage('Todos los campos son requeridos');
       return;
     }
 
     try {
       const response = await axios.post('http://localhost:3001/psiconection/login', formData);
+      console.log(response)
       console.log('Response from server:', response.data);
-      console.log('Token:', response.data.info.tokenSession);
+      console.log('Token:', response.data.info.tokenSessionUser);
       if (response.status === 200) {
         const userRole = response.data.info.roll;
 
@@ -42,7 +45,7 @@ const handleWindow = () => {
           // Si el rol es diferente psicologo, muestra un mensaje y no realiza la redirección
           window.alert('Por favor inicie sesión como usuario');
         } else {
-          setToken(response.data.info.tokenSession); // Aquí estás guardando el token en el estado
+          setToken(response.data.info.tokenSessionUser); // Aquí estás guardando el token en el estado
           // Si el rol es otro, realiza la redirección
           handleWindow();
         }
@@ -106,7 +109,7 @@ const handleWindow = () => {
             <label>
               <i className="bx bxs-lock-alt"></i>
               <Controller
-                name="contraseña"
+                name="password"
                 control={control}
                 defaultValue=""
                 rules={{ validate: isValidPassword }}
