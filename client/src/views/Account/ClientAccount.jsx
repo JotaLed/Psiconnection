@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from './Account.module.css';
 import ProfileBar from "./AccountComponents/ProfileBar";
 import React, { useState, useEffect } from 'react';
@@ -29,6 +29,8 @@ const ClientAccount = () => {
     })
     // const [imagen, setImagen] = useState(client.usuario?.foto);
 
+    const navigate =  useNavigate();
+
     //Useeffect
     useEffect(() => {
         const aux = async () => {
@@ -39,6 +41,7 @@ const ClientAccount = () => {
 
         }
         aux()
+        
 
     }, [dispatch, id, client.usuario?.foto])
 
@@ -82,6 +85,12 @@ const ClientAccount = () => {
 
     if (isLoading) {
         return <div>Cargando...</div>; // Mostrar un mensaje de carga mientras se busca el psicólogo
+    }
+
+    const logout = async () => {
+      await window.localStorage.clear()
+        navigate('/')
+       
     }
    
     return (
@@ -130,9 +139,10 @@ const ClientAccount = () => {
                            <div> 
                             <CitasClient client={client}/></div>
                         )}
-                        {selectedTab === 'logout' && (
-                            <h2>Cerrar Sesión</h2>
+                        {/* {selectedTab === 'logout' && (
+                            <h2 onClick={logout}>Cerrar Sesión</h2>
                         )}
+                        <h2 onClick={logout}> Logout </h2> */}
                     </Card.Body>
                 </Card>
             </div>

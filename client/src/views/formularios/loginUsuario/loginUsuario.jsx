@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 import LoginButtonAuth0 from "./LoginAuth0";
 import LogoutButtonAuth0 from "./LogoutAutho0";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch, useSelector } from "react-redux"
+//importamos las actions 
+import { loadCurrentUser } from "../../../Redux/actions";
 
 const LoginUsuario = () => {
   const { isAuthenticated } = useAuth0();
@@ -16,47 +19,63 @@ const LoginUsuario = () => {
     control,
     formState: { errors },
   } = useForm();
+
+  //Estados locales 
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
   // const [performValidations, setPerformValidations] = useState(true); // Estado para controlar las validaciones
   const navigate = useNavigate();
-
+  //const { loginWithRedirect } = useAuth0();
   const [token, setToken] = useState("");
-
+  //  const onAuth0SignIn = () => {
+  //     loginWithRedirect();
+  //   };
   // Guardar un token en el localStorage después de un inicio de sesión exitoso
+
+  //Estados globales:
+  const dispatch = useDispatch()
+
   const handleWindow = () => {
-    // Guarda el token en localStorage
-    // navigate('/home');
+    localStorage.setItem("authToken", token); // Guarda el token en localStorage
+    navigate("/home");
   };
 
   // Recuperar un token del localStorage en otro componente
   //const authToken = localStorage.getItem('authToken');
 
   const onSubmit = async (formData) => {
-    if (!formData.email || !formData.contraseña) {
+    if (!formData.email || !formData.password) {
       setErrorMessage("Todos los campos son requeridos");
       return;
     }
-    console.log("formState", formData);
 
     try {
       const response = await axios.post(
         "http://localhost:3001/psiconection/login",
         formData
       );
-      // console.log(response.data.info.tokenSessionUser)
-      // console.log('Response from server:', response.data);
-      // console.log('Token:', response.data.info.tokenSessionUser);
+      console.log(response);
+      console.log("Response from server:", response.data);
+      console.log("Token:", response.data.info.tokenSessionUser);
       if (response.status === 200) {
         const userRole = response.data.info.roll;
-        console.log("roll", userRole);
+
         if (userRole === "psicologo") {
           // Si el rol es diferente psicologo, muestra un mensaje y no realiza la redirección
           window.alert("Por favor inicie sesión como usuario");
         } else {
-          const token = response.data.info.tokenSessionUser;
-          // setToken(token);
-          localStorage.setItem("authToken", JSON.stringify(token));
+
+          //! cambios 
+          //cargamos el estado de usuario actiual 
+          console.log("supuesto objeto: " + response.data.info);
+          await dispatch(loadCurrentUser(response.data.info))
+          const tokenString = JSON.stringify(response.data.info.tokenSessionUser)
+
+          // setToken(response.data.info.tokenSessionUser); // Aquí estás guardando el token en el estado
+          // Si el rol es otro, realiza la redirección
+          // handleWindow();
+
+          localStorage.setItem("authToken", tokenString); // Guarda el token en localStorage
           navigate("/home");
         }
       }
@@ -66,13 +85,6 @@ const LoginUsuario = () => {
     }
   };
 
-  console.log("formToken", token);
-
-  const onGoogleSignIn = () => {
-    // Redirigir al flujo de inicio de sesión de Auth0 con Google como proveedor
-    window.location.href = "URL_DE_INICIO_DE_SESION_DE_AUTH0";
-  };
-
   return (
     <div className="containerLoginUsuario">
       <div className="login-formUsu">
@@ -80,15 +92,6 @@ const LoginUsuario = () => {
         <h3>Para ingresar a nuestra comunidad, inicia sesión:</h3>
 
         {/* //! Botón de inicio de sesión con Google */}
-        {/* <div className="google-login-button">
-          <button
-            className="g-signin2"
-            onClick={onGoogleSignIn}
-            >
-        <i class='bx bxl-google bx-burst' ></i> 
-          </button>
-  <h4>Inicia sesión con Google</h4>
-        </div> */}
         {console.log(isAuthenticated)}
         {isAuthenticated ? <LogoutButtonAuth0 /> : <LoginButtonAuth0 />}
 
@@ -120,7 +123,7 @@ const LoginUsuario = () => {
               <label>
                 <i className="bx bxs-lock-alt"></i>
                 <Controller
-                  name="contraseña"
+                  name="password"
                   control={control}
                   defaultValue=""
                   rules={{ validate: isValidPassword }}
@@ -133,9 +136,8 @@ const LoginUsuario = () => {
                       />
 
                       <i
-                        className={`bx ${
-                          showPassword ? "bxs-hide" : "bxs-show"
-                        }`}
+                        className={`bx ${showPassword ? "bxs-hide" : "bxs-show"
+                          }`}
                         onClick={() => setShowPassword(!showPassword)}
                       ></i>
                     </div>
