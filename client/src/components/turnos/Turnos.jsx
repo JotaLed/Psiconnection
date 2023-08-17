@@ -33,23 +33,7 @@ export default function Turnos({ dias, horas }) {
         return {fecha: c.fecha, horario:[c.hora]}
     })
 
-
-
-
     const citasPsico = [...citas];
-    console.log("citas", citasPsico);
-
-    // console.log(psicoAppointmentsFound);
-
-
-
-    // const citas = [
-    //     { fecha: "14/8/2023", horario: ["17-18"] },
-    //     { fecha: "15/8/2023", horario: ["12-13"] },
-    //     { fecha: "15/8/2023", horario: ["11-12"] },
-    //     { fecha: "19/8/2023", horario: ["12-13"] },
-    //     { fecha: "14/8/2023", horario: ["20-21"] },
-    // ]
 
     const disponibilidad = { dias: [...dias], horarios: [...horas] }
 
