@@ -3,26 +3,34 @@ const {
   getAllAppointmentsController,
   putController,
 } = require("../controllers/reservaController");
-const { receiveWebhook } = require('../controllers/paymentController/paymentController')
+
+const { Reserva } = require('../db.js')
 // utils 
 const mailer= require('../helpers/emailers.js')
 
 const reservarCitaHandler = async (req, res) => {
-   const { hora, fecha, idPsico, idUser, estado } = req.body
+  const { data } = req.query;
+  console.log(data);
+  const decodedObj = JSON.parse(Buffer.from(data, 'base64').toString('utf-8'));
+  console.log('dataDescifrada', decodedObj);
+  
 
-  try {
-    const verifiedPayment = await receiveWebhook();
-    console.log('ID pago',verifiedPayment)
-    if(verifiedPayment){
-      console.log('first')
-     const postReserva =  await reservaCita({ idPsico, idUser, estado, hora, fecha });
-     res.status(200).json(postReserva);
-    }
+  try { 
+    //  const verifyCita = await Reserva.findAll({
+    //   where: {
+    //     estado: estado
+    //   }
+    //  })
+    //  if(verifyCita.length){
+    //   throw new Error('Ya existe una cita con este pago')
+    //  }
+    // const postReserva = await reservaCita({ idPsico, idUser, estado, hora, fecha });
 
     // let dataValues = postReserva[0]
     // console.log('la reserva', dataValues);
     
 
+      res.status(200).json(decodedObj);
 
   } catch (error) {
     res.status(400).json({ error: error.message });

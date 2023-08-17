@@ -17,7 +17,7 @@ routerPayment.get('/failure', (req,res) => res.send('payment failure'))
 routerPayment.get('/pending', (req,res) => res.send('payment pending'))
 
 //ruta para recibir los webhooks del servicio de mercadoPago
-// routerPayment.post('/webhook', receiveWebhook)
+routerPayment.post('/webhook', receiveWebhook)
 
 
 module.exports = routerPayment;
