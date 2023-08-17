@@ -11,31 +11,33 @@ import { useSelector, useDispatch } from "react-redux"
 import { loadDetail, getAppointment } from '../../Redux/actions';
 
 export default function Turnos({ dias, horas }) {
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const psicology = useSelector((store) => store.psicoloDetail)
-    const appointments = useSelector((store) => store.appointments);
-    const id = location.pathname.split('/').at(-1);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const psicology = useSelector((store) => store.psicoloDetail)
+  const appointments = useSelector((store) => store.appointments);
+  const id = location.pathname.split('/').at(-1);
+  const queryParam = new URLSearchParams(location.search).get('queryEjemplo');
 
 
-    //useEffect que me trae los estados globales al montarse la página
-    useEffect(() => {
-        dispatch(loadDetail(id));
-        dispatch(getAppointment());
-    }, [])
+  //useEffect que me trae los estados globales al montarse la página
+  useEffect(() => {
+    dispatch(loadDetail(id));
+    dispatch(getAppointment());
+    console.log(queryParam);
+  }, [])
 
 
-    const psicoAppointmentsFound = appointments.filter((a) => a.PsicologoId === psicology.id && a.estado === "activo");
+  const psicoAppointmentsFound = appointments.filter((a) => a.PsicologoId === psicology.id && a.estado === "activo");
 
 
 
-    const citas = psicoAppointmentsFound.map((c) => {
-        return {fecha: c.fecha, horario:[c.hora]}
-    })
+  const citas = psicoAppointmentsFound.map((c) => {
+    return { fecha: c.fecha, horario: [c.hora] }
+  })
 
-    const citasPsico = [...citas];
+  const citasPsico = [...citas];
 
-    const disponibilidad = { dias: [...dias], horarios: [...horas] }
+  const disponibilidad = { dias: [...dias], horarios: [...horas] }
 
 
   //estados locales
@@ -80,23 +82,23 @@ export default function Turnos({ dias, horas }) {
     //Steamos el estado del date
     setDate(date);
 
-        //reiniciamos el estado de envio del turno 
-        setNewTurno({
-            fecha: "",
-            hora: ""
-        })
-        let day = date.toDateString().split(" ")[0] //Esto es las primeras 3 letras del dia de la semana
-        if (!disponibilidad.dias.includes(day) || isPastDate(date)) {
-            setFlagH(false)
-            return alert("este dia no esta disponible")
-        }
-        //Seteamos el div con los horarios
-        setFlagH(true)
-        //Buscamos los horario de ese dia 
-        // let foundFecha = citas.map((cita) => console.log(cita.fecha))
-        let foundFecha = citasPsico.filter((cita) => cita.fecha == date.toLocaleDateString())
-        
-        
+    //reiniciamos el estado de envio del turno 
+    setNewTurno({
+      fecha: "",
+      hora: ""
+    })
+    let day = date.toDateString().split(" ")[0] //Esto es las primeras 3 letras del dia de la semana
+    if (!disponibilidad.dias.includes(day) || isPastDate(date)) {
+      setFlagH(false)
+      return alert("este dia no esta disponible")
+    }
+    //Seteamos el div con los horarios
+    setFlagH(true)
+    //Buscamos los horario de ese dia 
+    // let foundFecha = citas.map((cita) => console.log(cita.fecha))
+    let foundFecha = citasPsico.filter((cita) => cita.fecha == date.toLocaleDateString())
+
+
 
     //Preguntamos si existen fechas con horaios tomados
     if (foundFecha.length) {
@@ -137,15 +139,19 @@ export default function Turnos({ dias, horas }) {
   console.log(selectTurno);
 
   const handleCheckoutClick = async () => {
-    try {
+    if (!newTurno.fecha || !newTurno.hora) {
+      return null;
+    }
+    else {
+      try {
         const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}`)
         const link = response.data.body.init_point
         console.log(link);
         window.location.href = link
-    } catch (error) {
+      } catch (error) {
         console.log("salio mál")
+      }
     }
-         
   }
 
   return (
@@ -157,12 +163,20 @@ export default function Turnos({ dias, horas }) {
         locale="en-GB"
         showCompare={false}
       />
+
+      <div className='view-appointment-date'>
+        <p className="dia">Dia selecionado: {selectTurno.fecha}</p>
+        <p className='hora'>Hora seleccionada: {newTurno.hora}</p>
+        <p className="precio">Precio del turno: {psicology.tarifa}$</p>
+      </div>
+
       {flagH === true ? (
         <div className="contenedor">
           <h3 className="horario">Selecione su horario:</h3>
           <div className="info_turno">
-            <p className="dia">Dia selecionado: {selectTurno.fecha}</p>
-            <p className="precio">Precio del turno: {psicology.tarifa}$</p>
+            {/* <p className="dia">Dia selecionado: {selectTurno.fecha}</p>
+            <p className='hora'>Hora seleccionada: {newTurno.hora}</p>
+            <p className="precio">Precio del turno: {psicology.tarifa}$</p> */}
           </div>
           <div className="horas_conteiner">
             {disponibilidad.horarios.map((hora, index) => {
@@ -186,7 +200,7 @@ export default function Turnos({ dias, horas }) {
             })}
           </div>
 
-          <div onClick={handleCheckoutClick} className="pedir_turno">
+          <div onClick={handleCheckoutClick} className={!newTurno.fecha || !newTurno.hora ? "no_pedir_turno" : "pedir_turno"}>
             <p>📅</p>
             <p>Pedir turno</p>
           </div>
@@ -198,4 +212,4 @@ export default function Turnos({ dias, horas }) {
       )}
     </div>
   );
-      }
+}
