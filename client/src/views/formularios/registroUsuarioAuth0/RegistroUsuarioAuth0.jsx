@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import axios from "axios";
+import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import fetchCountriesList from "../registroPsicologo/fetchCountriesList";
 import { useNavigate } from "react-router-dom";
@@ -128,9 +128,9 @@ const RegistroUsuarioAuth0 = () => {
     }
 
     try {
-      // const response = await axios.post("/psiconection/registerUsuario", form);
-      // console.log("Formulario enviado:", response);
-      console.log("Formulario enviado:", form);
+      const response = await axios.post("/psiconection/registerUsuario", form);
+      console.log("Formulario enviado:", response);
+      // console.log("Formulario enviado:", form);
 
       setRegistrationSuccess(true);
       setRedirectToHome(true);
