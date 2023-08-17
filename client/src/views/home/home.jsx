@@ -4,7 +4,8 @@ import Filters from "../../components/filters/filters";
 import Pagination from '../../components/Pagination/Pagination';
 import CardsContainer from '../../components/CardsContainer/CardsContainer';
 import SearchBar from '../../components/searchBar/searchBar'
-import { getPsicologos, setOrders } from '../../Redux/actions';
+import { getPsicologos, loadCurrentUser, setOrders } from '../../Redux/actions';
+import axios from 'axios';
 //importamos estilo 
 import style from "../home/home.module.css"
 export default function Home() {
@@ -13,16 +14,34 @@ export default function Home() {
   const piscologos = useSelector(state => state.psychologists);
   const [currentPage, setCurrentPage] = useState(0);
 
-  useEffect( () =>{
+  //Funciona para guardar el usuario actual
+  const loadUserById = async(id)=>{
+    const {data} = await axios.get(`psiconection/usuario/acount/${id}`)
+    await dispatch(loadCurrentUser(data.usuario))
+    console.log(data.usuario);
+  }
+
+  useEffect(() => {
     async function fetchData() {
-    if(piscologos.length === 0){
-      await dispatch(getPsicologos())
+      if (piscologos.length === 0) {
+        await dispatch(getPsicologos())
+      }
+      if(window.localStorage.getItem('authToken') !== null){
+        const tokenData = window.localStorage.getItem('authToken').split('.').at(1)
+        console.log("Token del home: "+tokenData);
+        const decodedData = JSON.parse(window.atob(tokenData))
+        loadUserById(decodedData.id)
+        
+        
+        
+
+      }
+
+      dispatch(setOrders("alf"))
     }
-    
-     dispatch(setOrders("alf"))}
-     fetchData()
-    
-    
+    fetchData()
+
+
 
   }, []);
 
@@ -44,20 +63,20 @@ export default function Home() {
   // Filtra las tarjetas a mostrar en la página actual
   const currentItems = piscologos.slice(firstIndex, lastIndex);
 
-  
+
 
   return (
     <div className={style.home}>
       <div className={style.col1}>
-        <Filters update={updateCurrentPage}/>
+        <Filters update={updateCurrentPage} />
       </div>
       <div className={style.col2}>
         <div className={style.search_conteiner}>
-          <SearchBar/>
+          <SearchBar />
         </div>
-        <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems}/>
+        <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems} />
       </div>
-      
+
     </div>
   );
 }

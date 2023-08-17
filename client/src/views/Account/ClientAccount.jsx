@@ -139,10 +139,10 @@ const ClientAccount = () => {
                            <div> 
                             <CitasClient client={client}/></div>
                         )}
-                        {selectedTab === 'logout' && (
+                        {/* {selectedTab === 'logout' && (
                             <h2 onClick={logout}>Cerrar Sesión</h2>
                         )}
-                        <h2 onClick={logout}> Logout </h2>
+                        <h2 onClick={logout}> Logout </h2> */}
                     </Card.Body>
                 </Card>
             </div>

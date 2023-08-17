@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, Navigate, useNavigate, NavLink } from "react-router-dom";
 import "./sidebar.css";
 import logo from "../../Images/Screenshot_18.jpg";
-
-
+import { useDispatch, useSelector } from "react-redux"
+//importamos actions 
+import { loadCurrentUser } from "../../Redux/actions";
 
 export default function Sidebar() {
-
+  //importamos estados globales 
+  const currentUser = useSelector(store => store.currentUser)
+  console.log(currentUser);
   let token = localStorage.getItem('authToken');
   console.log("tokennnn", token)
   const navigate = useNavigate();
@@ -26,8 +29,11 @@ export default function Sidebar() {
 
     tokenId = jsonObject.id
     tokenRoll = jsonObject.roll
-   
   }
+  //useEffect
+  useEffect(()=>{
+
+  },[])
 
   console.log("tokenId", tokenId)
   console.log('tokenRoll', tokenRoll)
@@ -60,8 +66,10 @@ export default function Sidebar() {
             !tokenId ? <li className="nav-item">
             <NavLink to="/form">Sign up</NavLink>
           </li> 
-          : <NavLink className="nav-item" to={tokenRoll == "usuario" ? `/account/client/${tokenId}` 
-          : `/account/${tokenId}`}>Perfil</NavLink>
+          : <NavLink className="nav-item-perfil" to={tokenRoll == "usuario" ? `/account/client/${tokenId}` 
+          : `/account/${tokenId}`}>
+            <img className="foto_perfil" src={currentUser.foto} alt="" />
+            </NavLink>
           }
 
         </ul>
