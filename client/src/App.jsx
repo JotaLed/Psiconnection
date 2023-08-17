@@ -31,7 +31,7 @@ import FormularioGeneral from "./views/formularios/FormularioGeneral";
 //importmos components:
 import LoginUsuario from "./views/formularios/loginUsuario/loginUsuario"; // Asegúrate de usar mayúsculas en las letras iniciales/
 import LoginPsicologo from "./views/formularios/loginPsicologo/loginPsicologo";
-
+import Failure from "./views/paymentFailure/failure"
 import RegistroUsuario from "./views/formularios/registroUsuario/registroUsuarios";
 import RegistroPsicologo from "./views/formularios/registroPsicologo/registoPsicologos";
 
@@ -55,7 +55,7 @@ function App() {
         <Route path="/registroPsicologo" element={<RegistroPsicologo />} />
 
         <Route path="/" element={<Landing />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Home />}/>
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/detail/:detailID" element={<Detail />} />
 
@@ -64,6 +64,8 @@ function App() {
         
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account/client/:id" element={<ClientAccount />} />
+
+        <Route path="/payment/state/failure" element={<Failure/>}/>
       </Routes>
     </div>
   );

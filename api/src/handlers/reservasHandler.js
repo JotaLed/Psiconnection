@@ -3,22 +3,26 @@ const {
   getAllAppointmentsController,
   putController,
 } = require("../controllers/reservaController");
-
+const { receiveWebhook } = require('../controllers/paymentController/paymentController')
 // utils 
 const mailer= require('../helpers/emailers.js')
 
 const reservarCitaHandler = async (req, res) => {
-  const { idUser, estado } = req.body;
-   const { hora, fecha, idPsico } = req.query
+   const { hora, fecha, idPsico, idUser, estado } = req.body
 
   try {
-    const postReserva = await reservaCita({ idPsico, idUser, estado, hora, fecha });
+    const verifiedPayment = await receiveWebhook();
+    console.log('ID pago',verifiedPayment)
+    if(verifiedPayment){
+      console.log('first')
+     const postReserva =  await reservaCita({ idPsico, idUser, estado, hora, fecha });
+     res.status(200).json(postReserva);
+    }
 
     // let dataValues = postReserva[0]
     // console.log('la reserva', dataValues);
     
 
-      res.status(200).json(postReserva);
 
   } catch (error) {
     res.status(400).json({ error: error.message });

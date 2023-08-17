@@ -6,7 +6,6 @@ import 'react-calendar/dist/Calendar.css';
 import "../turnos/Turnoss.css"
 import Calendar from 'react-calendar'
 import { useLocation } from 'react-router-dom';
-
 import { useSelector, useDispatch } from "react-redux"
 import { loadDetail, getAppointment } from '../../Redux/actions';
 
@@ -155,9 +154,14 @@ export default function Turnos({ dias, horas }) {
   console.log(buttonActive);
   console.log(selectTurno);
 
+  const turno = {
+    idPsico: "6462cf98-c531-41b3-9586-1d1b9b38cef1",
+    idUser: "4ad79818-65ab-4330-a3d9-87970d408790",
+    fecha: "29/01/24",
+    hora: "10-11",
+    estado: "activo"
+};
 
-  
- 
   //! hacer el post de la cita
   const handleCheckoutClick = async () => {
     if (!newTurno.fecha || !newTurno.hora) {
@@ -184,7 +188,7 @@ export default function Turnos({ dias, horas }) {
         console.log("salio mál")
       }
     }
-  }
+  };
 
   return (
     <div className="turnos">
