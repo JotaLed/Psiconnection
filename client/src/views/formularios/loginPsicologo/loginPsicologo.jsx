@@ -38,13 +38,17 @@ const LoginPsicologo = () => {
         // si es dife a psico error y no realiza la redirección
           window.alert('Por favor inicie sesión como psicologo');
         } else {
-          setToken(response.data.info.tokenSession); 
+          //! cambios 
+          // setToken(response.data.info.tokenSession); 
           // Aquí estás guardando el token en el estado tokenSession
-          handleWindow();
-        }
-      } else {
-        setErrorMessage('Credenciales inválidas');
+          const tokenString = JSON.stringify(response.data.info.tokenSession)
+          window.localStorage.setItem('authToken',tokenString)
+          navigate('/home')
       }
+      } 
+      // else {
+      //   setErrorMessage('Credenciales inválidas');
+      // }
     } catch (error) {
       console.error('Error al realizar la solicitud:', error);
       window.alert(error.response.data.error);
