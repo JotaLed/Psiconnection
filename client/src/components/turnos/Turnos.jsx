@@ -16,14 +16,30 @@ export default function Turnos({ dias, horas }) {
   const appointments = useSelector((store) => store.appointments);
   const id = location.pathname.split('/').at(-1);
   const queryParam = new URLSearchParams(location.search).get('queryEjemplo');
-
+    //! TOken de sesion...
+     const [tokenData, setTokenData] = useState(null)
 
   //useEffect que me trae los estados globales al montarse la página
   useEffect(() => {
     dispatch(loadDetail(id));
     dispatch(getAppointment());
+    //! token 
+    let token = localStorage.getItem('authToken');
+    console.log("tokennnn", token)
+    
+    if(token){
+      const tokenData = token.split('.').at(1)
+      console.log("tokenData", tokenData)
+      const decodedData = window.atob(tokenData)
+      const jsonObject = JSON.parse(decodedData);
+      setTokenData(jsonObject)
+    }
+  
+   
     console.log(queryParam);
+    
   }, [])
+  console.log("tokenData", tokenData)
 
 
   const psicoAppointmentsFound = appointments.filter((a) => a.PsicologoId === psicology.id && a.estado === "activo");
@@ -56,9 +72,9 @@ export default function Turnos({ dias, horas }) {
     "Estado para los buttons": false,
   });
   //useEffect
-  useEffect(() => {
-    console.log(date);
-  }, []);
+  // useEffect(() => {
+  //   console.log(date);
+  // }, []);
 
   //funciones
   const isValidate = (date) => {
@@ -128,6 +144,7 @@ export default function Turnos({ dias, horas }) {
     }
     console.log(selectTurno);
   };
+
   const addTurno = (hora) => {
     setNewTurno({ ...newTurno, fecha: selectTurno.fecha, hora: hora });
     setButtonActive({ [hora]: true });
@@ -145,13 +162,24 @@ export default function Turnos({ dias, horas }) {
     estado: "activo"
 };
 
+  //! hacer el post de la cita
   const handleCheckoutClick = async () => {
     if (!newTurno.fecha || !newTurno.hora) {
       return null;
     }
     else {
+
+      const data = {
+            idPsico: id ,
+            idUser: tokenData.id,
+            fecha: newTurno.fecha,
+            hora: newTurno.hora,
+            estado: "activo",
+            tarifa: psicology.tarifa
+      }
+      console.log(`obj`, obj)
       try {
-        const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}`)
+        const response = await axios.post(`psiconnection/payment/create-order`, data )
         const link = response.data.body.init_point
         console.log(link);
         window.location.href = link
