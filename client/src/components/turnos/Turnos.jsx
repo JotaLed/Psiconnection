@@ -163,9 +163,7 @@ export default function Turnos({ dias, horas }) {
     if (!newTurno.fecha || !newTurno.hora) {
       return null;
     }
-    else {
-
-      const data = {
+    const data = {
             idPsico: id ,
             idUser: tokenData.id,
             fecha: newTurno.fecha,
@@ -178,12 +176,12 @@ export default function Turnos({ dias, horas }) {
         const response = await axios.post(`psiconnection/payment/create-order`, data )
         const link = response.data.body.init_point
         console.log(link);
-        window.open(link, '_blank');
-        // window.location.href = link
+        // window.open(link, '_blank');
+        window.location.href = link
       } catch (error) {
         console.log("salio mál")
       }
-    }
+ 
   }
 
   return (
