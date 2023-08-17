@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 import LoginButtonAuth0 from "./LoginAuth0";
 import LogoutButtonAuth0 from "./LogoutAutho0";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useDispatch, useSelector } from "react-redux"
-//importamos las actions 
+import { useDispatch, useSelector } from "react-redux";
+//importamos las actions
 import { loadCurrentUser } from "../../../Redux/actions";
 
 const LoginUsuario = () => {
@@ -20,7 +20,7 @@ const LoginUsuario = () => {
     formState: { errors },
   } = useForm();
 
-  //Estados locales 
+  //Estados locales
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
   // const [performValidations, setPerformValidations] = useState(true); // Estado para controlar las validaciones
@@ -33,7 +33,7 @@ const LoginUsuario = () => {
   // Guardar un token en el localStorage después de un inicio de sesión exitoso
 
   //Estados globales:
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleWindow = () => {
     localStorage.setItem("authToken", token); // Guarda el token en localStorage
@@ -50,10 +50,7 @@ const LoginUsuario = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/psiconection/login",
-        formData
-      );
+      const response = await axios.post("/psiconection/login", formData);
       console.log(response);
       console.log("Response from server:", response.data);
       console.log("Token:", response.data.info.tokenSessionUser);
@@ -64,12 +61,13 @@ const LoginUsuario = () => {
           // Si el rol es diferente psicologo, muestra un mensaje y no realiza la redirección
           window.alert("Por favor inicie sesión como usuario");
         } else {
-
-          //! cambios 
-          //cargamos el estado de usuario actiual 
+          //! cambios
+          //cargamos el estado de usuario actiual
           console.log("supuesto objeto: " + response.data.info);
-          await dispatch(loadCurrentUser(response.data.info))
-          const tokenString = JSON.stringify(response.data.info.tokenSessionUser)
+          await dispatch(loadCurrentUser(response.data.info));
+          const tokenString = JSON.stringify(
+            response.data.info.tokenSessionUser
+          );
 
           // setToken(response.data.info.tokenSessionUser); // Aquí estás guardando el token en el estado
           // Si el rol es otro, realiza la redirección
@@ -136,8 +134,9 @@ const LoginUsuario = () => {
                       />
 
                       <i
-                        className={`bx ${showPassword ? "bxs-hide" : "bxs-show"
-                          }`}
+                        className={`bx ${
+                          showPassword ? "bxs-hide" : "bxs-show"
+                        }`}
                         onClick={() => setShowPassword(!showPassword)}
                       ></i>
                     </div>
