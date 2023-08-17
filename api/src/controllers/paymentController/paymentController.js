@@ -47,9 +47,9 @@ try {
     
 } catch (error) {
     res.status(500).json({error: error.message})
-}
+}}
 
-};
+
 const receiveWebhook = async (req, res) => {
 const payment = req.query;
 const { data } = req.query; 
