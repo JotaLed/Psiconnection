@@ -42,7 +42,7 @@ const LoginUsuario = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/psiconection/login",
+        "/psiconection/login",
         formData
       );
       console.log(response);

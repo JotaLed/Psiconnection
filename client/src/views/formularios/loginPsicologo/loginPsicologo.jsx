@@ -27,7 +27,7 @@ const LoginPsicologo = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/psiconection/login', formData);
+      const response = await axios.post('/psiconection/login', formData);
       console.log(response)
       console.log('Response from server:', response.data);
       console.log('Token:', response.data.info.tokenSession);

@@ -17,6 +17,42 @@ export default function Turnos({ dias, horas }) {
     const appointments = useSelector((store) => store.appointments);
     const id = location.pathname.split('/').at(-1);
 
+    // //! Token de localStorage 
+    // let token = localStorage.getItem('authToken');
+   
+    
+    // let tokenIdUser = '';
+    // let tokenRoll = '';
+
+    // if(token){
+    //   const tokenData = token.split('.').at(1)
+     
+    //   const decodedData = window.atob(tokenData)
+    //   const jsonObject = JSON.parse(decodedData);
+
+    // //   console.log("decodedData", decodedData)
+    // //   console.log('parseJson', jsonObject)
+    // //  console.log('id', jsonObject.id)
+
+    // tokenIdUser = jsonObject.id
+    //   tokenRoll = jsonObject.roll
+    
+    // }
+  
+      
+
+    // const submitReserva = (event) => {
+    //     const objReserva = {
+    //       idPsico: id,
+    //       idUser: tokenIdUser,
+    //       fecha: "29/01/24",
+    //       hora: "10-11",
+    //       estado: "activo"
+    //     }
+    // }
+
+    // console.log("tokenIdTurno", tokenIdUser)
+
 
     //useEffect que me trae los estados globales al montarse la página
     useEffect(() => {
