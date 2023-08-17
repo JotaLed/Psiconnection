@@ -33,23 +33,7 @@ export default function Turnos({ dias, horas }) {
         return {fecha: c.fecha, horario:[c.hora]}
     })
 
-
-
-
     const citasPsico = [...citas];
-    console.log("citas", citasPsico);
-
-    // console.log(psicoAppointmentsFound);
-
-
-
-    // const citas = [
-    //     { fecha: "14/8/2023", horario: ["17-18"] },
-    //     { fecha: "15/8/2023", horario: ["12-13"] },
-    //     { fecha: "15/8/2023", horario: ["11-12"] },
-    //     { fecha: "19/8/2023", horario: ["12-13"] },
-    //     { fecha: "14/8/2023", horario: ["20-21"] },
-    // ]
 
     const disponibilidad = { dias: [...dias], horarios: [...horas] }
 
@@ -149,18 +133,17 @@ export default function Turnos({ dias, horas }) {
   };
 
   console.log('Turno para elegir =>', newTurno);
-  // console.log(date.toDateString().split(" ")[0]);
   console.log(buttonActive);
   console.log(selectTurno);
 
   const handleCheckoutClick = async () => {
     try {
-        const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}&hora=${newTurno.hora}&fecha=${newTurno.fecha}&id=${psicology.idPsico}`)
+        const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}`)
         const link = response.data.body.init_point
-        console.log(link)
+        console.log(link);
         window.location.href = link
     } catch (error) {
-        console.log(error)
+        console.log("salio mál")
     }
          
   }
