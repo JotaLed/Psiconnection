@@ -3,11 +3,12 @@ import viteLogo from "/vite.svg";
 import Home from "./views/home/home";
 import Account from "./views/Account/Account";
 import SideBar from "./components/sideBar/sideBar";
+import Success from "./components/success/Success";
 import "./App.css";
 import axios from "axios";
 
-// axios.defaults.baseURL = "https://psiconnection-production.up.railway.app/";
-axios.defaults.baseURL = "http://localhost:3001/";
+axios.defaults.baseURL = "https://psiconnection-production.up.railway.app/";
+// axios.defaults.baseURL = "http://localhost:3001/";
 
 //Hooks:
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
@@ -50,6 +51,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/detail/:detailID" element={<Detail />} />
+
+        <Route path="/success" element={<Success />} />
         
         
         
