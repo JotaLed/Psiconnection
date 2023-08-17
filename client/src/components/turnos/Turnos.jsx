@@ -6,7 +6,6 @@ import 'react-calendar/dist/Calendar.css';
 import "../turnos/Turnoss.css"
 import Calendar from 'react-calendar'
 import { useLocation } from 'react-router-dom';
-
 import { useSelector, useDispatch } from "react-redux"
 import { loadDetail, getAppointment } from '../../Redux/actions';
 
@@ -141,14 +140,12 @@ export default function Turnos({ dias, horas }) {
     idUser: "4ad79818-65ab-4330-a3d9-87970d408790",
     fecha: "29/01/24",
     hora: "10-11",
-    estado: "activo",
-    tarifa: "50"
-}
+    estado: "activo"
+};
 
   const handleCheckoutClick = async () => {
     try {
         const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}`, turno)
-        console.log("link mercadoPago",response)
         const link = response.data.body.init_point
         // window.location.href = link   
         window.open(link);

@@ -26,7 +26,7 @@ import FormularioGeneral from "./views/formularios/FormularioGeneral";
 //importmos components:
 import LoginUsuario from "./views/formularios/loginUsuario/loginUsuario"; // Asegúrate de usar mayúsculas en las letras iniciales/
 import LoginPsicologo from "./views/formularios/loginPsicologo/loginPsicologo";
-
+import MiComponente from './components/turnos/Turnos'
 import RegistroUsuario from "./views/formularios/registroUsuario/registroUsuarios";
 import RegistroPsicologo from "./views/formularios/registroPsicologo/registoPsicologos";
 
@@ -47,7 +47,7 @@ function App() {
         
         
         <Route path="/" element={<Landing />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Home />}/>
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/detail/:detailID" element={<Detail />} />
         

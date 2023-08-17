@@ -17,18 +17,33 @@ try {
             }
         ],
         back_urls:{
-                success:`https://localhost:3001/home`,
-                failure:'https://localhost:3001/home',
-                pending:'https://localhost:3001/home'
+                success:'http://localhost:5173/home',
+                failure:'https://localhost:3001/psiconnection/payment/failure',
+                pending:'https://localhost:3001/psiconnection/payment/pending'
         },
         notification_url:'https://88fe-190-138-148-106.ngrok.io/webhook'
     })
     res.status(200).json(result)
 } catch (error) {
     res.status(400).json(error.message)
-}
+}};
 
-};
+// const receiveSuccessQuery = async (req, res) => {
+//     const status = req.query
+//     if(status.status === 'approved'){
+//         res.status(200).json('approved payment')
+        
+//     } else{
+//         res.status(500).json('failure payment')
+//     }
+//     console.log('status:',status.status)
+// };
+
+// const receiveFailureQuery = async (req, res) => {
+//     const status = req.query
+//     console.log('status:',status.status)
+// };
+
 // const receiveWebhook = async (req, res) => {
 // const payment = req.query
 // try {
@@ -44,5 +59,7 @@ try {
 
 module.exports = {
   createOrder,
+//   receiveSuccessQuery,
+//   receiveFailureQuery
 //   receiveWebhook,
 };
