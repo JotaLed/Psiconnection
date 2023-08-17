@@ -520,9 +520,11 @@ const upLoadImage = async (e) =>{
                 <Select
                   isMulti
                   options={[
-                    { value: 'clinica', label: 'Psicología Clínica' },
-                    { value: 'educativa', label: 'Psicología Educativa' },
-                    { value: 'organizacional', label: 'Psicología Organizacional' },
+                    { value: 'Psicología de pareja', label: 'Psicología de pareja' },
+                    { value: 'Psicología infantil', label: 'Psicología cognitivo-conductual' },
+                    { value: 'Psicoanálisis', label: 'Psicoanálisis'},
+                    { value: 'Psicología infantil', label: 'Psicología infantil'},
+                    { value: 'Sexología', label: 'Sexología'},
                     // Agrega más especialidades aquí
                   ]}
                   value={selectedSpecialties}
