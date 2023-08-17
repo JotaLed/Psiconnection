@@ -1,49 +1,59 @@
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-//import { useHistory } from 'react-router-dom';
 import './loginPsicologo.css';
 import { isValidPassword } from '../validaciones';
-import axios, { formToJSON } from 'axios';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPsicologo = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
- // const history = useHistory();
+  const [showPassword, setShowPassword] = useState(false); 
 
+  const navigate = useNavigate();
+  const [token, setToken] = useState('');
 
+  const handleWindow = () => {
+    localStorage.setItem('authToken', token); 
+    // Guarda el token en localStorage
+    navigate('/nosotros');
+  };
 
   const onSubmit = async (formData) => {
-    if (!formData.email || !formData.contraseña) {
+    if (!formData.email || !formData.password) {
       setErrorMessage('Todos los campos son requeridos');
       return;
     }
 
     try {
-
-      // Realiza la solicitud al backend para verificar el inicio de sesión
       const response = await axios.post('http://localhost:3001/psiconection/login', formData);
-
       console.log(response)
-
+      console.log('Response from server:', response.data);
+      console.log('Token:', response.data.info.tokenSession);
       if (response.status === 200) {
-       // const userRole = response.data.rol;
+        const userRole = response.data.info.roll;
 
-        if (userRole === 'psicologo') {
-          //history.push('/home'); // Redirige al perfil del psicólogo
+        if (userRole !== 'psicologo') { 
+        // si es dife a psico error y no realiza la redirección
+          window.alert('Por favor inicie sesión como psicologo');
         } else {
-          setErrorMessage('Credenciales inválidas');
-        }
-      } else {
-        setErrorMessage('Credenciales inválidas');
+          //! cambios 
+          // setToken(response.data.info.tokenSession); 
+          // Aquí estás guardando el token en el estado tokenSession
+          const tokenString = JSON.stringify(response.data.info.tokenSession)
+          window.localStorage.setItem('authToken',tokenString)
+          navigate('/home')
       }
+      } 
+      // else {
+      //   setErrorMessage('Credenciales inválidas');
+      // }
     } catch (error) {
-
       console.error('Error al realizar la solicitud:', error);
+      window.alert(error.response.data.error);
     }
   };
-
   return (
     <div className="containerLoginPisco">
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -75,7 +85,7 @@ const LoginPsicologo = () => {
             <label>
               <i className="bx bxs-lock-alt"></i>
               <Controller
-                name="contraseña"
+                name="password"
                 control={control}
                 defaultValue=""
                 rules={{ validate: isValidPassword }}
