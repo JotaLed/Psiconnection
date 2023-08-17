@@ -45,6 +45,14 @@
     display: flex;
     justify-content: space-between;
 }
+
+.turnos .view-appointment-date{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    padding: 10px;
+    margin-bottom: 0;
+}
 .precio{
     font-size: 15px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -59,6 +67,15 @@
     border: 1px solid #ddd; /* Borde sutil */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra suave */
 }
+
+.hora {
+    font-size: 15px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: beige;
+    border: 1px solid #ddd; /* Borde sutil */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
 
 .horaios {
     text-align: center;
@@ -99,7 +116,29 @@
     padding: 5px;
     font-size: 10;
     background-color: rgba(255, 0, 0, 0.423);
+    cursor: no-drop;
 
+}
+
+.no_pedir_turno {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2px;
+    background-color: gray;
+    width: fit-content;
+    height: 60px;
+    margin-top: 36px;
+    width: 134px;
+    border-radius: 10px;
+    color: aliceblue;
+    cursor: no-drop;
+}
+
+.no_pedir_turno p{
+    font-size: 20px;
 }
 
 .pedir_turno {
@@ -121,6 +160,4 @@
 
 .pedir_turno p {
     font-size: 20px;
-
-
 }
