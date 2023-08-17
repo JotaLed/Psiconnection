@@ -38,15 +38,21 @@ function App() {
     <div>
       {pathname !== "/" && <SideBar />}
       <Routes>
-        <Route path="/form" element={<FormularioGeneral />} />
+        <Route path="/form" element={<FormularioGeneral />} /> 
+        
         <Route path="/loginUsuario" element={<LoginUsuario />} />
         <Route path="/loginPsicologo" element={<LoginPsicologo />} />
         <Route path="/registroUsuario" element={<RegistroUsuario />} />
         <Route path="/registroPsicologo" element={<RegistroPsicologo />} />
+        
+        
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/detail/:detailID" element={<Detail />} />
+        
+        
+        
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account/client/:id" element={<ClientAccount />} />
       </Routes>

@@ -1,4 +1,4 @@
-import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL, SEARCH_APELLIDO, GET_SPECIALITIES, GET_DETAIL, GET_DETAIL_CLIENT, GET_APPOINTMENTS} from "./actions";
+import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL, SEARCH_APELLIDO, GET_SPECIALITIES, GET_DETAIL, GET_DETAIL_CLIENT, GET_APPOINTMENTS, LOAD_CURRENT_USER } from "./actions";
 import store from "./store";
 const initialstate = {
   //Todos los psicologos
@@ -10,7 +10,8 @@ const initialstate = {
   especialidades: [],
   psicologo: {},
   cliente: [],
-  appointments: []
+  appointments: [],
+  currentUser: {}
 }
 
 const rootReducer = (state = initialstate, action) => {
@@ -20,7 +21,7 @@ const rootReducer = (state = initialstate, action) => {
     case SET_FILTER:
       let psyFiltered = [...state.psychoOrdered]
 
-      const { genero, pais, horario, especialidad} = action.payload;
+      const { genero, pais, horario, especialidad } = action.payload;
 
       if (genero !== "all") {
         psyFiltered = psyFiltered.filter((psychologist) => psychologist.genero.toLowerCase() === genero);
@@ -34,7 +35,7 @@ const rootReducer = (state = initialstate, action) => {
         psyFiltered = psyFiltered.filter((psychologist) => psychologist.horario === horario)
       }
 
-      if (especialidad!= "all") {
+      if (especialidad != "all") {
         console.log(especialidad)
         psyFiltered = psyFiltered.filter((psychologist) => psychologist.especialidad.includes(especialidad))
       }
@@ -118,43 +119,47 @@ const rootReducer = (state = initialstate, action) => {
       return { ...state, psychologists: psyOrdered, psychoOrdered: allOrdered };
 
     case LOAD_DETAIL:
-      return { ...state, psicoloDetail: action.payload}
+      return { ...state, psicoloDetail: action.payload }
 
-    case GET_PSICOLOGOS: 
+    case GET_PSICOLOGOS:
       const psicologos = action.payload;
       const activos = psicologos.filter((psicologo) => psicologo.estado_cuenta.toLowerCase() === "activo")
       console.log(activos)
-      return {...state, psychologists: activos, allPshychologists: activos}
+      return { ...state, psychologists: activos, allPshychologists: activos }
 
-      case SEARCH_APELLIDO:
+    case SEARCH_APELLIDO:
 
-        return {
-          ...state,
-          psychologists: action.payload,
-        };
+      return {
+        ...state,
+        psychologists: action.payload,
+      };
 
-      case GET_SPECIALITIES:
-        return{
-          ...state,
-          especialidades: action.payload.map((element)=> element.especialidad)
-        }
-      
-      case GET_DETAIL:
-        return{
-          ...state,
-          psicologo: action.payload
-        }
-      
-      case GET_DETAIL_CLIENT:
-        return{
-          ...state,
-          cliente: action.payload
-        }
+    case GET_SPECIALITIES:
+      return {
+        ...state,
+        especialidades: action.payload.map((element) => element.especialidad)
+      }
 
-      case GET_APPOINTMENTS:
-        return {
-          ...state, appointments: action.payload
-        }
+    case GET_DETAIL:
+      return {
+        ...state,
+        psicologo: action.payload
+      }
+
+    case GET_DETAIL_CLIENT:
+      return {
+        ...state,
+        cliente: action.payload
+      }
+
+    case GET_APPOINTMENTS:
+      return {
+        ...state, appointments: action.payload
+      }
+    case LOAD_CURRENT_USER:
+      return {
+        ...state, currentUser: action.payload
+      }
 
     default: return state
   }
