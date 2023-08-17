@@ -36,7 +36,7 @@ try {
         auto_return: 'approved',
         notification_url:'https://88fe-190-138-148-106.ngrok.io/webhook'
     })
-    res.status(200).json(result)
+    return res.status(200).json(result)
 } catch (error) {
     res.status(500).json({error: error.message})
 }}

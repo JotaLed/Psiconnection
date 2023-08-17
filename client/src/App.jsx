@@ -3,7 +3,11 @@ import viteLogo from "/vite.svg";
 import Home from "./views/home/home";
 import Account from "./views/Account/Account";
 import SideBar from "./components/sideBar/sideBar";
+
+import Success from "./components/success/Success";
+
 import RegistroUsuarioAuth0 from "./views/formularios/registroUsuarioAuth0/RegistroUsuarioAuth00";
+
 import "./App.css";
 import axios from "axios";
 
@@ -55,6 +59,9 @@ function App() {
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/detail/:detailID" element={<Detail />} />
 
+        <Route path="/success" element={<Success />} />
+        
+        
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account/client/:id" element={<ClientAccount />} />
 

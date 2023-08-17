@@ -177,12 +177,13 @@ export default function Turnos({ dias, horas }) {
             estado: "activo",
             tarifa: psicology.tarifa
       }
-      console.log(`obj`, obj)
+      console.log(`obj`, data)
       try {
         const response = await axios.post(`psiconnection/payment/create-order`, data )
         const link = response.data.body.init_point
         console.log(link);
-        window.location.href = link
+        window.open(link, '_blank');
+        // window.location.href = link
       } catch (error) {
         console.log("salio mál")
       }
