@@ -18,6 +18,11 @@ root.render(
     <Auth0Provider
       domain={"dev-sdzlhz4u3748bi1n.us.auth0.com"}
       clientId={"pqcJSZZkLUgo8FLZD2vpRH76UsQVNcb5"}
+      onLogout={
+        rootUri.includes("localhost")
+          ? "http://localhost:5173/home"
+          : "https://psiconnectiondev.vercel.app/home"
+      }
       redirectUri={
         rootUri.includes("localhost")
           ? "http://localhost:5173/registroUsuario/google"
