@@ -151,7 +151,7 @@ export default function Turnos({ dias, horas }) {
         console.log("link mercadoPago",response)
         const link = response.data.body.init_point
         // window.location.href = link   
-        window.open(link, '_blank');
+        window.open(link);
         const cita = await axios.post(`psiconnection/citas/reservarCita`, turno)
 
     } catch (error) {
