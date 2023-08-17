@@ -133,18 +133,17 @@ export default function Turnos({ dias, horas }) {
   };
 
   console.log('Turno para elegir =>', newTurno);
-  // console.log(date.toDateString().split(" ")[0]);
   console.log(buttonActive);
   console.log(selectTurno);
 
   const handleCheckoutClick = async () => {
     try {
-        const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}&hora=${newTurno.hora}&fecha=${newTurno.fecha}&id=${psicology.idPsico}`)
+        const response = await axios.post(`psiconnection/payment/create-order?tarifa=${psicology.tarifa}`)
         const link = response.data.body.init_point
-        console.log(link)
+        console.log(link);
         window.location.href = link
     } catch (error) {
-        console.log(error)
+        console.log("salio mál")
     }
          
   }
