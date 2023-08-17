@@ -8,7 +8,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import store from "./Redux/store";
 
 const onRedirectCallback = (appState) => {
-  window.location.href = "http://localhost:5173/registroUsuario";
+  window.location.href = "http://localhost:5173/registroUsuario/google";
 };
 
 const onLogout = () => {

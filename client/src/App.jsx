@@ -3,11 +3,12 @@ import viteLogo from "/vite.svg";
 import Home from "./views/home/home";
 import Account from "./views/Account/Account";
 import SideBar from "./components/sideBar/sideBar";
+import RegistroUsuarioAuth0 from "./views/formularios/registroUsuarioAuth0/RegistroUsuarioAuth0";
 import "./App.css";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://psiconnection-production.up.railway.app/";
-// axios.defaults.baseURL = "http://localhost:3001/";
+// axios.defaults.baseURL = "https://psiconnection-production.up.railway.app/";
+axios.defaults.baseURL = "http://localhost:3001/";
 
 //Hooks:
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
@@ -49,6 +50,10 @@ function App() {
         <Route path="/detail/:detailID" element={<Detail />} />
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account/client/:id" element={<ClientAccount />} />
+        <Route
+          path="/registroUsuario/google"
+          element={<RegistroUsuarioAuth0 />}
+        />
       </Routes>
     </div>
   );
