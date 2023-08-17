@@ -3,6 +3,7 @@ import viteLogo from "/vite.svg";
 import Home from "./views/home/home";
 import Account from "./views/Account/Account";
 import SideBar from "./components/sideBar/sideBar";
+import RegistroUsuarioAuth0 from "./views/formularios/registroUsuarioAuth0/RegistroUsuarioAuth0";
 import "./App.css";
 import axios from "axios";
 
@@ -38,21 +39,22 @@ function App() {
     <div>
       {pathname !== "/" && <SideBar />}
       <Routes>
-        <Route path="/form" element={<FormularioGeneral />} /> 
-        
+        <Route path="/form" element={<FormularioGeneral />} />
+
         <Route path="/loginUsuario" element={<LoginUsuario />} />
         <Route path="/loginPsicologo" element={<LoginPsicologo />} />
         <Route path="/registroUsuario" element={<RegistroUsuario />} />
+        <Route
+          path="/registroUsuario/google"
+          element={<RegistroUsuarioAuth0 />}
+        />
         <Route path="/registroPsicologo" element={<RegistroPsicologo />} />
-        
-        
+
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/detail/:detailID" element={<Detail />} />
-        
-        
-        
+
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account/client/:id" element={<ClientAccount />} />
       </Routes>
