@@ -10,7 +10,7 @@ const {receiveWebhook} = require('../controllers/paymentController/paymentContro
 
 const reservasRouter = Router();
 
-reservasRouter.post("/reservarCita", reservarCitaHandler);
+reservasRouter.get("/reservarCita/crear", reservarCitaHandler);
 
 reservasRouter.get("/reservarCita", getAllAppointmentsHandler);
 
