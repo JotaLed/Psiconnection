@@ -16,8 +16,8 @@ export default function Turnos({ dias, horas }) {
   const appointments = useSelector((store) => store.appointments);
   const id = location.pathname.split('/').at(-1);
   const queryParam = new URLSearchParams(location.search).get('queryEjemplo');
-    //! TOken de sesion...
-     const [tokenData, setTokenData] = useState(null)
+  //! TOken de sesion...
+  const [tokenData, setTokenData] = useState(null)
 
   //useEffect que me trae los estados globales al montarse la página
   useEffect(() => {
@@ -26,20 +26,21 @@ export default function Turnos({ dias, horas }) {
     //! token 
     let token = localStorage.getItem('authToken');
     console.log("tokennnn", token)
-    
-    if(token){
+
+    if (token) {
       const tokenData = token.split('.').at(1)
       console.log("tokenData", tokenData)
       const decodedData = window.atob(tokenData)
       const jsonObject = JSON.parse(decodedData);
       setTokenData(jsonObject)
     }
-  
-   
+
+
     console.log(queryParam);
-    
+
   }, [])
   console.log("tokenData", tokenData)
+  
 
 
   const psicoAppointmentsFound = appointments.filter((a) => a.PsicologoId === psicology.id && a.estado === "activo");
@@ -68,9 +69,7 @@ export default function Turnos({ dias, horas }) {
   });
 
 
-  const [buttonActive, setButtonActive] = useState({
-    "Estado para los buttons": false,
-  });
+  const [buttonActive, setButtonActive] = useState({});
   //useEffect
   // useEffect(() => {
   //   console.log(date);
@@ -146,22 +145,32 @@ export default function Turnos({ dias, horas }) {
   };
 
   const addTurno = (hora) => {
-    setNewTurno({ ...newTurno, fecha: selectTurno.fecha, hora: hora });
-    setButtonActive({ [hora]: true });
+    
+    if(buttonActive[hora]){
+      console.log("Entra aca");
+      setButtonActive({})
+      setNewTurno({ ...newTurno, hora: "" })
+    }
+    else{
+      setNewTurno({ ...newTurno, fecha: selectTurno.fecha, hora: hora });
+      setButtonActive({ [hora]: true });
+
+    }
   };
 
   console.log('Turno para elegir =>', newTurno);
   console.log(buttonActive);
   console.log(selectTurno);
+  // console.log("Usuario actuacl =>"+);
 
   const turno = {
     idPsico: "6462cf98-c531-41b3-9586-1d1b9b38cef1",
     idUser: "4ad79818-65ab-4330-a3d9-87970d408790",
     fecha: "29/01/24",
     hora: "10-11",
-    estado: "activo",
-    tarifa: "10"
-};
+    estado: "activo"
+  };
+
 
   //! hacer el post de la cita
   const handleCheckoutClick = async () => {
@@ -169,26 +178,26 @@ export default function Turnos({ dias, horas }) {
       return null;
     }
     const data = {
-            idPsico: id ,
-            idUser: tokenData.id,
-            fecha: newTurno.fecha,
-            hora: newTurno.hora,
-            estado: "activo",
-            tarifa: psicology.tarifa
-      }
-      console.log(`obj`, data)
-      try {
-        const response = await axios.post(`psiconnection/payment/create-order`, data )
-        const link = response.data.body.init_point
-        console.log(link);
-        // window.open(link, '_blank');
-        window.location.href = link
-      } catch (error) {
-        console.log("salio mál")
-      }
- 
-  }
+      idPsico: id,
+      idUser: tokenData.id,
+      fecha: newTurno.fecha,
+      hora: newTurno.hora,
+      estado: "activo",
+      tarifa: psicology.tarifa
+    }
+    console.log(`obj`, data)
+    try {
+      const response = await axios.post(`psiconnection/payment/create-order`, data)
+      const link = response.data.body.init_point
+      console.log(link);
+      // window.open(link, '_blank');
+      window.location.href = link
+    } catch (error) {
+      console.log("salio mál")
+    }
 
+  }
+  console.log(buttonActive);
   return (
     <div className="turnos">
       <Calendar
@@ -199,20 +208,23 @@ export default function Turnos({ dias, horas }) {
         showCompare={false}
       />
 
-      <div className='view-appointment-date'>
+      {/* <div className='view-appointment-date'>
         <p className="dia">Dia selecionado: {selectTurno.fecha}</p>
         <p className='hora'>Hora seleccionada: {newTurno.hora}</p>
         <p className="precio">Precio del turno: {psicology.tarifa}$</p>
-      </div>
+      </div> */}
 
       {flagH === true ? (
         <div className="contenedor">
-          <h3 className="horario">Selecione su horario:</h3>
           <div className="info_turno">
-            {/* <p className="dia">Dia selecionado: {selectTurno.fecha}</p>
-            <p className='hora'>Hora seleccionada: {newTurno.hora}</p>
-            <p className="precio">Precio del turno: {psicology.tarifa}$</p> */}
+            <div className='view-appointment-date'>
+              <p className="dia">Dia selecionado: {selectTurno.fecha}</p>
+              <p className='hora'>Hora selecionada: {newTurno.hora}</p>
+              <p className="precio">Precio del turno: {psicology.tarifa}$</p>
+            </div>
           </div>
+          <h3 className="horario">Selecione su horario:</h3>
+
           <div className="horas_conteiner">
             {disponibilidad.horarios.map((hora, index) => {
               if (selectTurno.horas.includes(hora)) {
@@ -235,9 +247,10 @@ export default function Turnos({ dias, horas }) {
             })}
           </div>
 
-          <div onClick={handleCheckoutClick} className={!newTurno.fecha || !newTurno.hora ? "no_pedir_turno" : "pedir_turno"}>
-            <p>📅</p>
-            <p>Pedir turno</p>
+
+          <div onClick={handleCheckoutClick} className={!newTurno.hora || !buttonActive ? "no_pedir_turno" : "pedir_turno"}>
+            <span className="emoji">📅</span>
+            <span className="text">Pedir turno</span>
           </div>
         </div>
       ) : (
