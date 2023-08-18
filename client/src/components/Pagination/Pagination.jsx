@@ -3,6 +3,7 @@ import style from "./Pagination.module.css";
 import CardsContainer from "../CardsContainer/CardsContainer";
 
 const Pagination = ({ currentPage, prevHandler, nextHandler, items }) => {
+
   return (
     <div className={style.paginationContainer}>
       <div className={style.contenido}>
@@ -11,9 +12,8 @@ const Pagination = ({ currentPage, prevHandler, nextHandler, items }) => {
           <span className={style.pageIndicator}>{currentPage + 1}</span>
           <button className={style.btn} onClick={nextHandler}>Next</button>
         </div>
-        <CardsContainer items={items} />
-
       </div>
+      <CardsContainer items={items} />
     </div>
 
   );
