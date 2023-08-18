@@ -171,6 +171,7 @@ export default function Turnos({ dias, horas }) {
     estado: "activo"
   };
 
+
   //! hacer el post de la cita
   const handleCheckoutClick = async () => {
     if (!newTurno.fecha || !newTurno.hora) {
