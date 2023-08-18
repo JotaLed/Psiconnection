@@ -2,15 +2,22 @@ const { Psicologo, Usuario, Reserva } = require("../db");
 
 const emailer = require("../helpers/emailers.js");
 
-const reservaCita = async ({ idPsico, idUser, fecha, hora, estado }) => {
+const reservaCita = async (newCita) => {
+  const cita = { 
+    idPsico: newCita.idPsico, 
+    idUser: newCita.idUser, 
+    fecha: newCita.fecha, 
+    hora: newCita.hora,
+    estado: newCita.estado 
+  }
   try {
-    const psicologo = await Psicologo.findByPk(idPsico);
-    const usuario = await Usuario.findByPk(idUser);
+    const psicologo = await Psicologo.findByPk(cita.idPsico);
+    const usuario = await Usuario.findByPk(cita.idUser);
 
     const nuevaReserva = {
-      fecha: fecha,
-      hora: hora,
-      estado: estado,
+      fecha: cita.fecha,
+      hora: cita.hora,
+      estado: cita.estado,
     };
 
     const newReserva = await psicologo.addUsuario(usuario, {
