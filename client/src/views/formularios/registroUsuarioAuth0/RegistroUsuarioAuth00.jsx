@@ -10,6 +10,7 @@ const RegistroUsuarioAuth0 = () => {
   const [countriesList, setCountriesList] = useState([]);
   const [redirectToHome, setRedirectToHome] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [image, setImage] = useState("");
   const [form, setForm] = useState({
     nombre: "",
     apellido: "",
@@ -19,13 +20,13 @@ const RegistroUsuarioAuth0 = () => {
     genero: "",
     telefono: "",
     email: "",
-    contraseña: "",
+    password: "",
     roll: "usuario",
   });
   const [errors, setErrors] = useState({
     fecha_nacimiento: "",
     telefono: "",
-    contraseña: "",
+    password: "",
   });
   const navigate = useNavigate();
 
@@ -46,7 +47,7 @@ const RegistroUsuarioAuth0 = () => {
         pais: "",
         genero: "",
         telefono: "",
-        contraseña: "",
+        password: "",
         roll: "usuario",
       });
     }
@@ -73,9 +74,9 @@ const RegistroUsuarioAuth0 = () => {
     return "";
   };
 
-  const validateContraseña = (contraseñaValue) => {
-    if (!/^[A-Za-z0-9]{6,13}$/.test(contraseñaValue)) {
-      return "La contraseña debe contener entre 6 y 13 caracteres alfanuméricos.";
+  const validatepassword = (passwordValue) => {
+    if (!/^[A-Za-z0-9]{6,13}$/.test(passwordValue)) {
+      return "La password debe contener entre 6 y 13 caracteres alfanuméricos.";
     }
     return "";
   };
@@ -102,8 +103,8 @@ const RegistroUsuarioAuth0 = () => {
     const validationError =
       name === "telefono"
         ? validateTelefono(value)
-        : name === "contraseña"
-        ? validateContraseña(value)
+        : name === "password"
+        ? validatepassword(value)
         : "";
 
     setForm((prevData) => ({
@@ -120,22 +121,37 @@ const RegistroUsuarioAuth0 = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const hasEmptyFields = Object.values(form).some((value) => value === "");
+
+    if (hasEmptyFields) {
+      alert("Todos los campos son obligatorios.");
+      return;
+    }
+
     const hasErrors = Object.values(errors).some((error) => error !== "");
 
     if (hasErrors) {
-      alert("Se debe completar o corregir los campos.");
+      alert("Se deben corregir los campos.");
       return;
     }
 
     try {
-      const response = await axios.post("/psiconection/registerUsuario", form);
+      const imageUrl = await uploadImageToCloudinary(form.foto); // Cargar imagen en Cloudinary
+      const response = await axios.post("/psiconection/registerUsuario", {
+        ...form,
+        foto: imageUrl,
+      });
+
       console.log("Formulario enviado:", response);
-      // console.log("Formulario enviado:", form);
 
       setRegistrationSuccess(true);
       setRedirectToHome(true);
     } catch (error) {
-      console.error("Error al registrar:", error);
+      if (error.response && error.response.data && error.response.data.error) {
+        alert(error.response.data.error);
+      } else {
+        console.error("Error al registrar:", error);
+      }
       return;
     }
 
@@ -148,8 +164,27 @@ const RegistroUsuarioAuth0 = () => {
       genero: "",
       telefono: "",
       email: "",
-      contraseña: "",
+      password: "",
     });
+  };
+
+  const uploadImageToCloudinary = async (imageUrl) => {
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dzphgeome/image/upload",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          file: imageUrl,
+          upload_preset: "images",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+    return data.secure_url;
   };
 
   return (
@@ -162,7 +197,7 @@ const RegistroUsuarioAuth0 = () => {
           <p>¡Usuario registrado exitosamente!</p>
           <button
             onClick={() => {
-              navigate("/home");
+              navigate("/loginUsuario");
             }}
           >
             Continuar
@@ -218,7 +253,6 @@ const RegistroUsuarioAuth0 = () => {
                 <option value="">-Select-</option>
                 <option value="femenino">Femenino</option>
                 <option value="masculino">Masculino</option>
-                <option value="alien">Alien</option>
                 <option value="otro">Otro</option>
               </select>
             </div>
@@ -245,15 +279,15 @@ const RegistroUsuarioAuth0 = () => {
               <span className="error-message">{errors.telefono}</span>
             </div>
             <div>
-              <label>Contraseña: </label>
+              <label>password: </label>
               <input
-                name="contraseña"
-                value={form.contraseña}
+                name="password"
+                value={form.password}
                 type="password"
                 required
                 onChange={handleChange}
               />
-              <span className="error-message">{errors.contraseña}</span>
+              <span className="error-message">{errors.password}</span>
             </div>
             <button type="submit">Registrar</button>
           </form>
