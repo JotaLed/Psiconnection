@@ -110,7 +110,7 @@ const ClientAccount = () => {
                                     </Button>
                                 )}
 
-                                <div>
+                                <div className={styles.prueba}>
                                     {isEditing ? (<>
                                         <h1 className={styles.title}>
                                             Editar Perfil
