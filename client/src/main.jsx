@@ -9,25 +9,15 @@ import store from "./Redux/store";
 import { Provider } from "react-redux";
 import { Auth0Provider } from "@auth0/auth0-react";
 
-const rootUri = window.location.origin;
-
 const root = createRoot(document.getElementById("root"));
 
 root.render(
   <Provider store={store}>
     <Auth0Provider
-      domain={"dev-sdzlhz4u3748bi1n.us.auth0.com"}
-      clientId={"pqcJSZZkLUgo8FLZD2vpRH76UsQVNcb5"}
-      onLogout={
-        rootUri.includes("localhost")
-          ? "http://localhost:5173/home"
-          : "https://psiconnectiondev.vercel.app/home"
-      }
-      redirectUri={
-        rootUri.includes("localhost")
-          ? "http://localhost:5173/registroUsuario/google"
-          : "https://psiconnectiondev.vercel.app/registroUsuario/google"
-      }
+      domain={import.meta.env.VITE_AUTH0_DOMAIN}
+      clientId={import.meta.env.VITE_AUTH0_CLIENTID}
+      redirectUri={import.meta.env.VITE_URL_REDIRECT_LOGIN}
+      onLogout={import.meta.env.VITE_URL_REDIRECT_LOGOUT}
     >
       <BrowserRouter>
         <App />
