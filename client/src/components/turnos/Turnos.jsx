@@ -159,7 +159,8 @@ export default function Turnos({ dias, horas }) {
     idUser: "4ad79818-65ab-4330-a3d9-87970d408790",
     fecha: "29/01/24",
     hora: "10-11",
-    estado: "activo"
+    estado: "activo",
+    tarifa: "10"
 };
 
   //! hacer el post de la cita
