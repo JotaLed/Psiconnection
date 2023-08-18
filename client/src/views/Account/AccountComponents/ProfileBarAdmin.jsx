@@ -24,10 +24,26 @@ const ProfileBar = ({ handleTabChange, selectedTab }) => {
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link
-                    onClick={() => handleTabChange('reservations')}
-                    className={`${styles.customNavLink} ${selectedTab === 'reservations' ? styles.active : ''}`}
+                    onClick={() => handleTabChange('profesionales')}
+                    className={`${styles.customNavLink} ${selectedTab === 'profesionales' ? styles.active : ''}`}
                 >
-                    Citas
+                    Psicologos
+                </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link
+                    onClick={() => handleTabChange('usuarios')}
+                    className={`${styles.customNavLink} ${selectedTab === 'usuarios' ? styles.active : ''}`}
+                >
+                    Usuarios
+                </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link
+                    onClick={() => handleTabChange('resumen')}
+                    className={`${styles.customNavLink} ${selectedTab === 'resumen' ? styles.active : ''}`}
+                >
+                    Resumen
                 </Nav.Link>
             </Nav.Item>
             <Nav.Link onClick={logout} to="/form" className={styles.customNavLink}>
