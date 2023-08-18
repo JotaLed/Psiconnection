@@ -11,6 +11,7 @@
     background-color: #DCE0E6;
     width: 100vw;
 }
+
 .detail {
     display: flex;
     height: 100vh;
@@ -49,7 +50,7 @@
     position: relative;
     width: 50%;
     color: #2b4c7e;
-    
+
 }
 
 .name {
@@ -58,8 +59,8 @@
     margin-left: 30px;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
     font-size: 40px;
-    
-    
+
+
 
 }
 
@@ -68,9 +69,12 @@
     margin-left: 30px;
     font-size: 30px;
     color: black;
+    font-weight: 400;
 }
-.especialidad{
-    margin-top: 12px;
+
+.especialidad {
+    margin-top: 10px;
+    margin-bottom: 0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin-left: 40px;
     color: black;
@@ -87,44 +91,55 @@
 }
 
 .contactar {
-    margin-top: 75px;
+    font-size: 20px;
+    height: 70px;
+    margin-top: 25px;
     align-self: center;
-    border-radius: 10px;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #567ebb;
-    font-size: 20px;
-    color: #fff;
-    width: 134px;
-    height: 70px;
+    padding: 10px 20px;
+    background-color: #2b4c7e;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
 
     &:hover {
         background-color: #456697;
     }
 }
 
+.emoji {
+   margin-top: 0;
+}
+
+
+
 .label {
-    font-size: 20px;
+    font-size: 28px;
     color: black;
-    font-weight: bold;
+    font-weight: 650;
+    margin-bottom: 2px;
 }
 
 .info {
     margin-left: 15px;
 }
 
-.negrita {
-    color: black;
-    font-weight: bold;
-    
+.info p {
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 0;
 }
+
 
 .descripcion {
     margin-left: 15px;
     font-size: 20px;
-    
+    font-weight: 400;
+
+
 }
 
 .turno_conteiner {
@@ -133,13 +148,22 @@
     align-items: center;
     padding: 20px;
     background-color: #ffff;
-    min-height: 650px;
+    min-height: 400px;
     height: fit-content;
     width: 30vw;
     right: 15vw;
     min-width: 25vw;
     border-radius: 20px;
 
+}
+.turno_conteiner h1{
+    font-size: 30px;
+    display: inline-block;
+    width: 100%;
+    background-color: #2b4c7e;
+    color: #fff;
+    text-align: center;
+    border-radius: 20px;
 }
 
 .row1 {
