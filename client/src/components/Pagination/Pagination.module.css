@@ -50,6 +50,9 @@
 }
 
 .buttonContainer {
+  position: absolute;
+  top: 28%;
+  left: 50%;
   display: flex;
   gap: 10px;
   /* align-items: center;
@@ -87,6 +90,8 @@
 }
 
 .pageIndicator {
+  position: relative;
+  top: 5px;
   width: 30px;
   height: 30px;
   background-color: #567ebb;

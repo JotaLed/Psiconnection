@@ -22,8 +22,8 @@ export default function Landing() {
                     Conéctate con psicólogos de alta calidad y servicio excepcional. Charla, consulta y cuida tu bienestar mental aquí
                 </p> */}
 
-                <Link to="/home">
-                    <button>GET IN</button>
+                <Link className={s.button} to="/home">
+                    <button className={s.button2} >GET IN</button>
                 </Link>
             </div>
         </div>

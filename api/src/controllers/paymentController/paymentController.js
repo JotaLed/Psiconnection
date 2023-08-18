@@ -40,7 +40,7 @@ try {
                 pending:''
         },
         auto_return: 'approved',
-        notification_url:`https://268c-190-120-253-194.ngrok.io/webhook?data=${encodedObj}`
+        notification_url:`https://a175-190-138-148-106.ngrok.io/psiconnection/payment/webhook?data=${encodedObj}`
     })
     return res.status(200).json(result)
     console.log(result);
@@ -54,9 +54,6 @@ const receiveWebhook = async (req, res) => {
 const payment = req.query;
 const { data } = req.query; 
 console.log('paso por aqui');
-
-
-
 const decodedObj = JSON.parse(Buffer.from(data, 'base64').toString('utf-8'));
 console.log('dataDescifrada', decodedObj);
 
