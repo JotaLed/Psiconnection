@@ -32,7 +32,7 @@ const Detail = () => {
             <div className={s.info_psyco}>
               <h1 className={s.name}>
                 {psicology.nombre
-                  ? capitalizeFirstLetter(psicology.nombre+" "+psicology.apellido)
+                  ? capitalizeFirstLetter(psicology.nombre + " " + psicology.apellido)
                   : ""}
               </h1>
               <h2 className={s.especialidades}>Especialidades:</h2>
@@ -43,10 +43,10 @@ const Detail = () => {
                   </p>
                 );
               })}
-              <h2 className={s.time}>Cuenta creada el 03/08/23</h2>
+              <h2 className={s.time}>Cuenta creada el {psicology.fecha_registro?.split("T")[0]}</h2>
               <div className={s.contactar}>
-                <p>📱</p>
-                <p>Contactar</p>
+                <span className={s.emoji}>📱</span>
+                <span className={s.text}>Contactar</span>
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@ const Detail = () => {
             <label className={s.label}>Datos del psicologo:</label>
             <div className={s.info}>
               <p>
-                Fecha de nacimiento:
+                Fecha de nacimiento:{" "}
                 <span className={s.negrita}>{psicology.fecha_nacimiento}</span>
               </p>
               <p>
@@ -68,11 +68,11 @@ const Detail = () => {
           </div>
           <div className={s.row3}>
             <label className={s.label}>Descripción:</label>
-            <div className={s.descripcion}>{psicology.descripcion}</div>
+            <div><p className={s.descripcion}>{psicology.descripcion}</p></div>
           </div>
         </div>
         <div className={s.turno_conteiner}>
-          <h1>Pide tu turno!</h1>
+          <h1>Pedir Turno</h1>
           {psicology.nombre ? (
             <Turnos dias={psicology.dias} horas={psicology.horas} />
           ) : null}
