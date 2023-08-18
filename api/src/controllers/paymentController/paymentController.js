@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { PAGO_BACK_URL_BASE } = process.env;
+const { PAGO_BACK_URL_BASE, PAGO_ENLACE_NOTIFICACION_URL } = process.env;
 const mercadopago = require("mercadopago");
 
 const { reservaCita } = require("../reservaController.js");
@@ -45,8 +45,7 @@ const createOrder = async (req, res) => {
         pending: "",
       },
       auto_return: "approved",
-      notification_url:
-        "https://ae59-190-120-253-194.ngrok.io/psiconnection/payment/webhook",
+      notification_url: `${PAGO_ENLACE_NOTIFICACION_URL}/psiconnection/payment/webhook`,
     });
     return res.status(200).json(result);
   } catch (error) {
