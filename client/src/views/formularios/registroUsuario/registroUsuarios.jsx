@@ -119,7 +119,7 @@ const RegistroUsuario = () => {
             {/* //*APELLIDO */}
             <div className="form-groupRegUsu">
               <label>
-                <i class="bx bx-user"></i> Apellido:
+                <i className="bx bx-user"></i> Apellido:
                 <Controller
                   name="apellido"
                   control={control}
@@ -149,7 +149,7 @@ const RegistroUsuario = () => {
             {/* //* GENERO */}
             <div className="form-groupRegUsu">
               <label>
-                <i class="bx bx-male-female"></i> Género:
+                <i className="bx bx-male-female"></i> Género:
                 <Controller
                   name="genero"
                   control={control}
@@ -208,7 +208,7 @@ const RegistroUsuario = () => {
             {/* //*PAIS */}
             <div className="form-groupRegUsu">
               <label>
-                <i class="bx bx-world"></i>
+                <i className="bx bx-world"></i>
                 País:
                 <Controller
                   name="pais"
