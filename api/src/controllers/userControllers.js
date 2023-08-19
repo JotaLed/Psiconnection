@@ -12,6 +12,7 @@ const createUserController = async ({
   contraseña,
   telefono,
   fecha,
+  roll
 }) => {
   const passwordHash = await encrypt(contraseña);
 
@@ -44,6 +45,7 @@ const createUserController = async ({
     contraseña: passwordHash,
     telefono,
     fecha_registro: fecha,
+    roll
   });
   return newUser;
 };
