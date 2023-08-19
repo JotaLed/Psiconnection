@@ -288,7 +288,7 @@ const RegistroUsuario = () => {
               <label>
                 <i className="bx bxs-lock-alt"></i>
                 <Controller
-                  name="password"
+                  name="contraseña"
                   control={control}
                   defaultValue=""
                   rules={{ validate: isValidPassword }}
