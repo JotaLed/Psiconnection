@@ -204,8 +204,8 @@ const upLoadImage = async (e) =>{
           <option value="" disabled>
             Selecciona tu género
           </option>
-          <option value="masculino">Masculino</option>
-          <option value="femenino">Femenino</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
           <option value="otro">Otro</option>
         </select>
       )}

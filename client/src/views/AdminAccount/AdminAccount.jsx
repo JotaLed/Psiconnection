@@ -1,15 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Card, Nav, Button, Form } from 'react-bootstrap';
-import styles from './Account.module.css';
+import { Card, Button, Form } from 'react-bootstrap';
+import styles from './AdminAccount.module.css';
 
-import Description from './AccountComponents/description';
-import BasicInfo from './AccountComponents/basicInfo';
-import Foto from './AccountComponents/foto';
-import Paises from './AccountComponents/Paises';
-import ProfileInfo from './AccountComponents/ProfileInfo';
-import ProfileBarAdmin from './AccountComponents/AdminComponents/ProfileBarAdmin';
-import CitasPsic from './AccountComponents/CitasPsic';
-import Profesionales from './AccountComponents/AdminComponents/Profesionales';
+import ProfileBarAdmin from '../../components/AdminComponents/ProfileBarAdmin';
+import Profesionales from '../../components/AdminComponents/Profesionales';
 
 
 const AccountAdmin = () => {

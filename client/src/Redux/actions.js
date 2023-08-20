@@ -11,6 +11,7 @@ export const GET_DETAIL_CLIENT = "GET_DETAIL_CLIENT";
 export const GET_DETAIL_PSICOLOGO = "GET_DETAIL_PSICOLOGO";
 export const GET_APPOINTMENTS = "GET_APPOINTMENTS";
 export const LOAD_CURRENT_USER = "LOAD_CURRENT_USER"
+export const GET_ALL_PSICOLOGOS = "GET_ALL_PSICOLOGOS";
 //----------------------------------------------------------------------------------------//
 import axios from "axios";
 
@@ -168,6 +169,14 @@ export const loadCurrentUser = (dataUser) => {
         }
     }
 };
+
+export const getAllPsicologos = () => {
+    return async function (dispatch) {
+        const apiData = await axios.get("/psiconection/");
+        const psicologos = apiData.data;
+        dispatch({ type: GET_ALL_PSICOLOGOS, payload: psicologos });
+    };
+}
 // export const setFilter = (filters) => {
 //     //comentario
 //     return { type: SET_FILTER, payload: filters }

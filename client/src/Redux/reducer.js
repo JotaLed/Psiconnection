@@ -1,4 +1,4 @@
-import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL, SEARCH_APELLIDO, GET_SPECIALITIES, GET_DETAIL, GET_DETAIL_CLIENT, GET_APPOINTMENTS, LOAD_CURRENT_USER } from "./actions";
+import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL, SEARCH_APELLIDO, GET_SPECIALITIES, GET_DETAIL, GET_DETAIL_CLIENT, GET_APPOINTMENTS, LOAD_CURRENT_USER, GET_ALL_PSICOLOGOS } from "./actions";
 import store from "./store";
 const initialstate = {
   //Todos los psicologos
@@ -11,7 +11,8 @@ const initialstate = {
   psicologo: {},
   cliente: [],
   appointments: [],
-  currentUser: {}
+  currentUser: {},
+  adminPsicologos: [],
 }
 
 const rootReducer = (state = initialstate, action) => {
@@ -159,6 +160,24 @@ const rootReducer = (state = initialstate, action) => {
     case LOAD_CURRENT_USER:
       return {
         ...state, currentUser: action.payload
+      }
+    
+    
+
+
+
+
+    
+
+
+      
+
+
+
+    
+    case GET_ALL_PSICOLOGOS:
+      return{
+        ...state, adminPsicologos: action.payload
       }
 
     default: return state

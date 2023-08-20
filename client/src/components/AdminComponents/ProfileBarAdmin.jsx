@@ -1,4 +1,4 @@
-import styles from '../../Account.module.css';
+import styles from '../../views/AdminAccount/AdminAccount.module.css';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
