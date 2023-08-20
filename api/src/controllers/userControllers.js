@@ -12,7 +12,7 @@ const createUserController = async ({
   contraseña,
   telefono,
   fecha,
-  roll
+  roll,
 }) => {
   const passwordHash = await encrypt(contraseña);
 
@@ -45,7 +45,7 @@ const createUserController = async ({
     contraseña: passwordHash,
     telefono,
     fecha_registro: fecha,
-    roll
+    roll,
   });
   return newUser;
 };
@@ -95,9 +95,10 @@ const putController = async (req, res) => {
       "fecha_registro",
       "estado_cuenta",
       "roll",
+      "estado_cuenta",
     ];
 
-    const notAllowedProperties = ["estado_cuenta", "fecha_registro", "roll"];
+    const notAllowedProperties = ["fecha_registro", "roll"];
 
     for (const property in dataToUpdate) {
       if (allowedProperties.includes(property)) {
