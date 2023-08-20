@@ -60,14 +60,15 @@
   transition: color 0.3s ease;
 }
 
-.nav-item a:hover {
-  color: #606D80; /* Color más vibrante al hacer hover */
-  transform: translateY(-2px); /* Efecto de elevación */
-}
 .nav-item-perfil{
   justify-self: end;
 }
 .foto_perfil{
   height: 40px;
   border-radius: 100%;
+}
+
+.nav-item a:hover {
+  color: #565656; /* Color más vibrante al hacer hover */
+  transform: translateY(-2px); /* Efecto de elevación */
 }

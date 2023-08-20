@@ -3,25 +3,28 @@
 .container {
   position: relative;
   width: 300px;
-  transition: width 0.5s ease;
+  transition: width 0.3s ease, transform 0.3s ease;
 }
 
 .expanded {
   width: 500px;
+  transform: translateX(0px)
 }
 
 .toggleButton {
-  position: relative;
-  top: 24px;
-  left: 77vh;
-  padding: 10px 20px;
+  margin-top: -10%;
+  margin-left: -10%;
+  padding: 150% 20px;
   font-size: 16px;
-  background-color: #567ebb;
+  background-color: #2b4c7e;
   color: #fff;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.expanded .toggleButton {
+  transform: translateX(220px); 
 }
 
 .filterPanel {
@@ -31,7 +34,6 @@
   width: 220px;
   height: 100%;
   background-color: #2b4c7e;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
   transition: left 0.3s ease;
 }
 

@@ -38,8 +38,8 @@ const Filters = (props) => {
   
     return (
         <div className={`${style.container} ${isExpanded ? style.expanded : ""}`}>
-        <button className={style.toggleButton} onClick={toggleExpand}>
-          Filtros
+        <button className={`${style.toggleButton} ${isExpanded ? "expanded" : ""}`} onClick={toggleExpand}>
+        →
         </button>
   
         <div className={style.filterPanel}>
