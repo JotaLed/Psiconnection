@@ -12,6 +12,7 @@ import {
 } from "../validaciones";
 import "./registroUsuario.css";
 import fetchCountriesList from "../registroPsicologo/fetchCountriesList";
+import { useNavigate } from "react-router-dom";
 
 const RegistroUsuario = () => {
   const {
@@ -19,9 +20,13 @@ const RegistroUsuario = () => {
     control,
     formState: { errors },
   } = useForm();
+  //Estados locales 
   const [countriesList, setCountriesList] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+
+  //hooks
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -33,7 +38,6 @@ const RegistroUsuario = () => {
 
   const onSubmit = async (formData) => {
     (formData.roll = "usuario"), (formData.foto = image);
-
     console.log("Datos a enviar:", formData);
 
     // Envio al backend
@@ -45,6 +49,8 @@ const RegistroUsuario = () => {
 
       if (response.status === 200) {
         setRegistrationSuccess(true);
+        alert("¡Registro exitoso!")
+        navigate("/loginUsuario")
 
         setImage(""); // Limpiar la imagen seleccionada
       }
@@ -80,9 +86,6 @@ const RegistroUsuario = () => {
     <div className="containerFormUsu">
       <div className="registro-formUsu">
         <h2>¡Regístrate como Usuario!</h2>
-        {registrationSuccess && (
-          <p className="registro-exitoso">¡Registro exitoso!</p>
-        )}
         {/* Formulario de registro */}
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="row">
           <div className="form-columnUsu col-md-6">
@@ -301,9 +304,8 @@ const RegistroUsuario = () => {
                       />
 
                       <i
-                        className={`bx ${
-                          showPassword ? "bxs-hide" : "bxs-show"
-                        }`}
+                        className={`bx ${showPassword ? "bxs-hide" : "bxs-show"
+                          }`}
                         onClick={() => setShowPassword(!showPassword)}
                       ></i>
                     </div>
@@ -333,6 +335,7 @@ const RegistroUsuario = () => {
           </div>
         </form>
       </div>
+
     </div>
   );
 };
