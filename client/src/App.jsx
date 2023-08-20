@@ -26,6 +26,7 @@ import Detail from "./views/detail/detail";
 import Nosotros from "./views/nosotros/nosotros";
 import ClientAccount from "./views/Account/ClientAccount";
 import FormularioGeneral from "./views/formularios/FormularioGeneral";
+import Dashboard from "./views/Dashboard";
 
 //importmos components:
 import LoginUsuario from "./views/formularios/loginUsuario/loginUsuario"; // Asegúrate de usar mayúsculas en las letras iniciales/
@@ -34,6 +35,7 @@ import Failure from "./views/paymentFailure/failure";
 import RegistroUsuario from "./views/formularios/registroUsuario/registroUsuarios";
 import RegistroPsicologo from "./views/formularios/registroPsicologo/registoPsicologos";
 import AccountAdmin from "./views/Account/AdminAccount";
+import PieChart from "./components/PieChart/PieChart";
 
 //comentario
 function App() {
@@ -63,9 +65,10 @@ function App() {
 
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account/client/:id" element={<ClientAccount />} />
-        <Route path="/account/admin/" element={<AccountAdmin/>}/>
+        <Route path="/account/admin/" element={<AccountAdmin />} />
 
         <Route path="/payment/state/failure" element={<Failure />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );
