@@ -1,10 +1,10 @@
 import React from "react";
-import PieChart from "../components/PieChart/PieChart";
+import GraficoPsicos from "../components/PieChart/GraficoPsicos";
 
 const Dashboard = () => {
   return (
     <div>
-      <PieChart />
+      <GraficoPsicos />
     </div>
   );
 };

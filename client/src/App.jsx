@@ -35,7 +35,6 @@ import Failure from "./views/paymentFailure/failure";
 import RegistroUsuario from "./views/formularios/registroUsuario/registroUsuarios";
 import RegistroPsicologo from "./views/formularios/registroPsicologo/registoPsicologos";
 import AccountAdmin from "./views/Account/AdminAccount";
-import PieChart from "./components/PieChart/PieChart";
 
 //comentario
 function App() {

@@ -13,7 +13,7 @@ const cloudinary = require("../utils/cloudinary.js");
 
 // helpers
 const obtenerFechaActual = require("../helpers/getFecha.js");
-const emailer = require('../helpers/emailers.js')
+const emailer = require("../helpers/emailers.js");
 
 //Handler de la ruta get que trae a todos los psicologos
 const getPsicologosHandler = async (req, res) => {
@@ -139,12 +139,11 @@ const registerHandler = async (req, res, next) => {
       //       fotoPerfilUrl,
       //       licenciaUrl
     });
-    if(usuarioPsicologo){
-      console.log('psicologo', usuarioPsicologo);
-      
-      await emailer.sendMailRegister(usuarioPsicologo)
-      return res.status(200).json(usuarioPsicologo);
+    if (usuarioPsicologo) {
+      console.log("psicologo", usuarioPsicologo);
 
+      await emailer.sendMailRegister(usuarioPsicologo);
+      return res.status(200).json(usuarioPsicologo);
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -211,6 +210,7 @@ const putHandler = async (req, res, next) => {
     "telefono",
     "foto",
     "descripcion",
+    "estado_cuenta",
   ];
 
   const invalidFields = [];
