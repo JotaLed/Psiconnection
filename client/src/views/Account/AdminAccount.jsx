@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, Nav, Button, Form } from 'react-bootstrap';
+//importamos estilo
 import styles from './Account.module.css';
-
+//importamos componentes 
 import Description from './AccountComponents/description';
 import BasicInfo from './AccountComponents/basicInfo';
 import Foto from './AccountComponents/foto';
