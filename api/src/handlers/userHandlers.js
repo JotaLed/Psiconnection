@@ -25,6 +25,7 @@ const userCreateHandler = async (req, res) => {
     telefono,
     roll
   } = req.body;
+  console.log(contraseña);
   const fecha = await obtenerFechaActual();
   
   try {
