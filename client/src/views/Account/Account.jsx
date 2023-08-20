@@ -7,7 +7,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import Description from './AccountComponents/description';
 import BasicInfo from './AccountComponents/basicInfo';
 import Foto from './AccountComponents/foto';
-import Paises from './AccountComponents/Paises';
 import ProfileInfo from './AccountComponents/ProfileInfo';
 import ProfileBar from './AccountComponents/ProfileBar';
 import CitasPsic from './AccountComponents/CitasPsic';
@@ -152,7 +151,6 @@ const Account = () => {
                                             <div className={styles.propiedades}>
                                                 <BasicInfo handleChange={handleChange} psicology={psicology} />
                                                 <Foto handleChange={handleChange} imagen={imagen} />
-                                                <Paises handleChange={handleChange} zona_horaria={psicology.zona_horaria} pais={psicology.pais} />
 
                                                 <Form.Group controlId="options">
                                                     <Form.Label className={styles.prop}>Especialidades:</Form.Label>
