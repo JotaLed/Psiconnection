@@ -7,6 +7,7 @@ import SideBar from "./components/sideBar/sideBar";
 import Success from "./components/success/Success";
 
 import RegistroUsuarioAuth0 from "./views/formularios/registroUsuarioAuth0/RegistroUsuarioAuth00";
+import Verificacion from "./views/formularios/registroUsuarioAuth0/Verificacion";
 
 import "./App.css";
 import axios from "axios";
@@ -52,6 +53,7 @@ function App() {
           path="/registroUsuario/google"
           element={<RegistroUsuarioAuth0 />}
         />
+        <Route path="/registroUsuario/verificando" element={<Verificacion />} />
         <Route path="/registroPsicologo" element={<RegistroPsicologo />} />
 
         <Route path="/" element={<Landing />} />
@@ -63,7 +65,7 @@ function App() {
 
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account/client/:id" element={<ClientAccount />} />
-        <Route path="/account/admin/:id" element={<AccountAdmin/>}/>
+        <Route path="/account/admin/:id" element={<AccountAdmin />} />
 
         <Route path="/payment/state/failure" element={<Failure />} />
       </Routes>
