@@ -2,7 +2,7 @@
 .navbar {
   background-color: #2b4c7e;
   color: #fff;
-  min-height: 101px;
+  min-height: 90px;
   height: 11vh;
   position: fixed;
   top: 0;
@@ -11,7 +11,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid #606D80; /* Color más vibrante */
   z-index: 9999;
 }
 
@@ -25,8 +24,10 @@
 }
 
 .navbar-logo_conteiner{
-  height:90px;
-  width: 200px;
+  position: relative;
+  left: -6%;
+  height:80px;
+  width: 185px;
 }
 
 .navbar-logo {
@@ -59,14 +60,15 @@
   transition: color 0.3s ease;
 }
 
-.nav-item a:hover {
-  color: #606D80; /* Color más vibrante al hacer hover */
-  transform: translateY(-2px); /* Efecto de elevación */
-}
 .nav-item-perfil{
   justify-self: end;
 }
 .foto_perfil{
   height: 40px;
   border-radius: 100%;
+}
+
+.nav-item a:hover {
+  color: #565656; /* Color más vibrante al hacer hover */
+  transform: translateY(-2px); /* Efecto de elevación */
 }

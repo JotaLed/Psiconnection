@@ -30,17 +30,20 @@ const Filters = (props) => {
 
     };
 
-    const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const [isExpanded, setExpanded] = useState(false);
 
-    const toggleSidebar = () => {
-      setSidebarOpen(!isSidebarOpen);
+    const toggleExpand = () => {
+      setExpanded(!isExpanded);
     };
   
     return (
-
-        <div className={style.container}>
-
-            <label className={style.label}>Especialización</label>
+        <div className={`${style.container} ${isExpanded ? style.expanded : ""}`}>
+        <button className={`${style.toggleButton} ${isExpanded ? "expanded" : ""}`} onClick={toggleExpand}>
+        →
+        </button>
+  
+        <div className={style.filterPanel}>
+          <label className={style.label}>Especialización</label>
             <div className={style.selectContainer}>
                 <select
                     className={style.select}
@@ -93,6 +96,7 @@ const Filters = (props) => {
                 FILTRAR
             </button>
             <Orders/>
+        </div>
         </div>
     );
 };

@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import "./loginUsuario.css";
 import { isValidPassword } from "../validaciones";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import LoginButtonAuth0 from "./LoginAuth0";
-import LogoutButtonAuth0 from "./LogoutAutho0";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
-//importamos las actions
 import { loadCurrentUser } from "../../../Redux/actions";
+import axios from "axios";
+import LoginButtonAuth0 from "./LoginAuth0";
+import LogoutButtonAuth0 from "./LogoutAutho0";
+
+
+import "./loginUsuario.css";
 
 const LoginUsuario = () => {
   const { isAuthenticated } = useAuth0();
@@ -86,13 +87,14 @@ const LoginUsuario = () => {
   return (
     <div className="containerLoginUsuario">
       <div className="login-formUsu">
-        <h2>¡Bienvenidos Usuarios!</h2>
-        <h3>Para ingresar a nuestra comunidad, inicia sesión:</h3>
+        <h2>¡Bienvenido!</h2>
+        <h3>inicia sesión con:</h3>
 
         {/* //! Botón de inicio de sesión con Google */}
         {console.log(isAuthenticated)}
-        {isAuthenticated ? <LogoutButtonAuth0 /> : <LoginButtonAuth0 />}
 
+        {isAuthenticated ? <LogoutButtonAuth0 /> : <LoginButtonAuth0 />}
+        <h4>O</h4>
         {/* Formulario de inicio de sesión local */}
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="login-formUsu">
@@ -109,7 +111,7 @@ const LoginUsuario = () => {
                     <input
                       {...field}
                       type="email"
-                      placeholder="Email del Usuario"
+                      placeholder="example@gmail.com"
                     />
                   )}
                 />

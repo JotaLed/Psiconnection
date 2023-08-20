@@ -59,7 +59,7 @@ const LoginPsicologo = () => {
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="login-formPsico">
           <h2>¡Bienvenidos Psicologos!</h2>
-          <h3>Para ingresar a nuestra comunidad, inicia sesión:</h3>
+          <h3 className='title'>inicia sesión:</h3>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           <div className="form-groupPsico">
             <label>
@@ -73,7 +73,7 @@ const LoginPsicologo = () => {
                   <input
                     {...field}
                     type="email"
-                    placeholder="Email del Psicologo"
+                    placeholder="example@gmail.com"
                   />
                 )}
               />
