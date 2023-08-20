@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, Nav, Button, Form } from 'react-bootstrap';
+//importamos estilo
 import styles from './Account.module.css';
-
+//importamos componentes 
 import Description from './AccountComponents/description';
 import BasicInfo from './AccountComponents/basicInfo';
 import Foto from './AccountComponents/foto';
@@ -9,6 +10,8 @@ import Paises from './AccountComponents/Paises';
 import ProfileInfo from './AccountComponents/ProfileInfo';
 import ProfileBarAdmin from './AccountComponents/ProfileBarAdmin';
 import CitasPsic from './AccountComponents/CitasPsic';
+//importamos actions 
+import { getUsers } from '../../Redux/actions';
 
 
 const AccountAdmin = () => {
