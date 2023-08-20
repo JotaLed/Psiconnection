@@ -122,13 +122,13 @@
 h2{
   position: inherit;
   top: -15px;
-  left: 65px;
+  left: 56px;
   justify-content: center;
 }
 h3{
   position: relative;
   top: -15px;
-  left: 76px;
+  left: 70px;
   font-size: 20px;
   color: rgba(0, 0, 0, 0.576);
 }
