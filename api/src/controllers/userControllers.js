@@ -65,7 +65,7 @@ const uploadUserPhoto = async ({ id, fotoUserURL }) => {
 
 const getUserController = async () => {
   const users = await Usuario.findAll();
-  return [users];
+  return users;
 };
 
 // Controlador para actualizar datos de un user

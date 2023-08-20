@@ -19,18 +19,16 @@ const ProfileInfo = ({ psicology, imagen, client, id}) => {
             console.log("Cuenta eliminada")
             dispatch(deletePiscologo(id))
             navigateTo(`/home`);
-
-
         }
     }
 
     function capitalizeFirstLetter(name) {
-        return name.charAt(0).toUpperCase() + name.slice(1);
+        return name?.charAt(0).toUpperCase() + name?.slice(1);
     }
    
     const usuario = psicology ? psicology : client;
     const formatDate = (dateString) => {
-        if (dateString.length < 11) {
+        if (dateString?.length < 11) {
             return dateString
         }
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
@@ -62,7 +60,7 @@ const ProfileInfo = ({ psicology, imagen, client, id}) => {
                 <h2 className={styles.subtitle}><b>Email:</b> {usuario.email}</h2>
 
                 <h2 className={styles.subtitle}><b>Género:</b> {capitalizeFirstLetter(usuario.genero)}</h2>
-                {psicology && <><h2 className={styles.subtitle}><b>Zona Horaria:</b> {psicology.zona_horaria}</h2>
+                {psicology && <>
                     <h2 className={styles.subtitle}><b>Tarifa:</b> ${psicology.tarifa}</h2>
 
                     <h2 className={styles.subtitle}><b>Whatsapp:</b> <a href={psicology.whatsapp_url} target="_blank" rel="noopener noreferrer"> {psicology.whatsapp_url}</a></h2></>}

@@ -205,7 +205,7 @@ const RegistroPsicologo = () => {
           </option>
           <option value="Masculino">Masculino</option>
           <option value="Femenino">Femenino</option>
-          <option value="otro">Otro</option>
+          <option value="Otro">Otro</option>
         </select>
       )}
     />

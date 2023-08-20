@@ -63,7 +63,7 @@ function App() {
 
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account/client/:id" element={<ClientAccount />} />
-        <Route path="/account/admin/" element={<AccountAdmin/>}/>
+        <Route path="/account/admin/:id" element={<AccountAdmin/>}/>
 
         <Route path="/payment/state/failure" element={<Failure />} />
       </Routes>
