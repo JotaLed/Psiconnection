@@ -173,15 +173,15 @@ export default function Turnos({ dias, horas }) {
   
   //! hacer el post de la cita
   const handleCheckoutClick = async () => {
-    if(tokenData === null){
-      window.location.href = 'http://localhost:5173/loginUsuario';
-    }
+    // if(tokenData === null){
+    //   window.location.href = 'http://localhost:5173/loginUsuario';
+    // }
     if (!newTurno.fecha || !newTurno.hora) {
       return null;
     }
     const data = {
       idPsico: id,
-      idUser: tokenData.id,
+      idUser: tokenData,
       fecha: newTurno.fecha,
       hora: newTurno.hora,
       estado: "activo",

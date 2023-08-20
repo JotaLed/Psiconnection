@@ -111,7 +111,7 @@ const LoginUsuario = () => {
                     <input
                       {...field}
                       type="email"
-                      placeholder="Email del Usuario"
+                      placeholder="example@gmail.com"
                     />
                   )}
                 />

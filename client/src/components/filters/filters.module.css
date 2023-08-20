@@ -1,31 +1,50 @@
- /* Filters.css */
+/* Resto de tus estilos existentes */
 
- .container {
-  /* Utilizamos position: fixed para posicionar el contenedor */
-  /* top: 9%;
+.container {
+  position: relative;
+  width: 300px;
+  transition: width 0.5s ease;
+}
+
+.expanded {
+  width: 500px;
+}
+
+.toggleButton {
+  position: relative;
+  top: 24px;
+  left: 77vh;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #567ebb;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.filterPanel {
+  position: absolute;
+  top: 0.5px;
+  left: -500px;
+  width: 220px;
   height: 100%;
-
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-around;
-  flex-direction: column;
   background-color: #2b4c7e;
-  padding: 70px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
+}
+
+.container.expanded .filterPanel {
   left: 0;
-  gap: 0px; */
-  /* Añadimos un espacio de 7px entre los elementos */
-  /* display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0px;
-  background-color:  #2b4c7e;
-  left: 0; */
-  
-    background-color: #2b4c7e;
+}
+
+/* Resto de tus estilos existentes */
+.container {
+    background-color: transparent;
     color: #fff;
     padding: 20px;
-    width: 200px;
+    width: 250px;
     position: fixed; /* Agrega posición fija */
     top: 0; /* Ajusta la posición vertical en la parte superior */
     left: 0; /* Ajusta la posición horizontal en la parte izquierda */
@@ -37,18 +56,20 @@
 .label {
   font-size: 14px;
   color: white;
-  margin-right: 8px;
+  margin-top: 5px;
+  margin-left: 15px;
   font-weight: bold; 
 }
 .selectContainer {  
   position: relative;
   margin-bottom: 30px; 
+  margin-left: 20px;
 }
 
 .select {
   width: 158px;
   height: 40px;
-  padding: 8px;
+  padding: 10px;
   border: none;
   border-radius: 0;
   background-color: transparent;
@@ -94,7 +115,7 @@
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   margin-bottom: 40px;
-
+  margin-left: 60px;
 }
 
 .btn:hover {
@@ -102,9 +123,3 @@
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-
-/* sdasdas */
-/* Filters.module.css */
-
-/* Estilos para el contenedor principal */

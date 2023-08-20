@@ -8,88 +8,108 @@
   background-repeat: no-repeat;
   background-position: center; /* Centra la imagen en el contenedor */
   }
-/** Se aplicican al formulario */
-  .login-formPsico {
-    margin-top: 7%;
-    max-width: 400px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .login-formPsico h2 {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  .login-formPsico h3 {
-    text-align: left;
-    margin-bottom: 30px;
-    font-size: x-large;
-  }
-  .login-formPsico p {
-    text-align: justify;
-    margin-bottom: 20px;
-  }
-  
-  .form-groupPsico label {
-    display: block;
-    margin-bottom: 1px;
+
+.login-formPsico {
+  max-width: 400px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.623);
+  text-align: center;
 }
+
+.login-formPsico h2 {
+  color: #333333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.login-formPsico h3 {
+  color: #666666;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 15px;
+}
+
 .form-groupPsico label {
-    display: flex;
-    align-items: center; /* Alineamos los elementos verticalmente */
-    margin-bottom: 10px;
-    margin-left: 50px;
-  }
-  
-  /* Añadimos espacio entre el ícono y el campo de contraseña */
-  .form-groupPsico label .bx {
-    margin-right: 5px;
-  }
-  
-  /* Estilos para el campo de contraseña */
-  .password-input {
-    display: flex;
-    align-items: center;
-  }
-  
-  .password-input input {
-    flex: 1;
-  }
-  
-  .password-input i {
-    cursor: pointer;
-    margin-left: 5px; /* Agrega un margen a la izquierda para separar el ícono del campo */
-  }
-
-  .btn-primary {
-    display: block;
-    margin-left: 80px;
-    padding: 8px;
-    background-color: #2b4c7e;
-    color: white;
-    border-radius: 3px;
-    margin-left: 100px;
-    margin-top: 30px;
-    transition: background-color 0.3s ease-in-out;
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: bold;
+  color: #333333;
 }
+
+.form-groupPsico input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.errores {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.password-input {
+  display: flex;
+  align-items: center;
+}
+
+.password-input input {
+  flex: 1;
+}
+
+.password-input i {
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 5px;
+  color: #888888;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 100px;
+}
+
 .btn-primary:hover {
-  background-color: #1c375b; 
+  background-color: #0056b3;
 }
-  .errores {
-    color: red;
-    font-size:small;
-  }
 
-  /* Icons */
-.bx {
-    font-size: 16px;
-    margin-right: 5px;
-    vertical-align: middle;
-  }
-  
-  .register-link{
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
+.register-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.register-link-text {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link-back {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.back-link {
+  text-decoration: none;
+}
+.title{
+  margin-top: 10%;
+  margin-left: -50%;
+}
