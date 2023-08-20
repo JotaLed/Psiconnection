@@ -29,7 +29,7 @@ const CitasPsic = () => {
         <div>
             {console.log(psicologo.cita)}
             <h2>Mis Citas</h2><br></br>
-            {psicologo.cita?  <Table striped bordered hover>
+            {psicologo.cita?.length > 0 ?  <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Cita</th>

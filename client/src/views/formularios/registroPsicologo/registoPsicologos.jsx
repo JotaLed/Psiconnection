@@ -189,31 +189,31 @@ const RegistroPsicologo = () => {
                 <p className="errores">El nombre debe tener más de 3 letras y menos de 50</p>
               )}
             </div>
-            {/* //* GENERO */}
-            <div className="form-groupRegPsico">
-              <label>
-                <i class='bx bx-male-female'></i> Género:
-                <Controller
-                  name="genero"
-                  control={control}
-                  defaultValue=""
-                  rules={{ required: 'Selecciona tu género' }}
-                  render={({ field }) => (
-                    <select {...field}>
-                      <option value="" disabled>
-                        Selecciona tu género
-                      </option>
-                      <option value="masculino">Masculino</option>
-                      <option value="femenino">Femenino</option>
-                      <option value="otro">Otro</option>
-                    </select>
-                  )}
-                />
-              </label>
-              {errors.genero && (
-                <p className="errores">{errors.genero.message}</p>
-              )}
-            </div>
+{/* //* GENERO */}
+ <div className="form-groupRegPsico">
+  <label>
+  <i class='bx bx-male-female'></i> Género:
+    <Controller
+      name="genero"
+      control={control}
+      defaultValue=""
+      rules={{ required: 'Selecciona tu género' }}
+      render={({ field }) => (
+        <select {...field}>
+          <option value="" disabled>
+            Selecciona tu género
+          </option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+          <option value="otro">Otro</option>
+        </select>
+      )}
+    />
+  </label>
+  {errors.genero && (
+    <p className="errores">{errors.genero.message}</p>
+  )}
+</div>
 
             {/*//* EDAD */}
             <div className="form-groupRegPsico">
