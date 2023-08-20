@@ -1,4 +1,4 @@
-import styles from '../Account.module.css';
+import styles from '../../Account.module.css';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +27,7 @@ const ProfileBar = ({ handleTabChange, selectedTab }) => {
                     onClick={() => handleTabChange('profesionales')}
                     className={`${styles.customNavLink} ${selectedTab === 'profesionales' ? styles.active : ''}`}
                 >
-                    Psicologos
+                    Profesionales
                 </Nav.Link>
             </Nav.Item>
             <Nav.Item>

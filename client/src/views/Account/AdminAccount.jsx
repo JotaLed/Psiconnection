@@ -8,10 +8,9 @@ import BasicInfo from './AccountComponents/basicInfo';
 import Foto from './AccountComponents/foto';
 import Paises from './AccountComponents/Paises';
 import ProfileInfo from './AccountComponents/ProfileInfo';
-import ProfileBarAdmin from './AccountComponents/ProfileBarAdmin';
+import ProfileBarAdmin from './AccountComponents/AdminComponents/ProfileBarAdmin';
 import CitasPsic from './AccountComponents/CitasPsic';
-//importamos actions 
-import { getUsers } from '../../Redux/actions';
+import Profesionales from './AccountComponents/AdminComponents/Profesionales';
 
 
 const AccountAdmin = () => {
@@ -61,7 +60,7 @@ const AccountAdmin = () => {
                     )}
                     {selectedTab === 'profesionales' && (
                        <div> 
-                        <h1>Psicologos</h1></div>
+                        <Profesionales/></div>
                     )}
                     {selectedTab === 'usuarios' && (
                        <div> 
