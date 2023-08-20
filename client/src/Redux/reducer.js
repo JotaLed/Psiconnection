@@ -1,8 +1,10 @@
-import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL, SEARCH_APELLIDO, GET_SPECIALITIES, GET_DETAIL, GET_DETAIL_CLIENT, GET_APPOINTMENTS, LOAD_CURRENT_USER } from "./actions";
+import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL, SEARCH_APELLIDO, GET_SPECIALITIES, GET_DETAIL, GET_DETAIL_CLIENT, GET_APPOINTMENTS, LOAD_CURRENT_USER, GET_USERS } from "./actions";
 import store from "./store";
 const initialstate = {
   //Todos los psicologos
   allPshychologists: [],
+  //todos los usuarios
+  allUsers:[],
   //Psicolos que se renderizan
   psicoloDetail: {},
   psychologists: [],
@@ -128,6 +130,11 @@ const rootReducer = (state = initialstate, action) => {
           alert('no hay psicos')
         }
         return { ...state, psychologists: activos, allPshychologists: activos }
+    
+    case GET_USERS:
+        const users = action.payload;
+        return { ...state, allUsers: users}  
+    
 
     case SEARCH_APELLIDO:
       const activo = action.payload?.filter((element) => element.estado_cuenta.toLowerCase() === "activo")

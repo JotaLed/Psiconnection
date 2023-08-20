@@ -13,7 +13,7 @@ const Detail = () => {
 
   useEffect(() => {
     // Llamada a la acción para cargar los detalles del psicólogo
-    dispatch(loadDetail(detailID));
+    dispatch(loadDetail(detailID)); 
   }, [dispatch, detailID]); // Se agrega [dispatch, detailID] como dependencias del efecto
 
   // Función para capitalizar la primera letra

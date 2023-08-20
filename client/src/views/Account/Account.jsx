@@ -8,7 +8,6 @@ import Description from './AccountComponents/description';
 import BasicInfo from './AccountComponents/basicInfo';
 import Foto from './AccountComponents/foto';
 import Paises from './AccountComponents/Paises';
-import Horario from './AccountComponents/Horario';
 import ProfileInfo from './AccountComponents/ProfileInfo';
 import ProfileBar from './AccountComponents/ProfileBar';
 import CitasPsic from './AccountComponents/CitasPsic';
