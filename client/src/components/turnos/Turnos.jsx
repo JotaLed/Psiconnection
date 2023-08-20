@@ -35,7 +35,6 @@ export default function Turnos({ dias, horas }) {
       setTokenData(jsonObject)
     }
 
-
     console.log(queryParam);
 
   }, [])
@@ -171,9 +170,12 @@ export default function Turnos({ dias, horas }) {
     estado: "activo"
   };
 
-
+  
   //! hacer el post de la cita
   const handleCheckoutClick = async () => {
+    if(tokenData === null){
+      window.location.href = 'http://localhost:5173/loginUsuario';
+    }
     if (!newTurno.fecha || !newTurno.hora) {
       return null;
     }
@@ -185,18 +187,18 @@ export default function Turnos({ dias, horas }) {
       estado: "activo",
       tarifa: psicology.tarifa
     }
-    console.log(`obj`, data)
     try {
-      const response = await axios.post(`psiconnection/payment/create-order`, data)
-      const link = response.data.body.init_point
-      console.log(link);
-      // window.open(link, '_blank');
-      window.location.href = link
+        const response = await axios.post(`psiconnection/payment/create-order`, data)
+        const link = response.data.body.init_point
+        console.log(link);
+        // window.open(link, '_blank');
+        window.location.href = link
+
     } catch (error) {
       console.log("salio mál")
     }
+  };
 
-  }
   console.log(buttonActive);
   return (
     <div className="turnos">

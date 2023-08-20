@@ -122,10 +122,12 @@ const rootReducer = (state = initialstate, action) => {
       return { ...state, psicoloDetail: action.payload }
 
     case GET_PSICOLOGOS:
-      const psicologos = action.payload;
-      const activos = psicologos.filter((psicologo) => psicologo.estado_cuenta.toLowerCase() === "activo")
-      console.log(activos)
-      return { ...state, psychologists: activos, allPshychologists: activos }
+        const psicologos = action.payload;
+        const activos = psicologos.filter((psicologo) => psicologo.estado_cuenta.toLowerCase() === "activo")
+        if(activos.length === 0){
+          alert('no hay psicos')
+        }
+        return { ...state, psychologists: activos, allPshychologists: activos }
 
     case SEARCH_APELLIDO:
       const activo = action.payload?.filter((element) => element.estado_cuenta.toLowerCase() === "activo")
