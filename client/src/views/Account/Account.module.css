@@ -98,6 +98,13 @@
   border-radius: 70px;
 }
 
+.foto_cliente img {
+  width: 70%;
+  height: auto;
+
+  border-radius: 70px;
+}
+
 .title {
   margin-bottom: 1%;
   font-size: 200%;

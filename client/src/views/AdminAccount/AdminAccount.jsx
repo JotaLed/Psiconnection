@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Card, Button, Form } from 'react-bootstrap';
+import { Card, Button, Form} from 'react-bootstrap';
 import styles from './AdminAccount.module.css';
 
 import ProfileBarAdmin from '../../components/AdminComponents/ProfileBarAdmin';
@@ -7,14 +7,17 @@ import Profesionales from '../../components/AdminComponents/Profesionales';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileInfo from '../Account/AccountComponents/ProfileInfo';
 import { useParams } from 'react-router-dom';
-import { getDetailClient, updateClient } from '../../Redux/actions';
+import { getAllPsicologos, getDetailClient, getUsers, updateClient } from '../../Redux/actions';
 import BasicInfo from '../Account/AccountComponents/basicInfo';
 import Foto from '../Account/AccountComponents/foto';
 import Clientes from '../../components/AdminComponents/Clientes';
-
+import Pagination from '../../components/Pagination/Pagination';
 
 
 const AccountAdmin = () => {
+    const ITEMS_PER_PAGE = 6
+    const [currentPage, setCurrentPage] = useState(0);
+
     const dispatch = useDispatch()
 
     const admin = useSelector((store) => store.cliente)
@@ -22,6 +25,8 @@ const AccountAdmin = () => {
     const [selectedTab, setSelectedTab] = useState('profile');
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const profesionales = useSelector((state) => state.adminPsicologos?.sort((a, b) => a.nombre.localeCompare(b.nombre)))
+    const clientes = useSelector((state) => state.allUsers?.sort((a, b) => a.nombre.localeCompare(b.nombre)))
 
     const { id } = useParams();
     const [dateToUpdate, setDateToUpdate] = useState({
@@ -37,6 +42,9 @@ const AccountAdmin = () => {
         const aux = async () => {
             console.log(id)
             await dispatch(getDetailClient(id))
+            await dispatch(getAllPsicologos())
+            await dispatch(getUsers())
+
             setIsLoading(false);
             // setImagen(client.usuario.foto)
         }
@@ -44,6 +52,19 @@ const AccountAdmin = () => {
 
 
     }, [dispatch, id, admin.usuario?.foto])
+
+     // Recuperar la pestaña seleccionada de localStorage al cargar la página
+     useEffect(() => {
+        const savedTab = localStorage.getItem('selectedTab');
+        if (savedTab) {
+            setSelectedTab(savedTab);
+        }
+    }, []);
+
+    // Guardar la pestaña seleccionada en localStorage cuando cambia
+    useEffect(() => {
+        localStorage.setItem('selectedTab', selectedTab);
+    }, [selectedTab]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -72,6 +93,31 @@ const AccountAdmin = () => {
     if (isLoading) {
         return <div>Cargando...</div>; // Mostrar un mensaje de carga mientras se busca el psicólogo
     }
+
+    //--------------------Paginado----------------//
+    const prevHandler = () => {
+        setCurrentPage(prevPage => Math.max(prevPage - 1, 0));
+    };
+
+    const nextHandler = () => {
+        setCurrentPage(prevPage =>
+            Math.min(prevPage + 1, Math.ceil(profesionales.length / ITEMS_PER_PAGE) - 1)
+        );
+    };
+    const nextHandlerClient = () => {
+        setCurrentPage(prevPage =>
+            Math.min(prevPage + 1, Math.ceil(clientes.length / ITEMS_PER_PAGE) - 1)
+        );
+    };
+
+    // Calcula los índices de inicio y fin de los profesionales a mostrar en la página actual
+    const firstIndex = currentPage * ITEMS_PER_PAGE;
+    const lastIndex = Math.min(firstIndex + ITEMS_PER_PAGE, profesionales.length);
+    const lastIndexClient = Math.min(firstIndex + ITEMS_PER_PAGE, clientes.length);
+    // Filtra los profesionales a mostrar en la página actual
+    const currentProfesionales = profesionales.slice(firstIndex, lastIndex);
+    const currentClientes = clientes.slice(firstIndex, lastIndex)
+
 
     return (<div className={styles.accountContainer}>
 
@@ -116,11 +162,23 @@ const AccountAdmin = () => {
                     )}
                     {selectedTab === 'profesionales' && (
                         <div>
-                            <Profesionales /></div>
+                            <Pagination
+                                    currentPage={currentPage}
+                                    nextHandler={nextHandler}
+                                    prevHandler={prevHandler}
+                                    items={currentProfesionales}
+                                    profesionales={true} 
+                                /></div>
                     )}
                     {selectedTab === 'usuarios' && (
                         <div>
-                            <Clientes/></div>
+                        <Pagination
+                                currentPage={currentPage}
+                                nextHandler={nextHandlerClient}
+                                prevHandler={prevHandler}
+                                items={currentClientes}
+                                clientes={true} 
+                            /></div>
                     )}
                     {selectedTab === 'resumen' && (
                         <div>
