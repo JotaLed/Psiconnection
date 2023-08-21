@@ -12,6 +12,7 @@ const RegistroUsuarioAuth0 = () => {
   const [redirectToHome, setRedirectToHome] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [image, setImage] = useState("");
+  const [cargando, setCargando] = useState(false);
   const [form, setForm] = useState({
     nombre: "",
     apellido: "",
@@ -136,6 +137,8 @@ const RegistroUsuarioAuth0 = () => {
       return;
     }
 
+    setCargando(true);
+
     try {
       const imageUrl = await uploadImageToCloudinary(form.foto); // Cargar imagen en Cloudinary
       const response = await axios.post("/psiconection/registerUsuario", {
@@ -147,11 +150,14 @@ const RegistroUsuarioAuth0 = () => {
 
       setRegistrationSuccess(true);
       setRedirectToHome(true);
+      setCargando(false);
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
         alert(error.response.data.error);
+        setCargando(false);
       } else {
         console.error("Error al registrar:", error);
+        setCargando(false);
       }
       return;
     }
@@ -191,7 +197,6 @@ const RegistroUsuarioAuth0 = () => {
   return (
     <div className="containerFormUsu">
       <div className="registro-formUsu">
-        <h2>¡Regístrate como Usuario!</h2>
         {registrationSuccess ? (
           <div>
             <p className="registro-exitoso">¡Registro exitoso!</p>
@@ -203,8 +208,13 @@ const RegistroUsuarioAuth0 = () => {
               Continuar
             </button>
           </div>
+        ) : cargando ? (
+          <div>
+            <h3>Cargando...</h3>
+          </div>
         ) : (
           <div>
+            <h2>¡Regístrate como Usuario!</h2>
             <form onSubmit={handleSubmit} className="row">
               <div className="form-columnUsu col-md-6">
                 <div className="form-groupRegUsu">
