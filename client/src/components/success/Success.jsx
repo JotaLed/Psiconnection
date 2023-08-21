@@ -39,7 +39,7 @@ function Success() {
 
     useEffect(()=> {
         const queryParamData = new URLSearchParams(location.search).get('data');
-        const queryParamStatus = new URLSearchParams(location.search).get('status');
+        // const queryParamStatus = new URLSearchParams(location.search).get('status');
         let decodedData = window.atob(queryParamData)
         const objeto = JSON.parse(decodedData);
         console.log("decodedData", decodedData)
@@ -47,13 +47,12 @@ function Success() {
         console.log('psico', objeto.idPsico)
         setReserva({
             ...reserva,
-            psico: objeto?.idPsico,
-            user: objeto?.idUser,
-            fecha: objeto?.fecha,
-            hora: objeto?.hora,
-            estado: objeto?.estado,
-            tarifa: objeto?.tarifa,
-            status: queryParamStatus
+            psico: objeto.idPsico,
+            user: objeto.idUser,
+            fecha: objeto.fecha,
+            hora: objeto.hora,
+            estado: objeto.estado,
+            tarifa: objeto.tarifa,
         })
         console.log('reserva', reserva)
         // return setReserva({})
