@@ -9,7 +9,7 @@ const {
 const paypalRoutes = Router();
 
 
-paypalRoutes.get('/paymentOrder',createOrder);
+paypalRoutes.post('/paymentOrder',createOrder);
 
 paypalRoutes.get('/paymentCapture', captureOrder); 
 

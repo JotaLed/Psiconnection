@@ -8,21 +8,37 @@ import Calendar from 'react-calendar'
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux"
 import { loadDetail, getAppointment } from '../../Redux/actions';
+import Paypal from '../paypal/paypal';
+
+
+//! mercado pago 
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 
 export default function Turnos({ dias, horas }) {
+
   const dispatch = useDispatch();
   const location = useLocation();
   const psicology = useSelector((store) => store.psicoloDetail)
   const appointments = useSelector((store) => store.appointments);
   const id = location.pathname.split('/').at(-1);
   const queryParam = new URLSearchParams(location.search).get('queryEjemplo');
+  
+//! mercadoPago y paypal 
+const [preferenceId, setPreferenceId] = useState(null)
+initMercadoPago('TEST-442f1db5-f1a8-4d3e-aad6-5dd4d161c61c');
+
+//! paypal 
+const [paypalID, setPaypalID] = useState(null)
+
+  
   //! TOken de sesion...
   const [tokenData, setTokenData] = useState(null)
-
   //useEffect que me trae los estados globales al montarse la página
+
   useEffect(() => {
     dispatch(loadDetail(id));
     dispatch(getAppointment());
+
     //! token 
     let token = localStorage.getItem('authToken');
     console.log("tokennnn", token)
@@ -36,10 +52,8 @@ export default function Turnos({ dias, horas }) {
     }
 
 
-    console.log(queryParam);
-
   }, [])
-  console.log("tokenData", tokenData)
+
   
 
 
@@ -171,13 +185,16 @@ export default function Turnos({ dias, horas }) {
     estado: "activo"
   };
 
-
+  
   //! hacer el post de la cita
   const handleCheckoutClick = async () => {
+    if(tokenData === null){
+      window.location.href = 'http://localhost:5173/loginUsuario';
+    }
     if (!newTurno.fecha || !newTurno.hora) {
       return null;
     }
-    const data = {
+    const reserva = {
       idPsico: id,
       idUser: tokenData.id,
       fecha: newTurno.fecha,
@@ -185,19 +202,51 @@ export default function Turnos({ dias, horas }) {
       estado: "activo",
       tarifa: psicology.tarifa
     }
-    console.log(`obj`, data)
     try {
-      const response = await axios.post(`psiconnection/payment/create-order`, data)
-      const link = response.data.body.init_point
-      console.log(link);
-      // window.open(link, '_blank');
-      window.location.href = link
+
+      // mercadoPago 
+        const response = await axios.post(`psiconnection/payment/create-order`, reserva)
+        // Paypal 
+        const { data } = await axios.post(`http://localhost:3001/pay/paymentOrder`, reserva)
+        // const link = response.data.body.init_point
+        // window.open(link, '_blank');
+        // window.location.href = link
+        console.log({data: data})
+        setPaypalID(data)
+        const { id } = response.data;
+        return id
+
     } catch (error) {
       console.log("salio mál")
     }
+  };
 
+  console.log(paypalID)
+
+
+
+  const handleBuy = async () =>  {
+    const id = await handleCheckoutClick()
+    if(id){
+      setPreferenceId(id)
+    }
   }
-  console.log(buttonActive);
+
+  const clearID = () => {
+    setPreferenceId(null)
+    setPaypalID(null)
+  }
+
+  const handleBuyPaypal = async () => {
+    if(paypalID.status === "CREATED" ) {
+      const link = paypalID.links[1].href
+      console.log("link", link)
+      window.open(link, '_blank');
+      clearID()
+    }
+  }
+
+  // console.log(buttonActive);
   return (
     <div className="turnos">
       <Calendar
@@ -248,10 +297,17 @@ export default function Turnos({ dias, horas }) {
           </div>
 
 
-          <div onClick={handleCheckoutClick} className={!newTurno.hora || !buttonActive ? "no_pedir_turno" : "pedir_turno"}>
+          <div onClick={handleBuy} className={!newTurno.hora || !buttonActive ? "no_pedir_turno" : "pedir_turno"}>
             <span className="emoji">📅</span>
             <span className="text">Pedir turno</span>
           </div>
+          {
+            preferenceId && (<Wallet initialization={{ preferenceId, redirectMode: 'blank' }} onClick= { () => { clearID } } />  )
+           
+          }
+          {
+            paypalID && <Paypal handleBuyPaypal={handleBuyPaypal} /> 
+          }
         </div>
       ) : (
         <div>

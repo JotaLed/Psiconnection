@@ -2,7 +2,7 @@
 .navbar {
   background-color: #2b4c7e;
   color: #fff;
-  min-height: 101px;
+  min-height: 90px;
   height: 11vh;
   position: fixed;
   top: 0;
@@ -11,7 +11,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid #606D80; /* Color más vibrante */
   z-index: 9999;
 }
 
@@ -25,8 +24,10 @@
 }
 
 .navbar-logo_conteiner{
-  height:90px;
-  width: 200px;
+  position: relative;
+  left: -6%;
+  height:80px;
+  width: 185px;
 }
 
 .navbar-logo {

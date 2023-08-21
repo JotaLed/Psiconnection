@@ -1,0 +1,40 @@
+/* Ajustes para Bootstrap */
+.containerFormUsu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.registro-formUsu {
+  width: 100%; /* Cambio el ancho al 100% */
+  max-width: 1200px; /* Agrego un ancho máximo */
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-columnUsu {
+  margin-bottom: 20px;
+}
+.form-groupRegUsu {
+  margin-bottom: 20px;
+}
+
+.form-groupRegUsu label {
+  display: flex;
+  align-items: center;
+}
+
+.form-groupRegUsu label .bx {
+  margin-right: 5px;
+}
+.form-groupRegUsu select {
+  width: 40%; /* Puedes ajustar este valor según tus necesidades */
+}
+/* Ajusta el ancho del campo de teléfono */
+.form-groupRegUsu input[type="tel"] {
+  width: 40%; /* Puedes ajustar este valor según tus necesidades */
+}

@@ -37,8 +37,6 @@ export default function Carrusul(){
     }
     return(
         <div className={s.carrusel}>
-            <p onClick={changeBack} className={s.back}>{"<"}</p>
-            <p onClick={changeNext} className={s.next}>{">"}</p>
                     <div ref={myRef} className={s.image_conteiner}>            
                         <img  src={image1} alt="1" />
                         <img  src={image2} alt="2" />

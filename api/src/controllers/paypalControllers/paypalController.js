@@ -1,19 +1,38 @@
 
 const axios = require('axios');
 const request = require('request');
+const { reservaCita } = require("../reservaController.js");
 const{ PAYPAL_API, HOST, PAYPAL_API_CLIENT, PAYPAL_API_SECRET } = require('../../config.js')
 
 
-// const CLIENT = process.env.PAYPAL_API_CLIENT
-// const SECRET = process.env.PAYPAL_API_KEY
-// const PAYPAL_API_LOCAL = process.env.PAYPAL_API_LOCAl
-// const PAYPAL_API = process.env.PAYPAL_API
 
-
-
-// const auth = { user: CLIENT, pass: SECRET}
+const cita = {}
 
 const createOrder = async (req, res) => {
+  const { hora, fecha, idPsico, idUser, estado, tarifa } = req.body
+
+  const obj = {
+    hora,
+    fecha,
+    idPsico,
+    idUser,
+    estado,
+    tarifa,
+
+  }
+  const porcentaje = Number(tarifa) * 0.05;
+  console.log("porcentaje", porcentaje);
+  
+  const totalPago = Number(tarifa) - porcentaje
+  console.log('pago total', totalPago);
+  
+
+  // console.log('el objeto', obj);
+  const objString = JSON.stringify(obj);
+  const encodedObj = Buffer.from(objString).toString('base64')
+
+
+
     try {
         const order = {
           intent: "CAPTURE",
@@ -21,34 +40,27 @@ const createOrder = async (req, res) => {
             {
               amount: {
                 currency_code: "USD",
-                value: "80.00",
+                value: totalPago,
               },
               payee: {
-               email_address: "sb-gpdx327118958@personal.example.com",
-               amount: {
-                 currency_code: "USD",
-                 value: "40.00",
-                    },
-                    payee: {
-                    email_address: "sb-jsci927131994@personal.example.com",
-                 },
+               email_address: "sb-jsci927131994@personal.example.com",
             } 
             },
             // {
-            //     amount: {
-            //         currency_code: "USD",
-            //         value: "40.00",
-            //       },
-            //       payee: {
-            //         email_address: "sb-jsci927131994@personal.example.com",
-            //       },
-            // }
+            //   amount: {
+            //     currency_code: "USD",
+            //     value: porcentaje, // Convierte el monto a enviar a una cadena con dos decimales
+            //   },
+            //   payee: {
+            //     email_address: "sb-jsci927131994@personal.example.com",
+            //   },
+            // },
             ],
           application_context: {
             brand_name: "mycompany.com",
             landing_page: "NO_PREFERENCE",
             user_action: "PAY_NOW",
-            return_url: `${HOST}/pay/paymentCapture`,
+            return_url: `${HOST}/pay/paymentCapture?data=${encodedObj}`,
             cancel_url: `${HOST}/pay/paymentCancel`,
           },
         };
@@ -62,9 +74,9 @@ const createOrder = async (req, res) => {
           data: { access_token },
         } = await axios.post(`${PAYPAL_API}/v1/oauth2/token`, params,
           {
-            // headers: {
-            //   "Content-Type": "application/x-www-form-urlencoded",
-            // },
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
             auth: {
               username: PAYPAL_API_CLIENT,
               password: PAYPAL_API_SECRET,
@@ -75,69 +87,17 @@ const createOrder = async (req, res) => {
         console.log(access_token);
           
         // //! codigo funcional 
-        // // make a request
+        // make a request
         const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
           }
         );
-        console.log(response.data);
- 
-   
-        return res.json(response.data);
+        // console.log(response.data);
+         return res.json(response.data);
 
-        // //! prueba 
-
-        // const order = {
-        //     intent: "Capture",
-        //     purchase_units: [
-        //       {
-        //         amount: {
-        //           currency_code: "USD",
-        //           value: "85.00",
-        //         },
-        //         payee: {
-        //           email_address: "sb-gpdx327118958@personal.example.com",
-        //         },
-        //       },
-        //       {
-        //         amount: {
-        //           currency_code: "USD",
-        //           value: "40",
-        //         },
-        //         payee: {
-        //           email_address: "sb-jsci927131994@personal.example.com",
-        //         },
-        //       },
-        //     ],
-        //     application_context: {
-        //       brand_name: "mycompany.com",
-        //       landing_page: "NO_PREFERENCE",
-        //       user_action: "PAY_NOW",
-        //       return_url: `${HOST}/pay/paymentCapture`,
-        //       cancel_url: `${HOST}/pay/paymentCancel`,
-        //     },
-        //   };
-      
-        //   // Resto del código...
-      
-        //   // Hacer la solicitud
-        //   const response = await axios.post(
-        //     `${PAYPAL_API}/v2/checkout/orders`,
-        //     order,
-        //     {
-        //       headers: {
-        //         Authorization: `Bearer ${access_token}`,
-        //       },
-        //     }
-        //   );
-      
-        //   console.log(response.data.details);
-      
-        //   return res.json(response.data);
-
-      } catch (error) {
+       } catch (error) {
         console.log(error);
         return res.status(500).json("Something goes wrong");
       }
@@ -146,6 +106,22 @@ const createOrder = async (req, res) => {
 
 const captureOrder = async (req, res) => {
     const { token } = req.query;
+    const { data } = req.query;
+    console.log({ data });
+
+    const decodedObj = JSON.parse(Buffer.from(data, 'base64').toString('utf-8'));
+    console.log('decodedata', decodedObj);
+    
+    const newCita = {
+      hora: decodedObj.hora,
+      fecha: decodedObj.fecha,
+      idPsico: decodedObj.idPsico,
+      idUser: decodedObj.idUser,
+      estado: decodedObj.estado,
+      tarifa: decodedObj.tarifa,
+    };
+
+    console.log("la citaaa", newCita);   
  try {
      const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {}, {
         auth: {
@@ -153,11 +129,18 @@ const captureOrder = async (req, res) => {
             password: PAYPAL_API_SECRET
         }
      })
-     console.log(response.data);
-     return res.send('send')
-    
+     const status = response.data.status 
+     
+  
+     if(status === 'COMPLETED'){
+        const response = await reservaCita(newCita)
+        console.log(response);
+        return res.redirect(`http://localhost:5173/success?data=${data}`)
+        
+        
+     }
  } catch (error) {
-    console.log(error.data.details);
+    console.log(error);
     res.status(400).send("Ups algo salio mal...")
  }
     

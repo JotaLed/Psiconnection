@@ -1,16 +1,15 @@
+import { Link } from 'react-router-dom';
+
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import s from "./Card.module.css";
 import StarRating from '../estrellas/estrellas';
-import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Cards(props) {
 
-  
   function capitalizeFirstLetter(name) {
     return name.charAt(0).toUpperCase() + name.slice(1);
 }
-
   return (
     <Link to={`/detail/${props.id}`}>
       {/* <div className={s.cartaPrueba}>
@@ -29,6 +28,7 @@ export default function Cards(props) {
     <li className="list-group-item">${props.tarifa}</li>
   </ul>
     </div>
+ 
     {/* <div className={s.ayuda}>
     <img className='imagen' src={props.imagen} alt={props.nombre} style={{height: '20rem', width: '250px'}}/>
 
