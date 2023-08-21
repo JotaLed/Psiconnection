@@ -303,7 +303,7 @@ const [paypalID, setPaypalID] = useState(null)
           </div>
           {
             preferenceId && (<Wallet initialization={{ preferenceId, redirectMode: 'blank' }} onClick= { () => { clearID } } />  )
-           
+            
           }
           {
             paypalID && <Paypal handleBuyPaypal={handleBuyPaypal} /> 

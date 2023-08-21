@@ -17,8 +17,8 @@ const createOrder = async (req, res) => {
   const obj = {
     hora: hora,
     fecha: fecha,
-    psicologo: idPsico,
-    usuario: idUser,
+    idPsico: idPsico,
+    idUser: idUser,
     estado: estado,
     tarifa: tarifa,
   };
@@ -27,6 +27,8 @@ const createOrder = async (req, res) => {
   const encodedObj = Buffer.from(objString).toString("base64");
 
   try {
+    console.log('try de crear order ');
+    
     const result = await mercadopago.preferences.create({
       items: [
         {
@@ -39,7 +41,7 @@ const createOrder = async (req, res) => {
       ],
       back_urls: {
         // success: `http://localhost:5173/success?data=${encodedObj}`,
-        success: `${PAGO_BACK_URL_BASE}/success?data=${encodedObj}`,
+        success: `http://localhost:5173/success?data=${encodedObj}`,
         // failure: `http://localhost:5173/home`,
         failure: `${PAGO_BACK_URL_BASE}/home`,
         pending: "",
@@ -69,8 +71,8 @@ const receiveWebhook = async (req, res) => {
   const newCita = {
     hora: cita.hora,
     fecha: cita.fecha,
-    idPsico: cita.psicologo,
-    idUser: cita.usuario,
+    idPsico: cita.idPsico,
+    idUser: cita.idUser,
     estado: cita.estado,
     tarifa: cita.tarifa,
   };
