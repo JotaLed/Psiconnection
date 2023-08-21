@@ -74,7 +74,7 @@ export default function Home() {
         <div className={style.search_conteiner}>
           <SearchBar />
         </div>
-        <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems} />
+        <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems}  cardsContainer={"si"}/>
       </div>
 
     </div>

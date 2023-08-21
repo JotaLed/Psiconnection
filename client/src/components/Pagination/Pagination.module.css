@@ -36,6 +36,9 @@
     color: white;
   } */
 
+
+ 
+
 .paginationContainer {
   display: flex;
   align-items: center;
@@ -101,4 +104,15 @@
   align-items: center;
   font-size: 14px;
   color: white;
+}
+
+
+
+.profesionalesBtnConteiner{
+  top: 16%;
+  left: 42%;
+}
+
+.prueba{
+  margin-top: 9%;
 }

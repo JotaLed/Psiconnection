@@ -188,6 +188,20 @@ export const getAllPsicologos = () => {
         dispatch({ type: GET_ALL_PSICOLOGOS, payload: psicologos });
     };
 }
+
+//----------------------------eliminar psicologo----------------------------------//
+export const deleteClient = (id) => {
+    return async function () {
+        try {
+            await axios.delete('/psiconection/delete/user', {
+                data: { id: id }
+            });
+        } catch (error) {
+            console.error('Error al eliminar:', error);
+        }
+    }
+}
+
 // export const setFilter = (filters) => {
 //     //comentario
 //     return { type: SET_FILTER, payload: filters }
