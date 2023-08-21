@@ -177,7 +177,9 @@ export default function Turnos({ dias, horas }) {
   //! hacer el post de la cita
   const handleCheckoutClick = async () => {
     if (tokenData === null) {
-      window.location.href = "http://localhost:5173/loginUsuario";
+      window.location.href = `${
+        import.meta.env.VITE_URL_AXIOS_URL_BASE
+      }/loginUsuario`;
     }
     if (!newTurno.fecha || !newTurno.hora) {
       return null;
