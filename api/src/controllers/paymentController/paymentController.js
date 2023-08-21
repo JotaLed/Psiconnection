@@ -3,10 +3,12 @@ const { PAGO_BACK_URL_BASE, PAGO_ENLACE_NOTIFICACION_URL } = process.env;
 const mercadopago = require("mercadopago");
 
 const { reservaCita } = require("../reservaController.js");
+
 mercadopago.configure({
   access_token:
     "TEST-7687364498416789-081721-f8663e679c1457ff2508c27f8addd9db-1445431858",
 });
+
 let citaObj = {};
 
 const createOrder = async (req, res) => {
@@ -21,8 +23,6 @@ const createOrder = async (req, res) => {
     tarifa: tarifa,
   };
   citaObj = obj;
-  console.log("objjjjj", obj);
-  console.log("este es el obj adentro", citaObj);
   const objString = JSON.stringify(obj);
   const encodedObj = Buffer.from(objString).toString("base64");
 
@@ -47,7 +47,9 @@ const createOrder = async (req, res) => {
       auto_return: "approved",
       notification_url: `${PAGO_ENLACE_NOTIFICACION_URL}/psiconnection/payment/webhook`,
     });
-    return res.status(200).json(result);
+    console.log(result.body.id);
+    
+    return res.status(200).json({id : result.body.id});
   } catch (error) {
     console.log("error", error);
 
@@ -60,12 +62,10 @@ const receiveWebhook = async (req, res) => {
   // console.log('este es el array afuera',citaObj);
   const cita = citaObj;
   // const { obj } = req.query;
-  console.log("paso por aqui");
-  console.log("la citaaa", cita);
 
   // const decodedObj = JSON.parse(Buffer.from(obj, 'base64').toString('utf-8'));
   // console.log('dataDescifrada', decodedObj);
-  console.log("el queryyy", req.query);
+
   const newCita = {
     hora: cita.hora,
     fecha: cita.fecha,
@@ -75,7 +75,6 @@ const receiveWebhook = async (req, res) => {
     tarifa: cita.tarifa,
   };
 
-  console.log("la nueva cita", newCita);
 
   try {
     console.log("entro al try");
@@ -85,6 +84,7 @@ const receiveWebhook = async (req, res) => {
       console.log("status", status);
       if (status === "approved") {
         const agendarCita = await reservaCita(newCita);
+        // const agendarCita = 'aprobado'
         citaObj = {};
         return res.status(200).json(agendarCita);
       }

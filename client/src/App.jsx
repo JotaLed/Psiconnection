@@ -17,6 +17,10 @@ axios.defaults.baseURL = import.meta.env.VITE_URL_AXIOS_URL_BASE;
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+// Paypal 
+
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+
 //imports generales::
 
 //importamos views:
@@ -40,6 +44,7 @@ function App() {
   const { pathname } = useLocation();
 
   return (
+    <PayPalScriptProvider options={{ "clientId":"AfeucC6LwLkek1cqd6c57o75Ay2VvQKOF01r1TSP42Tf2hFsYhvflmr5ay7J4XU-m8C56JVfJ-dyQci-"}}>
     <div>
       {pathname !== "/" && <SideBar />}
       <Routes>
@@ -68,6 +73,7 @@ function App() {
         <Route path="/payment/state/failure" element={<Failure />} />
       </Routes>
     </div>
+   </PayPalScriptProvider>
   );
 }
 export default App;

@@ -8,7 +8,8 @@ const reservasRouter = require('./reservasRouter.js');
 
 const routerPayment = require('./payments.routes.js')
 const specialtiesRoutes = require("./specialtiesRouter.js");
-
+const paypalRoutes = require("./paypalRoutes.js")
+const cors = require('cors')
 
 
 const router = Router();
@@ -21,9 +22,11 @@ router.use('/psiconection', userRoutes);
 router.use('/psiconection/citas', reservasRouter);
 router.use('/psiconection', loginRouter);
 router.use('/psiconnection/payment', routerPayment)
+// router.use(cors())
+router.use('/pay', paypalRoutes)
 
-router.use("/", (req, res) => {
-  res.status(200).send("/");
-});
+// router.use("/", (req, res) => {
+//   res.status(200).send("/");
+// });
 
 module.exports = router;
