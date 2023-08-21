@@ -41,6 +41,7 @@
 
 .paginationContainer {
   display: flex;
+  min-width: 50vw;
   min-height: 50vh;
   width: 88vw;
   flex-direction: column;
