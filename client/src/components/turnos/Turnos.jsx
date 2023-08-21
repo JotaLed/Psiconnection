@@ -164,10 +164,12 @@ const [paypalID, setPaypalID] = useState(null)
       console.log("Entra aca");
       setButtonActive({})
       setNewTurno({ ...newTurno, hora: "" })
+      clearID()
     }
     else{
       setNewTurno({ ...newTurno, fecha: selectTurno.fecha, hora: hora });
       setButtonActive({ [hora]: true });
+      clearID()
 
     }
   };
