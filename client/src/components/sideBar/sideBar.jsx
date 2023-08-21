@@ -67,7 +67,7 @@ export default function Sidebar() {
             <NavLink to="/form">Sign up</NavLink>
           </li> 
           : <NavLink className="nav-item-perfil" to={tokenRoll == "usuario" ? `/account/client/${tokenId}` 
-          : tokenRoll == "admin"? "/account/admin/" : `/account/${tokenId}`}>
+          : tokenRoll == "admin"? `/account/admin/${tokenId}` : `/account/${tokenId}`}>
             {currentUser.foto ? <img className="foto_perfil" src={currentUser.foto} alt="" /> : "Perfil" }
             </NavLink>
           }
