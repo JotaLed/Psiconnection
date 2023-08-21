@@ -41,8 +41,6 @@
 
 .paginationContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
   min-width: 50vw;
   min-height: 50vh;
   width: 88vw;
@@ -53,7 +51,7 @@
 }
 
 .buttonContainer {
-  position: absolute;
+  /* position: absolute; */
   top: 28%;
   left: 50%;
   display: flex;
@@ -114,5 +112,5 @@
 }
 
 .prueba{
-  margin-top: 9%;
+  margin-top: 35px;
 }
