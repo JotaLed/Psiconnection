@@ -11,13 +11,12 @@ const PORT = process.env.PORT || 3000;
 const HOST =
   process.env.NODE_ENV === "production"
     ? process.env.HOST
-    : "http://localhost:" + PORT;
-
+    : process.env.BASE_URL_SERVER + PORT;
 
 module.exports = {
   PAYPAL_API_CLIENT,
   PAYPAL_API_SECRET,
   PAYPAL_API,
   PORT,
-  HOST
-}
+  HOST,
+};

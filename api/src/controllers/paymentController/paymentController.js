@@ -27,8 +27,8 @@ const createOrder = async (req, res) => {
   const encodedObj = Buffer.from(objString).toString("base64");
 
   try {
-    console.log('try de crear order ');
-    
+    console.log("try de crear order ");
+
     const result = await mercadopago.preferences.create({
       items: [
         {
@@ -41,7 +41,7 @@ const createOrder = async (req, res) => {
       ],
       back_urls: {
         // success: `http://localhost:5173/success?data=${encodedObj}`,
-        success: `http://localhost:5173/success?data=${encodedObj}`,
+        success: `{PAGO_BACK_URL_BASE}/success?data=${encodedObj}`,
         // failure: `http://localhost:5173/home`,
         failure: `${PAGO_BACK_URL_BASE}/home`,
         pending: "",
@@ -50,8 +50,8 @@ const createOrder = async (req, res) => {
       notification_url: `${PAGO_ENLACE_NOTIFICACION_URL}/psiconnection/payment/webhook`,
     });
     console.log(result.body.id);
-    
-    return res.status(200).json({id : result.body.id});
+
+    return res.status(200).json({ id: result.body.id });
   } catch (error) {
     console.log("error", error);
 
@@ -76,7 +76,6 @@ const receiveWebhook = async (req, res) => {
     estado: cita.estado,
     tarifa: cita.tarifa,
   };
-
 
   try {
     console.log("entro al try");
