@@ -171,6 +171,7 @@ export const getAppointment = () => {
 export const loadCurrentUser = (dataUser) => {
     return function (dispatch) {
         try {
+            console.log("Entra en la action de current user:" + dataUser) ;
             return dispatch({
                 type: LOAD_CURRENT_USER,
                 payload: dataUser
