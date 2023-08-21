@@ -44,7 +44,7 @@ const Clientes = (props) => {
                                 <th>Correo</th>
                                 <th>Genero</th>
                                 <th>País</th>
-                                <th>estado</th>
+                                <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>

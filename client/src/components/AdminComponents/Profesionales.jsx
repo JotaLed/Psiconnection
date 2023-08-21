@@ -51,7 +51,7 @@ const Profesionales = (props) => {
                                 <th>Genero</th>
                                 <th>Tarifa</th>
                                 <th>País</th>
-                                <th>estado</th>
+                                <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
