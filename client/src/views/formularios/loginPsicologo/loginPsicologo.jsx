@@ -81,7 +81,7 @@ const LoginPsicologo = () => {
             {errors.email?.type === 'pattern' && (
               <p className='errores'>Formato de email incorrecto</p>
             )}
-
+          <div className="form-groupPsico">
             <label>
               <i className="bx bxs-lock-alt"></i>
               <Controller
@@ -96,15 +96,16 @@ const LoginPsicologo = () => {
                     type={showPassword ? 'text' : 'password'} // Cambio de tipo aquí
                     placeholder="Contraseña"
                   />
-      
-                  <i
+                 <i
                     className={`bx ${showPassword ? 'bxs-hide' : 'bxs-show'}`}
                     onClick={() => setShowPassword(!showPassword)}
                   ></i>
                 </div>
               )}
             />
+             
             </label>
+            </div>
             {errors.password && (
               <p className='errores'>Debe tener más de 6 caracteres alfanuméricos</p>
             )}

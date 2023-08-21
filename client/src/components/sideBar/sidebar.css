@@ -1,7 +1,93 @@
-/* Navbar.css */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  margin: 0;
+  padding: 0;
+  
+}
 .navbar {
-  background-color: #2b4c7e;
-  color: #fff;
+  /* background-color: #706AD4;  */
+  color: #FFFFFF;
+  min-height: 90px;
+  height: 11vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 9999;
+}
+.navbar.navbar-hidden {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+.nav-link.active {
+  color: #706AD4; /* Cambia el color al seleccionado */
+}
+
+.navbar-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+}
+
+.navbar-logo {
+  height: 100px;
+  margin-top: 1%; 
+  margin-left: 5%;
+}
+.logoNameHome {
+  color: #5e5f5e;
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+  
+  position: absolute;
+  top: 60%; /* Ajusta la posición vertical según tu diseño */
+  left: 7%; /* Ajusta la posición horizontal según tu diseño */ 
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+
+}
+
+.nav-item {
+  margin-right: 25px; 
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bolder;
+  font-size: 100px;
+  text-decoration: none;
+  color: #000000;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-item-perfil {
+  justify-self: end;
+}
+
+.foto_perfil {
+  height: 40px;
+  border-radius: 100%;
+}
+
+.nav-item :hover {
+  color: #706AD4;
+  transform: translateY(-3px);
+}
+
+
+/* 
+.navbar {
+  
   min-height: 90px;
   height: 11vh;
   position: fixed;
@@ -13,40 +99,25 @@
   align-items: center;
   z-index: 9999;
 }
-
 .navbar-container {
   width: 100%;
   max-width: 1200px;
-  /* padding: 0 20px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-.navbar-logo_conteiner{
-  position: relative;
-  left: -6%;
-  height:80px;
-  width: 185px;
-}
-
 .navbar-logo {
-  /* font-size: 1.8rem; Tamaño ligeramente más grande */
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold; /* Añadimos negrita para destacar el logo */
-  height: 100%;
-  width: 100%;
+  height: 80px;
+  margin-top: 1%; 
+  margin-left: 1%;
 }
-
 .nav-menu {
   list-style: none;
   display: flex;
-  margin-bottom: 0; /* Eliminamos el margen inferior */
+  margin-bottom: 0; 
 }
-
 .nav-item {
-  margin-right: 25px; /* Un poco más de espacio entre los ítems */
+  margin-right: 25px; 
 }
 
 .nav-item:last-child {
@@ -55,8 +126,8 @@
 
 .nav-item a {
   text-decoration: none;
-  color: #fff;
-  font-size: 1.1rem; /* Tamaño ligeramente más grande */
+  color: #000000;
+  font-size: 1.1rem; 
   transition: color 0.3s ease;
 }
 
@@ -69,6 +140,6 @@
 }
 
 .nav-item a:hover {
-  color: #565656; /* Color más vibrante al hacer hover */
-  transform: translateY(-2px); /* Efecto de elevación */
-}
+  color: #565656; 
+  transform: translateY(-2px); 
+} */

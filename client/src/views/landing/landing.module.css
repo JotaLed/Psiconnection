@@ -5,7 +5,7 @@
     #2b4c7e
     #1f1f20
 */
-.landing {
+/* .landing {
     background-color: #2b4c7e;
     display: flex;
     width: 100%;
@@ -55,8 +55,8 @@
     color: #ffffff;
     text-shadow: 2px 2px 4px #000000;
 
-}
-
+} */
+/* 
 .col2 button {
     margin-top: 100px;
     font-size: 25px;
@@ -72,8 +72,8 @@
     }
 
 
-}
-.button{
+} */
+/* .button{
     position: absolute;
     top: 55%;
     left: 72%;
@@ -82,4 +82,4 @@
 .button2{
     position: absolute;
     width: 140px;
-}
+} */

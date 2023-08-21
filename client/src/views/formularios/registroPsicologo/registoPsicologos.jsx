@@ -296,7 +296,7 @@ const RegistroPsicologo = () => {
               )}
             </div>
             {/* //* EMAIL */}
-            <div className="form-groupPsico">
+            <div className="form-groupRegPsico">
               <label>
                 <i className="bx bxs-envelope"></i>
                 <Controller
@@ -316,7 +316,7 @@ const RegistroPsicologo = () => {
               {errors.email?.type === 'pattern' && (
                 <p className='errores'>Formato de email incorrecto</p>
               )}
-
+              <div className="form-groupRegPsico">
               <label>
                 <i className="bx bxs-lock-alt"></i>
                 <Controller
@@ -340,6 +340,7 @@ const RegistroPsicologo = () => {
                   )}
                 />
               </label>
+              </div>
               {errors.password && (
                 <p className='errores'>Debe tener más de 6 caracteres alfanuméricos</p>
               )}
