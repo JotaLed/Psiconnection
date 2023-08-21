@@ -21,13 +21,13 @@ const RegistroUsuarioAuth0 = () => {
     genero: "",
     telefono: "",
     email: "",
-    password: "",
+    contraseña: "",
     roll: "usuario",
   });
   const [errors, setErrors] = useState({
     fecha_nacimiento: "",
     telefono: "",
-    password: "",
+    contraseña: "",
   });
   const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ const RegistroUsuarioAuth0 = () => {
         pais: "",
         genero: "",
         telefono: "",
-        password: "",
+        contraseña: "",
         roll: "usuario",
       });
     }
@@ -75,9 +75,9 @@ const RegistroUsuarioAuth0 = () => {
     return "";
   };
 
-  const validatepassword = (passwordValue) => {
-    if (!/^[A-Za-z0-9]{6,13}$/.test(passwordValue)) {
-      return "La password debe contener entre 6 y 13 caracteres alfanuméricos.";
+  const validatecontraseña = (contraseñaValue) => {
+    if (!/^[A-Za-z0-9]{6,13}$/.test(contraseñaValue)) {
+      return "La contraseña debe contener entre 6 y 13 caracteres alfanuméricos.";
     }
     return "";
   };
@@ -104,8 +104,8 @@ const RegistroUsuarioAuth0 = () => {
     const validationError =
       name === "telefono"
         ? validateTelefono(value)
-        : name === "password"
-        ? validatepassword(value)
+        : name === "contraseña"
+        ? validatecontraseña(value)
         : "";
 
     setForm((prevData) => ({
@@ -165,7 +165,7 @@ const RegistroUsuarioAuth0 = () => {
       genero: "",
       telefono: "",
       email: "",
-      password: "",
+      contraseña: "",
     });
   };
 
@@ -310,14 +310,14 @@ const RegistroUsuarioAuth0 = () => {
                 <div>
                   <i className="bx bxs-lock-alt"></i>
                   <input
-                    className="password-input"
-                    name="password"
-                    value={form.password}
-                    type="password"
+                    className="contraseña-input"
+                    name="contraseña"
+                    value={form.contraseña}
+                    type="contraseña"
                     required
                     onChange={handleChange}
                   />
-                  <span className="error-message">{errors.password}</span>
+                  <span className="error-message">{errors.contraseña}</span>
                 </div>
               </div>
               <div className="col-12">
