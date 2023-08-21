@@ -1,51 +1,54 @@
-import React, { useEffect } from "react";
-import { Link, Navigate, useNavigate, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./sidebar.css";
 import logo from "../../Images/Screenshot_18.jpg";
-import { useDispatch, useSelector } from "react-redux"
-//importamos actions 
+import { useDispatch, useSelector } from "react-redux";
 import { loadCurrentUser } from "../../Redux/actions";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
 export default function Sidebar() {
-  //importamos estados globales 
-  const currentUser = useSelector(store => store.currentUser)
-  console.log(currentUser);
-  let token = localStorage.getItem('authToken');
-  console.log("tokennnn", token)
+  const dispatch = useDispatch();
+  const currentUser = useSelector((store) => store.currentUser);
+  const { isAuthenticated, user } = useAuth0();
   const navigate = useNavigate();
-  
-  let tokenId = '';
-  let tokenRoll = '';
+  const [tokenId, setTokenId] = useState("");
+  const [tokenRoll, setTokenRoll] = useState("");
+  const [usuarioRegistradoAuth0, setUsuarioRegistradoAuth0] = useState(null);
 
-  if(token || null || ''){
-    const tokenData = token.split('.').at(1)
-    console.log("tokenData", tokenData)
-    const decodedData = window.atob(tokenData)
-    const jsonObject = JSON.parse(decodedData);
+  useEffect(() => {
+    if (isAuthenticated) {
+      const getUsers = async () => {
+        try {
+          const response = await axios.get(
+            "http://localhost:3001/psiconection/get/users"
+          );
+          const usuarioRegistrado = response.data.find(
+            (u) => u.email === user.email
+          );
+          if (usuarioRegistrado) {
+            setUsuarioRegistradoAuth0(usuarioRegistrado);
+            setTokenId(usuarioRegistrado.id);
+            setTokenRoll(usuarioRegistrado.roll);
+          }
+        } catch (error) {
+          console.error("Error fetching users:", error);
+        }
+      };
 
-  //   console.log("decodedData", decodedData)
-  //   console.log('parseJson', jsonObject)
-  //  console.log('id', jsonObject.id)
+      getUsers();
+    }
+  }, [isAuthenticated, user]);
 
-    tokenId = jsonObject.id
-    tokenRoll = jsonObject.roll
-  }
-  //useEffect
-  useEffect(()=>{
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(loadCurrentUser(user));
+    }
+  }, [isAuthenticated, dispatch, user]);
 
-  },[])
-
-  console.log("tokenId", tokenId)
-  console.log('tokenRoll', tokenRoll)
-
-  // eyJpZCI6ImFiYzA2YTQzLWI5NDAtNGM3MC1hYTgzLTE0YTM2MDQxYjU0NSIsInJvbGwiOiJ1c3VhcmlvIiwibm9tYnJlIjoiZ2FicmllbCIsImFwZWxsaWRvIjoiZmVybmFuZGV6IiwiaWF0IjoxNjkyMTYyMTUxfQ
-
-  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFiYzA2YTQzLWI5NDAtNGM3MC1hYTgzLTE0YTM2MDQxYjU0NSIsInJvbGwiOiJ1c3VhcmlvIiwibm9tYnJlIjoiZ2FicmllbCIsImFwZWxsaWRvIjoiZmVybmFuZGV6IiwiaWF0IjoxNjkyMTYyMTUxfQ.oYvMSurD_UtqipUnTRx2HQcdyyITjuSdBQ9A4q8_QH0"
-
-  const DetailAcount = (id) => {
-      navigate(`/account/client/${id}`)
-  }
-
+  const DetailAcount = () => {
+    navigate(`/account/client/${tokenId}`);
+  };
 
   return (
     <nav className="navbar">
@@ -57,23 +60,44 @@ export default function Sidebar() {
           <li className="nav-item">
             <Link to="/home">Home</Link>
           </li>
-          {/* <li className="nav-item"><Link to="/detail">Perfil</Link></li> */}
           <li className="nav-item">
             <Link to="/nosotros">About us</Link>
           </li>
-
-          {
-            !tokenId ? <li className="nav-item">
-            <NavLink to="/form">Sign up</NavLink>
-          </li> 
-          : <NavLink className="nav-item-perfil" to={tokenRoll == "usuario" ? `/account/client/${tokenId}` 
-          : tokenRoll == "admin"? "/account/admin/" : `/account/${tokenId}`}>
-            {currentUser.foto ? <img className="foto_perfil" src={currentUser.foto} alt="" /> : "Perfil" }
+          {!tokenId ? (
+            <li className="nav-item">
+              <NavLink to="/form">Sign up</NavLink>
+            </li>
+          ) : isAuthenticated && usuarioRegistradoAuth0 ? (
+            <NavLink
+              className="nav-item-perfil"
+              to={`/account/client/${tokenId}`}
+            >
+              {currentUser && currentUser.foto ? (
+                <img className="foto_perfil" src={currentUser.foto} alt="" />
+              ) : (
+                "Perfil"
+              )}
             </NavLink>
-          }
-
+          ) : (
+            <NavLink
+              className="nav-item-perfil"
+              to={
+                tokenRoll === "usuario"
+                  ? `/account/client/${tokenId}`
+                  : tokenRoll === "admin"
+                  ? "/account/admin/"
+                  : `/account/${tokenId}`
+              }
+            >
+              {currentUser && currentUser.foto ? (
+                <img className="foto_perfil" src={currentUser.foto} alt="" />
+              ) : (
+                "Perfil"
+              )}
+            </NavLink>
+          )}
         </ul>
       </div>
     </nav>
   );
-};
+}
