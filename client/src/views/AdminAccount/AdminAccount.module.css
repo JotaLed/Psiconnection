@@ -9,22 +9,23 @@
   }
   
   .sidebar {
-    flex: 0.5;
     background-color: #2b4c7e;
     padding-top: 2%;
     padding-left: 1%;
     /* padding-bottom: 80%; */
     min-height: 89vh;
-  }
+    min-width: 190px;
+}
+  
   
   .mainContent {
-    flex: 3;
     padding: 20px;
     /* Centrar verticalmente */
     justify-content: center;
     /* Centrar horizontalmente */
     align-items: center;
     /* height: 100%; */
+    width: 90vw;
   
   }
   
