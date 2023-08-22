@@ -251,8 +251,8 @@ export default function Turnos({ dias, horas }) {
           <div className="info_turno">
             <div className="view-appointment-date">
               <p className="dia">Dia selecionado: {selectTurno.fecha}</p>
-              <p className="hora">Hora selecionada: {newTurno.hora}</p>
-              <p className="precio">Precio del turno: {psicology.tarifa}$</p>
+              <p className='hora'>Hora selecionada: {newTurno.hora}</p>
+              <p className="precio">Costo de consulta: {psicology.tarifa}$</p>
             </div>
           </div>
           <h3 className="horario">Selecione su horario:</h3>

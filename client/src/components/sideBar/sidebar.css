@@ -71,6 +71,10 @@
 
 .nav-item-perfil{
   justify-self: end;
+  color: #fff;
+  position: relative;
+  top: 1px;
+  font-size: 17px;
 }
 .conteiner_foto-perfil{
   display: flex;

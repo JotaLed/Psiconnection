@@ -29,6 +29,10 @@
 
 }
 
+.horario{
+    margin-left: -110px;
+}
+
 .validate-day {
     background-color: #fff;
     color: black;
