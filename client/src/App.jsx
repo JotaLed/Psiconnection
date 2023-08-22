@@ -3,6 +3,7 @@ import viteLogo from "/vite.svg";
 import Home from "./views/home/home";
 import Account from "./views/Account/Account";
 import SideBar from "./components/sideBar/sideBar";
+import "./fonts.css"
 
 import Success from "./components/success/Success";
 

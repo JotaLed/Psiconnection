@@ -11,7 +11,7 @@ const CardsContainer = ({ items }) => {
 
     const psicologos = useSelector(state => state.psychologists);
     if (!Array.isArray(psicologos)) {
-        return <div>No hay recetas disponibles</div>
+        return <div>No hay Psicologos disponibles</div>
     }
     return (
         <div className={style.mainContainer}>
@@ -34,9 +34,6 @@ const CardsContainer = ({ items }) => {
             </div>
             )}
         </div>
-
-
     )
 }
-
 export default CardsContainer;

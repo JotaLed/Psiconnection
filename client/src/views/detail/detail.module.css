@@ -179,3 +179,13 @@
 .row3 {
     margin-top: 10px;
 }
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* Ajusta el tamaño según tus necesidades */
+    font-size: 1.5rem;
+    color: #333; /* Color del texto */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+  }

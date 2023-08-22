@@ -41,40 +41,30 @@
 
 .paginationContainer {
   display: flex;
-  min-width: 50vw;
-  min-height: 50vh;
-  width: 88vw;
-  flex-direction: column;
   align-items: center;
-  margin-top: 50px;
-  /* Puedes ajustar el margen inferior según tu preferencia */
+  justify-content: center;
+  /* min-width: 50vw; */
+  /* min-height: 50vh; */
+  /* width: 88vw; */
+  flex-direction: column;
+  margin-top: 10px;
 }
 
 .buttonContainer {
-  /* position: absolute; */
-  top: 28%;
-  left: 50%;
+  position: absolute;
+  /* left: 50%; */
   display: flex;
   gap: 10px;
-  /* align-items: center;
-  justify-content: center; */
-  /* margin-bottom: 10px; */
-  /* Puedes ajustar el margen inferior entre los botones y el label */
-  /* margin-top: 15%;
-  gap: 20px;
-  font-size: 17px;
-  margin-left: 13%; */
 }
 .contenido{
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 .btn {
   /* Estilos para los botones, según tu preferencia */
-  background-color: #567ebb;
+  background-color: #706AD4;
   color: #fff;
   border: none;
   outline: none;
@@ -82,20 +72,17 @@
   border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  
+  font-family: 'Montserrat', sans-serif;
 }
-
-
 .btn:hover {
-  background-color: #2b4c7e;
+  background-color: #BBBDEE;
 }
-
 .pageIndicator {
   position: relative;
   top: 5px;
   width: 30px;
   height: 30px;
-  background-color: #567ebb;
+  background-color: #706AD4;
   border-radius: 50%;
   display: flex;
   justify-content: center;

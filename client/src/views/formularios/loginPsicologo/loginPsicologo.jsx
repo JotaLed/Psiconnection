@@ -85,7 +85,7 @@ const LoginPsicologo = () => {
             {errors.email?.type === "pattern" && (
               <p className="errores">Formato de email incorrecto</p>
             )}
-
+          <div className="form-groupPsico">
             <label>
               <i className="bx bxs-lock-alt"></i>
               <Controller
@@ -109,6 +109,7 @@ const LoginPsicologo = () => {
                 )}
               />
             </label>
+            </div>
             {errors.password && (
               <p className="errores">
                 Debe tener más de 6 caracteres alfanuméricos

@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import s from "./detail.module.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,11 +9,20 @@ const Detail = () => {
   const { detailID } = useParams();
   const psicology = useSelector((store) => store.psicoloDetail);
   const dispatch = useDispatch();
-
+  // Con este estado se controla la carga 
+  
+  const [isLoading, setIsLoading] = useState(true); 
   useEffect(() => {
-    // Llamada a la acción para cargar los detalles del psicólogo
-    dispatch(loadDetail(detailID)); 
-  }, [dispatch, detailID]); // Se agrega [dispatch, detailID] como dependencias del efecto
+    setIsLoading(true); // Comienza la carga
+    dispatch(loadDetail(detailID)).then(() => {
+      setIsLoading(false); // Finaliza la carga
+    });
+  }, [dispatch, detailID]); 
+  // useEffect(() => {
+   
+  //   // Llamada a la acción para cargar los detalles del psicólogo
+  //   dispatch(loadDetail(detailID)); 
+  // }, [dispatch, detailID]); // Se agrega [dispatch, detailID] como dependencias del efecto
 
   // Función para capitalizar la primera letra
   function capitalizeFirstLetter(name) {
@@ -24,6 +32,11 @@ const Detail = () => {
   return (
     <div className={s.detail_conteiner}>
       <div className={s.detail}>
+      {/* {isLoading ? (
+          <div className={s.loader}>
+            Cargando...
+          </div>
+        ) : ( */}
         <div className={s.view_psico}>
           <div className={s.row1}>
             <div className={s.foto_conteiner}>
@@ -71,11 +84,13 @@ const Detail = () => {
             <div><p className={s.descripcion}>{psicology.descripcion}</p></div>
           </div>
         </div>
+        {/* )} */}
         <div className={s.turno_conteiner}>
           <h1>Pedir Turno</h1>
           {psicology.nombre ? (
             <Turnos dias={psicology.dias} horas={psicology.horas} />
           ) : null}
+      
         </div>
       </div>
     </div>
