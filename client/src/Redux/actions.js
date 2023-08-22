@@ -11,6 +11,8 @@ export const GET_DETAIL_CLIENT = "GET_DETAIL_CLIENT";
 export const GET_DETAIL_PSICOLOGO = "GET_DETAIL_PSICOLOGO";
 export const GET_APPOINTMENTS = "GET_APPOINTMENTS";
 export const LOAD_CURRENT_USER = "LOAD_CURRENT_USER"
+export const GET_USERS = "GET_USERS"
+export const GET_ALL_PSICOLOGOS = "GET_ALL_PSICOLOGOS"
 //----------------------------------------------------------------------------------------//
 import axios from "axios";
 
@@ -29,6 +31,15 @@ export const getPsicologos = () => {
         const apiData = await axios.get("/psiconection/");
         const psicologos = apiData.data;
         dispatch({ type: GET_PSICOLOGOS, payload: psicologos });
+    };
+};
+//-------------------------Action de get usuarios--------------------------------------//
+export const getUsers = () => {
+    return async function (dispatch) {
+        console.log("Entra al dispatch");
+        const apiData = await axios.get("/psiconection/get/users");
+        const users = apiData.data;
+        dispatch({ type: GET_USERS, payload: users });
     };
 };
 
@@ -156,9 +167,11 @@ export const getAppointment = () => {
         }
     }
 };
+//----------------------------GUARDAR USUARIO LOGEADO----------------------------------//
 export const loadCurrentUser = (dataUser) => {
     return function (dispatch) {
         try {
+            console.log("Entra en la action de current user:" + dataUser) ;
             return dispatch({
                 type: LOAD_CURRENT_USER,
                 payload: dataUser
@@ -168,6 +181,28 @@ export const loadCurrentUser = (dataUser) => {
         }
     }
 };
+
+export const getAllPsicologos = () => {
+    return async function (dispatch) {
+        const apiData = await axios.get("/psiconection/");
+        const psicologos = apiData.data;
+        dispatch({ type: GET_ALL_PSICOLOGOS, payload: psicologos });
+    };
+}
+
+//----------------------------eliminar psicologo----------------------------------//
+export const deleteClient = (id) => {
+    return async function () {
+        try {
+            await axios.delete('/psiconection/delete/user', {
+                data: { id: id }
+            });
+        } catch (error) {
+            console.error('Error al eliminar:', error);
+        }
+    }
+}
+
 // export const setFilter = (filters) => {
 //     //comentario
 //     return { type: SET_FILTER, payload: filters }

@@ -57,7 +57,7 @@ module.exports = (sequelize) => {
         },
         roll: {
             type: DataTypes.STRING,
-            defaultValue: 'usuario'
+            allowNull:false
         }
     },{
         timestamps: false,

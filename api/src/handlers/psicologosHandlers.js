@@ -59,6 +59,8 @@ const registerHandler = async (req, res, next) => {
     whatsAppUrl,
     telefono,
     descripcion,
+    foto,
+    licencia
   } = req.body;
   const fecha = obtenerFechaActual();
   // const fotoPerfilFile = req.files['fotoPerfil'][0];
@@ -136,6 +138,8 @@ const registerHandler = async (req, res, next) => {
       telefono,
       descripcion,
       fecha,
+      foto,
+      licencia
       //       fotoPerfilUrl,
       //       licenciaUrl
     });

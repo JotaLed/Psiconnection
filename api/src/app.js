@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const cors = require('cors')
 const routes = require("./routes/index.js");
 const { auth } = require("express-openid-connect");
 require("dotenv").config();
@@ -19,14 +20,17 @@ const config = {
 
 const server = express();
 
-server.use(cors());
+// server.use(cors())
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
+
+
+
 server.use((req, res, next) => {
   const allowedOrigins = [
-    "http://localhost:3000",
+    "http://localhost:3001",
     "http://localhost:5173",
     "https://psiconnectiondev.vercel.app",
     // Agrega más orígenes si es necesario

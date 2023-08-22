@@ -36,10 +36,11 @@
     color: white;
   } */
 
+
+ 
+
 .paginationContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
   min-width: 50vw;
   min-height: 50vh;
   width: 88vw;
@@ -50,7 +51,7 @@
 }
 
 .buttonContainer {
-  position: absolute;
+  /* position: absolute; */
   top: 28%;
   left: 50%;
   display: flex;
@@ -101,4 +102,15 @@
   align-items: center;
   font-size: 14px;
   color: white;
+}
+
+
+
+.profesionalesBtnConteiner{
+  top: 16%;
+  left: 42%;
+}
+
+.prueba{
+  margin-top: 35px;
 }

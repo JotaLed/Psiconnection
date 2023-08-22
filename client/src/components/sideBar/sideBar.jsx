@@ -13,27 +13,27 @@ export default function Sidebar() {
   let token = localStorage.getItem('authToken');
   console.log("tokennnn", token)
   const navigate = useNavigate();
-  
+
   let tokenId = '';
   let tokenRoll = '';
 
-  if(token || null || ''){
+  if (token || null || '') {
     const tokenData = token.split('.').at(1)
     console.log("tokenData", tokenData)
     const decodedData = window.atob(tokenData)
     const jsonObject = JSON.parse(decodedData);
 
-  //   console.log("decodedData", decodedData)
-  //   console.log('parseJson', jsonObject)
-  //  console.log('id', jsonObject.id)
+    //   console.log("decodedData", decodedData)
+    //   console.log('parseJson', jsonObject)
+    //  console.log('id', jsonObject.id)
 
     tokenId = jsonObject.id
     tokenRoll = jsonObject.roll
   }
   //useEffect
-  useEffect(()=>{
+  useEffect(() => {
 
-  },[])
+  }, [])
 
   console.log("tokenId", tokenId)
   console.log('tokenRoll', tokenRoll)
@@ -43,7 +43,7 @@ export default function Sidebar() {
   // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFiYzA2YTQzLWI5NDAtNGM3MC1hYTgzLTE0YTM2MDQxYjU0NSIsInJvbGwiOiJ1c3VhcmlvIiwibm9tYnJlIjoiZ2FicmllbCIsImFwZWxsaWRvIjoiZmVybmFuZGV6IiwiaWF0IjoxNjkyMTYyMTUxfQ.oYvMSurD_UtqipUnTRx2HQcdyyITjuSdBQ9A4q8_QH0"
 
   const DetailAcount = (id) => {
-      navigate(`/account/client/${id}`)
+    navigate(`/account/client/${id}`)
   }
 
 
@@ -55,25 +55,31 @@ export default function Sidebar() {
         </Link>
         <ul className="nav-menu">
           <li className="nav-item">
-            <Link to="/home">Home</Link>
+            <Link to="/home">🏠Home</Link>
           </li>
           {/* <li className="nav-item"><Link to="/detail">Perfil</Link></li> */}
           <li className="nav-item">
-            <Link to="/nosotros">About us</Link>
+            <Link to="/nosotros">👥About us</Link>
           </li>
 
           {
             !tokenId ? <li className="nav-item">
-            <NavLink to="/form">Sign up</NavLink>
-          </li> 
-          : <NavLink className="nav-item-perfil" to={tokenRoll == "usuario" ? `/account/client/${tokenId}` 
-          : `/account/${tokenId}`}>
-            <img className="foto_perfil" src={currentUser.foto} alt="" />
-            </NavLink>
+              <Link to="/form">🔑Sign up</Link>
+            </li>
+              : <div className="conteiner_links">
+                <Link className="nav-item-perfil" to={tokenRoll == "usuario" ? `/account/client/${tokenId}`
+                  : tokenRoll == "admin" ? `/account/admin/${tokenId}` : `/account/${tokenId}`}>
+                  {currentUser.foto ?
+                    <div className="conteiner_foto-perfil">
+                      <img className="foto_perfil" src={currentUser.foto} alt="" />
+                      {currentUser.nombre}
+                    </div> : "Perfil"}
+                </Link>
+              </div>
           }
 
         </ul>
       </div>
     </nav>
   );
-}
+};

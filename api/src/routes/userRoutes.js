@@ -25,7 +25,7 @@ userRoutes.put("/uploadFotoUser/:id", upload.single("foto"), subirFotoUser);
 userRoutes.put("/updateuser", putHandler);
 
 //Eliminar user (cambia el estado)
-userRoutes.delete("/delete", deleteHandler);
+userRoutes.delete("/delete/user", deleteHandler);
 
 // ruta tipo get sin auth http://localhost:3001/psiconection/usuario/acount/id
 userRoutes.get("/usuario/acount/:id", getDetailAcount);

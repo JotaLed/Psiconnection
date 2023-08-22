@@ -1,8 +1,8 @@
 /* Navbar.css */
 .navbar {
   background-color: #2b4c7e;
-  color: #fff;
-  min-height: 101px;
+  /* color: #fff; */
+  min-height: 90px;
   height: 11vh;
   position: fixed;
   top: 0;
@@ -11,8 +11,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid #606D80; /* Color más vibrante */
   z-index: 9999;
+  text-decoration: none;
 }
 
 .navbar-container {
@@ -23,10 +23,17 @@
   justify-content: space-between;
   align-items: center;
 }
+.conteiner_links a{
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 
 .navbar-logo_conteiner{
-  height:90px;
-  width: 200px;
+  position: relative;
+  left: -6%;
+  height:80px;
+  width: 185px;
 }
 
 .navbar-logo {
@@ -45,6 +52,9 @@
 }
 
 .nav-item {
+  display: flex;
+  align-items: center;
+  text-align: center;
   margin-right: 25px; /* Un poco más de espacio entre los ítems */
 }
 
@@ -53,20 +63,40 @@
 }
 
 .nav-item a {
-  text-decoration: none;
   color: #fff;
+  text-decoration: none;
   font-size: 1.1rem; /* Tamaño ligeramente más grande */
   transition: color 0.3s ease;
 }
 
-.nav-item a:hover {
-  color: #606D80; /* Color más vibrante al hacer hover */
-  transform: translateY(-2px); /* Efecto de elevación */
-}
 .nav-item-perfil{
   justify-self: end;
+  color: #fff;
+  position: relative;
+  top: 1px;
+  font-size: 17px;
+}
+.conteiner_foto-perfil{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+}
+.aversiasi{
+  text-decoration: none;
 }
 .foto_perfil{
-  height: 40px;
-  border-radius: 100%;
+  height: 35px;
+  width: 35px;
+  border-radius: 100px;
+  margin-right:2px ;
+}
+
+.nav-item a:hover {
+  color: #565656; /* Color más vibrante al hacer hover */
+  transform: translateY(-2px); /* Efecto de elevación */
+}
+.conteiner_links :hover {
+  color: #565656; /* Color más vibrante al hacer hover */
+  transform: translateY(-2px); /* Efecto de elevación */
 }

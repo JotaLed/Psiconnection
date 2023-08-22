@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import styles from '../Account.module.css';
 import { Button } from "react-bootstrap";
-import { deletePiscologo } from '../../../Redux/actions';
+import { deleteClient, deletePiscologo } from '../../../Redux/actions';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 
@@ -13,24 +13,23 @@ const ProfileInfo = ({ psicology, imagen, client, id}) => {
     const navigateTo = useNavigate();
 
 
-    const handleEliminarCuenta = () => {
+    const handleEliminarCuenta = async () => {
         const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar la cuenta? Esta acción no se puede deshacer.');
         if (confirmacion) {
             console.log("Cuenta eliminada")
-            dispatch(deletePiscologo(id))
-            navigateTo(`/home`);
-
-
+            psicology ? dispatch(deletePiscologo(id)) : dispatch(deleteClient(id)) 
+            await window.localStorage.clear()
+            navigateTo(`/`);
         }
     }
 
     function capitalizeFirstLetter(name) {
-        return name.charAt(0).toUpperCase() + name.slice(1);
+        return name?.charAt(0).toUpperCase() + name?.slice(1);
     }
    
     const usuario = psicology ? psicology : client;
     const formatDate = (dateString) => {
-        if (dateString.length < 11) {
+        if (dateString?.length < 11) {
             return dateString
         }
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
@@ -51,7 +50,7 @@ const ProfileInfo = ({ psicology, imagen, client, id}) => {
                     <p key={index}>#{espe}</p>
                 ))}
             </div>}
-            <div className={styles.foto_conteiner}>
+            <div className={client ? styles.foto_cliente : styles.foto_conteiner}>
                 <img src={imagen} alt={"Profile"}/>
             </div>
             <div className={`${styles.infoConteiner}`}>
@@ -62,7 +61,7 @@ const ProfileInfo = ({ psicology, imagen, client, id}) => {
                 <h2 className={styles.subtitle}><b>Email:</b> {usuario.email}</h2>
 
                 <h2 className={styles.subtitle}><b>Género:</b> {capitalizeFirstLetter(usuario.genero)}</h2>
-                {psicology && <><h2 className={styles.subtitle}><b>Zona Horaria:</b> {psicology.zona_horaria}</h2>
+                {psicology && <>
                     <h2 className={styles.subtitle}><b>Tarifa:</b> ${psicology.tarifa}</h2>
 
                     <h2 className={styles.subtitle}><b>Whatsapp:</b> <a href={psicology.whatsapp_url} target="_blank" rel="noopener noreferrer"> {psicology.whatsapp_url}</a></h2></>}
