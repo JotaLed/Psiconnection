@@ -30,6 +30,7 @@ import Detail from "./views/detail/detail";
 import Nosotros from "./views/nosotros/nosotros";
 import ClientAccount from "./views/Account/ClientAccount";
 import FormularioGeneral from "./views/formularios/FormularioGeneral";
+import Dashboard from "./views/Dashboard";
 
 //importmos components:
 import LoginUsuario from "./views/formularios/loginUsuario/loginUsuario"; // Asegúrate de usar mayúsculas en las letras iniciales/
@@ -68,9 +69,11 @@ function App() {
 
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account/client/:id" element={<ClientAccount />} />
+
         <Route path="/account/admin/:id" element={<AccountAdmin/>}/>
 
         <Route path="/payment/state/failure" element={<Failure />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
    </PayPalScriptProvider>

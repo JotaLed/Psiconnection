@@ -6,6 +6,7 @@ const cors = require('cors')
 const routes = require("./routes/index.js");
 const { auth } = require("express-openid-connect");
 require("dotenv").config();
+const cors = require("cors");
 
 //auth0 config
 const config = {
