@@ -41,7 +41,7 @@ const createOrder = async (req, res) => {
       ],
       back_urls: {
         // success: `http://localhost:5173/success?data=${encodedObj}`,
-        success: `{PAGO_BACK_URL_BASE}/success?data=${encodedObj}`,
+        success: `${PAGO_BACK_URL_BASE}/success?data=${encodedObj}`,
         // failure: `http://localhost:5173/home`,
         failure: `${PAGO_BACK_URL_BASE}/home`,
         pending: "",
