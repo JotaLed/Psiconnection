@@ -39,7 +39,7 @@ const Detail = () => {
               {psicology.especialidad?.map((espe, index) => {
                 return (
                   <p key={index} className={s.especialidad}>
-                    #{espe}<br></br>
+                    ◉{espe}<br></br>
                   </p>
                 );
               })}

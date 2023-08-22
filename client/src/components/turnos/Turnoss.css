@@ -29,6 +29,10 @@
 
 }
 
+.horario{
+    margin-left: -110px;
+}
+
 .validate-day {
     background-color: #fff;
     color: black;
@@ -77,12 +81,6 @@
     border: 1px solid #ddd; /* Borde sutil */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
 }
-
-
-.horaios {
-    text-align: center;
-}
-
 .horas_conteiner {
     margin-top: 15px;
     display: flex;

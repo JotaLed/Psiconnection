@@ -118,6 +118,8 @@
 
 .label {
     font-size: 28px;
+    position: relative;
+    left: 12px;
     color: black;
     font-weight: 650;
     margin-bottom: 2px;
