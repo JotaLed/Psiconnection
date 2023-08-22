@@ -316,11 +316,13 @@ const RegistroPsicologo = () => {
               {errors.email?.type === 'pattern' && (
                 <p className='errores'>Formato de email incorrecto</p>
               )}
+
+              {/* //* contraseña */}
               <div className="form-groupRegPsico">
               <label>
                 <i className="bx bxs-lock-alt"></i>
                 <Controller
-                  name="password"
+                  name="contraseña"
                   control={control}
                   defaultValue=""
                   rules={{ validate: isValidPassword }}

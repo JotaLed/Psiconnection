@@ -70,8 +70,9 @@ export default function Sidebar() {
               </li>
             ) : (
               <NavLink className="nav-item-perfil" to={tokenRoll === "usuario" ? `/account/client/${tokenId}` : tokenRoll === "admin" ? "/account/admin/" : `/account/${tokenId}`}>
-                {currentUser.foto ? <img className="foto_perfil" src={currentUser.foto} alt="" /> : "Perfil"}
-              </NavLink>
+  {currentUser && currentUser.foto ? <img className="foto_perfil" src={currentUser.foto} alt="" /> : "Perfil"}
+</NavLink>
+
             )
           }
         </ul>
@@ -79,6 +80,7 @@ export default function Sidebar() {
     </nav>
   );
 };
+
 
 
 
