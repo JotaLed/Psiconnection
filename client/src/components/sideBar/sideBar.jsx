@@ -49,13 +49,13 @@ export default function Sidebar() {
         </NavLink>
         <ul className="nav-menu">
           <li className="nav-item">
-            <NavLink exact to="/home" activeClassName="active" className="nav-link">
+            <NavLink  to="/home" activeClassName="active" className="nav-link">
             <i className='bx bx-home nav-icon'></i>
               HOME
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink exact to="/nosotros" activeClassName="active" className="nav-link">
+            <NavLink  to="/nosotros" activeClassName="active" className="nav-link">
             <i className='bx bxs-group nav-icon'></i>
               ABOUT US
               </NavLink>
@@ -63,7 +63,7 @@ export default function Sidebar() {
           {
             !tokenId ? (
               <li className="nav-item">
-                <NavLink exact to="/form" activeClassName="active" className="nav-link">
+                <NavLink  to="/form" activeClassName="active" className="nav-link">
                 <i className='bx bx-user nav-icon'></i>
                   SING UP
                   </NavLink>
