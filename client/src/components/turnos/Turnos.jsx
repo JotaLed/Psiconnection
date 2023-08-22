@@ -200,7 +200,10 @@ export default function Turnos({ dias, horas }) {
         reserva
       );
       // Paypal
-      const { data } = await axios.post(`/pay/paymentOrder`, reserva);
+      const { data } = await axios.post(
+        `/psiconnection/pay/paymentOrder`,
+        reserva
+      );
       // const link = response.data.body.init_point
       // window.open(link, '_blank');
       // window.location.href = link
