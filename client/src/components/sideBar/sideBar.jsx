@@ -49,15 +49,24 @@ export default function Sidebar() {
         </NavLink>
         <ul className="nav-menu">
           <li className="nav-item">
-            <NavLink exact to="/home" activeClassName="active" className="nav-link">Home</NavLink>
+            <NavLink exact to="/home" activeClassName="active" className="nav-link">
+            <i className='bx bx-home nav-icon'></i>
+              HOME
+            </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink exact to="/nosotros" activeClassName="active" className="nav-link">About us</NavLink>
+            <NavLink exact to="/nosotros" activeClassName="active" className="nav-link">
+            <i className='bx bxs-group nav-icon'></i>
+              ABOUT US
+              </NavLink>
           </li>
           {
             !tokenId ? (
               <li className="nav-item">
-                <NavLink exact to="/form" activeClassName="active" className="nav-link">Sign up</NavLink>
+                <NavLink exact to="/form" activeClassName="active" className="nav-link">
+                <i className='bx bx-user nav-icon'></i>
+                  SING UP
+                  </NavLink>
               </li>
             ) : (
               <NavLink className="nav-item-perfil" to={tokenRoll === "usuario" ? `/account/client/${tokenId}` : tokenRoll === "admin" ? "/account/admin/" : `/account/${tokenId}`}>

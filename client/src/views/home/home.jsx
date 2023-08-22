@@ -67,13 +67,18 @@ export default function Home() {
 
   return (
     <div className={style.home}>
-      <div className={style.col1}>
+      <div className={style.col1Home}>
         <Filters update={updateCurrentPage} />
       </div>
-      <div className={style.col2}>
-        <div className={style.search_conteiner}>
-          <SearchBar />
+      <div className={style.col2Home}>
+        <div className={style.search_conteinerHome}>
         </div>
+        <div className={style.welcomeMessage}>
+                <p>Aquí podrás conectar con diferentes psicólogos, </p>
+                <p>mejorar tu salud mental y tu vida.</p>
+          <SearchBar />
+                <p>¡Comienza tu búsqueda ahora mismo!</p>
+            </div>
         <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems} />
       </div>
 

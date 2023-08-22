@@ -30,10 +30,10 @@ body {
 
 .navbar-container {
   width: 100%;
+  margin-right: 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 9999;
 }
 
 .navbar-logo {
@@ -45,10 +45,9 @@ body {
   color: #5e5f5e;
   font-size: 20px;
   font-family: 'Quicksand', sans-serif;
-  
   position: absolute;
-  top: 60%; /* Ajusta la posición vertical según tu diseño */
-  left: 7%; /* Ajusta la posición horizontal según tu diseño */ 
+  top: 60%; 
+  left: 7%;
 }
 
 .nav-menu {
@@ -60,14 +59,15 @@ body {
 }
 
 .nav-item {
-  margin-right: 25px; 
   font-family: 'Quicksand', sans-serif;
-  font-weight: bolder;
-  font-size: 100px;
+  font-weight: bold;
+  font-size: 20px;
   text-decoration: none;
-  color: #000000;
-  font-size: 1.1rem;
+  color: #5e5f5e;
   transition: color 0.3s ease;
+  margin-right: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .nav-item-perfil {
@@ -85,6 +85,11 @@ body {
 }
 
 
+.nav-icon {
+  font-size: 20px;
+  margin-right: 5px;
+  color: #706AD4;
+}
 /* 
 .navbar {
   
