@@ -36,13 +36,13 @@ const ProfileInfo = ({ psicology, imagen, client, id}) => {
         const date = new Date(dateString);
 
 
-        return date.toLocaleDateString(undefined, options);
+        return date.toLocaleDateString(undefined, options); 
     };
     return (
         <>
 
             <h1 className={styles.title}>
-                {`Bienvenid${usuario.genero === "Femenino" ? 'a' : (usuario?.genero === "Masculino" ? 'o' : '@ ')}, ${capitalizeFirstLetter(usuario.nombre)} ${capitalizeFirstLetter(usuario.apellido)}`
+                {`Bienvenid${usuario.genero.toLowerCase() === "femenino" ? 'a' : (usuario?.genero.toLowerCase() === "masculino" ? 'o' : '@ ')}, ${capitalizeFirstLetter(usuario.nombre)} ${capitalizeFirstLetter(usuario.apellido)}`
                 }
             </h1>
             {psicology && <div className={styles.specialties}>
