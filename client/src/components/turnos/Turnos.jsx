@@ -180,6 +180,7 @@ export default function Turnos({ dias, horas }) {
       window.location.href = `${
         import.meta.env.VITE_URL_AXIOS_URL_BASE
       }/loginUsuario`;
+      // window.location.href = "http://localhost:5173/loginUsuario";
     }
     if (!newTurno.fecha || !newTurno.hora) {
       return null;
@@ -251,7 +252,7 @@ export default function Turnos({ dias, horas }) {
           <div className="info_turno">
             <div className="view-appointment-date">
               <p className="dia">Dia selecionado: {selectTurno.fecha}</p>
-              <p className='hora'>Hora selecionada: {newTurno.hora}</p>
+              <p className="hora">Hora selecionada: {newTurno.hora}</p>
               <p className="precio">Costo de consulta: {psicology.tarifa}$</p>
             </div>
           </div>
