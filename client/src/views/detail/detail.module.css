@@ -25,7 +25,7 @@
     flex-direction: column;
     padding: 20px;
     background-color: #ffff;
-    min-width: 35vw;
+    min-width: 478px;
     min-height: 90vh;
     height: fit-content;
     width: 40%;
@@ -34,6 +34,7 @@
 
 .foto_conteiner {
     height: 100%;
+    min-width: 217px;
     width: 50%;
 }
 
@@ -47,7 +48,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    position: relative;
+    min-width: 222px;
     width: 50%;
     color: #2b4c7e;
 
@@ -59,21 +60,18 @@
     margin-left: 30px;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
     font-size: 40px;
-
-
-
 }
 
 .especialidades {
     margin-top: 20px;
-    margin-left: -10px;
+    margin-left: 30px;
     font-size: 30px;
     color: black;
     font-weight: 400;
 }
 
 .especialidad {
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin-left: 40px;
@@ -83,10 +81,9 @@
 }
 
 .time {
-    margin-top: 20px;
-    margin-left: -40px;
+    margin-top: 15px;
+    margin-left: 30px;
     font-size: 20px;
-    top: 50vh;
     color: gray;
 }
 
@@ -152,9 +149,9 @@
     background-color: #ffff;
     min-height: 400px;
     height: fit-content;
+    min-width: 350px;
     width: 30vw;
     right: 15vw;
-    min-width: 25vw;
     border-radius: 20px;
 
 }

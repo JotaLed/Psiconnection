@@ -1,17 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
-import { useForm, Controller } from 'react-hook-form';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import 'boxicons/css/boxicons.min.css';
-import { isValidName, isValidDate, isValidTel, isValidPassword } from '../validaciones';
-import './registroPsicologo.css';
-import fetchCountriesList from './fetchCountriesList';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState, useEffect } from "react";
+import Select from "react-select";
+import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import "boxicons/css/boxicons.min.css";
+import {
+  isValidName,
+  isValidDate,
+  isValidTel,
+  isValidPassword,
+} from "../validaciones";
+import "./registroPsicologo.css";
+import fetchCountriesList from "./fetchCountriesList";
+import { useNavigate } from "react-router-dom";
 
 const RegistroPsicologo = () => {
-  const { handleSubmit, control, formState: { errors }, reset } = useForm();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+  } = useForm();
   const [selectedDays, setSelectedDays] = useState([]); // Estado para los días seleccionados
   const [selectedHours, setSelectedHours] = useState([]); // Estado para las horas seleccionadas
   const [countriesList, setCountriesList] = useState([]);
@@ -20,7 +29,7 @@ const RegistroPsicologo = () => {
   // Estado para las especialidades seleccionadas
   const [selectedSpecialties, setSelectedSpecialties] = useState([]);
   const [fileData, setFileData] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -31,26 +40,29 @@ const RegistroPsicologo = () => {
   }, []);
 
   const onSubmit = async (formData) => {
-
-
     formData.roll = "psicologo";
     formData.dias = selectedDays;
     formData.horas = selectedHours;
     formData.foto = image;
     formData.zona_horaria = "est";
-    const selectedSpecialtyValues = selectedSpecialties.map(option => option.value);
+    const selectedSpecialtyValues = selectedSpecialties.map(
+      (option) => option.value
+    );
     formData.especialidad = selectedSpecialtyValues;
-    formData.descripcion = formData.descripcion || ''; // En caso de que sea undefined
+    formData.descripcion = formData.descripcion || ""; // En caso de que sea undefined
     formData.licencia = fileData.url;
 
-    console.log('Datos a enviar:', formData);
-    console.log('Días seleccionados:', selectedDays);
-    console.log('imagen', image);
+    console.log("Datos a enviar:", formData);
+    console.log("Días seleccionados:", selectedDays);
+    console.log("imagen", image);
     // console.log('foto:', image);
 
     // Envio al backend
     try {
-      const response = await axios.post("http://localhost:3001/psiconection/registerPsicologo", formData);
+      const response = await axios.post(
+        "/psiconection/registerPsicologo",
+        formData
+      );
 
       // Realiza alguna acción en base a la respuesta del servidor
       if (response.status === 200) {
@@ -59,28 +71,30 @@ const RegistroPsicologo = () => {
         setSelectedDays([]);
         setSelectedHours([]);
         setImage("");
-        alert("¡Registro exitoso!")
-        navigate("/loginPsicologo")
+        alert("¡Registro exitoso!");
+        navigate("/loginPsicologo");
         // Resetea el formulario después de un registro exitoso
         reset();
       }
     } catch (error) {
       // Maneja los errores
-      console.error('Error al registrar:', error);
+      console.error("Error al registrar:", error);
     }
   };
 
   const handleDaySelect = (day) => {
-    setSelectedDays(prevSelectedDays => {
+    setSelectedDays((prevSelectedDays) => {
       if (prevSelectedDays.includes(day)) {
-        return prevSelectedDays.filter(selectedDay => selectedDay !== day);
+        return prevSelectedDays.filter((selectedDay) => selectedDay !== day);
       } else {
         return [...prevSelectedDays, day];
       }
     });
   };
 
-  {/* //* CARGA DE PDF*/ }
+  {
+    /* //* CARGA DE PDF*/
+  }
   const handleLicenseUpload = async (e) => {
     const file = e.target.files[0];
     const data = new FormData();
@@ -98,33 +112,34 @@ const RegistroPsicologo = () => {
       const fileData = await response.json();
       console.log(fileData);
       setFileData(fileData); // Guardar los datos del archivo en el estado
-
     } catch (error) {
       console.error("Error al subir el archivo:", error);
     }
   };
 
-  {/* //* CARGA DE IMAGENES*/ }
+  {
+    /* //* CARGA DE IMAGENES*/
+  }
   const [image, setImage] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const upLoadImage = async (e) => {
     const files = e.target.files;
     const data = new FormData();
-    data.append("file", files[0])
+    data.append("file", files[0]);
     data.append("upload_preset", "images");
-    setLoading(true)
+    setLoading(true);
     const res = await fetch(
-      'https://api.cloudinary.com/v1_1/dzphgeome/image/upload',
+      "https://api.cloudinary.com/v1_1/dzphgeome/image/upload",
       {
         method: "POST",
         body: data,
       }
-    )
+    );
     const file = await res.json();
     console.log(res);
-    setImage(file.secure_url)
-    setLoading(false)
-  }
+    setImage(file.secure_url);
+    setLoading(false);
+  };
 
   return (
     <div className="containerFormPsico">
@@ -143,7 +158,7 @@ const RegistroPsicologo = () => {
                   defaultValue=""
                   rules={{
                     required: true,
-                    validate: isValidName
+                    validate: isValidName,
                   }}
                   render={({ field }) => (
                     <input
@@ -154,24 +169,26 @@ const RegistroPsicologo = () => {
                   )}
                 />
               </label>
-              {errors.nombre?.type === 'required' && (
+              {errors.nombre?.type === "required" && (
                 <p className="errores">Este campo es requerido</p>
               )}
-              {errors.nombre?.type === 'validate' && (
-                <p className="errores">El nombre debe tener más de 3 letras y menos de 50</p>
+              {errors.nombre?.type === "validate" && (
+                <p className="errores">
+                  El nombre debe tener más de 3 letras y menos de 50
+                </p>
               )}
             </div>
             {/* //*APELLIDO */}
             <div className="form-groupRegPsico">
               <label>
-                <i class='bx bx-user'></i> Apellido:
+                <i class="bx bx-user"></i> Apellido:
                 <Controller
                   name="apellido"
                   control={control}
                   defaultValue=""
                   rules={{
                     required: true,
-                    validate: isValidName
+                    validate: isValidName,
                   }}
                   render={({ field }) => (
                     <input
@@ -182,38 +199,40 @@ const RegistroPsicologo = () => {
                   )}
                 />
               </label>
-              {errors.nombre?.type === 'required' && (
+              {errors.nombre?.type === "required" && (
                 <p className="errores">Este campo es requerido</p>
               )}
-              {errors.nombre?.type === 'validate' && (
-                <p className="errores">El nombre debe tener más de 3 letras y menos de 50</p>
+              {errors.nombre?.type === "validate" && (
+                <p className="errores">
+                  El nombre debe tener más de 3 letras y menos de 50
+                </p>
               )}
             </div>
-{/* //* GENERO */}
- <div className="form-groupRegPsico">
-  <label>
-  <i class='bx bx-male-female'></i> Género:
-    <Controller
-      name="genero"
-      control={control}
-      defaultValue=""
-      rules={{ required: 'Selecciona tu género' }}
-      render={({ field }) => (
-        <select {...field}>
-          <option value="" disabled>
-            Selecciona tu género
-          </option>
-          <option value="Masculino">Masculino</option>
-          <option value="Femenino">Femenino</option>
-          <option value="Otro">Otro</option>
-        </select>
-      )}
-    />
-  </label>
-  {errors.genero && (
-    <p className="errores">{errors.genero.message}</p>
-  )}
-</div>
+            {/* //* GENERO */}
+            <div className="form-groupRegPsico">
+              <label>
+                <i class="bx bx-male-female"></i> Género:
+                <Controller
+                  name="genero"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: "Selecciona tu género" }}
+                  render={({ field }) => (
+                    <select {...field}>
+                      <option value="" disabled>
+                        Selecciona tu género
+                      </option>
+                      <option value="Masculino">Masculino</option>
+                      <option value="Femenino">Femenino</option>
+                      <option value="Otro">Otro</option>
+                    </select>
+                  )}
+                />
+              </label>
+              {errors.genero && (
+                <p className="errores">{errors.genero.message}</p>
+              )}
+            </div>
 
             {/*//* EDAD */}
             <div className="form-groupRegPsico">
@@ -224,10 +243,11 @@ const RegistroPsicologo = () => {
                   control={control}
                   defaultValue=""
                   rules={{
-                    required: 'Este campo es requerido',
+                    required: "Este campo es requerido",
                     validate: {
-                      isValidDate: (value) => isValidDate(value) || 'Debes tener al menos 18 años'
-                    }
+                      isValidDate: (value) =>
+                        isValidDate(value) || "Debes tener al menos 18 años",
+                    },
                   }}
                   render={({ field }) => (
                     <input
@@ -245,15 +265,15 @@ const RegistroPsicologo = () => {
             {/* //*PAIS */}
             <div className="form-groupRegPsico">
               <label>
-                <i class='bx bx-world' ></i>
+                <i class="bx bx-world"></i>
                 País:
                 <Controller
                   name="pais"
                   control={control}
                   defaultValue=""
-                  rules={{ required: 'Selecciona tu país' }}
+                  rules={{ required: "Selecciona tu país" }}
                   render={({ field }) => (
-                    <select {...field} >
+                    <select {...field}>
                       <option value="" disabled>
                         Selecciona tu país
                       </option>
@@ -266,9 +286,7 @@ const RegistroPsicologo = () => {
                   )}
                 />
               </label>
-              {errors.pais && (
-                <p className="errores">{errors.pais.message}</p>
-              )}
+              {errors.pais && <p className="errores">{errors.pais.message}</p>}
             </div>
             {/* //* TELEFONO*/}
             <div className="form-groupRegPsico">
@@ -279,8 +297,8 @@ const RegistroPsicologo = () => {
                   control={control}
                   defaultValue=""
                   rules={{
-                    required: 'Este campo es requerido',
-                    validate: isValidTel
+                    required: "Este campo es requerido",
+                    validate: isValidTel,
                   }}
                   render={({ field }) => (
                     <input
@@ -313,8 +331,8 @@ const RegistroPsicologo = () => {
                   )}
                 />
               </label>
-              {errors.email?.type === 'pattern' && (
-                <p className='errores'>Formato de email incorrecto</p>
+              {errors.email?.type === "pattern" && (
+                <p className="errores">Formato de email incorrecto</p>
               )}
 
               <label>
@@ -328,12 +346,14 @@ const RegistroPsicologo = () => {
                     <div className="password-input">
                       <input
                         {...field}
-                        type={showPassword ? 'text' : 'password'} // Cambio de tipo aquí
+                        type={showPassword ? "text" : "password"} // Cambio de tipo aquí
                         placeholder="Contraseña"
                       />
 
                       <i
-                        className={`bx ${showPassword ? 'bxs-hide' : 'bxs-show'}`}
+                        className={`bx ${
+                          showPassword ? "bxs-hide" : "bxs-show"
+                        }`}
                         onClick={() => setShowPassword(!showPassword)}
                       ></i>
                     </div>
@@ -341,7 +361,9 @@ const RegistroPsicologo = () => {
                 />
               </label>
               {errors.password && (
-                <p className='errores'>Debe tener más de 6 caracteres alfanuméricos</p>
+                <p className="errores">
+                  Debe tener más de 6 caracteres alfanuméricos
+                </p>
               )}
             </div>
             {/* //*DESCRIPCION*/}
@@ -362,9 +384,6 @@ const RegistroPsicologo = () => {
                 />
               </label>
             </div>
-
-
-
           </div>
 
           <div className="form-columnPsico col-md-6">
@@ -373,12 +392,9 @@ const RegistroPsicologo = () => {
             <div className="form-groupRegPsico">
               <label>
                 <i className="bx bxs-camera"></i> Foto de perfil:
-                <input
-                  type="file"
-                  name='file'
-                  onChange={upLoadImage}
-                />
-                /(<img src={image} style={{ width: "150px" }} />)
+                <input type="file" name="file" onChange={upLoadImage} />
+                /(
+                <img src={image} style={{ width: "150px" }} />)
               </label>
             </div>
 
@@ -394,7 +410,6 @@ const RegistroPsicologo = () => {
               </label>
             </div>
 
-
             {/* //* días */}
             <div className="form-groupRegPsico">
               <label>
@@ -404,56 +419,56 @@ const RegistroPsicologo = () => {
                 <label>
                   <input
                     type="checkbox"
-                    checked={selectedDays.includes('Mon')}
-                    onChange={() => handleDaySelect('Mon')}
+                    checked={selectedDays.includes("Mon")}
+                    onChange={() => handleDaySelect("Mon")}
                   />
                   Lunes
                 </label>
                 <label>
                   <input
                     type="checkbox"
-                    checked={selectedDays.includes('Tue')}
-                    onChange={() => handleDaySelect('Tue')}
+                    checked={selectedDays.includes("Tue")}
+                    onChange={() => handleDaySelect("Tue")}
                   />
                   Martes
                 </label>
                 <label>
                   <input
                     type="checkbox"
-                    checked={selectedDays.includes('Wed')}
-                    onChange={() => handleDaySelect('Wed')}
+                    checked={selectedDays.includes("Wed")}
+                    onChange={() => handleDaySelect("Wed")}
                   />
                   Miercoles
                 </label>
                 <label>
                   <input
                     type="checkbox"
-                    checked={selectedDays.includes('Thu')}
-                    onChange={() => handleDaySelect('Thu')}
+                    checked={selectedDays.includes("Thu")}
+                    onChange={() => handleDaySelect("Thu")}
                   />
                   Jueves
                 </label>
                 <label>
                   <input
                     type="checkbox"
-                    checked={selectedDays.includes('Fri')}
-                    onChange={() => handleDaySelect('Fri')}
+                    checked={selectedDays.includes("Fri")}
+                    onChange={() => handleDaySelect("Fri")}
                   />
                   Viernes
                 </label>
                 <label>
                   <input
                     type="checkbox"
-                    checked={selectedDays.includes('Sat')}
-                    onChange={() => handleDaySelect('Sat')}
+                    checked={selectedDays.includes("Sat")}
+                    onChange={() => handleDaySelect("Sat")}
                   />
                   Sabado
                 </label>
                 <label>
                   <input
                     type="checkbox"
-                    checked={selectedDays.includes('Sun')}
-                    onChange={() => handleDaySelect('Sun')}
+                    checked={selectedDays.includes("Sun")}
+                    onChange={() => handleDaySelect("Sun")}
                   />
                   Domingo
                 </label>
@@ -470,17 +485,21 @@ const RegistroPsicologo = () => {
               <Select
                 isMulti
                 options={[
-                  { value: '1-2', label: '1:00 - 2:00' },
-                  { value: '2-3', label: '2:00 - 3:00' },
-                  { value: '3-4', label: '3:00 - 4:00' },
-                  { value: '4-5', label: '4:00 - 5:00' },
-                  { value: '5-6', label: '5:00 - 6:00' },
-                  { value: '6-7', label: '6:00 - 7:00' },
-
+                  { value: "1-2", label: "1:00 - 2:00" },
+                  { value: "2-3", label: "2:00 - 3:00" },
+                  { value: "3-4", label: "3:00 - 4:00" },
+                  { value: "4-5", label: "4:00 - 5:00" },
+                  { value: "5-6", label: "5:00 - 6:00" },
+                  { value: "6-7", label: "6:00 - 7:00" },
                 ]}
-                value={selectedHours.map(hour => ({ value: hour, label: hour }))}
-                onChange={selectedOption => {
-                  const selectedHourValues = selectedOption.map(option => option.value);
+                value={selectedHours.map((hour) => ({
+                  value: hour,
+                  label: hour,
+                }))}
+                onChange={(selectedOption) => {
+                  const selectedHourValues = selectedOption.map(
+                    (option) => option.value
+                  );
                   setSelectedHours(selectedHourValues);
                 }}
                 placeholder="Selecciona una o más horas"
@@ -496,7 +515,7 @@ const RegistroPsicologo = () => {
                   control={control}
                   defaultValue=""
                   rules={{
-                    required: 'Ingresa la tarifa'
+                    required: "Ingresa la tarifa",
                   }}
                   render={({ field }) => (
                     <input
@@ -506,7 +525,6 @@ const RegistroPsicologo = () => {
                     />
                   )}
                 />
-
               </label>
               {errors.tarifa && (
                 <p className="errores">{errors.tarifa.message}</p>
@@ -519,36 +537,49 @@ const RegistroPsicologo = () => {
                 <Select
                   isMulti
                   options={[
-                    { value: 'Psicología de pareja', label: 'Psicología de pareja' },
-                    { value: 'Psicología infantil', label: 'Psicología cognitivo-conductual' },
-                    { value: 'Psicoanálisis', label: 'Psicoanálisis' },
-                    { value: 'Psicología infantil', label: 'Psicología infantil' },
-                    { value: 'Sexología', label: 'Sexología' },
+                    {
+                      value: "Psicología de pareja",
+                      label: "Psicología de pareja",
+                    },
+                    {
+                      value: "Psicología infantil",
+                      label: "Psicología cognitivo-conductual",
+                    },
+                    { value: "Psicoanálisis", label: "Psicoanálisis" },
+                    {
+                      value: "Psicología infantil",
+                      label: "Psicología infantil",
+                    },
+                    { value: "Sexología", label: "Sexología" },
                     // Agrega más especialidades aquí
                   ]}
                   value={selectedSpecialties}
-                  onChange={(selectedOptions) => setSelectedSpecialties(selectedOptions)}
+                  onChange={(selectedOptions) =>
+                    setSelectedSpecialties(selectedOptions)
+                  }
                   placeholder="Selecciona tus specialidades"
                 />
               </label>
             </div>
-
           </div>
 
           {/* //!!! Botón de registro */}
           <div className="col-12">
-
-            <button type="submit" className="btn btn-primary">Registrarse</button>
+            <button type="submit" className="btn btn-primary">
+              Registrarse
+            </button>
 
             {/* Enlace para volver */}
             <div className="link-back">
-              <Link to="/form" className="back-link">Volver</Link>
+              <Link to="/form" className="back-link">
+                Volver
+              </Link>
             </div>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default RegistroPsicologo;
