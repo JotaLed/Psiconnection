@@ -87,6 +87,7 @@ export default function Home() {
           <SearchBar />
                 <p>¡Comienza tu búsqueda ahora mismo!</p>
             </div>
+            <CardsContainer items={currentItems} /> 
         <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems} />
       </div>
 
