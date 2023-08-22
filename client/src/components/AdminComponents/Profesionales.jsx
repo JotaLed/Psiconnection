@@ -1,17 +1,26 @@
 import { useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPsicologos, deletePiscologo } from "../../Redux/actions";
+import { getAllPsicologos, deletePiscologo, updatePsic } from "../../Redux/actions";
 
-const Profesionales = () => {
+const Profesionales = (props) => {
+    
     const dispatch = useDispatch()
-    const psicologos = useSelector((state) => state.adminPsicologos)
-
+    // const psicologos = useSelector((state) => state.adminPsicologos)
+    const psicologos = props.items
 
     const desactivarCuenta = (id) => {
         const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar la cuenta? Esta acción no se puede deshacer.');
         if (confirmacion) {
             dispatch(deletePiscologo(id))
+            window.location.reload()
+        }
+    }
+
+    const activarCuenta = (id) => {
+        const confirmacion = window.confirm('¿Estás seguro de que deseas Activar la cuenta?');
+        if(confirmacion) {
+            dispatch(updatePsic({id: id, estado_cuenta: "Activo"}))
             window.location.reload()
         }
     }
@@ -31,7 +40,7 @@ const Profesionales = () => {
     return (
         <div>
             {psicologos.length > 0 ?
-                (<div><h2>Profesionales</h2><br></br>
+                (<div>
                     <Table striped bordered hover>
                         <thead>
                             <tr>
@@ -42,7 +51,7 @@ const Profesionales = () => {
                                 <th>Genero</th>
                                 <th>Tarifa</th>
                                 <th>País</th>
-                                <th>estado</th>
+                                <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -57,7 +66,7 @@ const Profesionales = () => {
                                     <td>{psicologo.tarifa}</td>
                                     <td>{psicologo.pais}</td>
                                     <td>{capitalizeFirstLetter(psicologo.estado_cuenta)}</td>
-                                    <td>{psicologo.estado_cuenta.toLowerCase() !==  "activo"? <Button variant="success" style={{ width: "100px" }}>Activar</Button> :
+                                    <td>{psicologo.estado_cuenta.toLowerCase() !==  "activo"? <Button variant="success" onClick={() => activarCuenta(psicologo.id)} style={{ width: "100px" }}>Activar</Button> :
                                     <Button variant="danger" onClick= {(()=> desactivarCuenta(psicologo.id))}style={{ width: "100px" }} >Desactivar</Button>}</td>
 
 

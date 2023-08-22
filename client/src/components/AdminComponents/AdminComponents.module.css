@@ -1,0 +1,9 @@
+.activo {
+    color: green; /* Cambia el color de texto para el estado "activo" */
+  }
+  
+  .inactivo {
+    color: red; /* Cambia el color de texto para el estado "inactivo" */
+  }
+  
+

@@ -171,6 +171,7 @@ export const getAppointment = () => {
 export const loadCurrentUser = (dataUser) => {
     return function (dispatch) {
         try {
+            console.log("Entra en la action de current user:" + dataUser) ;
             return dispatch({
                 type: LOAD_CURRENT_USER,
                 payload: dataUser
@@ -188,6 +189,20 @@ export const getAllPsicologos = () => {
         dispatch({ type: GET_ALL_PSICOLOGOS, payload: psicologos });
     };
 }
+
+//----------------------------eliminar psicologo----------------------------------//
+export const deleteClient = (id) => {
+    return async function () {
+        try {
+            await axios.delete('/psiconection/delete/user', {
+                data: { id: id }
+            });
+        } catch (error) {
+            console.error('Error al eliminar:', error);
+        }
+    }
+}
+
 // export const setFilter = (filters) => {
 //     //comentario
 //     return { type: SET_FILTER, payload: filters }

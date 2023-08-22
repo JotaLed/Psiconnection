@@ -23,7 +23,8 @@ const userCreateHandler = async (req, res) => {
     email,
     contraseña,
     telefono,
-    roll
+    roll,
+    foto
   } = req.body;
   console.log(contraseña);
   const fecha = await obtenerFechaActual();
@@ -33,13 +34,11 @@ const userCreateHandler = async (req, res) => {
     if (!nombre) return res.status(403).json({ error: "Nombre vacio." });
     if (!apellido) return res.status(403).json({ error: "Apellido vacio." });
     if (!contraseña) return res.status(403).json({ error: "Contraseña vacia." });
-    if (!fecha_nacimiento)
-      return res.status(403).json({ error: "Edad vacio." });
+    if (!fecha_nacimiento)  return res.status(403).json({ error: "Edad vacio." });
     if (!pais) return res.status(403).json({ error: "Pais vacio." });
     if (!genero) return res.status(403).json({ error: "Genero vacio." });
     if (!telefono) return res.status(403).json({ error: "Telefono vacio." });
     
-    console.log(roll);
     const newUser = await createUserController({
       nombre,
       apellido,
@@ -50,10 +49,11 @@ const userCreateHandler = async (req, res) => {
       contraseña,
       telefono,
       fecha,
-      roll
+      roll,
+      foto
     });
 
-    console.log(newUser)
+
     if (newUser) {
       await emailer.sendMailRegister(newUser)
       return res.status(200).json(newUser);

@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import styles from '../Account.module.css';
 import { Button } from "react-bootstrap";
-import { deletePiscologo } from '../../../Redux/actions';
+import { deleteClient, deletePiscologo } from '../../../Redux/actions';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 
@@ -13,12 +13,13 @@ const ProfileInfo = ({ psicology, imagen, client, id}) => {
     const navigateTo = useNavigate();
 
 
-    const handleEliminarCuenta = () => {
+    const handleEliminarCuenta = async () => {
         const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar la cuenta? Esta acción no se puede deshacer.');
         if (confirmacion) {
             console.log("Cuenta eliminada")
-            dispatch(deletePiscologo(id))
-            navigateTo(`/home`);
+            psicology ? dispatch(deletePiscologo(id)) : dispatch(deleteClient(id)) 
+            await window.localStorage.clear()
+            navigateTo(`/`);
         }
     }
 
@@ -35,13 +36,13 @@ const ProfileInfo = ({ psicology, imagen, client, id}) => {
         const date = new Date(dateString);
 
 
-        return date.toLocaleDateString(undefined, options);
+        return date.toLocaleDateString(undefined, options); 
     };
     return (
         <>
 
             <h1 className={styles.title}>
-                {`Bienvenid${usuario.genero === "Femenino" ? 'a' : (usuario?.genero === "Masculino" ? 'o' : '@ ')}, ${capitalizeFirstLetter(usuario.nombre)} ${capitalizeFirstLetter(usuario.apellido)}`
+                {`Bienvenid${usuario.genero.toLowerCase() === "femenino" ? 'a' : (usuario?.genero.toLowerCase() === "masculino" ? 'o' : '@ ')}, ${capitalizeFirstLetter(usuario.nombre)} ${capitalizeFirstLetter(usuario.apellido)}`
                 }
             </h1>
             {psicology && <div className={styles.specialties}>
@@ -49,7 +50,7 @@ const ProfileInfo = ({ psicology, imagen, client, id}) => {
                     <p key={index}>#{espe}</p>
                 ))}
             </div>}
-            <div className={styles.foto_conteiner}>
+            <div className={client ? styles.foto_cliente : styles.foto_conteiner}>
                 <img src={imagen} alt={"Profile"}/>
             </div>
             <div className={`${styles.infoConteiner}`}>

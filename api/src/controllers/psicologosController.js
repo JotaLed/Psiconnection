@@ -64,6 +64,8 @@ const createUsuarioPsicologo = async ({
   telefono,
   descripcion,
   fecha,
+  foto,
+  licencia
   //   fotoPerfilUrl,
   //   licenciaUrl
 }) => {
@@ -105,6 +107,8 @@ const createUsuarioPsicologo = async ({
     telefono,
     descripcion,
     fecha_registro: fecha,
+    foto,
+    licencia
     //     foto: fotoPerfilUrl
   });
 

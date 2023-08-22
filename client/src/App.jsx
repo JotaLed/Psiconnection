@@ -18,6 +18,10 @@ axios.defaults.baseURL = import.meta.env.VITE_URL_AXIOS_URL_BASE;
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+// Paypal 
+
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+
 //imports generales::
 
 //importamos views:
@@ -27,6 +31,7 @@ import Detail from "./views/detail/detail";
 import Nosotros from "./views/nosotros/nosotros";
 import ClientAccount from "./views/Account/ClientAccount";
 import FormularioGeneral from "./views/formularios/FormularioGeneral";
+import Dashboard from "./views/Dashboard";
 
 //importmos components:
 import LoginUsuario from "./views/formularios/loginUsuario/loginUsuario"; // Asegúrate de usar mayúsculas en las letras iniciales/
@@ -41,6 +46,7 @@ function App() {
   const { pathname } = useLocation();
 
   return (
+    <PayPalScriptProvider options={{ "clientId":"AfeucC6LwLkek1cqd6c57o75Ay2VvQKOF01r1TSP42Tf2hFsYhvflmr5ay7J4XU-m8C56JVfJ-dyQci-"}}>
     <div>
       {pathname !== "/" && <SideBar />}
       <Routes>
@@ -64,11 +70,14 @@ function App() {
 
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account/client/:id" element={<ClientAccount />} />
+
         <Route path="/account/admin/:id" element={<AccountAdmin/>}/>
 
         <Route path="/payment/state/failure" element={<Failure />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
+   </PayPalScriptProvider>
   );
 }
 export default App;

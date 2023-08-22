@@ -10,7 +10,6 @@ import axios from "axios";
 import LoginButtonAuth0 from "./LoginAuth0";
 import LogoutButtonAuth0 from "./LogoutAutho0";
 
-
 import "./loginUsuario.css";
 
 const LoginUsuario = () => {
@@ -88,12 +87,13 @@ const LoginUsuario = () => {
     <div className="containerLoginUsuario">
       <div className="login-formUsu">
         <h2>¡Bienvenido!</h2>
-        <h3>inicia sesión con:</h3>
+        <h3>Regístrate con:</h3>
 
         {/* //! Botón de inicio de sesión con Google */}
         {console.log(isAuthenticated)}
 
-        {isAuthenticated ? <LogoutButtonAuth0 /> : <LoginButtonAuth0 />}
+        {/* {isAuthenticated && <LogoutButtonAuth0 /> : <LoginButtonAuth0 />} */}
+        <LoginButtonAuth0 />
         <h4>O</h4>
         {/* Formulario de inicio de sesión local */}
         <form onSubmit={handleSubmit(onSubmit)} noValidate>

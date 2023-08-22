@@ -39,7 +39,7 @@ function Success() {
 
     useEffect(()=> {
         const queryParamData = new URLSearchParams(location.search).get('data');
-        const queryParamStatus = new URLSearchParams(location.search).get('status');
+        // const queryParamStatus = new URLSearchParams(location.search).get('status');
         let decodedData = window.atob(queryParamData)
         const objeto = JSON.parse(decodedData);
         console.log("decodedData", decodedData)
@@ -53,17 +53,8 @@ function Success() {
             hora: objeto.hora,
             estado: objeto.estado,
             tarifa: objeto.tarifa,
-            status: queryParamStatus
         })
         console.log('reserva', reserva)
-        try {
-            // const postReserva = async () => {
-            //     const response = await axios.post('http://localhost:3001/psiconection/citas/reservarCita', reserva)
-                
-            // }   
-        } catch (error) {
-            
-        }
         // return setReserva({})
     }, [!reserva.estado])
 
@@ -89,16 +80,17 @@ function Success() {
                 </div>
                 : 
                 <div className="container-message">
+                     <h1>Exitoso</h1>
                     <img src={'https://www.pngkit.com/png/full/920-9209437_check-mark-black-outline-comments-check-logo.png'} className="logo-check" />
                     <h2>Cita reservada con éxito!</h2>
-                    <h5>Psicologo: {reserva.psico}</h5>
-                    <h5>Usuario: {reserva.user}</h5>
-                    <h5>Fecha: {reserva.fecha}</h5>
-                    <h5>Hora: {reserva.hora}</h5>
+                    <h5>Psicologo: {reserva?.psico}</h5>
+                    <h5>Usuario: {reserva?.user}</h5>
+                    <h5>Fecha: {reserva?.fecha}</h5>
+                    <h5>Hora: {reserva?.hora}</h5>
                 </div> 
             }
 
-            <h1>Exitoso</h1>
+           
 
         </div>
     )

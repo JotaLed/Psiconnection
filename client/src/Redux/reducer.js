@@ -134,7 +134,9 @@ const rootReducer = (state = initialstate, action) => {
     
     case GET_USERS:
         const users = action.payload;
-        return { ...state, allUsers: users}  
+        const noAdmins = users.filter((user) => user.roll.toLowerCase() === "usuario")
+
+        return { ...state, allUsers: noAdmins}  
     
 
     case SEARCH_APELLIDO:
