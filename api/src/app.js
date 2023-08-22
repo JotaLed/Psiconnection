@@ -2,11 +2,10 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const cors = require('cors')
+const cors = require("cors");
 const routes = require("./routes/index.js");
 const { auth } = require("express-openid-connect");
 require("dotenv").config();
-const cors = require("cors");
 
 //auth0 config
 const config = {
@@ -20,13 +19,11 @@ const config = {
 
 const server = express();
 
-// server.use(cors())
+// server.use(cors());
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
-
-
 
 server.use((req, res, next) => {
   const allowedOrigins = [
