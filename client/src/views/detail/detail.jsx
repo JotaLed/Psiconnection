@@ -86,7 +86,7 @@ const Detail = () => {
         </div>
         {/* )} */}
         <div className={s.turno_conteiner}>
-          <h1>Pedir Turno</h1>
+          <h1>Selecione su turno</h1>
           {psicology.nombre ? (
             <Turnos dias={psicology.dias} horas={psicology.horas} />
           ) : null}
