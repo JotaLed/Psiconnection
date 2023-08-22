@@ -246,12 +246,6 @@ export default function Turnos({ dias, horas }) {
         showCompare={false}
       />
 
-      {/* <div className='view-appointment-date'>
-        <p className="dia">Dia selecionado: {selectTurno.fecha}</p>
-        <p className='hora'>Hora seleccionada: {newTurno.hora}</p>
-        <p className="precio">Precio del turno: {psicology.tarifa}$</p>
-      </div> */}
-
       {flagH === true ? (
         <div className="contenedor">
           <div className="info_turno">
