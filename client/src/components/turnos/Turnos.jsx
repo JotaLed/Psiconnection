@@ -1,14 +1,18 @@
-import axios from "axios";
+import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { loadDetail, getAppointment } from "../../Redux/actions";
+import axios from "axios";
 //IMportamos el calendario
 import "react-calendar/dist/Calendar.css";
 //importamos react calendar
 import "../turnos/Turnoss.css";
 import Calendar from "react-calendar";
-import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { loadDetail, getAppointment } from "../../Redux/actions";
+
 import Paypal from "../paypal/paypal";
+
+import logoMP from '../../imagenes/logoMP.png'
+import logoPaypal from '../../imagenes/logoPaypal.png'
 
 //! mercado pago
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
