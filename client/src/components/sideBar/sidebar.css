@@ -140,7 +140,7 @@ body {
   align-items: center;
   text-align: center;
   margin-right: 25px; /* Un poco más de espacio entre los ítems */
-}
+
 
 .nav-item:last-child {
   margin-right: 0;

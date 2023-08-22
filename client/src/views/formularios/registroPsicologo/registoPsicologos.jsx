@@ -340,7 +340,7 @@ const RegistroPsicologo = () => {
               <label>
                 <i className="bx bxs-lock-alt"></i>
                 <Controller
-                  name="contraseña"
+                  name="password"
                   control={control}
                   defaultValue=""
                   rules={{ validate: isValidPassword }}
