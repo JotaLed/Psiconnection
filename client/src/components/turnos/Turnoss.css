@@ -1,10 +1,7 @@
-/* 
-    #dce0e6
-    #606d80
-    #567ebb
-    #2b4c7e
-    #1f1f20
-*/
+/* #706AD4 
+#BBBDEE 
+#5E5F5E 
+#F1F0EA  */
 
 /* .react-calendar__tile:hover {
     background-color: inherit;
@@ -29,10 +26,6 @@
 
 }
 
-.horario{
-    margin-left: -110px;
-}
-
 .validate-day {
     background-color: #fff;
     color: black;
@@ -44,6 +37,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    text-align: center;
 }
 .info_turno{
     width: 100%;
@@ -61,24 +55,27 @@
     gap: 10px;
 }
 .precio{
+    color: black;
     font-size: 15px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: #dce0e6;
+    background-color: #BBBDEE;
     border: 1px solid #ddd; /* Borde sutil */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra suave */
 }   
 .dia{
+    color: black;
     font-size: 15px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: #dce0e6;
+    background-color: #BBBDEE;
     border: 1px solid #ddd; /* Borde sutil */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra suave */
 }
 
 .hora {
+    color: black;
     font-size: 15px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: #dce0e6;
+    background-color: #BBBDEE;
     border: 1px solid #ddd; /* Borde sutil */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
 }
@@ -160,14 +157,14 @@
     display: flex;
     flex-direction: column;
     padding: 10px 20px;
-    background-color: orange;
-    color: white;
+    background-color: rgb(253, 253, 0);
+    color: black;
     border-radius: 10px;
     cursor: pointer;
     position: relative;
 
     &:hover {
-        background-color:rgb(151, 99, 2) ;
+        background-color:rgb(202, 202, 4) ;
     }
 }
 .emoji {

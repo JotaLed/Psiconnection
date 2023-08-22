@@ -259,7 +259,7 @@ export default function Turnos({ dias, horas }) {
               <p className="precio">Costo de consulta: {psicology.tarifa}$</p>
             </div>
           </div>
-          <h3 className="horario">Selecione su horario:</h3>
+          <h3 className="horario">Horarios disponibles:</h3>
 
           <div className="horas_conteiner">
             {disponibilidad.horarios.map((hora, index) => {
