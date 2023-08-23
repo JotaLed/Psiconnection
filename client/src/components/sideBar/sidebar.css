@@ -16,11 +16,10 @@ body {
   background-color: #fff; 
   min-height: 90px;
   height: 11vh;
-  position: fixed;
+  position:fixed;
   top: 0;
   left: 0;
   right: 0;
-  display: flex;
   justify-content: center;
   z-index: 99999;
 }
