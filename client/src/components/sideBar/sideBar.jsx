@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {NavLink, useNavigate } from "react-router-dom";
 import "./sidebar.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import logo from "../../Images/logoPsiconnetion.png";
 import { useSelector } from "react-redux";
 
 export default function Sidebar() {
@@ -44,12 +43,6 @@ export default function Sidebar() {
   return (
     <nav >
 <div className="navbar-container">
-        <NavLink to="/home">
-          <img className="navbar-logo" src={logo} alt="" />
-          <div className="logoNameHome">
-            PSICONNECTION
-          </div> 
-        </NavLink>
         <ul className="nav-menu">
           <li className="nav-item">
             <NavLink  to="/home" activeclassname="active" className="nav-link">

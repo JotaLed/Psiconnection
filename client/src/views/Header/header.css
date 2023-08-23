@@ -1,0 +1,14 @@
+.header-logo {
+    height: 80px; 
+    margin-top: 2%; 
+    margin-left: 1%;
+}
+
+.logoName {
+    color: #5e5f5e;
+    margin-top: -55px;
+    font-size: 25px;
+    font-family: 'Quicksand', sans-serif;
+    position: absolute;
+    left: 8%; 
+}

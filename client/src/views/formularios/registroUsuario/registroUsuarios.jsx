@@ -47,7 +47,24 @@ const RegistroUsuario = () => {
   const onSubmit = async (formData) => {
     formData.roll = "usuario";
     formData.foto = image;
-
+    if (!formData.nombre || !formData.apellido || !formData.genero || !formData.fecha_nacimiento || !formData.telefono || !formData.pais || !formData.email || !formData.contraseña) {
+      toast.error("Por favor completa todos los campos obligatorios.");
+      return;
+    }
+    if (errors.email?.type === "pattern") {
+      toast.error("Formato de correo electrónico incorrecto.");
+      return;
+    }
+    if (errors.fecha_nacimiento?.type === "validate") {
+      toast.error("Debes tener al menos 18 años para registrarte.");
+      return;
+    }
+    if (errors.contraseña) {
+      toast.error("La contraseña debe tener al menos 6 caracteres alfanuméricos.");
+      return;
+    }
+  
+  
     try {
       const response = await axios.post(
         "/psiconection/registerUsuario",
@@ -59,11 +76,21 @@ const RegistroUsuario = () => {
         navigate("/loginUsuario");
 
         setImage("");
+      
       }
     } catch (error) {
       if (error.response) {
         if (error.response.status === 400) {
-          toast.error("Error en el formulario. Verifica los datos.");
+          if (error.response.data.errors) {
+            const errorMessages = Object.values(error.response.data.errors)
+              .map((errorMessage) => `• ${errorMessage}`)
+              .join("\n");
+            toast.error(`Error en el formulario:\n${errorMessages}`);
+          } else if (error.response.data.message === "Correo ya registrado") {
+            toast.error("El correo electrónico ya está registrado. Por favor, usa otro correo.");
+          } else {
+            toast.error("Error en el formulario. Verifica los datos.");
+          }
         } else {
           toast.error("Error al registrar. Inténtalo de nuevo más tarde.");
         }
@@ -345,13 +372,13 @@ const RegistroUsuario = () => {
               </Link>
             </div>
           </div>
+      <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          style={{ zIndex: 1000 }} // Ajusta el valor según tus necesidades
+        />
         </form>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        style={{ zIndex: 1000 }} // Ajusta el valor según tus necesidades
-      />
     </div>
   );
 };

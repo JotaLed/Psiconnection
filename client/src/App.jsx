@@ -32,6 +32,7 @@ import Nosotros from "./views/nosotros/nosotros";
 import ClientAccount from "./views/Account/ClientAccount";
 import FormularioGeneral from "./views/formularios/FormularioGeneral";
 import Dashboard from "./views/Dashboard";
+import Header from "./views/Header/Header";
 
 //importmos components:
 import LoginUsuario from "./views/formularios/loginUsuario/loginUsuario"; // Asegúrate de usar mayúsculas en las letras iniciales/
@@ -48,6 +49,7 @@ function App() {
   return (
     <PayPalScriptProvider options={{ "clientId":"AfeucC6LwLkek1cqd6c57o75Ay2VvQKOF01r1TSP42Tf2hFsYhvflmr5ay7J4XU-m8C56JVfJ-dyQci-"}}>
     <div>
+      <Header />
       {pathname !== "/" && <SideBar />}
       <Routes>
         <Route path="/form" element={<FormularioGeneral />} />

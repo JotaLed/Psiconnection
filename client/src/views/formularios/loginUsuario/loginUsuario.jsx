@@ -173,7 +173,11 @@ const LoginUsuario = () => {
               </Link>
             </div>
           </div>
-      <ToastContainer position="bottom-right" />
+          <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          style={{ zIndex: 1000 }} // Ajusta el valor según tus necesidades
+        />
         </form>
       </div>
     </div>
