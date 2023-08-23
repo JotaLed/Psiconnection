@@ -13,7 +13,7 @@
 .detail {
     display: flex;
     height: 100%;
-    padding-top: 17vh;
+    padding-top: 3vh;
     background-color: #F1F0EA;
     width: 100%;
     gap: 20px;
@@ -100,7 +100,6 @@
 
 .contactar {
     font-size: 20px;
-    height: 70px;
     margin-top: 25px;
     align-self: center;
     align-items: center;
@@ -110,12 +109,6 @@
     background-color: #706AD4;
     color: white;
     border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-
-    &:hover {
-        background-color: #5652a1;
-    }
 }
 
 .emoji {

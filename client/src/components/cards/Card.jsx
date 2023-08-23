@@ -26,7 +26,7 @@ export default function Card(props) {
           <h3 className="card-title">{capitalizeFirstLetter(props.nombre) +" " + capitalizeFirstLetter(props.apellido)}</h3>
         </div>
         <ul className="list-group list-group-flush">
-          {!props.valoracion.length ? 
+          {!props.valoracion.length || props.valoracion.length < 20 ? 
           <li className="list-group-item">
             <span>
               Valoración: 
