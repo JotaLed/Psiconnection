@@ -38,7 +38,9 @@ export default function Sidebar() {
   const DetailAcount = (id) => {
     navigate(`/account/client/${id}`);
   }
-
+  console.log(currentUser);
+  console.log(tokenRoll);
+  console.log(currentUser.foto);
   return (
     <nav >
 <div className="navbar-container">

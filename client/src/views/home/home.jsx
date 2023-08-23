@@ -28,6 +28,7 @@ export default function Home() {
       return dispatch(loadCurrentUser(data))
     }
     if(roll === "usuario"){
+        console.log("Entra para usuario");
         const { data } = await axios.get(`psiconection/usuario/acount/${id}`,{
           headers: {
             Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
@@ -85,7 +86,7 @@ export default function Home() {
   // Filtra las tarjetas a mostrar en la página actual
   const currentItems = piscologos.slice(firstIndex, lastIndex);
 
-
+  console.log(currentUser);
 
   return (
     <div className={style.home}>
