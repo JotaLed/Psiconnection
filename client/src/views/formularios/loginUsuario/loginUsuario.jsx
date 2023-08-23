@@ -69,6 +69,7 @@ const LoginUsuario = () => {
   
         // Muestra el toast de inicio de sesión exitoso y redirige al usuario después de cerrarlo
         toast.success("Inicio de sesión exitoso. ¡Bienvenido!", {
+          autoClose: 2000,
           onClose: () => {
             navigate("/home");
           },
@@ -121,7 +122,7 @@ const LoginUsuario = () => {
               <i className="bx bxs-lock-alt"></i> Contraseña:
             </label>
             <Controller
-              name="password" 
+              name="contraseña" 
               control={control}
               defaultValue=""
               rules={{ validate: isValidPassword }}

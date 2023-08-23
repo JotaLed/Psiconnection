@@ -20,7 +20,7 @@ body {
       rgba(253, 253, 253, 0.568),
       rgba(253, 253, 253, 0.616)
     ),
-    url('./fondoBotones.png');
+    url('./FondoBotones.jpeg');
   background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
   background-repeat: no-repeat;
   font-family: 'Montserrat', sans-serif;
