@@ -10,20 +10,20 @@ body {
     justify-content: center; 
     gap: 20px;
     max-width: 900px; 
-    padding: 60px 20px; 
-    height: 145vh;
+    padding: 20px 20px; 
+    height: 100vh;
   }
   
   .loader {
     /* position: absolute; */
-    top: 50%;
+    margin-top: 100%;
     left: 53%;
     width: 100px;
     height: 100px;
     border-radius: 50%;
     display: inline-block;
     border: 3px solid;
-    border-color: #FFF #FFF transparent transparent;
+    border-color: #706AD4 #706AD4 transparent transparent;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
     }

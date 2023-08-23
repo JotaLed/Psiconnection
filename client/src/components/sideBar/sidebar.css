@@ -21,6 +21,7 @@ body {
   right: 0;
   justify-content: center;
   z-index: 99999;
+
 }
 /* .navbar.navbar-hidden {
   transform: translateY(-100%);
@@ -32,7 +33,7 @@ body {
 
 .navbar-container {
   background-color: #fff;
-  position: absolute;
+  position: relative;
   width: 100%;
   margin-right: 5%;
   display: flex;
@@ -43,7 +44,7 @@ body {
 .navbar-logo {
   height: 90px;
   margin-top: 1%; 
-  margin-left: 5%;
+  margin-left: 30%;
 }
 .logoNameHome {
   color: #5e5f5e;
