@@ -51,13 +51,13 @@ export default function Sidebar() {
           <li className="nav-item">
             <NavLink  to="/home" activeClassName="active" className="nav-link">
             <i className='bx bx-home nav-icon'></i>
-              HOME
+              INICIO
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink  to="/nosotros" activeClassName="active" className="nav-link">
             <i className='bx bxs-group nav-icon'></i>
-              ABOUT US
+              NOSOTROS
               </NavLink>
           </li>
           {
@@ -65,7 +65,7 @@ export default function Sidebar() {
               <li className="nav-item">
                 <NavLink  to="/form" activeClassName="active" className="nav-link">
                 <i className='bx bx-user nav-icon'></i>
-                  SING UP
+                  REGISTRARSE/INICIAR SESIÓN
                   </NavLink>
               </li>
             ) : (
