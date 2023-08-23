@@ -37,7 +37,9 @@ export default function Sidebar() {
   const DetailAcount = (id) => {
     navigate(`/account/client/${id}`);
   }
-
+  console.log(currentUser);
+  console.log(tokenRoll);
+  console.log(currentUser.foto);
   return (
     <nav className={`navbar ${visible ? "" : "navbar-hidden"}`}>
 <div className="navbar-container">
