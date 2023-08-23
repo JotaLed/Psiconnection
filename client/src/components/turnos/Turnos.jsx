@@ -178,7 +178,7 @@ export default function Turnos({ dias, horas }) {
   const handleCheckoutClick = async () => {
     if (tokenData === null) {
       window.location.href = `${
-        import.meta.env.VITE_URL_AXIOS_URL_BASE
+        import.meta.env.VITE_URL_AXIOS_URL_FRONT
       }/loginUsuario`;
       // window.location.href = "http://localhost:5173/loginUsuario";
     }
@@ -201,7 +201,7 @@ export default function Turnos({ dias, horas }) {
       );
       // Paypal
       const { data } = await axios.post(
-        `/psiconnection/pay/paymentOrder`,
+        `/pay/paymentOrder`,
         reserva
       );
       // const link = response.data.body.init_point
