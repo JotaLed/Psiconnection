@@ -49,8 +49,7 @@ const agregarValoracion = async (req, res) => {
     const updatePsico = await añadirValoracion({ id, rating });
     res.status(200).json(updatePsico);
   } catch (error) {
-    res.status(400).json(error.message)
-
+    res.status(400).json(error.message);
   }
 };
 
@@ -73,7 +72,7 @@ const registerHandler = async (req, res, next) => {
     telefono,
     descripcion,
     foto,
-    licencia
+    licencia,
   } = req.body;
   const fecha = obtenerFechaActual();
   // const fotoPerfilFile = req.files['fotoPerfil'][0];
@@ -152,7 +151,7 @@ const registerHandler = async (req, res, next) => {
       descripcion,
       fecha,
       foto,
-      licencia
+      licencia,
       //       fotoPerfilUrl,
       //       licenciaUrl
     });

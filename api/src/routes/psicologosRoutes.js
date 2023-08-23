@@ -1,13 +1,9 @@
 const { Router } = require("express");
 const upload = require("../utils/upload");
 
-//midlewares //TODO: AUTHENTICATOR 
-const {
-  checkAuth, 
-  verifyIdToken
-} = require('../middlewares/auth.js');
-const { checkRollAuth } = require('../middlewares/rollAuth.js');
-
+//midlewares //TODO: AUTHENTICATOR
+const { checkAuth, verifyIdToken } = require("../middlewares/auth.js");
+const { checkRollAuth } = require("../middlewares/rollAuth.js");
 
 //Controladores
 const {
@@ -41,21 +37,30 @@ psicologosRoutes.get("/:id", getDetailHandler);
 psicologosRoutes.put("/:id", agregarValoracion);
 
 //Modificar información existente del psico
-psicologosRoutes.put("/update", putHandler);
+psicologosRoutes.put("/update/psico", putHandler);
 
 //Eliminar psico (cambia el estado)
 psicologosRoutes.delete("/delete", deleteHandler);
 
 //! registro
 // ruta tipo post http://localhost:3001/psiconection/registerPsicologo --- Psicologo
-psicologosRoutes.post("/registerPsicologo", upload.fields([{ name: 'fotoPerfil' }, { name: 'licencia' }]), registerHandler);
+psicologosRoutes.post(
+  "/registerPsicologo",
+  upload.fields([{ name: "fotoPerfil" }, { name: "licencia" }]),
+  registerHandler
+);
 
 // ruta tipo put subir foto ruta http://localhost:3001/psiconection/uploadFoto/"id del psicologo"
 psicologosRoutes.put("/uploadFoto/:id", upload.single("foto"), subirFoto);
 
 // ruta tipo get obtener detalles de la cuenta ruta http://localhost:3001/psiconection/acount/"id del psicologo"
 //! con autentificacion
-psicologosRoutes.get("/acount/:id",verifyIdToken, checkRollAuth(['psicologo']), getDetailAcount);
+psicologosRoutes.get(
+  "/acount/:id",
+  verifyIdToken,
+  checkRollAuth(["psicologo"]),
+  getDetailAcount
+);
 
 //! sin con autentificacion
 // psicologosRoutes.get("/acount/:id", getDetailAcount);
