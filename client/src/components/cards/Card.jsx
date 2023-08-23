@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importa los estilos de Bootstrap
-import './Card.module.css';
+import './Card.css';
 import StarRating from '../estrellas/estrellas';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faStar} from "@fortawesome/free-solid-svg-icons"
@@ -20,8 +20,8 @@ export default function Card(props) {
   
   return (
     <Link to={`/detail/${props.id}`}>
-      <div className="card" style={{ width: '25rem' }}> 
-        <img className="card-img-top" src={props.imagen} alt="Card image cap" style={{ height: '20rem', objectFit: 'cover' }} />
+      <div className="card" style={{ width: '22rem' }}> 
+        <img className="card-img-top" src={props.imagen} alt="Card image cap" style={{ height: '25rem', objectFit: 'cover', objectPosition: 'center top'  }} />
         <div className="card-body">
           <h3 className="card-title">{capitalizeFirstLetter(props.nombre) +" " + capitalizeFirstLetter(props.apellido)}</h3>
         </div>

@@ -1,21 +1,17 @@
-  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+/* Pagination.module.css */
 
 .paginationContainer {
-  flex-direction: column;
-}
-
-.buttonContainer {
-  position: absolute;
-  display: flex;
-  margin-top: -67%;
-  gap: 10px;
-}
- .contenido{
   display: flex;
   flex-direction: column;
   align-items: center;
-} 
+}
+
+.buttonContainer {
+  display: flex;
+  margin-top: 20%;
+  gap: 10px;
+}
+
 .btn {
   background-color: #706AD4;
   color: #fff;
@@ -27,12 +23,12 @@
   transition: background-color 0.2s ease;
   font-family: 'Montserrat', sans-serif;
 }
+
 .btn:hover {
   background-color: #BBBDEE;
 }
+
 .pageIndicator {
-  position: relative;
-  top: 5px;
   width: 30px;
   height: 30px;
   background-color: #706AD4;
@@ -45,4 +41,8 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-
+.prueba {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+} 
