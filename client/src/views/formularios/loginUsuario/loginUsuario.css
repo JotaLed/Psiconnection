@@ -1,25 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: white; /* Establece el fondo blanco */
+}
 .containerLoginUsuario {
   position: relative;
   top: 22px;
-  height: 97vh;
+  height: 80vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-image: linear-gradient(rgba(253, 253, 253, 0.192), rgba(253, 253, 253, 0.164)),
-    url('../fondoLogin.png');
+  background-image: linear-gradient(rgba(253, 253, 253, 0.192), rgba(253, 253, 253, 0.164)), url('../fondoLogin.png');
   background-size: cover;
   background-position: center;
+  align-items: center;
+  margin: 20px; /* Agregamos un margen para separarlo del borde de la pantalla */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 10px; /* Bordes redondeados */
 }
 .login-formUsu {
   position: relative;
+  background-color: #e74c3c;
   top: 10px;
-  max-width: 400px;
+  max-width: 900px;
   margin: auto;
   padding: 20px;
-  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0px 0px 5px rgb(0, 0, 0);
-
 }
 
 .error-message {
@@ -28,50 +34,26 @@
   margin-bottom: 10px;
 }
 
-.form-groupUsu {
-  margin-bottom: 20px;
-}
-
-.form-groupUsu label {
+.form-groupLogUsu label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #333333;
+  margin-bottom: 6px;
+}
+.form-groupLogUsu label .bx {
+  margin-right: 5px;
+  color: #706AD4;
+}
+.form-groupLogUsu select {
+  width: 42%; /* Puedes ajustar este valor según tus necesidades */
 }
 
-.form-groupUsu input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #dddddd;
-  border-radius: 5px;
-  font-size: 16px;
+.form-groupLogUsu input{
+  width: 250px;
 }
 
 .errores {
   color: red;
   font-size: 14px;
   margin-top: 5px;
-}
-
-.password-input {
-  display: flex;
-  align-items: center;
-  border: 1px solid #dddddd;
-  border-radius: 5px;
-  padding: 1px;
-}
-
-.password-input input {
-  flex: 1;
-  border: none;
-  font-size: 16px;
-}
-
-.password-input i {
-  cursor: pointer;
-  font-size: 18px;
-  margin-left: 10px;
-  color: #888888;
 }
 
 .btn-primary {
@@ -127,15 +109,13 @@ h2{
 }
 h3{
   position: relative;
-  top: -15px;
-  left: 70px;
-  font-size: 20px;
+  font-size: 15px;
   color: rgba(0, 0, 0, 0.576);
 }
 h4{
   position: inherit;
-  top: 0px;
-  left: 50%;
+  top: px;
+  left: 5%;
   font-size: 20px;
   color: rgba(0, 0, 0, 0.576);
 }
