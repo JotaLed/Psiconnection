@@ -16,13 +16,18 @@ export default function Home() {
 
   //Funciona para guardar el usuario actual
   const loadUserById = async (id, roll) => {
+    const getToken = window.localStorage.getItem('authToken')
+    const tokenObject = JSON.parse(getToken);
     if (roll == "psicologo") {
       const { data } = await axios.get(`psiconection/${id}`)
       console.log(data);
       await dispatch(loadCurrentUser(data))
     }
     else {
-      const { data } = await axios.get(`psiconection/usuario/acount/${id}`)
+      const { data } = await axios.get(`psiconection/usuario/acount/${id}`,{headers: {
+          Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+        }
+      })
       console.log(data);
       await dispatch(loadCurrentUser(data.usuario))
     }
