@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import s from "./detail.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import Turnos from "../../components/turnos/Turnos";
+import Rating from "../../components/starRating/Rating";
 import { loadDetail } from "../../Redux/actions";
 
 const Detail = () => {
@@ -82,6 +83,9 @@ const Detail = () => {
           <div className={s.row3}>
             <label className={s.label}>Descripción:</label>
             <div><p className={s.descripcion}>{psicology.descripcion}</p></div>
+          </div>
+          <div>
+            <Rating id={psicology.id}/>
           </div>
         </div>
         {/* )} */}

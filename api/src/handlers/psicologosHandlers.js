@@ -1,6 +1,7 @@
 const {
   createUsuarioPsicologo,
   getDetailController,
+  añadirValoracion,
   uploadFoto,
   getPsicologosController,
   getPsicologoByNameController,
@@ -38,6 +39,18 @@ const getDetailHandler = async (req, res) => {
     res.status(200).json(detail);
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+};
+
+const agregarValoracion = async (req, res) => {
+  const { rating } = req.body;
+  const { id } = req.params;
+  try {
+    const updatePsico = await añadirValoracion({ id, rating });
+    res.status(200).json(updatePsico);
+  } catch (error) {
+    res.status(400).json(error.message)
+
   }
 };
 
@@ -307,6 +320,7 @@ const getDetailAcount = async (req, res) => {
 module.exports = {
   registerHandler,
   getDetailHandler,
+  agregarValoracion,
   subirFoto,
   putHandler,
   deleteHandler,

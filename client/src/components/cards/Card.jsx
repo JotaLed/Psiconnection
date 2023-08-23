@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importa los estilos de Bootstrap
 import './Card.css';
 import StarRating from '../estrellas/estrellas';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faStar} from "@fortawesome/free-solid-svg-icons"
 
 
 export default function Card(props) {
@@ -10,6 +12,12 @@ export default function Card(props) {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
 
+  const valores = props.valoracion || [];
+  const suma = valores.reduce((acumulador, valor) => acumulador + valor, 0);
+  const media = suma / valores.length;
+  const result = Math.floor(media)
+  
+  
   return (
     <Link to={`/detail/${props.id}`}>
       <div className="card" style={{ width: '22rem' }}> 
@@ -18,11 +26,9 @@ export default function Card(props) {
           <h3 className="card-title">{capitalizeFirstLetter(props.nombre) +" " + capitalizeFirstLetter(props.apellido)}</h3>
         </div>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">Valoración:   <StarRating value={props.valoracion}/></li>
-          <li className="list-group-item">
-  <span className="item-label">Tarifa: </span>
-  <span>${props.tarifa} dólares por sesión.</span>
-</li>
+          {!props.valoracion.length ? <li className="list-group-item">Valoración: 4.0 <FontAwesomeIcon icon={faStar} /></li> : <li className="list-group-item">Valoración: {`${result}.0`} <FontAwesomeIcon icon={faStar} /></li> }
+          
+          <li className="list-group-item">Tarifa: ${props.tarifa}</li>
         </ul>
       </div>
     </Link>
