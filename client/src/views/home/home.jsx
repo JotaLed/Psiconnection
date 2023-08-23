@@ -39,10 +39,6 @@ export default function Home() {
         const decodedData = JSON.parse(window.atob(tokenData))
         console.log(decodedData);
         loadUserById(decodedData.id, decodedData.roll)
-
-
-
-
       }
 
       dispatch(setOrders("alf"))
@@ -89,6 +85,7 @@ export default function Home() {
             </div>
             <CardsContainer items={currentItems} /> 
         <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems} />
+            <CardsContainer items={currentItems} /> 
       </div>
 
     </div>
