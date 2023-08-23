@@ -26,8 +26,7 @@ const Foto = ({handleChange, imagen}) => {
         <div className="form-groupRegPsico">
               <label>
                 <input type="file" name="file" onChange={upLoadImage} />
-                /(
-                <img src={image} style={{ width: "150px" }} />)
+                
               </label>
             </div>
     </Form.Group>)
