@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { loadDetail } from "../../Redux/actions";
 import { useSelector, useDispatch } from "react-redux";
-
-
+import { toast, ToastContainer } from "react-toastify"; // Importamos componentes de react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Importamos el CSS de react-toastify
 import s from "./detail.module.css";
 import Turnos from "../../components/turnos/Turnos";
 import Rating from "../../components/starRating/Rating";
+
 //importamos las estrellas 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faStar } from "@fortawesome/free-solid-svg-icons"

@@ -2,6 +2,8 @@ import React, {useMemo, useState} from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { toast, ToastContainer } from "react-toastify"; // Importamos componentes de react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Importamos el CSS de react-toastify
 
 const Rate = ({ count, rating, color, onRating }) => {
     const [hoverRating, setHoverRating] = useState(0);
