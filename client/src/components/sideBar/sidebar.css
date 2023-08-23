@@ -34,7 +34,6 @@ body {
 
 .navbar-container {
   background-color: #fff;
-  position: fixed;
   width: 100%;
   margin-right: 5%;
   display: flex;
