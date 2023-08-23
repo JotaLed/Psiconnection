@@ -2,17 +2,18 @@
 .home{
     display: flex;
     flex-direction: row;
-    margin: 0;
     padding: 0;
+    margin-left: 12%;
+    margin-top: -6%;
+    
 }
-.col1Home{
-    height: 100vh;
-}
+
 .col2Home{
     margin-top: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 70%;
 }
 .search_conteinerHome{
     display: flex;
@@ -20,7 +21,7 @@
     align-items: center;
 
 }
-.welcomeMessage p {
+.welcomeMessage {
     font-family: 'Quicksand', sans-serif;
     font-weight: bold;
     align-items: center;
@@ -28,5 +29,8 @@
     color: #5e5f5e ; 
     font-size: 30px; 
     margin-bottom: 0.5%;
-    
+    margin-top: 5%;
   }
+.p1{
+    margin-top: 7%;
+}

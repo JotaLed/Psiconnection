@@ -13,7 +13,7 @@
 .detail {
     display: flex;
     height: 100%;
-    padding-top: 17vh;
+    padding-top: 5vh;
     background-color: #F1F0EA;
     width: 100%;
     gap: 20px;
@@ -94,7 +94,7 @@
 .time {
     margin-top: 15px;
     margin-left: 30px;
-    font-size: 20px;
+    font-size: 15px;
     color: gray;
 }
 

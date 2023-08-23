@@ -29,6 +29,7 @@ export default function SearchBar() {
     };
 
     return (
+        <div className="Container">
         <div className='search-bar'>
             <div className="input-group">
                 <input
@@ -46,6 +47,7 @@ export default function SearchBar() {
                     </button>
                 </div>
             </div>
+        </div>
 
            
         </div>

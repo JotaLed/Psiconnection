@@ -97,11 +97,11 @@ export default function Home() {
         <div className={style.search_conteinerHome}>
         </div>
         <div className={style.welcomeMessage}>
-                <p>Aquí podrás conectar con diferentes psicólogos, </p>
-                <p>mejorar tu salud mental y tu vida.</p>
-          <SearchBar />
+                <p className={style.p1}>Aquí podrás conectar con diferentes psicólogos, </p>
+                <p className={style.p}>mejorar tu salud mental y tu vida.</p>
                 <p>¡Comienza tu búsqueda ahora mismo!</p>
             </div>
+          <SearchBar />
             <CardsContainer items={currentItems} /> 
         <Pagination currentPage={currentPage} nextHandler={nextHandler} 
         prevHandler={prevHandler} items={currentItems} />
