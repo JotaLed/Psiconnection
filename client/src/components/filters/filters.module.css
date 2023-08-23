@@ -1,90 +1,60 @@
-/* Resto de tus estilos existentes */
-
 .container {
-  position: relative;
-  width: 300px;
-  transition: width 0.3s ease, transform 0.3s ease;
-}
-
-.expanded {
-  width: 500px;
-  transform: translateX(0px)
-}
-
-.toggleButton {
-  margin-top: 10%;
-  margin-left: -10%;
-  padding: 150% 20px;
-  font-size: 16px;
-  /* background-color: #2b4c7e; */
-  background-color: #706AD4;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.expanded .toggleButton {
-  transform: translateX(220px); 
-}
-
-.filterPanel {
-  position: absolute;
-  top: 0.5px;
-  left: -500px;
-  width: 220px;
+  /* Utilizamos position: fixed para posicionar el contenedor */
+  /* top: 9%;
   height: 100%;
-  background-color: #706AD4;
-  transition: left 0.3s ease;
-}
 
-.container.expanded .filterPanel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  background-color: #2b4c7e;
+  padding: 70px;
   left: 0;
-}
-
-/* Resto de tus estilos existentes */
-.container {
-    background-color: transparent;
+  gap: 0px; */
+  /* Añadimos un espacio de 7px entre los elementos */
+  /* display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0px;
+  background-color:  #2b4c7e;
+  left: 0; */
+  
+    background-color: #F1F0EA;
     color: #fff;
     padding: 20px;
-    width: 250px;
-    position: fixed; /* Agrega posición fija */
-    top: 0; /* Ajusta la posición vertical en la parte superior */
-    left: 0; /* Ajusta la posición horizontal en la parte izquierda */
+    width: 200px;
+    height: 100%;
+    margin-top: 46%; /* Ajusta la posición vertical en la parte superior */
+    margin-left: -90%; /* Ajusta la posición horizontal en la parte izquierda */
     bottom: 0; /* Ajusta la altura del contenedor para ocupar toda la altura disponible */
-    margin-top: 90px;
-    
 }
 
 .label {
   font-size: 14px;
-  color: white;
-  margin-top: 5px;
-  margin-left: 15px;
+  color: #606D80;
+  margin-right: 8px;
   font-weight: bold; 
 }
 .selectContainer {  
   position: relative;
   margin-bottom: 30px; 
-  margin-left: 20px;
+  color: #606D80;
 }
 
 .select {
   width: 158px;
   height: 40px;
-  padding: 10px;
+  padding: 8px;
   border: none;
   border-radius: 0;
   background-color: transparent;
-  color: white;
+  color: #606D80;
   font-size: 14px;
   appearance: none;
   cursor: pointer;
   text-shadow: none;
   box-shadow: none;
-  border-bottom: 2px solid #606D80;
-
-
 }
 
 .select option {
@@ -95,6 +65,7 @@
 .select:focus {
   outline: none;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  
 }
 
 .selectContainer::after {
@@ -104,7 +75,7 @@
   right: 8px;
   transform: translateY(-50%);
   pointer-events: none;
-  color: white;
+  color: #606D80;
 }
 
 .btn {
@@ -112,13 +83,13 @@
   padding: 8px 16px;
   border: none;
   border-radius: 5px;
-  background-color: white;
-  color: #606D80;
+  background-color: #706AD4;
+  color: white;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   margin-bottom: 40px;
-  margin-left: 60px;
+
 }
 
 .btn:hover {
@@ -126,3 +97,9 @@
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+
+/* sdasdas */
+/* Filters.module.css */
+
+/* Estilos para el contenedor principal */

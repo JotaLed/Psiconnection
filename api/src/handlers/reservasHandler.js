@@ -2,6 +2,7 @@ const {
   reservaCita,
   getAllAppointmentsController,
   putController,
+  crearPruebaControlador
 } = require("../controllers/reservaController");
 
 const { Reserva } = require('../db.js')
@@ -9,10 +10,8 @@ const { Reserva } = require('../db.js')
 const mailer= require('../helpers/emailers.js')
 
 const reservarCitaHandler = async (req, res) => {
-  const { data } = req.query;
-  console.log(data);
-  const decodedObj = JSON.parse(Buffer.from(data, 'base64').toString('utf-8'));
-  console.log('dataDescifrada', decodedObj);
+  const newCita = req.body;
+  
   
 
   try { 
@@ -28,14 +27,19 @@ const reservarCitaHandler = async (req, res) => {
 
     // let dataValues = postReserva[0]
     // console.log('la reserva', dataValues);
+
+    const response = reservaCita(newCita)
     
 
-      res.status(200).json(decodedObj);
+      res.status(200).json(response);
 
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.log(error);
+    return res.status(400).json({ error: error.message });
   }
 };
+
+
 
 const getAllAppointmentsHandler = async (req, res) => {
   try {
@@ -87,8 +91,29 @@ const putHandler = async (req, res) => {
   await putController(req, res);
 };
 
+
+
+
+
+//! prueeaaaaaaaaaaaaaaa
+
+
+const pruebaManejador = async (req, res) =>{
+  const newReserva = req.body
+  try {
+    const response = await crearPruebaControlador(newReserva) 
+      res.status(200).json(response)
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({error:error.message})
+    
+  }
+}
+
+
 module.exports = {
   reservarCitaHandler,
   getAllAppointmentsHandler,
   putHandler,
+  pruebaManejador
 };

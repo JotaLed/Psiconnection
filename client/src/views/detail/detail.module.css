@@ -12,7 +12,9 @@
 
 .detail {
     display: flex;
-    height: 100vh;
+    height: 100%;
+    padding-top: 5vh;
+    background-color: #F1F0EA;
     width: 100%;
     gap: 20px;
 }
@@ -23,7 +25,7 @@
     flex-direction: column;
     padding: 20px;
     background-color: #ffff;
-    min-width: 520px;
+    /* min-width: 520px; */
     min-height: 90vh;
     height: fit-content;
     width: 40%;
@@ -92,7 +94,7 @@
 .time {
     margin-top: 15px;
     margin-left: 30px;
-    font-size: 20px;
+    font-size: 15px;
     color: gray;
 }
 
@@ -151,6 +153,9 @@
 
 
 }
+.rating_conteiner{
+    border-top: 2px solid #706AD4;
+}
 
 .turno_conteiner {
     display: flex;
@@ -160,7 +165,7 @@
     background-color: #ffff;
     min-height: 400px;
     height: fit-content;
-    min-width: 382px;
+    /* min-width: 382px; */
     width: 30vw;
     right: 15vw;
     border-radius: 20px;
