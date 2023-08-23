@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import s from "./detail.module.css";
+import { loadDetail } from "../../Redux/actions";
 import { useSelector, useDispatch } from "react-redux";
+
+
+import s from "./detail.module.css";
 import Turnos from "../../components/turnos/Turnos";
 import Rating from "../../components/starRating/Rating";
 import { loadDetail } from "../../Redux/actions";
@@ -15,6 +18,7 @@ const Detail = () => {
   const psicology = useSelector((store) => store.psicoloDetail);
   console.log(psicology);
   const dispatch = useDispatch();
+
   // Con este estado se controla la carga 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {

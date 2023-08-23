@@ -44,8 +44,9 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 const { Psicologo, Usuario, Reserva } = sequelize.models;
 
-Psicologo.belongsToMany(Usuario, { through: Reserva });
-Usuario.belongsToMany(Psicologo, { through: Reserva });
+// Psicologo.belongsToMany(Usuario, { through: Reserva });
+// Usuario.belongsToMany(Psicologo, { through: Reserva });
+
 
 module.exports = {
   ...sequelize.models,

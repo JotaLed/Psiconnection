@@ -1,6 +1,3 @@
-//importamos el logo
-import logo from "../../Images/Screenshot_15.jpg";
-import logoPsiconnetion from "../../Images/logoPsiconnetion.png";
 //importamos el estilo s
 // import s from "../landing/landing.module.css"
 import '../landing/landing.css'
@@ -13,13 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function Landing() {
     return (
         <div className="landing">
-            <div className="col2">
-                <img src={logoPsiconnetion} alt="" />
-            </div>
-            <div className="logoName">
-                    PSICONNECTION
-            </div> 
-
             <div >
                 <Carousel>
                 </Carousel>
