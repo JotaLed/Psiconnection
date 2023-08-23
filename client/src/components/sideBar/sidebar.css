@@ -42,7 +42,7 @@ body {
 }
 
 .navbar-logo {
-  height: 100px;
+  height: 90px;
   margin-top: 1%; 
   margin-left: 5%;
 }
@@ -52,7 +52,7 @@ body {
   font-family: 'Quicksand', sans-serif;
   position: absolute;
   top: 60%; 
-  left: 7%;
+  left: 8%;
 }
 
 .nav-menu {
@@ -68,7 +68,6 @@ body {
   font-weight: bold;
   font-size: 20px;
   text-decoration: none;
-  color: #5e5f5e;
   transition: color 0.3s ease;
   margin-right: 40px;
   display: flex;
