@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importa los estilos de Bootstrap
-import './Card.module.css';
+import './Card.css';
 import StarRating from '../estrellas/estrellas';
 
 
@@ -12,14 +12,17 @@ export default function Card(props) {
 
   return (
     <Link to={`/detail/${props.id}`}>
-      <div className="card" style={{ width: '25rem' }}> 
-        <img className="card-img-top" src={props.imagen} alt="Card image cap" style={{ height: '20rem', objectFit: 'cover' }} />
+      <div className="card" style={{ width: '22rem' }}> 
+        <img className="card-img-top" src={props.imagen} alt="Card image cap" style={{ height: '25rem', objectFit: 'cover', objectPosition: 'center top'  }} />
         <div className="card-body">
           <h3 className="card-title">{capitalizeFirstLetter(props.nombre) +" " + capitalizeFirstLetter(props.apellido)}</h3>
         </div>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">Valoración: <StarRating value={props.valoracion} /></li>
-          <li className="list-group-item">Tarifa: ${props.tarifa}</li>
+          <li className="list-group-item">Valoración:   <StarRating value={props.valoracion}/></li>
+          <li className="list-group-item">
+  <span className="item-label">Tarifa: </span>
+  <span>${props.tarifa} dólares por sesión.</span>
+</li>
         </ul>
       </div>
     </Link>
