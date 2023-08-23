@@ -7,11 +7,10 @@ const {
   getUserController,
 } = require("../controllers/userControllers.js");
 
-// helpers, midlwares  y utils 
+// helpers, midlwares  y utils
 const obtenerFechaActual = require("../helpers/getFecha.js");
 const cloudinary = require("../utils/cloudinary.js");
-const emailer = require('../helpers/emailers.js')
-
+const emailer = require("../helpers/emailers.js");
 
 const userCreateHandler = async (req, res) => {
   const {
@@ -24,21 +23,23 @@ const userCreateHandler = async (req, res) => {
     contraseña,
     telefono,
     roll,
-    foto
+    foto,
   } = req.body;
   console.log(contraseña);
   const fecha = await obtenerFechaActual();
-  
+
   try {
     //! validaciones
     if (!nombre) return res.status(403).json({ error: "Nombre vacio." });
     if (!apellido) return res.status(403).json({ error: "Apellido vacio." });
-    if (!contraseña) return res.status(403).json({ error: "Contraseña vacia." });
-    if (!fecha_nacimiento)  return res.status(403).json({ error: "Edad vacio." });
+    if (!contraseña)
+      return res.status(403).json({ error: "Contraseña vacia." });
+    if (!fecha_nacimiento)
+      return res.status(403).json({ error: "Edad vacio." });
     if (!pais) return res.status(403).json({ error: "Pais vacio." });
     if (!genero) return res.status(403).json({ error: "Genero vacio." });
     if (!telefono) return res.status(403).json({ error: "Telefono vacio." });
-    
+
     const newUser = await createUserController({
       nombre,
       apellido,
@@ -50,12 +51,11 @@ const userCreateHandler = async (req, res) => {
       telefono,
       fecha,
       roll,
-      foto
+      foto,
     });
 
-
     if (newUser) {
-      await emailer.sendMailRegister(newUser)
+      await emailer.sendMailRegister(newUser);
       return res.status(200).json(newUser);
     }
   } catch (error) {
@@ -158,5 +158,5 @@ module.exports = {
   deleteHandler,
   getDetailAcount,
   getHandler,
-  getDetailAcountAdmin
+  getDetailAcountAdmin,
 };

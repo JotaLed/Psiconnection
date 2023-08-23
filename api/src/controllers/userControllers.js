@@ -13,7 +13,7 @@ const createUserController = async ({
   telefono,
   fecha,
   roll,
-  foto
+  foto,
 }) => {
   const passwordHash = await encrypt(contraseña);
 
@@ -47,7 +47,7 @@ const createUserController = async ({
     telefono,
     fecha_registro: fecha,
     roll,
-    foto
+    foto,
   });
   return newUser;
 };
@@ -74,6 +74,7 @@ const getUserController = async () => {
 const putController = async (req, res) => {
   try {
     const usuarioId = req.body.id;
+    console.log(req.body.id);
 
     const usuario = await Usuario.findByPk(usuarioId);
 
