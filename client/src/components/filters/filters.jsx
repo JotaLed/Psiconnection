@@ -65,8 +65,8 @@ const Filters = (props) => {
                     onChange={handleFilterChange}
                 >
                     <option value="all">TODOS</option>
-                    <option value="femenino">FEMALE</option>
-                    <option value="masculino">MALE</option>
+                    <option value="femenino">FEMENINO</option>
+                    <option value="masculino">MASCULINO</option>
                 </select>
             </div>
 
