@@ -16,6 +16,7 @@ export const GET_ALL_PSICOLOGOS = "GET_ALL_PSICOLOGOS"
 // PROTECCION
 export const GET_DETAIL_ACOUNT_PSICOLOGO = "GET_DETAIL_ACOUNT_PSICOLOGO"
 export const GET_DETAIL_ACOUNT_USUARIO = "GET_DETAIL_ACOUNT_USUARIO"
+export const GET_DETAIL_ACOUNT_ADMIN = "GET_DETAIL_ACOUNT_ADMIN"
 //----------------------------------------------------------------------------------------//
 import axios from "axios";
 
@@ -251,6 +252,35 @@ export const getDetailClient = (id) => {
     };
 };
 
+//-----------------------obtener el detail del cliente ADMIN-----------------------------//
+export const getDetailClientAdmin = (id) => {
+    const getToken = window.localStorage.getItem('authToken')
+    const tokenObject = JSON.parse(getToken);
+    return async function (dispatch) {
+        try {
+            const apiData = await axios.get(`/psiconection/usuario/acount/admin/${id}`, 
+            {
+                headers: {
+                  Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+                }
+              });
+              console.log("dataaa",api.data);
+              
+            const admin = apiData.data;
+            console.log(admin)
+            return dispatch({
+                type: GET_DETAIL_ACOUNT_ADMIN,
+                payload: admin,
+            });
+        } catch (error) {
+            console.log(error);
+            return dispatch({
+                type: GET_DETAIL_ACOUNT_ADMIN,
+                payload: error.response.data.error
+            })
+        }
+    };
+};
 
 //-----------------------obtener el detail del USUARIO CON PROTECCION-----------------------------//
 
