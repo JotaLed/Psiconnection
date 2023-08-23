@@ -3,16 +3,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
+    
   }
   
   .registro-formUsu {
-    width: 100%; /* Cambio el ancho al 100% */
+    margin-top: 8%;
+    width: 60%; /* Cambio el ancho al 100% */
     max-width: 1200px; /* Agrego un ancho máximo */
-    background-color: #fff;
+    background-color: #F1F0EA;
     border-radius: 10px;
-    padding: 30px;
+    padding: 20px;
+    color: #5e5f5e;
+    font-size: 15px;
+    font-family: 'Quicksand', sans-serif;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
   
@@ -22,23 +25,55 @@
   .form-groupRegUsu {
     margin-bottom: 20px;
   }
-  
+ 
   .form-groupRegUsu label {
-    display: flex;
-    align-items: center;
+    display: block;
+    margin-bottom: 3px;
   }
-  
   .form-groupRegUsu label .bx {
     margin-right: 5px;
+    color: #706AD4;
   }
   .form-groupRegUsu select {
-    width: 40%; /* Puedes ajustar este valor según tus necesidades */
+    width: 42%; /* Puedes ajustar este valor según tus necesidades */
   }
-  /* Ajusta el ancho del campo de teléfono */
-.form-groupRegUsu input[type="tel"] {
-    width: 40%; /* Puedes ajustar este valor según tus necesidades */
+
+  .form-groupRegUsu input{
+    width: 250px;
+  }
+
+  .btnUsu {
+    display: block;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding: 10px 20px;
+    width: 150px; /* Cambia el valor del ancho según prefieras */
+    color: #ffffff;
+    background-color: #706AD4;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s; /* Agregamos una transición suave para el cambio de color */
   }
   
+  .btnUsu:hover {
+    background-color: #5c59b1; /* Cambia el color de fondo al pasar el mouse por encima */
+  }
   
+  .btnUsu:active {
+    background-color: #4b48a0; /* Cambia el color de fondo cuando se hace clic */
+  }
   
+  .link-back {
+    text-align: left; /* Centramos el enlace "Volver" */
+    margin-top: 8px; /* Agregamos un margen superior para separar del botón */
+  }
   
+  .form-title {
+    font-size: 30px;
+    font-family: 'Quicksand', sans-serif;
+   color:  #706AD4;
+    margin-bottom: 30px; /* Agrega espacio debajo del título */
+  }
+  
+ 
