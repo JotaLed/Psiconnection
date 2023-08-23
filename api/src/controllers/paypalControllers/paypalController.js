@@ -5,8 +5,10 @@ const { reservaCita } = require("../reservaController.js");
 const {
   PAYPAL_API,
   HOST,
+  BASE_URL_SERVER,
   PAYPAL_API_CLIENT,
   PAYPAL_API_SECRET,
+  URL_BASE_FRONT
 } = require("../../config.js");
 
 const cita = {};
@@ -56,7 +58,7 @@ const createOrder = async (req, res) => {
         // },
       ],
       application_context: {
-        brand_name: "mycompany.com",
+        brand_name: "Psiconnection.com",
         landing_page: "NO_PREFERENCE",
         user_action: "PAY_NOW",
         return_url: `${HOST}/pay/paymentCapture?data=${encodedObj}`,
