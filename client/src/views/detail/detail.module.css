@@ -171,10 +171,10 @@
     font-size: 30px;
     display: inline-block;
     width: 100%;
-    background-color: #706AD4;
+    background-color: #5E5F5E ;
     color: #fff;
     text-align: center;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 }
 
 .row1 {
