@@ -89,10 +89,17 @@ const ClientAccount = () => {
         navigate('/')
        
     }
+
+    const redirectError = () => {
+        navigate('/')
+        window.alert(client)
+    }
    
     return (
         <div className={styles.accountContainer}>
-
+            {
+                typeof client === "string" ? redirectError() : null
+            }
             <div className={styles.sidebar}>
                 <ProfileBar handleTabChange={handleTabChange} selectedTab={selectedTab} />
             </div>

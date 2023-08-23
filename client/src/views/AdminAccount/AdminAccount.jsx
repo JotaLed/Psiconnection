@@ -7,7 +7,7 @@ import Profesionales from '../../components/AdminComponents/Profesionales';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileInfo from '../Account/AccountComponents/ProfileInfo';
 import { useParams } from 'react-router-dom';
-import { getAllPsicologos, getDetailClient, getUsers, updateClient } from '../../Redux/actions';
+import { getAllPsicologos, getDetailClient, getUsers, updateClient, getDetailClientAdmin } from '../../Redux/actions';
 import BasicInfo from '../Account/AccountComponents/basicInfo';
 import Foto from '../Account/AccountComponents/foto';
 import Clientes from '../../components/AdminComponents/Clientes';
@@ -20,7 +20,7 @@ const AccountAdmin = () => {
 
     const dispatch = useDispatch()
 
-    const admin = useSelector((store) => store.cliente)
+    const admin = useSelector((store) => store.usuarioAcountAdmin)
 
     const [selectedTab, setSelectedTab] = useState('profile');
     const [isEditing, setIsEditing] = useState(false);
@@ -41,7 +41,8 @@ const AccountAdmin = () => {
     useEffect(() => {
         const aux = async () => {
             console.log(id)
-            await dispatch(getDetailClient(id))
+            // await dispatch(getDetailClient(id))
+            await dispatch(getDetailClientAdmin(id))
             await dispatch(getAllPsicologos())
             await dispatch(getUsers())
 
@@ -86,7 +87,8 @@ const AccountAdmin = () => {
             return;
         }
         await dispatch(updateClient(dateToUpdate));
-        await dispatch(getDetailClient(id));
+        // await dispatch(getDetailClient(id));
+        await dispatch(getDetailClientAdmin(id))
 
     }
 

@@ -28,11 +28,45 @@ const checkRollAuth = (roles) => async (req, res, next)  => {
                 res.status(409).json({Error:'No tienes permiso para esta funcionalidad'})
             }
         }
+
+        // if(usuario){
+        //     if([].concat(roles).includes(usuario.roll)){
+        //         next()
+        //     } else {
+        //         res.status(409).json({Error:'No tienes permiso para esta funcionalidad'})
+        //     }
+        // }
     } catch (error) {
         res.status(409).json({error:error.message})
     }
 }
 
 
+const checkAdmin = (roles) => async (req, res, next) => {
 
-module.exports = checkRollAuth;
+    try {
+        const token = req.headers.authorization.split(' ').pop(); //TODO: 23232323
+        const tokenData = await verifyToken(token);
+        // const psicologo = await Psicologo.findByPk(tokenData.id);
+        const usuario = await Usuario.findByPk(tokenData.id);
+        
+        //TODO: [''].includes('psicologo')
+        if(usuario){
+            if([].concat(roles).includes(usuario.roll)){
+                next()
+            } else {
+                res.status(409).json({Error:'No tienes permiso para esta funcionalidad'})
+            }
+        }
+    }
+    catch(error){
+        res.status(409).json({error:error.message})
+    }
+}
+
+
+
+module.exports = {
+    checkRollAuth,
+    checkAdmin
+};
