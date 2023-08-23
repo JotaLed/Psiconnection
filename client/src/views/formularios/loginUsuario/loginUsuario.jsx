@@ -42,7 +42,7 @@ const LoginUsuario = () => {
 
 
   const onSubmit = async (formData) => {
-    if (!formData.email || !formData.password) {
+    if (!formData.email || !formData.contraseña) {
       setErrorMessage("Todos los campos son requeridos");
       toast.error("Por favor completa todos los campos.");
       return;
