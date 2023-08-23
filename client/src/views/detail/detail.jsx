@@ -33,12 +33,12 @@ const Detail = () => {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
   //logica para las estrellas 
-  console.log(psicology.valoracion);
   const valores = psicology.valoracion || [];
   const suma = valores.reduce((acumulador, valor) => acumulador + valor, 0);
   const media = suma / valores.length;
-  const result = Math.floor(media)
-  console.log(psicology.valoracion);
+  const result = parseFloat(media.toFixed(1));
+  console.log("SUMA:"+suma+"MEDIA"+media+"RESULT"+result);
+
   
 
   return (
@@ -70,7 +70,7 @@ const Detail = () => {
             <h2 className={s.time}>Cuenta creada el {psicology.fecha_registro?.split("T")[0]}</h2>
             <span className={s.tarifa}>{`Tarifa: ${psicology.tarifa}$`}</span>
             <div className={s.contactar}>
-              {!psicology.valoracion?.length ? <div>4<FontAwesomeIcon icon={faStar}/></div>:<div>{`${result}.0`}<FontAwesomeIcon icon={faStar}/></div> }
+              {!psicology.valoracion?.length ? <div>4<FontAwesomeIcon icon={faStar}/></div>:<div>{`${result}`}<FontAwesomeIcon icon={faStar}/></div> }
             </div>
           </div>
         </div>
