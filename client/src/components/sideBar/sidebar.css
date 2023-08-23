@@ -30,12 +30,34 @@ body {
 }
 
 .navbar-container {
+
+  background-color: #fff;
+  position: relative;
+
   width: 100%;
   margin-top: -60px;
   margin-left: 60%;
   margin-bottom: 40px;
   display: flex;
   justify-content: space-between;
+<<<<<<<<< Temporary merge branch 1
+  align-items: center;
+}
+
+.navbar-logo {
+  height: 90px;
+  margin-top: 1%; 
+  margin-left: 30%;
+}
+.logoNameHome {
+  color: #5e5f5e;
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+  position: absolute;
+  margin-top: -60px; 
+  left: 8%;
+=========
+>>>>>>>>> Temporary merge branch 2
 }
 
 .nav-menu {
