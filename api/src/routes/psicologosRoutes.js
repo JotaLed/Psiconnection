@@ -19,6 +19,7 @@ const {
 const {
   registerHandler,
   getDetailHandler,
+  agregarValoracion,
   subirFoto,
   putHandler,
   deleteHandler,
@@ -35,6 +36,9 @@ psicologosRoutes.get("/", getPsicologosHandler);
 //TODO: ejemplo de midleware auth y permisos por roll
 // psicologosRoutes.get("/:id",checkAuth, checkRollAuth(['usuario']), getDetailHandler);
 psicologosRoutes.get("/:id", getDetailHandler);
+
+//actualizar la valoracion del psico
+psicologosRoutes.put("/:id", agregarValoracion);
 
 //Modificar información existente del psico
 psicologosRoutes.put("/update", putHandler);

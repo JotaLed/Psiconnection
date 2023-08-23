@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadCurrentUser } from "../../../Redux/actions";
 import axios from "axios";
 import LoginButtonAuth0 from "./LoginAuth0";
-import LogoutButtonAuth0 from "./LogoutAutho0";
 
 import "./loginUsuario.css";
 
@@ -87,21 +86,17 @@ const LoginUsuario = () => {
     <div className="containerLoginUsuario">
       <div className="login-formUsu">
         <h2>¡Bienvenido!</h2>
-        <h3>Regístrate con:</h3>
-
-        {/* //! Botón de inicio de sesión con Google */}
-        {console.log(isAuthenticated)}
-
-        {/* {isAuthenticated && <LogoutButtonAuth0 /> : <LoginButtonAuth0 />} */}
-        <LoginButtonAuth0 />
-        <h4>O</h4>
+        
+        <h4>ó registrate con tu correo: </h4>
         {/* Formulario de inicio de sesión local */}
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="login-formUsu">
             {errorMessage && <p className="error-message">{errorMessage}</p>}
-            <div className="form-groupUsu">
-              <label>
-                <i className="bx bxs-envelope"></i>
+           {/* //*EMAIL */}
+            <div className="form-groupLogUsu">
+            <label>
+                <i className="bx bxs-envelope"></i> Correo electrónico:
+              </label>
                 <Controller
                   name="email"
                   control={control}
@@ -111,45 +106,45 @@ const LoginUsuario = () => {
                     <input
                       {...field}
                       type="email"
-                      placeholder="example@gmail.com"
+                      placeholder="Ingresa tú correo electrónico"
                     />
                   )}
                 />
-              </label>
               {errors.email?.type === "pattern" && (
                 <p className="errores">Formato de email incorrecto</p>
               )}
 
-              <label>
-                <i className="bx bxs-lock-alt"></i>
-                <Controller
-                  name="password"
-                  control={control}
-                  defaultValue=""
-                  rules={{ validate: isValidPassword }}
-                  render={({ field }) => (
-                    <div className="password-input">
-                      <input
-                        {...field}
-                        type={showPassword ? "text" : "password"} // Cambio de tipo aquí
-                        placeholder="Contraseña"
-                      />
-
-                      <i
-                        className={`bx ${
-                          showPassword ? "bxs-hide" : "bxs-show"
-                        }`}
-                        onClick={() => setShowPassword(!showPassword)}
-                      ></i>
-                    </div>
-                  )}
+              {/*//* Contraseña */}
+        <div className="form-groupLogUsu">
+            <label>
+              <i className="bx bxs-lock-alt"></i> Contraseña:
+            </label>
+            <Controller
+              name="contraseña"
+              control={control}
+              defaultValue=""
+              rules={{ validate: isValidPassword }}
+              render={({ field }) => (
+            <div>
+              <input
+                {...field}
+                placeholder="Ingresa tú contraseña"
+                type={showPassword ? "text" : "password"} // Cambio de tipo aquí
+              />
+              <i
+                className={`bx ${showPassword ? "bxs-hide" : "bxs-show"
+                }`}
+                onClick={() => setShowPassword(!showPassword)}
+              ></i>
+            </div>
+                )}
                 />
-              </label>
               {errors.password && (
                 <p className="errores">
                   Debe tener más de 6 caracteres alfanuméricos
                 </p>
               )}
+            </div>
             </div>
             <button type="submit" className="btn btn-primary">
               Iniciar Sesión
@@ -161,6 +156,12 @@ const LoginUsuario = () => {
               <Link to="/registroUsuario" className="register-link-text">
                 Regístrate aquí
               </Link>
+            </div>
+            <div>
+            <h3>Ó regístrate con:{""}</h3>
+        {/* //! Botón de inicio de sesión con Google */}
+        {console.log(isAuthenticated)}
+        <LoginButtonAuth0 />
             </div>
             {/* //! Volver a la pagina de selección roll */}
             <div className="link-back">
