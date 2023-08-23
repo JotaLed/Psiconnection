@@ -86,7 +86,7 @@ export const searchByName = (apellido) => {
 export const updatePsic = (dataToUpdate) => {
     return async function () {
         console.log(dataToUpdate)
-        await axios.put("/psiconection/update", dataToUpdate)
+        await axios.put("/psiconection/update/psico", dataToUpdate)
             .then(response => console.log(response))
             .catch(error => console.log("Error en la solicitud PUT", error));
     }
@@ -125,7 +125,7 @@ export const getDetail = (id) => {
 
 export const updateClient = (dataToUpdate) => {
     return async function () {
-        await axios.put("/psiconection/updateuser", dataToUpdate)
+        await axios.put("/psiconection/update/user", dataToUpdate)
             .then(response => console.log(response))
             .catch(error => console.log("Error en la solicitud PUT", error));
     }
