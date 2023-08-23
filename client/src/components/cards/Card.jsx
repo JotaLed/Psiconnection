@@ -15,7 +15,7 @@ export default function Card(props) {
   const valores = props.valoracion || [];
   const suma = valores.reduce((acumulador, valor) => acumulador + valor, 0);
   const media = suma / valores.length;
-  const result = Math.floor(media)
+  const result = parseFloat(media.toFixed(1));
   
   
   return (
@@ -27,22 +27,22 @@ export default function Card(props) {
         </div>
         <ul className="list-group list-group-flush">
           {!props.valoracion.length || props.valoracion.length < 20 ? 
-          <li className="list-group-item">
+           <li className="list-group-item">
+           <span>
+            </span> Valoración:
+            
             <span>
-              Valoración: 
-            </span> 
-            <span>
-                4.0 
-            </span> 
-          <FontAwesomeIcon icon={faStar} />
-          </li>
+              </span> {`4.0`} 
+              
+             <FontAwesomeIcon icon={faStar} />
+           </li>
            : 
            <li className="list-group-item">
            <span>
             </span> Valoración:
             
             <span>
-              </span> {`${result}.0`} 
+              </span> {`${result}`} 
               
              <FontAwesomeIcon icon={faStar} />
            </li> }
