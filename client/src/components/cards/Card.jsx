@@ -26,9 +26,31 @@ export default function Card(props) {
           <h3 className="card-title">{capitalizeFirstLetter(props.nombre) +" " + capitalizeFirstLetter(props.apellido)}</h3>
         </div>
         <ul className="list-group list-group-flush">
-          {!props.valoracion.length ? <li className="list-group-item">Valoración: 4.0 <FontAwesomeIcon icon={faStar} /></li> : <li className="list-group-item">Valoración: {`${result}.0`} <FontAwesomeIcon icon={faStar} /></li> }
+          {!props.valoracion.length ? 
+          <li className="list-group-item">
+            <span>
+              Valoración: 
+            </span> 
+            <span>
+                4.0 
+            </span> 
+          <FontAwesomeIcon icon={faStar} />
+          </li>
+           : 
+           <li className="list-group-item">
+           <span>
+            </span> Valoración:
+            
+            <span>
+              </span> {`${result}.0`} 
+              
+             <FontAwesomeIcon icon={faStar} />
+           </li> }
           
-          <li className="list-group-item">Tarifa: ${props.tarifa}</li>
+          <li className="list-group-item">
+            <span className="item-label">Tarifa:</span>
+            <span>${props.tarifa} dólares por sesión.</span>
+          </li>
         </ul>
       </div>
     </Link>

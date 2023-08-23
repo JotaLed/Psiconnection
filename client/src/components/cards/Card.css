@@ -12,7 +12,7 @@
     /* Alinea el texto a la izquierda */
     overflow: hidden; /* Evita que el texto desborde del contenedor */
  justify-content: left;
- margin-left: -60px;
+ margin-left: 2px;
 }
 
 .cardT:hover {
@@ -21,11 +21,10 @@
 }
 
 .card-title {
-    padding-top: 10px;
+    padding-top: 8px;
     margin-bottom: 0;
-    font-size: 18px; 
+    font-size: 25px; 
     color: #706AD4;
-    overflow: hidden; 
     font-family:'Montserrat-Regular', sans-serif;
     font-weight:bold;
     
@@ -36,7 +35,7 @@ a {
     color: inherit; 
 }
 .list-group-item {
-    font-size: 1rem; 
+    font-size: 1.5rem; 
     color: #5e5f5e; 
     border: none;
     background-color: #F1F0EA ; 
@@ -46,6 +45,7 @@ a {
 
 .list-group-item span {
     font-weight:normal;
+    display: block; 
     
 }  
 .list-group-item .item-label {
