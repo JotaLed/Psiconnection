@@ -95,6 +95,11 @@ body {
   margin-right: 5px;
   color: #706AD4;
 }
+.conteiner_links a{
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 /* 
 .navbar {
   
@@ -117,11 +122,7 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.conteiner_links a{
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
+
 
 .navbar-logo_conteiner{
   position: relative;
@@ -170,6 +171,7 @@ body {
   display: flex;
   align-items: center;
   text-decoration: none;
+  color: #000000;
 
 }
 .aversiasi{
