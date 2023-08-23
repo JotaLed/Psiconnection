@@ -5,7 +5,7 @@ const verifySpecialties = require("./src/helpers/verifySpecialties.js");
 const { conn } = require("./src/db.js");
 const changePendingAppointments = require("./src/helpers/nodeCron.js");
 
-conn.sync({ force: false }).then(async () => {
+conn.sync({ force: true }).then(async () => {
   server.listen(PORT, () => {
     console.log("listening at port ", PORT);
   });

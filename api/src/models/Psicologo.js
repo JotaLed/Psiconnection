@@ -64,8 +64,8 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
       },
       valoracion: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        defaultValue: []
       },
       whatsapp_url: {
         type: DataTypes.STRING,

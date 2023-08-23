@@ -45,6 +45,19 @@ const getDetailController = async (id) => {
   return detail;
 };
 
+
+const añadirValoracion = async({id, rating}) => {
+  const psicoFind = await Psicologo.findByPk(id);
+    const newValoracion = [...psicoFind.valoracion, rating];
+    const valoracionActualizada = await Psicologo.update({valoracion: newValoracion},{
+        where:{
+            id: psicoFind.id
+        }
+    })
+    
+    return valoracionActualizada;
+};
+
 // controlador de registro para crear psicologo http://localhost:3001/psiconection/registerPsicologo --- Psicologo
 
 const createUsuarioPsicologo = async ({
@@ -268,6 +281,7 @@ const detailAcountPsicologo = async (id) => {
 module.exports = {
   createUsuarioPsicologo,
   getDetailController,
+  añadirValoracion,
   uploadFoto,
   putController,
   deleteController,
