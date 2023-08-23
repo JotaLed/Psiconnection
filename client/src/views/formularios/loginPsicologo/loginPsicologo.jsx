@@ -25,7 +25,7 @@ const LoginPsicologo = () => {
   };
 
   const onSubmit = async (formData) => {
-    if (!formData.email || !formData.password) {
+    if (!formData.email || !formData.contraseña) {
       setErrorMessage("Todos los campos son requeridos");
       return;
     }
@@ -40,7 +40,7 @@ const LoginPsicologo = () => {
 
         if (userRole !== "psicologo") {
           // si es dife a psico error y no realiza la redirección
-          window.alert("Por favor inicie sesión como psicologo");
+          window.alert("Por favor inicie sesión como usuario");
         } else {
           //! cambios
           // setToken(response.data.info.tokenSession);
@@ -85,11 +85,11 @@ const LoginPsicologo = () => {
             {errors.email?.type === "pattern" && (
               <p className="errores">Formato de email incorrecto</p>
             )}
-
+          <div className="form-groupPsico">
             <label>
               <i className="bx bxs-lock-alt"></i>
               <Controller
-                name="password"
+                name="contraseña"
                 control={control}
                 defaultValue=""
                 rules={{ validate: isValidPassword }}
@@ -109,6 +109,7 @@ const LoginPsicologo = () => {
                 )}
               />
             </label>
+            </div>
             {errors.password && (
               <p className="errores">
                 Debe tener más de 6 caracteres alfanuméricos

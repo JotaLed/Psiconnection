@@ -1,11 +1,68 @@
-.content {
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+.search-bar {
+  /* background-image: linear-gradient(rgba(253, 253, 253, 0.555), rgba(253, 253, 253, 0.555)), url('../../Images/Busqueda.jpg'); */
+ 
+  background-color: #F1F0EA;
+  /* background-size: cover; */
+  /* background-position: center; */
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  width: 100vw
+}
+
+.custom-inputBusqueda {
+  border: 2px solid #706AD4;
+  border-radius: 8px 0 0 8px;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  max-width: 30%; 
+  margin-left: 35%;
+}
+
+.custom-inputBusqueda::placeholder {
+  color: #5E5F5E;
+}
+
+.custom-buttonBusqueda {
+  background-color: #706AD4;
+  border: 2px solid #706AD4;
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  
+}
+
+.custom-buttonBusqueda:hover {
+  background-color: #BBBDEE;
+  color: #FFFFFF;
+}
+
+/* Estilos para el ícono de lupa */
+.bx-search {
+  font-size: 18px;
+  color: #FFFFFF; 
+}
+
+/* Efecto de resaltado en el campo de búsqueda al enfocar */
+.custom-inputBusqueda:focus {
+  border-color: #BBBDEE;
+}
+
+
+
+/* .content {
   position: relative;
   top: 50%;
     display: flex;
     justify-content: center;
-    /* margin-top: 20px;
-    top: 100px;
-    left:44%; */
+   
   }
   input[type='search'] {
     padding: 10px;
@@ -27,5 +84,5 @@
   }
   .submit:hover {
     background-color: #0056b3;
-  }
+  } */
   

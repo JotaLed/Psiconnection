@@ -12,19 +12,38 @@ export default function Home() {
   const dispatch = useDispatch();
   const ITEMS_PER_PAGE = 6;
   const piscologos = useSelector(state => state.psychologists);
+  const currentUser = useSelector(state => state.currentUser);
+
   const [currentPage, setCurrentPage] = useState(0);
 
   //Funciona para guardar el usuario actual
   const loadUserById = async (id, roll) => {
-    if (roll == "psicologo") {
+    console.log("Entra a la funcion de loadbyId");
+    const getToken = window.localStorage.getItem('authToken')
+    const tokenObject = JSON.parse(getToken);
+
+    if (roll === "psicologo") {
       const { data } = await axios.get(`psiconection/${id}`)
       console.log(data);
-      await dispatch(loadCurrentUser(data))
+      return dispatch(loadCurrentUser(data))
     }
-    else {
-      const { data } = await axios.get(`psiconection/usuario/acount/${id}`)
-      console.log(data);
-      await dispatch(loadCurrentUser(data.usuario))
+    if(roll === "usuario"){
+        console.log("Entra para usuario");
+        const { data } = await axios.get(`psiconection/usuario/acount/${id}`,{
+          headers: {
+            Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+          }
+        })
+        return dispatch(loadCurrentUser(data.usuario))
+      }
+    if(roll === "admin"){
+      const { data } = await axios.get(`psiconection/usuario/acount/admin/${id}`,{
+        headers: {
+          Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+        }
+      })
+      console.log('dataaaa', data)
+       return dispatch(loadCurrentUser(data.usuario))
     }
   }
 
@@ -39,10 +58,6 @@ export default function Home() {
         const decodedData = JSON.parse(window.atob(tokenData))
         console.log(decodedData);
         loadUserById(decodedData.id, decodedData.roll)
-
-
-
-
       }
 
       dispatch(setOrders("alf"))
@@ -71,18 +86,25 @@ export default function Home() {
   // Filtra las tarjetas a mostrar en la página actual
   const currentItems = piscologos.slice(firstIndex, lastIndex);
 
-
+  console.log(currentUser);
 
   return (
     <div className={style.home}>
-      <div className={style.col1}>
+      <div className={style.col1Home}>
         <Filters update={updateCurrentPage} />
       </div>
-      <div className={style.col2}>
-        <div className={style.search_conteiner}>
-          <SearchBar />
+      <div className={style.col2Home}>
+        <div className={style.search_conteinerHome}>
         </div>
-        <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems} cardsContainer={"si"} />
+        <div className={style.welcomeMessage}>
+                <p>Aquí podrás conectar con diferentes psicólogos, </p>
+                <p>mejorar tu salud mental y tu vida.</p>
+          <SearchBar />
+                <p>¡Comienza tu búsqueda ahora mismo!</p>
+            </div>
+            <CardsContainer items={currentItems} /> 
+        <Pagination currentPage={currentPage} nextHandler={nextHandler} 
+        prevHandler={prevHandler} items={currentItems} />
       </div>
 
     </div>

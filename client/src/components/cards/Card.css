@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+
+.card {
+    background-color: #F1F0EA; /* Cambia el color de fondo de la tarjeta */
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: left;
+    /* justify-content: space-between;  */
+    /* padding-top: 10px; */
+}
+.card-body{
+    /* Alinea el texto a la izquierda */
+    overflow: hidden; /* Evita que el texto desborde del contenedor */
+ justify-content: left;
+ margin-left: 2px;
+}
+
+.cardT:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+}
+
+.card-title {
+    padding-top: 8px;
+    margin-bottom: 0;
+    font-size: 25px; 
+    color: #706AD4;
+    font-family:'Montserrat-Regular', sans-serif;
+    font-weight:bold;
+    
+}
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+.list-group-item {
+    font-size: 1.5rem; 
+    color: #5e5f5e; 
+    border: none;
+    background-color: #F1F0EA ; 
+    font-family:'Montserrat-Regular', sans-serif;
+    font-weight:bold;
+}
+
+.list-group-item span {
+    font-weight:normal;
+    display: block; 
+    
+}  
+.list-group-item .item-label {
+    display: block; 
+    font-weight:bold;
+  }
+

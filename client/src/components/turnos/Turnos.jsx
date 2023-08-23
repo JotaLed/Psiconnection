@@ -182,8 +182,9 @@ export default function Turnos({ dias, horas }) {
   const handleCheckoutClick = async () => {
     if (tokenData === null) {
       window.location.href = `${
-        import.meta.env.VITE_URL_AXIOS_URL_BASE
+        import.meta.env.VITE_URL_AXIOS_URL_FRONT
       }/loginUsuario`;
+      // window.location.href = "http://localhost:5173/loginUsuario";
     }
     if (!newTurno.fecha || !newTurno.hora) {
       return null;
@@ -203,7 +204,10 @@ export default function Turnos({ dias, horas }) {
         reserva
       );
       // Paypal
-      const { data } = await axios.post(`/pay/paymentOrder`, reserva);
+      const { data } = await axios.post(
+        `/pay/paymentOrder`,
+        reserva
+      );
       // const link = response.data.body.init_point
       // window.open(link, '_blank');
       // window.location.href = link
@@ -255,11 +259,11 @@ export default function Turnos({ dias, horas }) {
           <div className="info_turno">
             <div className="view-appointment-date">
               <p className="dia">Dia selecionado: {selectTurno.fecha}</p>
-              <p className='hora'>Hora selecionada: {newTurno.hora}</p>
+              <p className="hora">Hora selecionada: {newTurno.hora}</p>
               <p className="precio">Costo de consulta: {psicology.tarifa}$</p>
             </div>
           </div>
-          <h3 className="horario">Selecione su horario:</h3>
+          <h3 className="horario">Horarios disponibles:</h3>
 
           <div className="horas_conteiner">
             {disponibilidad.horarios.map((hora, index) => {

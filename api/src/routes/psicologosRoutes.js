@@ -6,7 +6,7 @@ const {
   checkAuth, 
   verifyIdToken
 } = require('../middlewares/auth.js');
-const checkRollAuth = require('../middlewares/rollAuth.js');
+const { checkRollAuth } = require('../middlewares/rollAuth.js');
 
 
 //Controladores
@@ -19,6 +19,7 @@ const {
 const {
   registerHandler,
   getDetailHandler,
+  agregarValoracion,
   subirFoto,
   putHandler,
   deleteHandler,
@@ -36,6 +37,9 @@ psicologosRoutes.get("/", getPsicologosHandler);
 // psicologosRoutes.get("/:id",checkAuth, checkRollAuth(['usuario']), getDetailHandler);
 psicologosRoutes.get("/:id", getDetailHandler);
 
+//actualizar la valoracion del psico
+psicologosRoutes.put("/:id", agregarValoracion);
+
 //Modificar información existente del psico
 psicologosRoutes.put("/update", putHandler);
 
@@ -51,9 +55,9 @@ psicologosRoutes.put("/uploadFoto/:id", upload.single("foto"), subirFoto);
 
 // ruta tipo get obtener detalles de la cuenta ruta http://localhost:3001/psiconection/acount/"id del psicologo"
 //! con autentificacion
-// psicologosRoutes.get("/acount/:id",verifyIdToken, checkRollAuth(['psicologo']), getDetailAcount);
+psicologosRoutes.get("/acount/:id",verifyIdToken, checkRollAuth(['psicologo']), getDetailAcount);
 
 //! sin con autentificacion
-psicologosRoutes.get("/acount/:id", getDetailAcount);
+// psicologosRoutes.get("/acount/:id", getDetailAcount);
 
 module.exports = psicologosRoutes;

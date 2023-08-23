@@ -1,15 +1,13 @@
-/* 
-    #dce0e6
-    #606d80
-    #567ebb
-    #2b4c7e
-    #1f1f20
-*/
+/* #706AD4 
+#BBBDEE 
+#5E5F5E 
+#F1F0EA  */
+
 .detail_conteiner {
-    height: 100vh;
+    height: 100%;
     padding-top: 15vh;
-    background-color: #DCE0E6;
-    width: 100vw;
+    background-color: #F1F0EA;
+    width: 100%;
 }
 
 .detail {
@@ -25,7 +23,7 @@
     flex-direction: column;
     padding: 20px;
     background-color: #ffff;
-    min-width: 478px;
+    min-width: 520px;
     min-height: 90vh;
     height: fit-content;
     width: 40%;
@@ -50,16 +48,19 @@
     flex-direction: column;
     min-width: 222px;
     width: 50%;
-    color: #2b4c7e;
 
 }
 
 .name {
-    color: #2ab8fa;
     margin-top: 50px;
     margin-left: 30px;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-    font-size: 40px;
+    font-family: "Arial", sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #706AD4;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #706AD4;
 }
 
 .especialidades {
@@ -80,6 +81,14 @@
 
 }
 
+.tarifa {
+    margin-top: 20px;
+    margin-left: 30px;
+    font-size: 1.1rem;
+    color: #e91e63;
+    margin-top: 5px;
+}
+
 .time {
     margin-top: 15px;
     margin-left: 30px;
@@ -96,30 +105,32 @@
     display: flex;
     flex-direction: column;
     padding: 10px 20px;
-    background-color: #2b4c7e;
+    background-color: #706AD4;
     color: white;
     border-radius: 10px;
     cursor: pointer;
     position: relative;
 
     &:hover {
-        background-color: #456697;
+        background-color: #5652a1;
     }
 }
 
 .emoji {
-   margin-top: 0;
+    margin-top: 0;
 }
 
 
 
 .label {
+    font-family: "Arial", sans-serif;
     font-size: 28px;
     position: relative;
     left: 12px;
     color: black;
     font-weight: 650;
     margin-bottom: 2px;
+    text-decoration: wavy;
 }
 
 .info {
@@ -149,20 +160,21 @@
     background-color: #ffff;
     min-height: 400px;
     height: fit-content;
-    min-width: 350px;
+    min-width: 382px;
     width: 30vw;
     right: 15vw;
     border-radius: 20px;
 
 }
-.turno_conteiner h1{
+
+.turno_conteiner h1 {
     font-size: 30px;
     display: inline-block;
     width: 100%;
-    background-color: #2b4c7e;
+    background-color: #5E5F5E ;
     color: #fff;
     text-align: center;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 }
 
 .row1 {
@@ -178,4 +190,17 @@
 
 .row3 {
     margin-top: 10px;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    /* Ajusta el tamaño según tus necesidades */
+    font-size: 1.5rem;
+    color: #333;
+    /* Color del texto */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Fondo semitransparente */
 }

@@ -120,6 +120,17 @@ const RegistroUsuarioAuth0 = () => {
     }));
   };
 
+  const getImageFromUrl = async (url) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob(); // Obtiene la imagen como un objeto Blob
+      return blob; // Retorna el objeto Blob que contiene la imagen
+    } catch (error) {
+      console.error("Error al obtener la imagen:", error);
+      return null;
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -140,7 +151,9 @@ const RegistroUsuarioAuth0 = () => {
     setCargando(true);
 
     try {
-      const imageUrl = await uploadImageToCloudinary(form.foto); // Cargar imagen en Cloudinary
+      const imagenBlob = await getImageFromUrl(user.picture);
+      const imageUrl = await uploadImageToCloudinary(imagenBlob); // Cargar imagen en Cloudinary
+      console.log(imageUrl);
       const response = await axios.post("/psiconection/registerUsuario", {
         ...form,
         foto: imageUrl,
@@ -175,23 +188,27 @@ const RegistroUsuarioAuth0 = () => {
     });
   };
 
-  const uploadImageToCloudinary = async (imageUrl) => {
-    const response = await fetch(
-      "https://api.cloudinary.com/v1_1/dzphgeome/image/upload",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          file: imageUrl,
-          upload_preset: "images",
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  const uploadImageToCloudinary = async (blob) => {
+    const formData = new FormData();
+    formData.append("file", blob);
+    formData.append("upload_preset", "images");
 
-    const data = await response.json();
-    return data.secure_url;
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dzphgeome/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const responseData = await response.json();
+      console.log(responseData);
+      return responseData.secure_url;
+    } catch (error) {
+      console.error("Error al subir la imagen a Cloudinary:", error);
+      return null;
+    }
   };
 
   return (
