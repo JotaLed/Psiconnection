@@ -49,13 +49,13 @@ export default function Sidebar() {
         </NavLink>
         <ul className="nav-menu">
           <li className="nav-item">
-            <NavLink  to="/home" activeClassName="active" className="nav-link">
+            <NavLink  to="/home" activeclassname="active" className="nav-link">
             <i className='bx bx-home nav-icon'></i>
               HOME
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink  to="/nosotros" activeClassName="active" className="nav-link">
+            <NavLink  to="/nosotros" activeclassname="active" className="nav-link">
             <i className='bx bxs-group nav-icon'></i>
               ABOUT US
               </NavLink>
@@ -63,15 +63,15 @@ export default function Sidebar() {
           {
             !tokenId ? (
               <li className="nav-item">
-                <NavLink  to="/form" activeClassName="active" className="nav-link">
+                <NavLink  to="/form" activeclassname="active" className="nav-link">
                 <i className='bx bx-user nav-icon'></i>
                   SING UP
                   </NavLink>
               </li>
             ) : (
-              <NavLink className="nav-item-perfil" to={tokenRoll === "usuario" ? `/account/client/${tokenId}` : tokenRoll === "admin" ? "/account/admin/" : `/account/${tokenId}`}>
-  {currentUser && currentUser.foto ? <img className="foto_perfil" src={currentUser.foto} alt="" /> : "Perfil"}
-</NavLink>
+              <NavLink className="nav-item-perfil" to={tokenRoll === "usuario" ? `/account/client/${tokenId}` : tokenRoll === "admin" ? `/account/admin/${tokenId}` : `/account/${tokenId}`}>
+                {currentUser && currentUser.foto ? <div className="conteiner_foto-perfil"><img className="foto_perfil" src={currentUser.foto} alt="" /><i className="nav-icon">{currentUser.nombre.toUpperCase()}</i></div> : "Perfil"}
+              </NavLink>
 
             )
           }
