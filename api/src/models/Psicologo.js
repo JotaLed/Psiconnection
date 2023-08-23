@@ -78,6 +78,14 @@ module.exports = (sequelize) => {
       foto: {
         type: DataTypes.STRING,
         allowNull: true,
+        defaultValue:"https://res.cloudinary.com/dwer6yvud/image/upload/v1691860142/png-transparent-computer-icons-user-profile-google-account-s-icon-account-miscellaneous-sphere-silhouette-thumbnail_pqrou8.png",
+        validate: {
+          checkDefault(value) {
+              if (value === "") {
+                  this.foto = this.foto.defaultValue
+              }
+          },
+      }
       },
       descripcion: {
         type: DataTypes.TEXT,
