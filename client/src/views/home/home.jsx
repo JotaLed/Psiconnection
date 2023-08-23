@@ -12,10 +12,13 @@ export default function Home() {
   const dispatch = useDispatch();
   const ITEMS_PER_PAGE = 6;
   const piscologos = useSelector(state => state.psychologists);
+  const currentUser = useSelector(state => state.currentUser);
+
   const [currentPage, setCurrentPage] = useState(0);
 
   //Funciona para guardar el usuario actual
   const loadUserById = async (id, roll) => {
+    console.log("Entra a la funcion de loadbyId");
     const getToken = window.localStorage.getItem('authToken')
     const tokenObject = JSON.parse(getToken);
 

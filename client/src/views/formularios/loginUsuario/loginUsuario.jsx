@@ -43,7 +43,7 @@ const LoginUsuario = () => {
   //const authToken = localStorage.getItem('authToken');
 
   const onSubmit = async (formData) => {
-    if (!formData.email || !formData.password) {
+    if (!formData.email || !formData.contraseña) {
       setErrorMessage("Todos los campos son requeridos");
       return;
     }
@@ -58,7 +58,7 @@ const LoginUsuario = () => {
 
         if (userRole === "psicologo") {
           // Si el rol es diferente psicologo, muestra un mensaje y no realiza la redirección
-          window.alert("Por favor inicie sesión como usuario");
+          window.alert("Por favor inicie sesión como psicologo");
         } else {
           //! cambios
           //cargamos el estado de usuario actiual
