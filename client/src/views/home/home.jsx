@@ -18,18 +18,28 @@ export default function Home() {
   const loadUserById = async (id, roll) => {
     const getToken = window.localStorage.getItem('authToken')
     const tokenObject = JSON.parse(getToken);
-    if (roll == "psicologo") {
+
+    if (roll === "psicologo") {
       const { data } = await axios.get(`psiconection/${id}`)
       console.log(data);
-      await dispatch(loadCurrentUser(data))
+      return dispatch(loadCurrentUser(data))
     }
-    else {
-      const { data } = await axios.get(`psiconection/usuario/acount/${id}`,{headers: {
+    if(roll === "usuario"){
+        const { data } = await axios.get(`psiconection/usuario/acount/${id}`,{
+          headers: {
+            Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+          }
+        })
+        return dispatch(loadCurrentUser(data.usuario))
+      }
+    if(roll === "admin"){
+      const { data } = await axios.get(`psiconection/usuario/acount/admin/${id}`,{
+        headers: {
           Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
         }
       })
-      console.log('dataaaaa',data);
-      await dispatch(loadCurrentUser(data.usuario))
+      console.log('dataaaa', data)
+       return dispatch(loadCurrentUser(data.usuario))
     }
   }
 
