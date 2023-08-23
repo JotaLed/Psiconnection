@@ -135,7 +135,7 @@ const htmlReservaInfo = async ({newReserva, psicologo, usuario}) => {
                     <td class="es-m-p0r" valign="top" align="center" style="padding:0;Margin:0;width:125px">
                      <table width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                        <tr>
-                        <td class="es-infoblock" align="center" style="padding:0;Margin:0;line-height:0px;font-size:0px;color:#CCCCCC"><img class="adapt-img" src="https://res.cloudinary.com/dwer6yvud/image/upload/v1691860142/png-transparent-computer-icons-user-profile-google-account-s-icon-account-miscellaneous-sphere-silhouette-thumbnail_pqrou8.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="125" title height="125"></td>
+                        <td class="es-infoblock" align="center" style="padding:0;Margin:0;line-height:0px;font-size:0px;color:#CCCCCC"><img class="adapt-img" src=${psicologo.foto} alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="125" title height="125"></td>
                        </tr>
                      </table></td>
                    </tr>
@@ -167,7 +167,7 @@ const htmlReservaInfo = async ({newReserva, psicologo, usuario}) => {
                     <td class="es-m-p0r" valign="top" align="center" style="padding:0;Margin:0;width:125px">
                      <table width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                        <tr>
-                        <td class="es-infoblock" align="center" style="padding:0;Margin:0;line-height:0px;font-size:0px;color:#CCCCCC"><img class="adapt-img" src="https://res.cloudinary.com/dwer6yvud/image/upload/v1691860142/png-transparent-computer-icons-user-profile-google-account-s-icon-account-miscellaneous-sphere-silhouette-thumbnail_pqrou8.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="125" title height="125"></td>
+                        <td class="es-infoblock" align="center" style="padding:0;Margin:0;line-height:0px;font-size:0px;color:#CCCCCC"><img class="adapt-img" src=${ usuario.foto? usuario.foto : "https://res.cloudinary.com/dwer6yvud/image/upload/v1691860142/png-transparent-computer-icons-user-profile-google-account-s-icon-account-miscellaneous-sphere-silhouette-thumbnail_pqrou8.png"} alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="125" title height="125"></td>
                        </tr>
                      </table></td>
                    </tr>
@@ -333,7 +333,7 @@ a[x-apple-data-detectors] {
                       <td style="padding:0;Margin:0">
                        <table cellpadding="0" cellspacing="0" width="100%" class="es-menu" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                          <tr class="links">
-                          <td align="center" valign="top" width="100%" style="Margin:0;padding-left:5px;padding-right:5px;padding-top:10px;padding-bottom:10px;border:0"><p target="_blank" style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'trebuchet ms', 'lucida grande', 'lucida sans unicode', 'lucida sans', tahoma, sans-serif;line-height:21px;color:#666666;font-size:14px;font-weight:normal">Home</p></td>
+                          <td align="center" valign="top" width="100%" style="Margin:0;padding-left:5px;padding-right:5px;padding-top:10px;padding-bottom:10px;border:0"><p target=${'AQUI IRIA EL LINK DE HOME'} style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'trebuchet ms', 'lucida grande', 'lucida sans unicode', 'lucida sans', tahoma, sans-serif;line-height:21px;color:#666666;font-size:14px;font-weight:normal">Home</p></td>
                          </tr>
                        </table></td>
                      </tr>

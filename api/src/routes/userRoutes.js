@@ -6,6 +6,7 @@ const {
   deleteHandler,
   getDetailAcount,
   getHandler,
+  getDetailAcountAdmin
 } = require("../handlers/userHandlers.js");
 const upload = require("../utils/upload.js");
 
@@ -13,7 +14,7 @@ const userRoutes = Router();
 
 //midlewares //TODO: AUTHENTICATOR
 const { checkAuth, verifyIdToken } = require("../middlewares/auth.js");
-const checkRollAuth = require("../middlewares/rollAuth.js");
+const { checkRollAuth, checkAdmin } = require('../middlewares/rollAuth.js')
 
 //ruta tipo post http://localhost:3001/psiconection/registerUsuario  --- Usuario
 userRoutes.post("/registerUsuario", userCreateHandler);
@@ -25,14 +26,19 @@ userRoutes.put("/uploadFotoUser/:id", upload.single("foto"), subirFotoUser);
 userRoutes.put("/updateuser", putHandler);
 
 //Eliminar user (cambia el estado)
-userRoutes.delete("/delete", deleteHandler);
+userRoutes.delete("/delete/user", deleteHandler);
 
 // ruta tipo get sin auth http://localhost:3001/psiconection/usuario/acount/id
-userRoutes.get("/usuario/acount/:id", getDetailAcount);
+// userRoutes.get("/usuario/acount/:id", getDetailAcount);
 
 userRoutes.get("/get/users", getHandler);
+
 //! con autentificacion
-// userRoutes.get("/usuario/acount/:id",verifyIdToken, checkRollAuth(['usuario']), getDetailAcount);
+userRoutes.get("/usuario/acount/:id",verifyIdToken, checkRollAuth(['usuario']), getDetailAcount);
+
+
+//! con autenticacion admin 
+userRoutes.get("/usuario/acount/admin/:id",verifyIdToken, checkAdmin(['admin']), getDetailAcountAdmin)
 
 // ruta tipo get obtener todas
 userRoutes.get("/usuarios/all", (req, res) => {

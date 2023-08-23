@@ -1,37 +1,72 @@
-/* cardsContainer */
-body {
-    background-color: #dce0e6; /* Color de fondo deseado para toda la página */
-    margin: 0; /* Eliminamos el margen predeterminado del body */
-    width: 100vw;
-  }
 /* 
-  .container-principal {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: flex-end; 
-    padding-top: 20%;
-    padding-right: 20px; 
-    overflow-y: auto; 
-    position: relative; 
-  }
-  .wrapper {
-    position: absolute; 
-    top: 30%;
-    left: 50%;
-    transform: translateX(-40%);
-    z-index: 1; 
-  }
-   */
+body {
+    background-color: #ffffff; 
+    margin: 0; 
+    width: 100vw;
+}
   .container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Centrar las tarjetas horizontalmente */
+    justify-content: center; 
     gap: 20px;
-    /* min-width: 900px; */
-    max-width: 900px; /* Ancho máximo del contenedor */
-    padding: 50px 20px; /* Ajustar los paddings superior e inferior según sea necesario */
+    max-width: 900px; 
+    padding: 60px 20px; 
     height: 145vh;
   }
   
+  .loader {
+    position: absolute;
+    top: 50%;
+    left: 53%;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 3px solid;
+    border-color: #FFF #FFF transparent transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+    .loader::after,
+    .loader::before {
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid;
+    border-color: transparent transparent #4763ff #4763ff;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotationBack 0.5s linear infinite;
+    transform-origin: center center;
+    }
+    .loader::before {
+    width: 32px;
+    height: 32px;
+    border-color: #FFF #FFF transparent transparent;
+    animation: rotation 1.5s linear infinite;
+    }
+      
+    @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+    } 
+    @keyframes rotationBack {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+    }
+     */

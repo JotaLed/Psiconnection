@@ -1,0 +1,45 @@
+/* 
+    #dce0e6
+    #606d80
+    #567ebb
+    #2b4c7e
+    #1f1f20
+*/
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+
+.landing {
+    background-color: #ffffff;
+}
+
+.col2 img {
+    height: 100px;
+    margin-top: 1%; 
+    margin-left: 1%;
+}
+
+.logoName {
+    color: #5e5f5e;
+    margin-top: 1%;
+    font-size: 25px;
+    font-family: 'Quicksand', sans-serif;
+    position: absolute;
+    top: 6%; 
+    left: 8%; 
+}
+
+.button{
+    position: absolute;
+    top: 90%;
+    left: 20%;
+}
+.button2{
+    border-radius: 20px;
+    padding: 5%;
+    width: 110%;
+    color: #ffffff;
+    background-color: #706AD4;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+

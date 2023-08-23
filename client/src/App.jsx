@@ -3,6 +3,7 @@ import viteLogo from "/vite.svg";
 import Home from "./views/home/home";
 import Account from "./views/Account/Account";
 import SideBar from "./components/sideBar/sideBar";
+import "./fonts.css"
 
 import Success from "./components/success/Success";
 
@@ -11,12 +12,15 @@ import RegistroUsuarioAuth0 from "./views/formularios/registroUsuarioAuth0/Regis
 import "./App.css";
 import axios from "axios";
 
-// axios.defaults.baseURL = "https://psiconnection-production.up.railway.app/";
-axios.defaults.baseURL = "http://localhost:3001/";
+axios.defaults.baseURL = import.meta.env.VITE_URL_AXIOS_URL_BASE;
 
 //Hooks:
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+
+// Paypal 
+
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 //imports generales::
 
@@ -27,19 +31,22 @@ import Detail from "./views/detail/detail";
 import Nosotros from "./views/nosotros/nosotros";
 import ClientAccount from "./views/Account/ClientAccount";
 import FormularioGeneral from "./views/formularios/FormularioGeneral";
+import Dashboard from "./views/Dashboard";
 
 //importmos components:
 import LoginUsuario from "./views/formularios/loginUsuario/loginUsuario"; // Asegúrate de usar mayúsculas en las letras iniciales/
 import LoginPsicologo from "./views/formularios/loginPsicologo/loginPsicologo";
-
+import Failure from "./views/paymentFailure/failure";
 import RegistroUsuario from "./views/formularios/registroUsuario/registroUsuarios";
 import RegistroPsicologo from "./views/formularios/registroPsicologo/registoPsicologos";
+import AccountAdmin from "./views/AdminAccount/AdminAccount";
 
 //comentario
 function App() {
   const { pathname } = useLocation();
 
   return (
+    <PayPalScriptProvider options={{ "clientId":"AfeucC6LwLkek1cqd6c57o75Ay2VvQKOF01r1TSP42Tf2hFsYhvflmr5ay7J4XU-m8C56JVfJ-dyQci-"}}>
     <div>
       {pathname !== "/" && <SideBar />}
       <Routes>
@@ -60,12 +67,17 @@ function App() {
         <Route path="/detail/:detailID" element={<Detail />} />
 
         <Route path="/success" element={<Success />} />
-        
-        
+
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account/client/:id" element={<ClientAccount />} />
+
+        <Route path="/account/admin/:id" element={<AccountAdmin/>}/>
+
+        <Route path="/payment/state/failure" element={<Failure />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
+   </PayPalScriptProvider>
   );
 }
 export default App;

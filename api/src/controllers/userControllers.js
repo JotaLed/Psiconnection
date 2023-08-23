@@ -12,6 +12,8 @@ const createUserController = async ({
   contraseña,
   telefono,
   fecha,
+  roll,
+  foto
 }) => {
   const passwordHash = await encrypt(contraseña);
 
@@ -44,6 +46,8 @@ const createUserController = async ({
     contraseña: passwordHash,
     telefono,
     fecha_registro: fecha,
+    roll,
+    foto
   });
   return newUser;
 };
@@ -63,7 +67,7 @@ const uploadUserPhoto = async ({ id, fotoUserURL }) => {
 
 const getUserController = async () => {
   const users = await Usuario.findAll();
-  return [users];
+  return users;
 };
 
 // Controlador para actualizar datos de un user
@@ -93,9 +97,10 @@ const putController = async (req, res) => {
       "fecha_registro",
       "estado_cuenta",
       "roll",
+      "estado_cuenta",
     ];
 
-    const notAllowedProperties = ["estado_cuenta", "fecha_registro", "roll"];
+    const notAllowedProperties = ["fecha_registro", "roll"];
 
     for (const property in dataToUpdate) {
       if (allowedProperties.includes(property)) {

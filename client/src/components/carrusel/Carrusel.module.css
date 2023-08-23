@@ -1,35 +1,46 @@
-/* 
+/* Carrusel.module.css */
+
+.customImage {
+    max-width: 80%; /* Ajusta el ancho máximo según tu preferencia */
+    height: auto; /* Ajusta la altura automáticamente */
+    margin: 0 auto; /* Centra horizontalmente las imágenes */
+    margin-top: -5%;
+}
+
+/* Cambia el color de los indicadores de siguiente imagen */
+.carousel-control-next-icon {
+    background-color: black; /* Cambia 'your-color' al color deseado */
+}
+
+/* /*
     #dce0e6
     #606d80
     #567ebb
     #2b4c7e
     #1f1f20
 */
-.carrusel{
+/* .carrusel{
     position: relative;
     display: flex;
     flex-direction: column ;
-    justify-content: end;
-    width: 95%;
-    height: 60vh;
-    max-width: 120em;
-    border-radius: 10px;
-    background-color: #dce0e6;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),  4px 6px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
+    /* justify-content: end; */
+    /* margin-top: -8%; */
+    /* width: 100%; */
+    /* max-width: 120em; */
+    /* border-radius: 10px; */
+    /* background-color: #dce0e6; */
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),  4px 6px rgba(0, 0, 0, 0.08); */
+    /* overflow: hidden;
 }
-.image_conteiner{
-    background-color: #1a1a1a;
-    height: 85%;
-    width: 300%;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    transition: all .5s ease;
-    transform: translate(0%);
+.image_conteiner{ */
+     /* background-color: #ffffff;  */
+    /* height: 40%; */
+    /* width: 300%;
+    padding-left: 10%;
+    padding-right: 20%;
 
-}
-.back{
+} */
+/* .back{
     font-size: 70px;
     position: absolute;
     top: 237px;
@@ -49,19 +60,17 @@
     z-index: 500;
 
 
-}
-.image_conteiner img{
-    height: 100%;
-    width: calc(100% / 3);
-    background-color: green;
-    border-radius: 10px;
-}
-.puntos{
+} */
+/* .image_conteiner img{
+    height: 50%;
+    width: calc(100% / 3); */
+    /* background-color: green; */
+    /* border-radius: 10px;} */
+/* .puntos{
     display: flex;
     justify-content: center;
     width: 100%;
-    background-color: #dce0e6;
-    padding: 1em;
+    background-color: #ffffff;
     border-radius: 10px;
     box-shadow: #fcfcfc;
 }
@@ -73,14 +82,17 @@
     border-radius: 100%;
     cursor: pointer;
 
-}
-.puntoSelect{
+} */
+/* .puntoSelect{
     width: 1em;
     height: 1em;
     background-color: #1f1f20;
     margin-left: 20px;
     border-radius: 100%;
 }
-li :hover{
-    background-color: none;
+li{
+    list-style: none ;
 }
+li :hover{
+    background-color: transparent;
+}  */ 

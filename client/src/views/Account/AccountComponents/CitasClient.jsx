@@ -17,7 +17,7 @@ const CitasClient = ({client}) => {
     return (
         <div>
             <h2>Mis Citas</h2><br></br>
-            {client.citas?  <Table striped bordered hover>
+            {client.citas?.length > 0 ?  <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Cita</th>

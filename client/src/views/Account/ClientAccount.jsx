@@ -7,7 +7,6 @@ import { Card, Nav, Button, Form } from 'react-bootstrap';
 import {updateClient, getDetailClient } from '../../Redux/actions';
 import BasicInfo from './AccountComponents/basicInfo';
 import Foto from './AccountComponents/foto';
-import Paises from './AccountComponents/Paises';
 import ProfileInfo from './AccountComponents/ProfileInfo';
 import CitasPsic from './AccountComponents/CitasPsic';
 import CitasClient from "./AccountComponents/CitasClient";
@@ -37,8 +36,6 @@ const ClientAccount = () => {
             await dispatch(getDetailClient(id))
             setIsLoading(false);
             // setImagen(client.usuario.foto)
-
-
         }
         aux()
         
@@ -92,10 +89,17 @@ const ClientAccount = () => {
         navigate('/')
        
     }
+
+    const redirectError = () => {
+        navigate('/')
+        window.alert(client)
+    }
    
     return (
         <div className={styles.accountContainer}>
-
+            {
+                typeof client === "string" ? redirectError() : null
+            }
             <div className={styles.sidebar}>
                 <ProfileBar handleTabChange={handleTabChange} selectedTab={selectedTab} />
             </div>
@@ -110,7 +114,7 @@ const ClientAccount = () => {
                                     </Button>
                                 )}
 
-                                <div>
+                                <div className={styles.prueba}>
                                     {isEditing ? (<>
                                         <h1 className={styles.title}>
                                             Editar Perfil
@@ -119,7 +123,6 @@ const ClientAccount = () => {
                                             <div className={styles.propiedades}>
                                                 <BasicInfo handleChange={handleChange} client={client.usuario} />
                                                 <Foto handleChange={handleChange} imagen={client.usuario.foto} />
-                                                <Paises handleChange={handleChange}  pais={client.usuario.pais} />
 
                                             </div>
                                             <Button variant="outline-primary" type="submit">

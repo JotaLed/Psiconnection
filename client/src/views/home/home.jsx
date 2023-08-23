@@ -6,7 +6,7 @@ import CardsContainer from '../../components/CardsContainer/CardsContainer';
 import SearchBar from '../../components/searchBar/searchBar'
 import { getPsicologos, loadCurrentUser, setOrders } from '../../Redux/actions';
 import axios from 'axios';
-//importamos estilo 
+//importamos estilo
 import style from "../home/home.module.css"
 export default function Home() {
   const dispatch = useDispatch();
@@ -15,10 +15,32 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(0);
 
   //Funciona para guardar el usuario actual
-  const loadUserById = async(id)=>{
-    const {data} = await axios.get(`psiconection/usuario/acount/${id}`)
-    await dispatch(loadCurrentUser(data.usuario))
-    console.log(data.usuario);
+  const loadUserById = async (id, roll) => {
+    const getToken = window.localStorage.getItem('authToken')
+    const tokenObject = JSON.parse(getToken);
+
+    if (roll === "psicologo") {
+      const { data } = await axios.get(`psiconection/${id}`)
+      console.log(data);
+      return dispatch(loadCurrentUser(data))
+    }
+    if(roll === "usuario"){
+        const { data } = await axios.get(`psiconection/usuario/acount/${id}`,{
+          headers: {
+            Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+          }
+        })
+        return dispatch(loadCurrentUser(data.usuario))
+      }
+    if(roll === "admin"){
+      const { data } = await axios.get(`psiconection/usuario/acount/admin/${id}`,{
+        headers: {
+          Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+        }
+      })
+      console.log('dataaaa', data)
+       return dispatch(loadCurrentUser(data.usuario))
+    }
   }
 
   useEffect(() => {
@@ -26,15 +48,12 @@ export default function Home() {
       if (piscologos.length === 0) {
         await dispatch(getPsicologos())
       }
-      if(window.localStorage.getItem('authToken') !== null){
+      if (window.localStorage.getItem('authToken') !== null) {
         const tokenData = window.localStorage.getItem('authToken').split('.').at(1)
-        console.log("Token del home: "+tokenData);
+        console.log("Token del home: " + tokenData);
         const decodedData = JSON.parse(window.atob(tokenData))
-        loadUserById(decodedData.id)
-        
-        
-        
-
+        console.log(decodedData);
+        loadUserById(decodedData.id, decodedData.roll)
       }
 
       dispatch(setOrders("alf"))
@@ -67,14 +86,21 @@ export default function Home() {
 
   return (
     <div className={style.home}>
-      <div className={style.col1}>
+      <div className={style.col1Home}>
         <Filters update={updateCurrentPage} />
       </div>
-      <div className={style.col2}>
-        <div className={style.search_conteiner}>
-          <SearchBar />
+      <div className={style.col2Home}>
+        <div className={style.search_conteinerHome}>
         </div>
-        <Pagination currentPage={currentPage} nextHandler={nextHandler} prevHandler={prevHandler} items={currentItems} />
+        <div className={style.welcomeMessage}>
+                <p>Aquí podrás conectar con diferentes psicólogos, </p>
+                <p>mejorar tu salud mental y tu vida.</p>
+          <SearchBar />
+                <p>¡Comienza tu búsqueda ahora mismo!</p>
+            </div>
+            <CardsContainer items={currentItems} /> 
+        <Pagination currentPage={currentPage} nextHandler={nextHandler} 
+        prevHandler={prevHandler} items={currentItems} />
       </div>
 
     </div>

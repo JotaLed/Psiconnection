@@ -8,6 +8,14 @@ const generos = [
     "Otro"
 ];
 
+const paises = [
+    "Argentina",
+    "Colombia",
+    "México",
+    "Venezuela"
+]
+
+
 const handleKeyPress = (event) => {
     const keyCode = event.keyCode;
     if (keyCode === 45 && event.target.name === "tarifa") {
@@ -112,6 +120,20 @@ const BasicInfo = ({ handleChange, psicology, client }) => {
                     onKeyDown={handleKeyDown}
                 />
             </Form.Group>
+            <Form.Group>
+            <Form.Label className={styles.prop}>País:</Form.Label>
+            <Form.Select
+                name="pais"
+                onChange={handleChange}
+                defaultValue={psicology?.pais || client.pais}
+            >
+                {paises.map(opcion => (
+                    <option key={opcion} value={opcion}>
+                        {opcion}
+                    </option>
+                ))}
+            </Form.Select>
+        </Form.Group>
         </>
     );
 };

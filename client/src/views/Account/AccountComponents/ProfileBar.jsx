@@ -33,6 +33,7 @@ const ProfileBar = ({ handleTabChange, selectedTab }) => {
             <Nav.Link onClick={logout} to="/form" className={styles.customNavLink}>
                 Cerrar Sesión
             </Nav.Link>
+
         </Nav>
     )
 }

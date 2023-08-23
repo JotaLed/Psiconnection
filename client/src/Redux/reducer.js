@@ -1,8 +1,10 @@
-import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL, SEARCH_APELLIDO, GET_SPECIALITIES, GET_DETAIL, GET_DETAIL_CLIENT, GET_APPOINTMENTS, LOAD_CURRENT_USER } from "./actions";
+import { SET_FILTER, SET_ORDERS, GET_PSICOLOGOS, LOAD_DETAIL, SEARCH_APELLIDO, GET_SPECIALITIES, GET_DETAIL, GET_DETAIL_CLIENT, GET_APPOINTMENTS, LOAD_CURRENT_USER, GET_USERS, GET_ALL_PSICOLOGOS, GET_DETAIL_ACOUNT_PSICOLOGO, GET_DETAIL_ACOUNT_ADMIN } from "./actions";
 import store from "./store";
 const initialstate = {
   //Todos los psicologos
   allPshychologists: [],
+  //todos los usuarios
+  allUsers:[],
   //Psicolos que se renderizan
   psicoloDetail: {},
   psychologists: [],
@@ -11,7 +13,10 @@ const initialstate = {
   psicologo: {},
   cliente: [],
   appointments: [],
-  currentUser: {}
+  currentUser: {},
+  adminPsicologos: [],
+  psicologoDetailAcount:{},
+  usuarioAcountAdmin: {}
 }
 
 const rootReducer = (state = initialstate, action) => {
@@ -122,16 +127,25 @@ const rootReducer = (state = initialstate, action) => {
       return { ...state, psicoloDetail: action.payload }
 
     case GET_PSICOLOGOS:
-      const psicologos = action.payload;
-      const activos = psicologos.filter((psicologo) => psicologo.estado_cuenta.toLowerCase() === "activo")
-      console.log(activos)
-      return { ...state, psychologists: activos, allPshychologists: activos }
+        const psicologos = action.payload;
+        const activos = psicologos.filter((psicologo) => psicologo.estado_cuenta.toLowerCase() === "activo")
+        if(activos.length === 0){
+          alert('no hay psicos')
+        }
+        return { ...state, psychologists: activos, allPshychologists: activos }
+    
+    case GET_USERS:
+        const users = action.payload;
+        const noAdmins = users.filter((user) => user.roll.toLowerCase() === "usuario")
+
+        return { ...state, allUsers: noAdmins}  
+    
 
     case SEARCH_APELLIDO:
-
+      const activo = action.payload?.filter((element) => element.estado_cuenta.toLowerCase() === "activo")
       return {
         ...state,
-        psychologists: action.payload,
+        psychologists: activo,
       };
 
     case GET_SPECIALITIES:
@@ -160,7 +174,22 @@ const rootReducer = (state = initialstate, action) => {
       return {
         ...state, currentUser: action.payload
       }
+    
+    case GET_ALL_PSICOLOGOS:
+      return{
+        ...state, adminPsicologos: action.payload
+      }
 
+    case GET_DETAIL_ACOUNT_PSICOLOGO: 
+    return {
+      ...state, psicologoDetailAcount: action.payload
+    }
+
+    case GET_DETAIL_ACOUNT_ADMIN: 
+    return {
+      ...state, usuarioAcountAdmin: action.payload
+    }
+    
     default: return state
   }
 

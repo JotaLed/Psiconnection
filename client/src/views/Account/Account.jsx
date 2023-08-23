@@ -2,16 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Card, Nav, Button, Form } from 'react-bootstrap';
 import styles from './Account.module.css';
 import { useSelector, useDispatch } from "react-redux"
-import { loadDetail, updatePsic, getSpecialities } from '../../Redux/actions';
+import { loadDetail, updatePsic, getSpecialities, getDetailAuthPsicologo } from '../../Redux/actions';
 import { useParams, useNavigate } from "react-router-dom";
 import Description from './AccountComponents/description';
 import BasicInfo from './AccountComponents/basicInfo';
 import Foto from './AccountComponents/foto';
-import Paises from './AccountComponents/Paises';
-import Horario from './AccountComponents/Horario';
 import ProfileInfo from './AccountComponents/ProfileInfo';
 import ProfileBar from './AccountComponents/ProfileBar';
 import CitasPsic from './AccountComponents/CitasPsic';
+import axios from 'axios'
+
 
 
 const Account = () => {
@@ -19,7 +19,8 @@ const Account = () => {
 
     // const psicology = useSelector((store) => store.psicoloDetail)
 
-    const psicology = useSelector((store) => store.psicoloDetail)
+    // const psicology = useSelector((store) => store.psicoloDetail)
+    const psicology = useSelector((store) => store.psicologoDetailAcount)
     const opcionesEspecialidades = useSelector((store) => store.especialidades)
     const dispatch = useDispatch()
     const { id } = useParams();
@@ -30,6 +31,7 @@ const Account = () => {
     })
     const [imagen, setImagen] = useState();
     const [esp, setEsp] = useState()
+    const [auth, setAuth] = useState(false)
     // const opcionesEspecialidades = [
     //     'Psicología de pareja',
     //     'Psicología infantil',
@@ -43,21 +45,25 @@ const Account = () => {
     const navigate = useNavigate();
 
     const loadData = useCallback(async () => {
-        await dispatch(loadDetail(id));
+        // await dispatch(loadDetail(id));
+        await dispatch(getDetailAuthPsicologo(id))
         await dispatch(getSpecialities());
         setIsLoading(false);
     }, [id, dispatch]);
 
-    useEffect(() => {
+    useEffect(() => {; 
         const aux = async () => {
-            await dispatch(loadDetail(id))
+            // await dispatch(loadDetail(id))
+            await dispatch(getDetailAuthPsicologo(id))
             await dispatch(getSpecialities())
             setIsLoading(false);
             setImagen(psicology.foto)
             setEsp(psicology.especialidad)
         }
         aux()
-    }, [id, dispatch, psicology.foto])
+ }, [id, dispatch, psicology.foto])
+ console.log('psicologo cuenta', psicology)
+
 
     useEffect(() => {
         loadData();
@@ -126,71 +132,79 @@ const Account = () => {
          
       }
 
+    const redirect = () => {
+        window.alert('404 Not found')
+        navigate('/')
+    }
+
     return (
+        
+    <div>
+        {
+           typeof psicology === "string" ? redirect() : null
+        }
         <div className={styles.accountContainer}>
+                
+        <div className={styles.sidebar}>
+            <ProfileBar handleTabChange={handleTabChange} selectedTab={selectedTab} />
+        </div>
+        <div className={styles.mainContent}>
+            <Card className={styles.card}>
+                <Card.Body className={`${styles.cardBody}`}>
+                    {selectedTab === 'profile' && (
+                        <>
+                            {!isEditing && (
+                                <Button variant="link" onClick={() => setIsEditing(true)}>
+                                    <i className="fas fa-pencil-alt"></i> Editar
+                                </Button>
+                            )}
+
+                            <div>
+                                {isEditing ? (<>
+                                    <h1 className={styles.title}>
+                                        Editar Perfil
+                                    </h1>
+                                    <Form onSubmit={handleSubmit}>
+                                        <div className={styles.propiedades}>
+                                            <BasicInfo handleChange={handleChange} psicology={psicology} />
+                                            <Foto handleChange={handleChange} imagen={imagen} />
+
+                                            <Form.Group controlId="options">
+                                                <Form.Label className={styles.prop}>Especialidades:</Form.Label>
+                                                <div className={styles.textLeft}>
+                                                    {opcionesEspecialidades.map(opcion => (
+
+                                                        <Form.Check key={opcion} type="checkbox" label={opcion} value={opcion} checked={esp.includes(opcion)}
+                                                            onChange={() => handleOptionChange(opcion)} />
+                                                    ))}
+                                                </div>
+                                            </Form.Group>
 
 
-            <div className={styles.sidebar}>
-                <ProfileBar handleTabChange={handleTabChange} selectedTab={selectedTab} />
-            </div>
-            <div className={styles.mainContent}>
-                <Card className={styles.card}>
-                    <Card.Body className={`${styles.cardBody}`}>
-                        {selectedTab === 'profile' && (
-                            <>
-                                {!isEditing && (
-                                    <Button variant="link" onClick={() => setIsEditing(true)}>
-                                        <i className="fas fa-pencil-alt"></i> Editar
-                                    </Button>
-                                )}
+                                        </div>
+                                        <Description descrip={psicology.descripcion} handleChange={handleChange} />
+                                        <Button variant="outline-primary" type="submit">
+                                            Guardar Cambios
+                                        </Button>
+                                    </Form>
+                                </>) : (<> <ProfileInfo psicology={psicology} imagen={imagen} id={id} />
 
-                                <div>
-                                    {isEditing ? (<>
-                                        <h1 className={styles.title}>
-                                            Editar Perfil
-                                        </h1>
-                                        <Form onSubmit={handleSubmit}>
-                                            <div className={styles.propiedades}>
-                                                <BasicInfo handleChange={handleChange} psicology={psicology} />
-                                                <Foto handleChange={handleChange} imagen={imagen} />
-                                                <Paises handleChange={handleChange} zona_horaria={psicology.zona_horaria} pais={psicology.pais} />
+                                </>)}
 
-                                                <Form.Group controlId="options">
-                                                    <Form.Label className={styles.prop}>Especialidades:</Form.Label>
-                                                    <div className={styles.textLeft}>
-                                                        {opcionesEspecialidades.map(opcion => (
-
-                                                            <Form.Check key={opcion} type="checkbox" label={opcion} value={opcion} checked={esp.includes(opcion)}
-                                                                onChange={() => handleOptionChange(opcion)} />
-                                                        ))}
-                                                    </div>
-                                                </Form.Group>
-
-
-                                            </div>
-                                            <Description descrip={psicology.descripcion} handleChange={handleChange} />
-                                            <Button variant="outline-primary" type="submit">
-                                                Guardar Cambios
-                                            </Button>
-                                        </Form>
-                                    </>) : (<> <ProfileInfo psicology={psicology} imagen={imagen} id={id} />
-
-                                    </>)}
-
-                                </div>
-                            </>
-                        )}
-                        {selectedTab === 'reservations' && (
-                           <div> 
-                            <CitasPsic/></div>
-                        )}
-                        {selectedTab === 'logout' && (
-                            <h2 onClick={ () => { logout() }}>Cerrar Sesión</h2>
-                        )}
-                        <h2 onClick={() => { logout() }}>Logout</h2>
-                    </Card.Body>
-                </Card>
-            </div>
+                            </div>
+                        </>
+                    )}
+                    {selectedTab === 'reservations' && (
+                        <div> 
+                        <CitasPsic/></div>
+                    )}
+                    {selectedTab === 'logout' && (
+                        <h2 onClick={ () => { logout() }}>Cerrar Sesión</h2>
+                    )}
+                </Card.Body>
+            </Card>
+        </div>
+        </div>
         </div>
     );
 };
