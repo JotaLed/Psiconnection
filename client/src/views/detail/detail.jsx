@@ -31,7 +31,6 @@ const Detail = () => {
   }
 
   return (
-    <div className={s.detail_conteiner}>
       <div className={s.detail}>
         {/* {isLoading ? (
           <div className={s.loader}>
@@ -85,7 +84,7 @@ const Detail = () => {
             <label className={s.label}>Descripción:</label>
             <div><p className={s.descripcion}>{psicology.descripcion}</p></div>
           </div>
-          <div>
+          <div className={s.rating_conteiner}>
             <Rating id={psicology.id}/>
           </div>
         </div>
@@ -98,7 +97,7 @@ const Detail = () => {
 
         </div>
       </div>
-    </div>
+   
   );
 };
 
