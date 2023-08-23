@@ -26,7 +26,7 @@
     width: 200px;
     height: 100%;
     margin-top: 60%; /* Ajusta la posición vertical en la parte superior */
-    left: 0; /* Ajusta la posición horizontal en la parte izquierda */
+    margin-left: 40%; /* Ajusta la posición horizontal en la parte izquierda */
     bottom: 0; /* Ajusta la altura del contenedor para ocupar toda la altura disponible */
 }
 

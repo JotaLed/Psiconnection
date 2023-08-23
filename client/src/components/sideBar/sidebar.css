@@ -16,7 +16,6 @@ body {
   background-color: #fff; 
   min-height: 90px;
   height: 11vh;
-  position:fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -33,7 +32,7 @@ body {
 
 .navbar-container {
   background-color: #fff;
-  position: fixed;
+  position: absolute;
   width: 100%;
   margin-right: 5%;
   display: flex;
