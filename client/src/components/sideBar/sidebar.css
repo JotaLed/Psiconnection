@@ -5,13 +5,12 @@
 #BBBDEE Morado claro, como fondo 
 #5E5F5E 
 #F1F0EA */
-
 body {
   font-family: 'Quicksand', sans-serif;
   margin: 0;
-  padding: 0;
-  
+  padding: 0; 
 }
+
 .navbar {
   background-color: transparent; 
   /* color: #FFFFFF; */
@@ -26,7 +25,7 @@ body {
 }
 
 .nav-link.active {
-  color: #706AD4; /* Cambia el color al seleccionado */
+  color: #706AD4; 
 }
 
 .navbar-container {
@@ -40,7 +39,6 @@ body {
   margin-bottom: 40px;
   display: flex;
   justify-content: space-between;
-<<<<<<<<< Temporary merge branch 1
   align-items: center;
 }
 
@@ -56,8 +54,6 @@ body {
   position: absolute;
   margin-top: -60px; 
   left: 8%;
-=========
->>>>>>>>> Temporary merge branch 2
 }
 
 .nav-menu {
