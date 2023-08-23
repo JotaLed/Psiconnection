@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import Rate from "./Rate";
+//importamos estilo 
+import s from "../starRating/Rating.module.css"
+
 
 
 const Rating = ({ id }) => {
@@ -14,10 +17,10 @@ const Rating = ({ id }) => {
     
   
     return (
-      <div>
+      <div className={s.rating}>
         <div className="row">
           <div className="col text-center">
-            <h2>Rate me</h2>
+            <h2>Puntuame</h2>
             <Rate rating={rating} onRating={(rate) => showRate(rate)} />
           </div>
         </div>
