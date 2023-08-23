@@ -69,6 +69,7 @@ const LoginUsuario = () => {
   
         // Muestra el toast de inicio de sesión exitoso y redirige al usuario después de cerrarlo
         toast.success("Inicio de sesión exitoso. ¡Bienvenido!", {
+          autoClose: 2000,
           onClose: () => {
             navigate("/home");
           },

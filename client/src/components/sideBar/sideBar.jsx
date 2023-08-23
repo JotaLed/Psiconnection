@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import {NavLink, useNavigate } from "react-router-dom";
 import "./sidebar.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from "../../Images/logoPsiconnetion.png";
@@ -12,15 +12,16 @@ export default function Sidebar() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
 
-  const handleScroll = () => {
-    const currentScrollPos = window.pageYOffset;
-    setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
-    setPrevScrollPos(currentScrollPos);
-  };
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollPos, visible]);
+  // const handleScroll = () => {
+  //   const currentScrollPos = window.pageYOffset;
+  //   setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+  //   setPrevScrollPos(currentScrollPos);
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []); // Solo se ejecuta al montar el componente
 
   let tokenId = '';
   let tokenRoll = '';
@@ -41,7 +42,7 @@ export default function Sidebar() {
   console.log(tokenRoll);
   console.log(currentUser.foto);
   return (
-    <nav className={`navbar ${visible ? "" : "navbar-hidden"}`}>
+    <nav >
 <div className="navbar-container">
         <NavLink to="/home">
           <img className="navbar-logo" src={logo} alt="" />

@@ -13,7 +13,7 @@ body {
   
 }
 .navbar {
-  /* background-color:#fff ;  */
+  background-color: transparent; 
   /* color: #FFFFFF; */
   min-height: 90px;
   height: 11vh;
@@ -51,16 +51,15 @@ body {
   font-size: 20px;
   font-family: 'Quicksand', sans-serif;
   position: absolute;
-  top: 60%; 
+  margin-top: -60px; 
   left: 8%;
 }
 
 .nav-menu {
   list-style: none;
   display: flex;
-  margin: 0;
-  padding: 0;
-
+  margin: 10px;
+  padding: 40px;
 }
 
 .nav-item {
