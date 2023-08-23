@@ -264,7 +264,7 @@ export const getDetailClientAdmin = (id) => {
                   Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
                 }
               });
-              console.log("dataaa",api.data);
+              console.log("dataaa",apiData.data);
               
             const admin = apiData.data;
             console.log(admin)
