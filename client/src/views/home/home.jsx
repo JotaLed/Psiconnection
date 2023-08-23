@@ -28,7 +28,7 @@ export default function Home() {
           Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
         }
       })
-      console.log(data);
+      console.log('dataaaaa',data);
       await dispatch(loadCurrentUser(data.usuario))
     }
   }
