@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from "react-redux";
 import s from "./detail.module.css";
 import Turnos from "../../components/turnos/Turnos";
 import Rating from "../../components/starRating/Rating";
-import { loadDetail } from "../../Redux/actions";
 //importamos las estrellas 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faStar } from "@fortawesome/free-solid-svg-icons"
