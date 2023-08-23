@@ -121,7 +121,7 @@ const LoginUsuario = () => {
               <i className="bx bxs-lock-alt"></i> Contraseña:
             </label>
             <Controller
-              name="password" 
+              name="contraseña" 
               control={control}
               defaultValue=""
               rules={{ validate: isValidPassword }}
