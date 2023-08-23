@@ -10,16 +10,16 @@ const Detail = () => {
   const psicology = useSelector((store) => store.psicoloDetail);
   const dispatch = useDispatch();
   // Con este estado se controla la carga 
-  
-  const [isLoading, setIsLoading] = useState(true); 
+
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true); // Comienza la carga
     dispatch(loadDetail(detailID)).then(() => {
       setIsLoading(false); // Finaliza la carga
     });
-  }, [dispatch, detailID]); 
+  }, [dispatch, detailID]);
   // useEffect(() => {
-   
+
   //   // Llamada a la acción para cargar los detalles del psicólogo
   //   dispatch(loadDetail(detailID)); 
   // }, [dispatch, detailID]); // Se agrega [dispatch, detailID] como dependencias del efecto
@@ -32,7 +32,7 @@ const Detail = () => {
   return (
     <div className={s.detail_conteiner}>
       <div className={s.detail}>
-      {/* {isLoading ? (
+        {/* {isLoading ? (
           <div className={s.loader}>
             Cargando...
           </div>
@@ -57,6 +57,7 @@ const Detail = () => {
                 );
               })}
               <h2 className={s.time}>Cuenta creada el {psicology.fecha_registro?.split("T")[0]}</h2>
+              <span className={s.tarifa}>{`Tarifa: ${psicology.tarifa}$`}</span>
               <div className={s.contactar}>
                 <span className={s.emoji}>📱</span>
                 <span className={s.text}>Contactar</span>
@@ -90,7 +91,7 @@ const Detail = () => {
           {psicology.nombre ? (
             <Turnos dias={psicology.dias} horas={psicology.horas} />
           ) : null}
-      
+
         </div>
       </div>
     </div>
