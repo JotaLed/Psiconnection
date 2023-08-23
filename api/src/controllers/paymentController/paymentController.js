@@ -47,9 +47,8 @@ const createOrder = async (req, res) => {
         pending: "",
       },
       auto_return: "approved",
-      notification_url: `${PAGO_ENLACE_NOTIFICACION_URL}/psiconnection/payment/webhook`,
+      notification_url: `https://ae95-2a09-bac5-d381-aa-00-11-180.ngrok.io/psiconnection/payment/webhook`,
     });
-    console.log(result.body.id);
 
     return res.status(200).json({ id: result.body.id });
   } catch (error) {
@@ -61,12 +60,9 @@ const createOrder = async (req, res) => {
 
 const receiveWebhook = async (req, res) => {
   const payment = req.query;
-  // console.log('este es el array afuera',citaObj);
-  const cita = citaObj;
-  // const { obj } = req.query;
 
-  // const decodedObj = JSON.parse(Buffer.from(obj, 'base64').toString('utf-8'));
-  // console.log('dataDescifrada', decodedObj);
+  const cita = citaObj;
+
 
   const newCita = {
     hora: cita.hora,
@@ -85,7 +81,6 @@ const receiveWebhook = async (req, res) => {
       console.log("status", status);
       if (status === "approved") {
         const agendarCita = await reservaCita(newCita);
-        // const agendarCita = 'aprobado'
         citaObj = {};
         return res.status(200).json(agendarCita);
       }

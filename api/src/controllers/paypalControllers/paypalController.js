@@ -107,11 +107,8 @@ const createOrder = async (req, res) => {
 const captureOrder = async (req, res) => {
   const { token } = req.query;
   const { data } = req.query;
-  console.log({ data });
-
   const decodedObj = JSON.parse(Buffer.from(data, "base64").toString("utf-8"));
-  console.log("decodedata", decodedObj);
-
+  
   const newCita = {
     hora: decodedObj.hora,
     fecha: decodedObj.fecha,
