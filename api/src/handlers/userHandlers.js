@@ -129,6 +129,17 @@ const deleteHandler = async (req, res, next) => {
   await deleteController(req, res);
 };
 
+const getDetailAcountAdmin = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await detailAcountUsuario(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error: error.message });
+  }
+};
+
 const getDetailAcount = async (req, res) => {
   const { id } = req.params;
   try {
@@ -147,4 +158,5 @@ module.exports = {
   deleteHandler,
   getDetailAcount,
   getHandler,
+  getDetailAcountAdmin
 };

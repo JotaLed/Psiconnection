@@ -13,6 +13,9 @@ export const GET_APPOINTMENTS = "GET_APPOINTMENTS";
 export const LOAD_CURRENT_USER = "LOAD_CURRENT_USER"
 export const GET_USERS = "GET_USERS"
 export const GET_ALL_PSICOLOGOS = "GET_ALL_PSICOLOGOS"
+// PROTECCION
+export const GET_DETAIL_ACOUNT_PSICOLOGO = "GET_DETAIL_ACOUNT_PSICOLOGO"
+export const GET_DETAIL_ACOUNT_USUARIO = "GET_DETAIL_ACOUNT_USUARIO"
 //----------------------------------------------------------------------------------------//
 import axios from "axios";
 
@@ -116,22 +119,7 @@ export const getDetail = (id) => {
         }
     };
 };
-//-----------------------obtener el detail del cliente-----------------------------//
-export const getDetailClient = (id) => {
-    return async function (dispatch) {
-        try {
-            const apiData = await axios.get(`psiconection/usuario/acount/${id}`);
-            const cliente = apiData.data;
-            console.log(cliente)
-            return dispatch({
-                type: GET_DETAIL_CLIENT,
-                payload: cliente,
-            });
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
-};
+
 
 export const updateClient = (dataToUpdate) => {
     return async function () {
@@ -202,6 +190,97 @@ export const deleteClient = (id) => {
         }
     }
 }
+
+//-----------------------obtener el detail del PSICOLO CON PROTECCION-----------------------------//
+
+export const getDetailAuthPsicologo = (id) => {
+    const getToken = window.localStorage.getItem('authToken')
+    const tokenObject = JSON.parse(getToken); 
+
+    return async function (dispatch) {
+        try {
+           const { data } = await axios.get(`/psiconection/acount/${id}`, {
+            headers: {
+              Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+            }
+          })
+          const psicologo = data.psicologo         
+         return dispatch(
+            { type: GET_DETAIL_ACOUNT_PSICOLOGO , 
+                payload: psicologo 
+            });
+        } catch (error) {
+            console.log(error);
+            return dispatch({
+                    type: GET_DETAIL_ACOUNT_PSICOLOGO,
+                    payload: error.response.data.error
+                })
+        }
+    }
+}
+
+//-----------------------obtener el detail del cliente-----------------------------//
+export const getDetailClient = (id) => {
+    const getToken = window.localStorage.getItem('authToken')
+    const tokenObject = JSON.parse(getToken);
+    
+     
+    return async function (dispatch) {
+        
+        
+        try {
+            const apiData = await axios.get(`/psiconection/usuario/acount/${id}`, 
+            {
+                headers: {
+                  Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+                }
+              });
+            const cliente = apiData.data;
+            console.log(cliente)
+            return dispatch({
+                type: GET_DETAIL_CLIENT,
+                payload: cliente,
+            });
+        } catch (error) {
+            console.log(error);
+            return dispatch({
+                type: GET_DETAIL_CLIENT,
+                payload: error.response.data.error
+            })
+        }
+    };
+};
+
+
+//-----------------------obtener el detail del USUARIO CON PROTECCION-----------------------------//
+
+// export const getDetailAuthUSuario = (id) => {
+//     const getToken = window.localStorage.getItem('authToken')
+//     const tokenObject = JSON.parse(getToken); 
+
+//     return async function (dispatch) {
+//         try {
+//            const { data } = await axios.get(`http://localhost:3001/psiconection/usuario/acount/${id}`, {
+//             headers: {
+//               Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+//             }
+//           })
+//           const usuario = data.usuario         
+//          return dispatch(
+//             { type: GET_DETAIL_ACOUNT_PSICOLOGO , 
+//                 payload: usuario 
+//             });
+//         } catch (error) {
+//             console.log(error);
+//             return dispatch({
+//                     type: GET_DETAIL_ACOUNT_PSICOLOGO,
+//                     payload: error.response.data.error
+//                 })
+//         }
+//     }
+
+// }
+
 
 // export const setFilter = (filters) => {
 //     //comentario
