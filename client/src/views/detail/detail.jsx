@@ -35,7 +35,6 @@ const Detail = () => {
   //logica para las estrellas 
   console.log(psicology.valoracion);
   const valores = psicology.valoracion || [];
-  console.log(valores);
   const suma = valores.reduce((acumulador, valor) => acumulador + valor, 0);
   const media = suma / valores.length;
   const result = Math.floor(media)
