@@ -35,7 +35,6 @@ const reservaCita = async (newCita) => {
     }
   } catch (error) {
     console.log(error);
-
     throw new Error("Error al intentar reservar la cita");
   }
 };
@@ -75,4 +74,50 @@ const putController = async (req, res) => {
   }
 };
 
-module.exports = { reservaCita, putController, getAllAppointmentsController };
+
+
+//! controlador de pruebaaaaaaaaaa
+
+
+const crearPruebaControlador = async (newCita) => {
+  
+  // Obtener los objetos del psicólogo y el usuario
+  const psicologo = await Psicologo.findByPk(newCita.idPsico);
+  const usuario = await Usuario.findByPk(newCita.idUser);
+
+
+
+  const cita = {
+    fecha: newCita.fecha,
+    hora: newCita.hora,
+    idPsicologo: newCita.idPsico,
+    idUsuario: newCita.idUser,
+    estado: newCita.estado
+  }
+
+  console.log('la citaa', cita);
+  
+
+
+  // Crear una nueva instancia de Reserva
+
+  const nuevaReserva = await Reserva.create({
+    fecha: cita.fecha,
+    hora: cita.hora,
+    estado: cita.estado,
+    PsicologoId: cita.idPsicologo,
+    UsuarioId: cita.idUsuario
+  });
+
+ 
+
+  // Establecer la relación entre el psicólogo, el usuario y la reserva
+// await nuevaReserva.addPsicologo(psicologo);
+// await nuevaReserva.addUsuario(usuario);
+ 
+
+  return nuevaReserva
+
+}
+
+module.exports = { reservaCita, putController, getAllAppointmentsController, crearPruebaControlador};
