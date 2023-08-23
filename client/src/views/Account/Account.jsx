@@ -84,6 +84,7 @@ const Account = () => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
+        console.log(value)
         if (name === "foto") {
             setImagen(value);
 
@@ -174,7 +175,7 @@ const Account = () => {
                                                 <div className={styles.textLeft}>
                                                     {opcionesEspecialidades.map(opcion => (
 
-                                                        <Form.Check key={opcion} type="checkbox" label={opcion} value={opcion} checked={esp.includes(opcion)}
+                                                        <Form.Check key={opcion} type="checkbox" label={opcion} value={opcion} checked={esp?.includes(opcion)}
                                                             onChange={() => handleOptionChange(opcion)} />
                                                     ))}
                                                 </div>
