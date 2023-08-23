@@ -8,7 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadCurrentUser } from "../../../Redux/actions";
 import axios from "axios";
 import LoginButtonAuth0 from "./LoginAuth0";
-
+import { Form, Button, Alert } from "react-bootstrap"; // Importamos componentes de react-bootstrap
+import { toast, ToastContainer } from "react-toastify"; // Importamos componentes de react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Importamos el CSS de react-toastify
 import "./loginUsuario.css";
 
 const LoginUsuario = () => {
@@ -26,10 +28,6 @@ const LoginUsuario = () => {
   const navigate = useNavigate();
   //const { loginWithRedirect } = useAuth0();
   const [token, setToken] = useState("");
-  //  const onAuth0SignIn = () => {
-  //     loginWithRedirect();
-  //   };
-  // Guardar un token en el localStorage después de un inicio de sesión exitoso
 
   //Estados globales:
   const dispatch = useDispatch();
@@ -42,56 +40,59 @@ const LoginUsuario = () => {
   // Recuperar un token del localStorage en otro componente
   //const authToken = localStorage.getItem('authToken');
 
+
   const onSubmit = async (formData) => {
     if (!formData.email || !formData.contraseña) {
       setErrorMessage("Todos los campos son requeridos");
+      toast.error("Por favor completa todos los campos.");
       return;
     }
 
     try {
       const response = await axios.post("/psiconection/login", formData);
+      
       console.log(response);
       console.log("Response from server:", response.data);
       console.log("Token:", response.data.info.tokenSessionUser);
+
       if (response.status === 200) {
         const userRole = response.data.info.roll;
-
         if (userRole === "psicologo") {
-          // Si el rol es diferente psicologo, muestra un mensaje y no realiza la redirección
-          window.alert("Por favor inicie sesión como psicologo");
-        } else {
-          //! cambios
-          //cargamos el estado de usuario actiual
-          console.log("supuesto objeto: " + response.data.info);
-          await dispatch(loadCurrentUser(response.data.info));
-          const tokenString = JSON.stringify(
-            response.data.info.tokenSessionUser
-          );
-
-          // setToken(response.data.info.tokenSessionUser); // Aquí estás guardando el token en el estado
-          // Si el rol es otro, realiza la redirección
-          // handleWindow();
-
-          localStorage.setItem("authToken", tokenString); // Guarda el token en localStorage
-          navigate("/home");
+          toast.error("Por favor inicie sesión como usuario");
+          return;
         }
+  
+        // Carga el estado de usuario actual y guarda el token en el localStorage
+        await dispatch(loadCurrentUser(response.data.info));
+        const tokenString = JSON.stringify(response.data.info.tokenSessionUser);
+        localStorage.setItem("authToken", tokenString);
+  
+        // Muestra el toast de inicio de sesión exitoso y redirige al usuario después de cerrarlo
+        toast.success("Inicio de sesión exitoso. ¡Bienvenido!", {
+          onClose: () => {
+            navigate("/home");
+          },
+        });
       }
     } catch (error) {
-      console.error("Error al realizar la solicitud:", error);
-      window.alert(error.response.data.error);
+    console.error("Error al realizar la solicitud:", error);
+    if (error.response && error.response.status === 401) {
+      toast.error("Email o contraseña incorrectos");
+    } else if (error.response && error.response.status === 404) {
+      toast.error("Email no registrado. Regístrate para crear una cuenta.");
+    } else {
+      toast.error("Hubo un problema al procesar la solicitud. Inténtalo de nuevo más tarde.");
     }
-  };
-
+  }
+};
   return (
     <div className="containerLoginUsuario">
       <div className="login-formUsu">
         <h2>¡Bienvenido!</h2>
-        
-        <h4>ó registrate con tu correo: </h4>
-        {/* Formulario de inicio de sesión local */}
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="login-formUsu">
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <h4>Inicia sesión: </h4>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
            {/* //*EMAIL */}
             <div className="form-groupLogUsu">
             <label>
@@ -120,7 +121,7 @@ const LoginUsuario = () => {
               <i className="bx bxs-lock-alt"></i> Contraseña:
             </label>
             <Controller
-              name="contraseña"
+              name="password" 
               control={control}
               defaultValue=""
               rules={{ validate: isValidPassword }}
@@ -146,14 +147,14 @@ const LoginUsuario = () => {
               )}
             </div>
             </div>
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btnIsUsu">
               Iniciar Sesión
             </button>
 
             {/* Enlace para ir a la página de registro */}
             <div className="register-link">
               ¿No tienes una cuenta?{" "}
-              <Link to="/registroUsuario" className="register-link-text">
+              <Link to="/registroUsuario" className="register-link-textUsu">
                 Regístrate aquí
               </Link>
             </div>
@@ -171,6 +172,7 @@ const LoginUsuario = () => {
               </Link>
             </div>
           </div>
+      <ToastContainer position="bottom-right" />
         </form>
       </div>
     </div>
