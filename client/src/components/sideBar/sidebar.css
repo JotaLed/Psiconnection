@@ -17,13 +17,12 @@ body {
   /* color: #FFFFFF; */
   min-height: 90px;
   height: 11vh;
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  display: flex;
   justify-content: center;
   z-index: 99999;
+
 }
 
 .nav-link.active {
@@ -31,13 +30,20 @@ body {
 }
 
 .navbar-container {
+
+  background-color: #fff;
+  position: relative;
+
   width: 100%;
   margin-top: -60px;
   margin-left: 60%;
   margin-bottom: 40px;
   display: flex;
   justify-content: space-between;
+
+  align-items: center;
 }
+
 
 .nav-menu {
   list-style: none;

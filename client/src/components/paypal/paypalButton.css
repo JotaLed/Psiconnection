@@ -5,8 +5,11 @@
   
   /* Estilos del botón de PayPal */
   .paypal-button {
+    position: relative;
+    top: -10px;
+    left: 5px;
     display: inline-block;
-    background-color: #0070ba;
+    background-color: transparent;
     color: #ffffff;
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -17,14 +20,6 @@
     border: none;
     transition: background-color 0.3s ease;
     margin-top: 1rem;
-  }
-  
-  .paypal-button:hover {
-    background-color: #004f8a;
-  }
-  
-  .paypal-button:active {
-    background-color: #002c52;
   }
   
   .paypal-button:focus {
@@ -39,8 +34,7 @@
   }
   
   .paypal-button .paypal-logo {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    vertical-align: middle;
+    position: relative;
+    width: 160px;
+    height: 50px;
   }

@@ -36,14 +36,10 @@ const Filters = (props) => {
       setExpanded(!isExpanded);
     };
   
-    return (
-        <div className={`${style.container} ${isExpanded ? style.expanded : ""}`}>
-        <button className={`${style.toggleButton} ${isExpanded ? "expanded" : ""}`} onClick={toggleExpand}>
-        →
-        </button>
-  
-        <div className={style.filterPanel}>
-          <label className={style.label}>Especialización</label>
+    return (  
+        <div className={style.container}>
+
+            <label className={style.label}>Especialización</label>
             <div className={style.selectContainer}>
                 <select
                     className={style.select}
@@ -51,7 +47,7 @@ const Filters = (props) => {
                     value={filters.especializacion}
                     onChange={handleFilterChange}
                 >
-                    <option value="all">ALL</option>
+                    <option value="all">TODOS</option>
                     <option value={"Terapia familiar"}>Terapia familiar</option>
                     <option value={"Terapia de pareja"}>Terapia de pareja</option>
                     <option value={"Terapia psicoanalitica"}>
@@ -59,8 +55,6 @@ const Filters = (props) => {
                     </option>
                 </select>
             </div>
-
-           
 
             <label className={style.label}>Género</label>
             <div className={style.selectContainer}>
@@ -70,7 +64,7 @@ const Filters = (props) => {
                     value={filters.gender}
                     onChange={handleFilterChange}
                 >
-                    <option value="all">ALL</option>
+                    <option value="all">TODOS</option>
                     <option value="femenino">FEMALE</option>
                     <option value="masculino">MALE</option>
                 </select>
@@ -84,7 +78,7 @@ const Filters = (props) => {
                     value={filters.country}
                     onChange={handleFilterChange}
                 >
-                    <option value="all">ALL</option>
+                    <option value="all">TODOS</option>
                     <option value="colombia">COLOMBIA</option>
                     <option value="argentina">ARGENTINA</option>
                     <option value="venezuela">VENEZUELA</option>
@@ -96,7 +90,6 @@ const Filters = (props) => {
                 FILTRAR
             </button>
             <Orders/>
-        </div>
         </div>
     );
 };

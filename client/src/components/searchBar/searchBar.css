@@ -1,16 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+
 .search-bar {
-  /* background-image: linear-gradient(rgba(253, 253, 253, 0.555), rgba(253, 253, 253, 0.555)), url('../../Images/Busqueda.jpg'); */
- 
   background-color: #F1F0EA;
-  /* background-size: cover; */
-  /* background-position: center; */
   padding: 1%;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   width: 100vw
+  
 }
 
 .custom-inputBusqueda {
@@ -54,35 +51,3 @@
 .custom-inputBusqueda:focus {
   border-color: #BBBDEE;
 }
-
-
-
-/* .content {
-  position: relative;
-  top: 50%;
-    display: flex;
-    justify-content: center;
-   
-  }
-  input[type='search'] {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    width: 250px;
-  }
-  .submit {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #567ebb;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
-  .submit:hover {
-    background-color: #0056b3;
-  } */
-  
