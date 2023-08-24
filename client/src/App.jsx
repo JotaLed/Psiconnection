@@ -4,6 +4,7 @@ import Home from "./views/home/home";
 import Account from "./views/Account/Account";
 import SideBar from "./components/sideBar/sideBar";
 import "./fonts.css"
+import "react-toastify/dist/ReactToastify.css";
 
 import Success from "./components/success/Success";
 
@@ -42,6 +43,8 @@ import RegistroUsuario from "./views/formularios/registroUsuario/registroUsuario
 import RegistroPsicologo from "./views/formularios/registroPsicologo/registoPsicologos";
 import AccountAdmin from "./views/AdminAccount/AdminAccount";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 //comentario
 function App() {
   const { pathname } = useLocation();

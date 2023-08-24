@@ -17,10 +17,11 @@
     background-color: #F1F0EA;
     width: 100%;
     gap: 20px;
+    justify-content: center;
 }
 
 .view_psico {
-    margin-left: 13vw;
+    /* margin-left: 13vw; */
     display: flex;
     flex-direction: column;
     padding: 20px;

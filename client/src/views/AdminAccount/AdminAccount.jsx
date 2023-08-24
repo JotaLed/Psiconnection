@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Card, Button, Form} from 'react-bootstrap';
+import { Card, Button, Form } from 'react-bootstrap';
 import styles from './AdminAccount.module.css';
 
 import ProfileBarAdmin from '../../components/AdminComponents/ProfileBarAdmin';
@@ -12,6 +12,8 @@ import BasicInfo from '../Account/AccountComponents/basicInfo';
 import Foto from '../Account/AccountComponents/foto';
 import Clientes from '../../components/AdminComponents/Clientes';
 import Pagination from '../../components/Pagination/Pagination';
+//importamos la vista de los graficos 
+import Dashboard from '../Dashboard';
 
 
 const AccountAdmin = () => {
@@ -54,8 +56,8 @@ const AccountAdmin = () => {
 
     }, [dispatch, id, admin.usuario?.foto])
 
-     // Recuperar la pestaña seleccionada de localStorage al cargar la página
-     useEffect(() => {
+    // Recuperar la pestaña seleccionada de localStorage al cargar la página
+    useEffect(() => {
         const savedTab = localStorage.getItem('selectedTab');
         if (savedTab) {
             setSelectedTab(savedTab);
@@ -130,6 +132,11 @@ const AccountAdmin = () => {
         <div className={styles.mainContent}>
             <Card className={styles.card}>
                 <Card.Body className={`${styles.cardBody}`}>
+                    {selectedTab === 'resumen' && (
+                        <div>
+                            <Dashboard/>
+                        </div>
+                    )}
                     {selectedTab === 'profile' && (
                         <>
                             {!isEditing && (<>
@@ -157,7 +164,7 @@ const AccountAdmin = () => {
                                             Guardar Cambios
                                         </Button>
                                     </Form>
-                                </>) }
+                                </>)}
 
                             </div>
                         </>
@@ -165,28 +172,23 @@ const AccountAdmin = () => {
                     {selectedTab === 'profesionales' && (
                         <div>
                             <Pagination
-                                    currentPage={currentPage}
-                                    nextHandler={nextHandler}
-                                    prevHandler={prevHandler}
-                                    items={currentProfesionales}
-                                    profesionales={true} 
-                    /></div>
+                                currentPage={currentPage}
+                                nextHandler={nextHandler}
+                                prevHandler={prevHandler}
+                                items={currentProfesionales}
+                                profesionales={true}
+                            /></div>
                     )}
                     {selectedTab === 'usuarios' && (
                         <div>
-                        <Pagination
+                            <Pagination
                                 currentPage={currentPage}
                                 nextHandler={nextHandlerClient}
                                 prevHandler={prevHandler}
                                 items={currentClientes}
-                                clientes={true} 
+                                clientes={true}
                             /></div>
                     )}
-                    {selectedTab === 'resumen' && (
-                        <div>
-                            <h1>Resumen</h1></div>
-                    )}
-
                     {selectedTab === 'logout' && (
                         <h2 onClick={() => { logout() }}>Cerrar Sesión</h2>
                     )}

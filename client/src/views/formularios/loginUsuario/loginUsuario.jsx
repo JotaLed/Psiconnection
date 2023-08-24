@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadCurrentUser } from "../../../Redux/actions";
 import axios from "axios";
 import LoginButtonAuth0 from "./LoginAuth0";
-import { Form, Button, Alert } from "react-bootstrap"; // Importamos componentes de react-bootstrap
-import { toast, ToastContainer } from "react-toastify"; // Importamos componentes de react-toastify
-import "react-toastify/dist/ReactToastify.css"; // Importamos el CSS de react-toastify
+import { Form, Button, Alert } from "react-bootstrap"; 
+import { toast, ToastContainer } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css"; 
 import "./loginUsuario.css";
 
 const LoginUsuario = () => {
@@ -176,7 +176,7 @@ const LoginUsuario = () => {
           <ToastContainer
           position="bottom-right"
           autoClose={3000}
-          style={{ zIndex: 1000 }} // Ajusta el valor según tus necesidades
+          style={{ zIndex: 5000 }} // Ajusta el valor según tus necesidades
         />
         </form>
       </div>
