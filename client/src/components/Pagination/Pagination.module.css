@@ -4,11 +4,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  gap: 10px;
 }
 
 .buttonContainer {
   display: flex;
-  margin-top: 20%;
+  flex-direction: row;
   gap: 10px;
 }
 
@@ -42,7 +44,8 @@
 }
 
 .prueba {
-  display: flex;
-  flex-direction: column;
-  align-items: center;  
+    height: 100%;
+    width: 100%;
+  
+  /* align-items: center;   */
 } 
