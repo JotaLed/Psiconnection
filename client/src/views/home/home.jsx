@@ -10,7 +10,7 @@ import axios from 'axios';
 import style from "../home/home.module.css"
 export default function Home() {
   const dispatch = useDispatch();
-  const ITEMS_PER_PAGE = 6;
+  const ITEMS_PER_PAGE = 4;
   const piscologos = useSelector(state => state.psychologists);
   const currentUser = useSelector(state => state.currentUser);
 
@@ -99,7 +99,8 @@ export default function Home() {
 
           <SearchBar />
         </div>
-        <Pagination currentPage={currentPage} nextHandler={nextHandler} />
+        <Pagination currentPage={currentPage} nextHandler={nextHandler}
+        prevHandler={prevHandler} items={currentItems} />
         {/* <div className={style.welcomeMessage}>
                 {/* <p className={style.p1}>Aquí podrás conectar con diferentes psicólogos, </p>
                 <p className={style.p}>mejorar tu salud mental y tu vida.</p> 
