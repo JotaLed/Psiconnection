@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { loadDetail } from "../../Redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 

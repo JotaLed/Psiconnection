@@ -7,9 +7,9 @@ import { useState } from 'react';
 const FormularioGeneral = () => {
   const [selectedRole, setSelectedRole] = useState(null);
 
-  // const handleRoleSelect = (roll) => {
-  //   setSelectedRole(roll);
-  // };
+  const handleRoleSelect = (roll) => {
+    setSelectedRole(roll);
+  };
   return (
     <div className="contenedorFormGeneral">
       <div className="contenidoFormularioGeneral">

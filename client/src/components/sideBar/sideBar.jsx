@@ -5,41 +5,41 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector } from "react-redux";
 
 export default function Sidebar() {
-  const currentUser = useSelector((store) => store.currentUser);
-  const token = localStorage.getItem('authToken');
-  const navigate = useNavigate();
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [visible, setVisible] = useState(true);
-
-  // const handleScroll = () => {
-  //   const currentScrollPos = window.pageYOffset;
-  //   setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
-  //   setPrevScrollPos(currentScrollPos);
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []); // Solo se ejecuta al montar el componente
-
-  let tokenId = '';
-  let tokenRoll = '';
-
-  if (token) {
-    const tokenData = token.split('.')[1];
-    const decodedData = window.atob(tokenData);
-    const jsonObject = JSON.parse(decodedData);
-
-    tokenId = jsonObject.id;
-    tokenRoll = jsonObject.roll;
-  }
-
-  const DetailAcount = (id) => {
-    navigate(`/account/client/${id}`);
-  }
-  console.log(currentUser);
-  console.log(tokenRoll);
-  console.log(currentUser.foto);
+    //importamos estados globales 
+    const currentUser = useSelector(store => store.currentUser)
+    console.log(currentUser);
+    let token = localStorage.getItem('authToken');
+    console.log("tokennnn", token)
+    const navigate = useNavigate();
+    
+    let tokenId = '';
+    let tokenRoll = '';
+  
+    if(token || null || ''){
+      const tokenData = token.split('.').at(1)
+      console.log("tokenData", tokenData)
+      const decodedData = window.atob(tokenData)
+      const jsonObject = JSON.parse(decodedData);
+  
+    //   console.log("decodedData", decodedData)
+    //   console.log('parseJson', jsonObject)
+    //  console.log('id', jsonObject.id)
+  
+      tokenId = jsonObject.id
+      tokenRoll = jsonObject.roll
+    }
+    //useEffect
+    useEffect(()=>{
+  
+    },[])
+  
+    console.log("tokenId", tokenId)
+    console.log('tokenRoll', tokenRoll)
+  
+    const DetailAcount = (id) => {
+        navigate(`/account/client/${id}`)
+    }
+  
   return (
     <nav >
 <div className="navbar-container">
