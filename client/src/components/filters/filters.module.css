@@ -19,15 +19,16 @@
   gap: 0px;
   background-color:  #2b4c7e;
   left: 0; */
-  
+    /* position: fixed; */
+    margin-top: 20vh;
     background-color: #F1F0EA;
     color: #fff;
     padding: 20px;
-    width: 200px;
+    width: 70%;
     height: 100%;
-    margin-top: 46%; /* Ajusta la posición vertical en la parte superior */
-    margin-left: -90%; /* Ajusta la posición horizontal en la parte izquierda */
-    bottom: 0; /* Ajusta la altura del contenedor para ocupar toda la altura disponible */
+    /* margin-top: 46%; Ajusta la posición vertical en la parte superior */
+    /* margin-left: -90%; Ajusta la posición horizontal en la parte izquierda */
+    /* bottom: 0; Ajusta la altura del contenedor para ocupar toda la altura disponible */
 }
 
 .label {
@@ -40,6 +41,10 @@
   position: relative;
   margin-bottom: 30px; 
   color: #606D80;
+  /* background-color:#BBBDEE; */
+  padding: 4px;
+  border: 2px solid #BBBDEE ;
+  border-radius: 7px;
 }
 
 .select {

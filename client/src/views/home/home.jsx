@@ -27,23 +27,23 @@ export default function Home() {
       console.log(data);
       return dispatch(loadCurrentUser(data))
     }
-    if(roll === "usuario"){
-        console.log("Entra para usuario");
-        const { data } = await axios.get(`psiconection/usuario/acount/${id}`,{
-          headers: {
-            Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
-          }
-        })
-        return dispatch(loadCurrentUser(data.usuario))
-      }
-    if(roll === "admin"){
-      const { data } = await axios.get(`psiconection/usuario/acount/admin/${id}`,{
+    if (roll === "usuario") {
+      console.log("Entra para usuario");
+      const { data } = await axios.get(`psiconection/usuario/acount/${id}`, {
+        headers: {
+          Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+        }
+      })
+      return dispatch(loadCurrentUser(data.usuario))
+    }
+    if (roll === "admin") {
+      const { data } = await axios.get(`psiconection/usuario/acount/admin/${id}`, {
         headers: {
           Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
         }
       })
       console.log('dataaaa', data)
-       return dispatch(loadCurrentUser(data.usuario))
+      return dispatch(loadCurrentUser(data.usuario))
     }
   }
 
@@ -95,16 +95,19 @@ export default function Home() {
       </div>
       <div className={style.col2Home}>
         <div className={style.search_conteinerHome}>
-        </div>
-        <div className={style.welcomeMessage}>
-                <p className={style.p1}>Aquí podrás conectar con diferentes psicólogos, </p>
-                <p className={style.p}>mejorar tu salud mental y tu vida.</p>
-                <p>¡Comienza tu búsqueda ahora mismo!</p>
-            </div>
+        <p>¡Comienza tu búsqueda ahora mismo!</p>
+
           <SearchBar />
-            <CardsContainer items={currentItems} /> 
-        <Pagination currentPage={currentPage} nextHandler={nextHandler} 
-        prevHandler={prevHandler} items={currentItems} />
+        </div>
+        <Pagination currentPage={currentPage} nextHandler={nextHandler} />
+        {/* <div className={style.welcomeMessage}>
+                {/* <p className={style.p1}>Aquí podrás conectar con diferentes psicólogos, </p>
+                <p className={style.p}>mejorar tu salud mental y tu vida.</p> 
+            </div>*/}
+
+        <CardsContainer items={currentItems} />
+        <Pagination currentPage={currentPage} nextHandler={nextHandler}
+          prevHandler={prevHandler} items={currentItems} />
       </div>
 
     </div>

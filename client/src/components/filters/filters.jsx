@@ -38,7 +38,6 @@ const Filters = (props) => {
   
     return (  
         <div className={style.container}>
-
             <label className={style.label}>Especialización</label>
             <div className={style.selectContainer}>
                 <select
