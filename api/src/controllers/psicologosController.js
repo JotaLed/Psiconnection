@@ -247,6 +247,8 @@ const detailAcountPsicologo = async (id) => {
       PsicologoId: id,
     },
   });
+  console.log('todas las citas', citas);
+  
 
   const usuariosMap = citas.map(async (cita) => {
     const usuario = await Usuario.findByPk(cita.UsuarioId);
