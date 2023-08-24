@@ -24,7 +24,7 @@ const AccountAdmin = () => {
 
     const admin = useSelector((store) => store.usuarioAcountAdmin)
 
-    const [selectedTab, setSelectedTab] = useState('profile');
+    const [selectedTab, setSelectedTab] = useState('resumen');
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const profesionales = useSelector((state) => state.adminPsicologos?.sort((a, b) => a.nombre.localeCompare(b.nombre)))
@@ -168,7 +168,7 @@ const AccountAdmin = () => {
                         </>
                     )}
                     {selectedTab === 'profesionales' && (
-                        <div>
+                        <div className={styles.tablas}>
                             <Pagination
                                 currentPage={currentPage}
                                 nextHandler={nextHandler}
@@ -178,7 +178,7 @@ const AccountAdmin = () => {
                             /></div>
                     )}
                     {selectedTab === 'usuarios' && (
-                        <div>
+                        <div className={styles.tablas}>
                             <Pagination
                                 currentPage={currentPage}
                                 nextHandler={nextHandlerClient}

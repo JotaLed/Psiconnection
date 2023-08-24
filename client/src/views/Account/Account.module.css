@@ -1,5 +1,5 @@
 .accountContainer {
-  margin-top: 11vh;
+  margin-top: 2vh;
   display: flex;
   min-height: 89vh;
   height: fit-content;
@@ -19,7 +19,7 @@
 
 .mainContent {
   flex: 3;
-  padding: 20px;
+  /* padding: 20px; */
   /* Centrar verticalmente */
   justify-content: center;
   /* Centrar horizontalmente */

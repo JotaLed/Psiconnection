@@ -14,12 +14,12 @@ const ProfileBar = ({ handleTabChange, selectedTab }) => {
     }
     return (
         <Nav className="flex-column">
-            <Nav.Item>
+             <Nav.Item>
                 <Nav.Link
-                    onClick={() => handleTabChange('profile')}
-                    className={`${styles.customNavLink} ${selectedTab === 'profile' ? styles.active : ''}`}
+                    onClick={() => handleTabChange('resumen')}
+                    className={`${styles.customNavLink} ${selectedTab === 'resumen' ? styles.active : ''}`}
                 >
-                    Perfil
+                    Resumen
                 </Nav.Link>
             </Nav.Item>
             <Nav.Item>
@@ -40,12 +40,13 @@ const ProfileBar = ({ handleTabChange, selectedTab }) => {
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link
-                    onClick={() => handleTabChange('resumen')}
-                    className={`${styles.customNavLink} ${selectedTab === 'resumen' ? styles.active : ''}`}
+                    onClick={() => handleTabChange('profile')}
+                    className={`${styles.customNavLink} ${selectedTab === 'profile' ? styles.active : ''}`}
                 >
-                    Resumen
+                    Perfil
                 </Nav.Link>
             </Nav.Item>
+           
             <Nav.Link onClick={logout} to="/form" className={styles.customNavLink}>
                 Cerrar Sesión
             </Nav.Link>

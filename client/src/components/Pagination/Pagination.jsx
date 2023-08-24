@@ -14,11 +14,11 @@ const Pagination = ({ currentPage, prevHandler, nextHandler, items, cardsContain
         <span className={style.pageIndicator}>{currentPage + 1}</span>
         <button className={style.btn} onClick={nextHandler}>Next</button>
       </div>
-       <div className={style.prueba}>
+      <div className={style.prueba}>
         {cardsContainer && <CardsContainer items={items} />}
         {profesionales && <Profesionales items={items} />}
-        {clientes && <Clientes items={items}/>}
-      </div> 
+        {clientes && <Clientes items={items} />}
+      </div>
     </div>
   );
 };
