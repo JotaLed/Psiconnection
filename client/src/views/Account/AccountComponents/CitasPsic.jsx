@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail } from "../../../Redux/actions";
+import { getDetail, getDetailAuthPsicologo, getDetailAuthPsicologoCitas } from "../../../Redux/actions";
 import { Table, Button } from "react-bootstrap";
 
 const CitasPsic = () => {
     const dispatch = useDispatch();
-    const psicologo = useSelector((store) => store.psicologo);
+    const citas = useSelector((store) => store.citasPsicologo);
+    console.log(citas)
 
     const { id } = useParams();
 
     useEffect(() => {
         const aux = async () => {
-            await dispatch(getDetail(id));
+            // await dispatch(getDetailAuthPsicologo(id));
+                await dispatch(getDetailAuthPsicologoCitas(id))
         };
         aux();
     }, [dispatch, id]);
@@ -27,9 +29,9 @@ const CitasPsic = () => {
 
     return (
         <div>
-            {console.log(psicologo.reserva)}
+         
             <h2>Mis Citas</h2><br></br>
-            {psicologo.cita?.length > 0 ?  <Table striped bordered hover>
+            {citas?.length > 0 ?  <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Cita</th>
@@ -42,7 +44,7 @@ const CitasPsic = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {psicologo.cita.map((cita, index) => (
+                    {citas.map((cita, index) => (
                         <tr key={cita.IdCita}>
                             <td>{index + 1}</td>
                             <td>{capitalizeFirstLetter(cita.usuarioNombre)} {capitalizeFirstLetter(cita.usuarioApellido)}</td>

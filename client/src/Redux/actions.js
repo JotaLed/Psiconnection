@@ -17,6 +17,7 @@ export const GET_ALL_PSICOLOGOS = "GET_ALL_PSICOLOGOS"
 export const GET_DETAIL_ACOUNT_PSICOLOGO = "GET_DETAIL_ACOUNT_PSICOLOGO"
 export const GET_DETAIL_ACOUNT_USUARIO = "GET_DETAIL_ACOUNT_USUARIO"
 export const GET_DETAIL_ACOUNT_ADMIN = "GET_DETAIL_ACOUNT_ADMIN"
+export const GET_DETAIL_ACOUNT_PSICOLOGO_CITAS="GET_DETAIL_ACOUNT_PSICOLOGO_CITAS"
 //----------------------------------------------------------------------------------------//
 import axios from "axios";
 
@@ -214,6 +215,34 @@ export const getDetailAuthPsicologo = (id) => {
             console.log(error);
             return dispatch({
                     type: GET_DETAIL_ACOUNT_PSICOLOGO,
+                    payload: error.response.data.error
+                })
+        }
+    }
+}
+
+//-----------------------obtener el detail del PSICOLO CON PROTECCION CITAS-----------------------------//
+
+export const getDetailAuthPsicologoCitas = (id) => {
+    const getToken = window.localStorage.getItem('authToken')
+    const tokenObject = JSON.parse(getToken); 
+
+    return async function (dispatch) {
+        try {
+           const { data } = await axios.get(`/psiconection/acount/${id}`, {
+            headers: {
+              Authorization: `Bearer ${tokenObject}` // Agrega el token al encabezado de autorización
+            }
+          })
+          const citas = data.cita         
+         return dispatch(
+            { type: GET_DETAIL_ACOUNT_PSICOLOGO_CITAS , 
+                payload: citas 
+            });
+        } catch (error) {
+            console.log(error);
+            return dispatch({
+                    type: GET_DETAIL_ACOUNT_PSICOLOGO_CITAS,
                     payload: error.response.data.error
                 })
         }

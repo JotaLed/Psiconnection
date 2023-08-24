@@ -55,12 +55,7 @@ psicologosRoutes.put("/uploadFoto/:id", upload.single("foto"), subirFoto);
 
 // ruta tipo get obtener detalles de la cuenta ruta http://localhost:3001/psiconection/acount/"id del psicologo"
 //! con autentificacion
-psicologosRoutes.get(
-  "/acount/:id",
-  verifyIdToken,
-  checkRollAuth(["psicologo"]),
-  getDetailAcount
-);
+psicologosRoutes.get("/acount/:id",verifyIdToken,checkRollAuth(["psicologo"]),getDetailAcount);
 
 //! sin con autentificacion
 // psicologosRoutes.get("/acount/:id", getDetailAcount);
