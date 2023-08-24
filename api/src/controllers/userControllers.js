@@ -178,6 +178,7 @@ const detailAcountUsuario = async (id) => {
       IdCita: cita.id,
       Fecha: cita.fecha,
       Hora: cita.hora,
+      Estado: cita.estado,
       psicologoId: psicologo.id,
       psicologoNombre: psicologo.nombre,
       psicologoApellido: psicologo.apellido,

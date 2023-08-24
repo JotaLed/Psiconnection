@@ -1,14 +1,21 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail } from "../../../Redux/actions";
+import { cancelCita, getDetail } from "../../../Redux/actions";
 import { Table, Button } from "react-bootstrap";
 
 const CitasClient = ({client}) => {
-    
+    const dispatch = useDispatch()
+
     const handleCancelCita = (idCita) => {
+        const confirmacion = window.confirm('¿Estás seguro de que deseas cancelar la cita? Esta acción no se puede deshacer.');
+        if (confirmacion) {
+            dispatch(cancelCita(idCita))
+            window.location.reload()
+        }
         
     };
+   
     
     function capitalizeFirstLetter(name) {
         return name.charAt(0).toUpperCase() + name.slice(1);
@@ -25,11 +32,13 @@ const CitasClient = ({client}) => {
                         <th>País del Psicólogo</th>
                         <th>Fecha</th>
                         <th>Hora</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {client.citas.map((cita, index) => (
+                        
                         <tr key={cita.IdCita}>
                             <td>{index + 1}</td>
                             <td>{capitalizeFirstLetter(cita.psicologoNombre)} {capitalizeFirstLetter(cita.psicologoApellido)}</td>
@@ -37,10 +46,11 @@ const CitasClient = ({client}) => {
 
                             <td>{cita.Fecha}</td>
                             <td>{cita.Hora}</td>
+                            <th>{cita.Estado}</th>
                             <td>
-                                <Button variant="danger" onClick={() => handleCancelCita(cita.IdCita)}>
+                                {cita.Estado?.toLowerCase() !== "cancelado" && cita.Estado?.toLowerCase() !== "finalizado" && <Button variant="danger" onClick={() => handleCancelCita(cita.IdCita)}>
                                     Cancelar Cita
-                                </Button>
+                                </Button>}
                             </td>
                         </tr>
                     ))}
