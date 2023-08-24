@@ -47,11 +47,11 @@ const Filters = (props) => {
                     onChange={handleFilterChange}
                 >
                     <option value="all">TODOS</option>
-                    <option value={"Terapia familiar"}>Terapia familiar</option>
-                    <option value={"Terapia de pareja"}>Terapia de pareja</option>
-                    <option value={"Terapia psicoanalitica"}>
-                        Terapia psicoanalitica
-                    </option>
+                    <option value={"Psicología cognitivo-conductual"}>Terapia conductual</option>
+                    <option value={"Psicología de pareja"}>Terapia de pareja</option>
+                    <option value={"Psicoanalisis"}>Terapia psicoanalitica</option>
+                    <option value={"Psicología infantil"}>Terapia infatil</option>
+                    <option value={"Sexología"}>Sexologia</option>
                 </select>
             </div>
 
