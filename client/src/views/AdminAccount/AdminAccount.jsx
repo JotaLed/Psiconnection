@@ -133,9 +133,7 @@ const AccountAdmin = () => {
             <Card className={styles.card}>
                 <Card.Body className={`${styles.cardBody}`}>
                     {selectedTab === 'resumen' && (
-                        <div>
-                            <Dashboard/>
-                        </div>
+                        <Dashboard />
                     )}
                     {selectedTab === 'profile' && (
                         <>
