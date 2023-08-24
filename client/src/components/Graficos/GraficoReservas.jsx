@@ -27,9 +27,15 @@ const GraficoReservas = () => {
     // Cuenta la cantidad de reservas que aparece cada mes
     let countAppointments = {};
 
-    for (let i = 0; i < appointments.length; i++) {
-      let date = new Date(appointments[i].fecha);
-      let month = date.getMonth() + 1; // getMonth() devuelve el mes que empieza desde 0
+    for (let i = 1; i < appointments.length; i++) {
+      let dateParts = appointments[i].fecha.split("/");
+      let formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+      let date = new Date(formattedDate);
+
+      if (isNaN(date)) {
+        console.log(`Invalid date at index ${i}: ${appointments[i].fecha}`);
+      }
+      let month = date.getMonth() + 1;
       let year = date.getFullYear();
 
       let monthYear = `${month}-${year}`;
@@ -65,7 +71,8 @@ const GraficoReservas = () => {
             right: 30,
             left: 20,
             bottom: 5,
-          }}>
+          }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="monthYear" />
           <YAxis />
