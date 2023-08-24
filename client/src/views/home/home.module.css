@@ -2,22 +2,30 @@
 .home{
     display: flex;
     flex-direction: row;
-    padding: 0;
-    margin-left: 12%;
-    margin-top: -6%;
+    height: 100%
     
+    
+}
+.col1Home{
+    display: flex;
+    justify-content: center;
+    background-color: #F1F0EA;
+    width: 15vw;
+    min-width: 13vw;
+
 }
 
 .col2Home{
-    margin-top: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 60%;
-    margin-left: 4%;
+    width: 85vw;
 }
 .search_conteinerHome{
+    /* background-color: #F1F0EA; */
+    width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 

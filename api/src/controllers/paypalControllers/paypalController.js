@@ -8,7 +8,9 @@ const {
   BASE_URL_SERVER,
   PAYPAL_API_CLIENT,
   PAYPAL_API_SECRET,
-  URL_BASE_FRONT
+  URL_BASE_FRONT,
+  URL_BASE_FRONT_DEPLOY,
+  URL_BASE_BACK_DEPLOY,
 } = require("../../config.js");
 
 const cita = {};
@@ -61,8 +63,10 @@ const createOrder = async (req, res) => {
         brand_name: "Psiconnection.com",
         landing_page: "NO_PREFERENCE",
         user_action: "PAY_NOW",
-        return_url: `${HOST}/pay/paymentCapture?data=${encodedObj}`,
-        cancel_url: `${HOST}/pay/paymentCancel`,
+        // return_url: `${HOST}/pay/paymentCapture?data=${encodedObj}`,
+        // cancel_url: `${HOST}/pay/paymentCancel`,
+        return_url: `${URL_BASE_BACK_DEPLOY}/pay/paymentCapture?data=${encodedObj}`,
+        cancel_url: `${URL_BASE_BACK_DEPLOY}/pay/paymentCancel`,
       },
     };
 
@@ -108,7 +112,7 @@ const captureOrder = async (req, res) => {
   const { token } = req.query;
   const { data } = req.query;
   const decodedObj = JSON.parse(Buffer.from(data, "base64").toString("utf-8"));
-  
+
   const newCita = {
     hora: decodedObj.hora,
     fecha: decodedObj.fecha,
@@ -135,7 +139,8 @@ const captureOrder = async (req, res) => {
     if (status === "COMPLETED") {
       const response = await reservaCita(newCita);
       console.log(response);
-      return res.redirect(`${URL_BASE_FRONT}/success?data=${data}`);
+      // return res.redirect(`${URL_BASE_FRONT}/success?data=${data}`);
+      return res.redirect(`${URL_BASE_FRONT_DEPLOY}/success?data=${data}`);
     }
   } catch (error) {
     console.log(error);
