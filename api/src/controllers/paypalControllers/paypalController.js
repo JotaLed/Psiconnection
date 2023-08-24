@@ -66,7 +66,7 @@ const createOrder = async (req, res) => {
         // return_url: `${HOST}/pay/paymentCapture?data=${encodedObj}`,
         // cancel_url: `${HOST}/pay/paymentCancel`,
         return_url: `${URL_BASE_BACK_DEPLOY}/pay/paymentCapture?data=${encodedObj}`,
-        cancel_url: `${URL_BASE_BACK_DEPLOY}/pay/paymentCancel`,
+        cancel_url: `${URL_BASE_FRONT_DEPLOY}/payment/state/failure`,
       },
     };
 
