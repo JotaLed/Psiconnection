@@ -89,7 +89,7 @@ const Account = () => {
     const { name, value } = event.target;
     console.log(value.foto);
     if (name === "foto") {
-      setImagen(value);
+      setImagen(value).foto;
     }
     if (name === "tarifa" && value < 1) {
       return;
