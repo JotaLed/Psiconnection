@@ -1,7 +1,14 @@
 import "./Success.css"
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
+import { loadDetail, getDetailClient  } from '../../Redux/actions'
+import { useNavigate } from "react-router-dom";
+
+//! font awesome 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons"
 
 function Success() {
     const location = useLocation();
@@ -14,37 +21,24 @@ function Success() {
         tarifa: '',
         status: ''
     })
-    
-    // const psico = new URLSearchParams(location.search).get('idPsico');
-    // const user = new URLSearchParams(location.search).get('idUser');
-    // const fecha = new URLSearchParams(location.search).get('fecha');
-    // const hora = new URLSearchParams(location.search).get('hora');
-  
-    // console.log('data', queryParamData)
-    // console.log('status', queryParamStatus)
-    // if(queryParamData){
-    //     let decodedData = window.atob(queryParamData)
-    //     const objeto = JSON.parse(decodedData);
-    //     console.log("decodedData", decodedData)
-    //     console.log('objeto', objeto)
-    //     setReserva({
-    //         psico: objeto.id ,
-    //         user: objeto.id,
-    //         fecha: objeto.fecha,
-    //         hora: objeto.hora,
-    //         estado: "activo",
-    //         tarifa: objeto.tarifa
-    //     })
-    // }
+
+    const dispatch = useDispatch();
+
+    const psicologo = useSelector( (store) => store.psicoloDetail )
+    const {usuario} = useSelector((store) => store.cliente)
+
+    const navigate = useNavigate();
+
+    console.log('psicologo', psicologo)
+    console.log('paciente', usuario)
 
     useEffect(()=> {
+        
         const queryParamData = new URLSearchParams(location.search).get('data');
         // const queryParamStatus = new URLSearchParams(location.search).get('status');
         let decodedData = window.atob(queryParamData)
         const objeto = JSON.parse(decodedData);
-        console.log("decodedData", decodedData)
-        console.log('objeto', objeto)
-        console.log('psico', objeto.idPsico)
+        
         setReserva({
             ...reserva,
             psico: objeto.idPsico,
@@ -54,23 +48,17 @@ function Success() {
             estado: objeto.estado,
             tarifa: objeto.tarifa,
         })
-        console.log('reserva', reserva)
-        // return setReserva({})
-    }, [!reserva.estado])
-
+        dispatch(loadDetail(objeto.idPsico))
+        dispatch(getDetailClient(objeto.idUser))
 
     
+    }, [!reserva])
 
-    
 
-//     data = {
-//         idPsico: id ,
-//         idUser: tokenData.id,
-//         fecha: newTurno.fecha,
-//         hora: newTurno.hora,
-//         estado: "activo",
-//         tarifa: psicology.tarifa
-//   }
+    const redirectToHome = () => {
+        navigate("/home")
+    }
+
 
     return (
         <div className="success-container">
@@ -80,13 +68,22 @@ function Success() {
                 </div>
                 : 
                 <div className="container-message">
-                     <h1>Exitoso</h1>
-                    <img src={'https://www.pngkit.com/png/full/920-9209437_check-mark-black-outline-comments-check-logo.png'} className="logo-check" />
+                    <div className="title-success">
+                    <div className="logo-success">
+                    <FontAwesomeIcon icon={faCalendarCheck} size="2xl" />
+                    </div>
+                     <h1>Su pago se ha completado con correctamente</h1>
+                    </div>
+                    {/* <img src={'https://www.pngkit.com/png/full/920-9209437_check-mark-black-outline-comments-check-logo.png'} className="logo-check" /> */}
                     <h2>Cita reservada con éxito!</h2>
-                    <h5>Psicologo: {reserva?.psico}</h5>
-                    <h5>Usuario: {reserva?.user}</h5>
+                    <h5>Psicologo</h5>
+                    <p> {psicologo?.nombre} {psicologo.apellido}</p>
+                    <h5>Cliente:</h5>
+                    <p>{usuario?.nombre} {usuario?.apellido}</p>
+                    <h2> Detalles de la cita </h2>
                     <h5>Fecha: {reserva?.fecha}</h5>
                     <h5>Hora: {reserva?.hora}</h5>
+                    <button className="boton-success" onClick={redirectToHome}>Regresa a casa </button>
                 </div> 
             }
 
