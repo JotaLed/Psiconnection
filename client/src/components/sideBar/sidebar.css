@@ -5,13 +5,12 @@
 #BBBDEE Morado claro, como fondo 
 #5E5F5E 
 #F1F0EA */
-
 body {
   font-family: 'Quicksand', sans-serif;
   margin: 0;
-  padding: 0;
-  
+  padding: 0; 
 }
+
 .navbar {
   background-color: transparent; 
   /* color: #FFFFFF; */
@@ -29,7 +28,7 @@ body {
 }
 
 .nav-link.active {
-  color: #706AD4; /* Cambia el color al seleccionado */
+  color: #706AD4; 
 }
 
 .navbar-container {
@@ -41,11 +40,23 @@ body {
   margin-bottom: 40px;
   display: flex;
   justify-content: space-between;
-
   align-items: center;
   
 }
 
+.navbar-logo {
+  height: 90px;
+  margin-top: 1%; 
+  margin-left: 30%;
+}
+.logoNameHome {
+  color: #5e5f5e;
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+  position: absolute;
+  margin-top: -60px; 
+  left: 8%;
+}
 
 .nav-menu {
   list-style: none;

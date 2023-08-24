@@ -13,7 +13,7 @@ body {
   background-color: white; /* Fondo blanco para el contenedor */
   border-radius: 10px; /* Bordes redondeados para el contenedor */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  margin: 60px; /* Margen para separar del borde de la pantalla */
+  margin: 80px; /* Margen para separar del borde de la pantalla */
 }
 .contenidoFormularioGeneral {
   background-image: linear-gradient(

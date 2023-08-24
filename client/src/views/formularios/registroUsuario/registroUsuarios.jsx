@@ -45,9 +45,11 @@ const RegistroUsuario = () => {
   }, []);
 
   const onSubmit = async (formData) => {
+    console.log("Form Data:", formData);
     formData.roll = "usuario";
     formData.foto = image;
     if (!formData.nombre || !formData.apellido || !formData.genero || !formData.fecha_nacimiento || !formData.telefono || !formData.pais || !formData.email || !formData.contraseña) {
+      console.log("Campos obligatorios faltantes");
       toast.error("Por favor completa todos los campos obligatorios.");
       return;
     }
@@ -76,7 +78,7 @@ const RegistroUsuario = () => {
         navigate("/loginUsuario");
 
         setImage("");
-      
+       
       }
     } catch (error) {
       if (error.response) {
@@ -372,35 +374,15 @@ const RegistroUsuario = () => {
               </Link>
             </div>
           </div>
+        </form>
       <ToastContainer
           position="bottom-right"
           autoClose={3000}
-          style={{ zIndex: 1000 }} // Ajusta el valor según tus necesidades
+          style={{ zIndex: 5000 }} // Ajusta el valor según tus necesidades
         />
-        </form>
       </div>
     </div>
   );
 };
-
-           {/* //!!! Botón de registro */}
-          {/* <div className="col-12">
-//             <button type="submit" className="btn btn-primary">
-//               Registrarse
-//             </button> */}
-
-{/* //             {/* Enlace para volver */}
-{/* //             <div className="link-back">
-//               <Link to="/form" className="back-link">
-//                 Volver
-//               </Link>
-//             </div>
-// //           </div> */} 
-// //         </form>
-//       </div>
-
-//     </div>
-//   );
-// };
 
 export default RegistroUsuario;
