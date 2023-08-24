@@ -13,7 +13,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 70%;
+    width: 60%;
+    margin-left: 4%;
 }
 .search_conteinerHome{
     display: flex;
