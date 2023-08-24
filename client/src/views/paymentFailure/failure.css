@@ -8,20 +8,46 @@
     background-color: #f8f8f8;
   }
   
-  /* Estilos para el título */
+  /* Estilos para el título
   .title {
     font-size: 24px;
     margin-bottom: 10px;
   }
   
   /* Estilos para el mensaje */
-  .message {
+  /* .message {
     font-size: 18px;
     margin-bottom: 20px;
-  }
+  } */
   
   /* Estilos para la imagen */
-  .alert {
+  /* .alert {
     width: 150px;
     height: 150px;
+  }  */
+
+  .containError .icon-container{
+    margin-bottom: 50px;
+  }
+  .containError .message-container{
+    margin-bottom: 50px;
+  }
+  .containError .message-container h1{
+    color: red;
+    text-decoration: underline;
+  }
+  
+  .containError .boton-inicio{
+    background-color: #706AD4;
+    padding: 15px;
+    border-radius: 10px;
+    transition: 0.3s;
+  }
+  .containError .boton-inicio:hover{
+    transition: 0.3s;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  .containError .boton-inicio a{
+    font-size: 20px;
   }

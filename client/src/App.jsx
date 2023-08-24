@@ -48,11 +48,12 @@ import "react-toastify/dist/ReactToastify.css";
 //comentario
 function App() {
   const { pathname } = useLocation();
+  const shouldRenderHeader = !["/success", "/payment/state/failure"].includes(pathname);
 
   return (
     <PayPalScriptProvider options={{ "clientId":"AfeucC6LwLkek1cqd6c57o75Ay2VvQKOF01r1TSP42Tf2hFsYhvflmr5ay7J4XU-m8C56JVfJ-dyQci-"}}>
     <div>
-      <Header />
+    {shouldRenderHeader && <Header />}
       {pathname !== "/" && <SideBar />}
       <Routes>
         <Route path="/form" element={<FormularioGeneral />} />
