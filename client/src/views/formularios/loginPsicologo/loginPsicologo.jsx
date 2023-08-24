@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import "./loginPsicologo.css";
+import './loginPsicologo.css'
 import { isValidPassword } from "../validaciones";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Form, Button, Alert } from "react-bootstrap"; 
+import { toast, ToastContainer } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css"; 
 
 const LoginPsicologo = () => {
   const {
@@ -25,116 +28,123 @@ const LoginPsicologo = () => {
   };
 
   const onSubmit = async (formData) => {
-    if (!formData.email || !formData.contraseña) {
-      setErrorMessage("Todos los campos son requeridos");
+    if (Object.keys(errors).length > 0) {
+      toast.error("Por favor completa todos los campos.");
       return;
     }
 
     try {
       const response = await axios.post("/psiconection/login", formData);
-      console.log(response);
-      console.log("Response from server:", response.data);
-      console.log("Token:", response.data.info.tokenSession);
+
       if (response.status === 200) {
         const userRole = response.data.info.roll;
 
         if (userRole !== "psicologo") {
-          // si es dife a psico error y no realiza la redirección
-          window.alert("Por favor inicie sesión como usuario");
+          toast.error("Por favor inicie sesión como psicólogo");
         } else {
-          //! cambios
-          // setToken(response.data.info.tokenSession);
-          // Aquí estás guardando el token en el estado tokenSession
           const tokenString = JSON.stringify(response.data.info.tokenSession);
           window.localStorage.setItem("authToken", tokenString);
           navigate("/home");
         }
       }
-      // else {
-      //   setErrorMessage('Credenciales inválidas');
-      // }
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
-      window.alert(error.response.data.error);
+
+      if (error.response) {
+        if (error.response.data && error.response.data.error) {
+          toast.error(error.response.data.error);
+        } else {
+          toast.error("Hubo un error al iniciar sesión. Por favor, inténtalo de nuevo más tarde.");
+        }
+      } else {
+        toast.error("No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet.");
+      }
     }
   };
   return (
-    <div className="containerLoginPisco">
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <div className="login-formPsico">
-          <h2>¡Bienvenidos Psicologos!</h2>
-          <h3 className="title">inicia sesión:</h3>
+    <div className="containerLoginPsico">
+      <div className="login-formPsico">
+        <h2 className="h2Psico">¡Bienvenidos Psicólogos!</h2>
+        <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <div className="login-formPsico">
+            <h4 className="h4Psico">Inicia sesión:</h4>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-          <div className="form-groupPsico">
+                 {/* //*EMAIL */}
+         <div className="form-groupLogPsico">
             <label>
-              <i className="bx bxs-envelope"></i>
-              <Controller
-                name="email"
-                control={control}
-                defaultValue=""
-                rules={{ pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i }}
-                render={({ field }) => (
-                  <input
-                    {...field}
-                    type="email"
-                    placeholder="example@gmail.com"
-                  />
-                )}
-              />
+                <i className="bx bxs-envelope"></i> Correo electrónico:
             </label>
-            {errors.email?.type === "pattern" && (
-              <p className="errores">Formato de email incorrecto</p>
-            )}
-          <div className="form-groupPsico">
-            <label>
-              <i className="bx bxs-lock-alt"></i>
-              <Controller
-                name="contraseña"
-                control={control}
-                defaultValue=""
-                rules={{ validate: isValidPassword }}
-                render={({ field }) => (
-                  <div className="password-input">
+                <Controller
+                  name="email"
+                  control={control}
+                  defaultValue=""
+                  rules={{ pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i }}
+                  render={({ field }) => (
                     <input
                       {...field}
-                      type={showPassword ? "text" : "password"} // Cambio de tipo aquí
-                      placeholder="Contraseña"
+                      type="email"
+                      placeholder="Ingresa tú correo electrónico"
                     />
+                  )}
+                />
+              {errors.email?.type === "pattern" && (
+                <p className="errores">Formato de email incorrecto</p>
+              )}
 
-                    <i
-                      className={`bx ${showPassword ? "bxs-hide" : "bxs-show"}`}
-                      onClick={() => setShowPassword(!showPassword)}
-                    ></i>
-                  </div>
-                )}
-              />
+              {/*//* Contraseña */}
+        <div className="form-groupLogPsico">
+            <label>
+              <i className="bx bxs-lock-alt"></i> Contraseña:
             </label>
+            <Controller
+              name="contraseña" 
+              control={control}
+              defaultValue=""
+              rules={{ validate: isValidPassword }}
+              render={({ field }) => (
+            <div>
+              <input
+                {...field}
+                placeholder="Ingresa tú contraseña"
+                type={showPassword ? "text" : "password"} // Cambio de tipo aquí
+              />
+              <i
+                className={`bx ${showPassword ? "bxs-hide" : "bxs-show"
+                }`}
+                onClick={() => setShowPassword(!showPassword)}
+              ></i>
             </div>
-            {errors.password && (
-              <p className="errores">
-                Debe tener más de 6 caracteres alfanuméricos
-              </p>
-            )}
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Iniciar Sesión
-          </button>
-          {/* Enlace para ir a la página de registro */}
-          <div className="register-link">
-            ¿No tienes una cuenta?{" "}
-            <Link to="/registroPsicologo" className="register-link-text">
-              Regístrate aquí
-            </Link>
-          </div>
-
-          <div className="link-back">
-            {/* Enlace para volver a la página anterior */}
-            <Link to="/form" className="back-link">
-              Volver
-            </Link>
-          </div>
+                )}
+                />
+              {errors.password && (
+                <p className="errores">
+                  Debe tener más de 6 caracteres alfanuméricos
+                </p>
+              )}
+            </div>
+            </div>
+            <button type="submit" className="btnIsPsico">
+              Iniciar Sesión
+            </button>
+            </div>
+   </Form>
+   <div className="register-link">
+          ¿No tienes una cuenta?{" "}
+          <Link to="/registroPsicologo" className="register-link-textPsico">
+            Regístrate aquí
+          </Link>
         </div>
-      </form>
+        <div className="link-back">
+          <Link to="/form" className="back-link">
+            Volver
+          </Link>
+        </div>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          style={{ zIndex: 5000 }}
+        />
+      </div>
     </div>
   );
 };

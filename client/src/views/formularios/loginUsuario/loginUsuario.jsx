@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { isValidPassword } from "../validaciones";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loadCurrentUser } from "../../../Redux/actions";
 import axios from "axios";
+import { Form, Button } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import LoginButtonAuth0 from "./LoginAuth0";
-import { Form, Button, Alert } from "react-bootstrap"; 
-import { toast, ToastContainer } from "react-toastify"; 
-import "react-toastify/dist/ReactToastify.css"; 
 import "./loginUsuario.css";
 
 const LoginUsuario = () => {
@@ -20,37 +20,16 @@ const LoginUsuario = () => {
     control,
     formState: { errors },
   } = useForm();
-
-  //Estados locales
-  const [errorMessage, setErrorMessage] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
-  // const [performValidations, setPerformValidations] = useState(true); // Estado para controlar las validaciones
   const navigate = useNavigate();
-  //const { loginWithRedirect } = useAuth0();
-  const [token, setToken] = useState("");
-
-  //Estados globales:
   const dispatch = useDispatch();
-
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const handleWindow = () => {
-    localStorage.setItem("authToken", token); // Guarda el token en localStorage
+    localStorage.setItem("authToken", token);
     navigate("/home");
   };
 
-  // Recuperar un token del localStorage en otro componente
-  //const authToken = localStorage.getItem('authToken');
-
-
   const onSubmit = async (formData) => {
-    if (!formData.email) {
-      toast.error("Por favor ingresa tu correo electrónico.");
-      return;
-    }
-    if (!formData.contraseña) {
-      toast.error("Por favor ingresa tu contraseña.");
-      return;
-    }
-
     try {
       const response = await axios.post("/psiconection/login", formData);
 
@@ -60,12 +39,14 @@ const LoginUsuario = () => {
           toast.error("Por favor inicie sesión como usuario");
           return;
         }
-  
+
         // Carga el estado de usuario actual y guarda el token en el localStorage
         await dispatch(loadCurrentUser(response.data.info));
-        const tokenString = JSON.stringify(response.data.info.tokenSessionUser);
+        const tokenString = JSON.stringify(
+          response.data.info.tokenSessionUser
+        );
         localStorage.setItem("authToken", tokenString);
-  
+
         // Muestra el toast de inicio de sesión exitoso y redirige al usuario después de cerrarlo
         toast.success(`¡Bienvenid@, ${response.data.info.nombre}! Inicio de sesión exitoso.`, {
           autoClose: 2000,
@@ -76,12 +57,11 @@ const LoginUsuario = () => {
       }
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
-      console.log("Error status:", error.response ? error.response.status : "No response status");
-      console.error("Error al realizar la solicitud:", error);
       if (error.response) {
-        if (error.response.status === 404) {
+        const status = error.response.status;
+        if (status === 404) {
           toast.error("No encontramos un correo registrado. Regístrate para crear una cuenta.");
-        } else if (error.response.status === 401) {
+        } else if (status === 401) {
           toast.error("El correo o la contraseña son incorrectos. Inténtalo nuevamente.");
         } else {
           toast.error("Hubo un problema al procesar la solicitud. Por favor, intenta nuevamente más tarde.");
@@ -90,15 +70,21 @@ const LoginUsuario = () => {
         toast.error("Hubo un problema al conectar con el servidor.");
       }
     }
-  }
+  };
   return (
     <div className="containerLoginUsuario">
       <div className="login-formUsu">
         <h2>¡Bienvenido!</h2>
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="login-formUsu">
-        <h4>Inicia sesión: </h4>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <h4>Inicia sesión:</h4>
+            {errors.email && (
+              <p className="error-message">Por favor ingresa tu correo electrónico.</p>
+            )}
+            {errors.contraseña && (
+              <p className="error-message">Por favor ingresa tu contraseña.</p>
+            )}
+            <div className="form-groupLogUsu">
            {/* //*EMAIL */}
             <div className="form-groupLogUsu">
             <label>
@@ -153,6 +139,7 @@ const LoginUsuario = () => {
               )}
             </div>
             </div>
+            </div>
             <button type="submit" className="btnIsUsu">
               Iniciar Sesión
             </button>
@@ -183,7 +170,7 @@ const LoginUsuario = () => {
           autoClose={3000}
           style={{ zIndex: 5000 }} // Ajusta el valor según tus necesidades
         />
-        </form>
+        </Form>
       </div>
     </div>
   );
