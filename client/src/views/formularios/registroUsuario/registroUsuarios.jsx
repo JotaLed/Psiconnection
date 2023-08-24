@@ -24,8 +24,8 @@ const RegistroUsuario = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      genero: "", // Valor inicial para el género
-      pais: "", // Valor inicial para el país
+      genero: "",
+      pais: "",
     },
   });
 
@@ -45,28 +45,13 @@ const RegistroUsuario = () => {
   }, []);
 
   const onSubmit = async (formData) => {
-    console.log("Form Data:", formData);
     formData.roll = "usuario";
     formData.foto = image;
-    if (!formData.nombre || !formData.apellido || !formData.genero || !formData.fecha_nacimiento || !formData.telefono || !formData.pais || !formData.email || !formData.contraseña) {
-      console.log("Campos obligatorios faltantes");
-      toast.error("Por favor completa todos los campos obligatorios.");
+
+    if (shouldShowErrorToast(formData)) {
       return;
     }
-    if (errors.email?.type === "pattern") {
-      toast.error("Formato de correo electrónico incorrecto.");
-      return;
-    }
-    if (errors.fecha_nacimiento?.type === "validate") {
-      toast.error("Debes tener al menos 18 años para registrarte.");
-      return;
-    }
-    if (errors.contraseña) {
-      toast.error("La contraseña debe tener al menos 6 caracteres alfanuméricos.");
-      return;
-    }
-  
-  
+
     try {
       const response = await axios.post(
         "/psiconection/registerUsuario",
@@ -74,31 +59,59 @@ const RegistroUsuario = () => {
       );
 
       if (response.status === 200) {
-        toast.success("¡Registro exitoso!");
-        navigate("/loginUsuario");
-
-        setImage("");
-       
+        toast.success("¡Bienvenid@ ${formData.nombre}! Registro exitoso");
+        setTimeout(() => {
+          navigate("/loginUsuario");
+          setImage("");
+        }, 2000); // Espera 2 segundos antes de redirigir
       }
     } catch (error) {
-      if (error.response) {
-        if (error.response.status === 400) {
-          if (error.response.data.errors) {
-            const errorMessages = Object.values(error.response.data.errors)
-              .map((errorMessage) => `• ${errorMessage}`)
-              .join("\n");
-            toast.error(`Error en el formulario:\n${errorMessages}`);
-          } else if (error.response.data.message === "Correo ya registrado") {
-            toast.error("El correo electrónico ya está registrado. Por favor, usa otro correo.");
-          } else {
-            toast.error("Error en el formulario. Verifica los datos.");
-          }
+      handleErrorResponse(error);
+    }
+  };
+
+  const shouldShowErrorToast = (formData) => {
+    if (formData.nombre === "" || formData.apellido === "" 
+    || formData.fecha_nacimiento === ""  || formData.genero === ""  
+    || formData.pais === ""  || formData.telefono === "" 
+    || formData.foto === ""  || formData.email === ""  || formData.contraseña === ""
+    ) {
+      toast.error("Por favor completa todos los campos obligatorios.");
+      return true;
+    }
+    if (errors.email?.type === "pattern") {
+      toast.error("Formato de correo electrónico incorrecto.");
+      return true;
+    }
+    if (errors.fecha_nacimiento?.type === "validate") {
+      toast.error("Debes tener al menos 18 años para registrarte.");
+      return true;
+    }
+    if (errors.contraseña) {
+      toast.error("La contraseña debe tener al menos 6 caracteres alfanuméricos.");
+      return true;
+    }
+    return false;
+  };
+
+  const handleErrorResponse = (error) => {
+    if (error.response) {
+      if (error.response.status === 400) {
+        if (error.response.data.errors) {
+          const errorMessages = Object.values(error.response.data.errors)
+            .map((errorMessage) => `• ${errorMessage}`)
+            .join("\n");
+          toast.error(`Error en el formulario:\n${errorMessages}`);
+        } else if (error.response.data.message === "Correo ya registrado") {
+          toast.error("El correo electrónico ya está registrado. Por favor, usa otro correo.");
         } else {
-          toast.error("Error al registrar. Inténtalo de nuevo más tarde.");
+          toast.error("Error en el formulario. Verifica los datos.");
         }
       } else {
-        toast.error("Error al conectar con el servidor.");
+        toast.error("Error al registrar. Inténtalo de nuevo más tarde.");
       }
+    } else {
+      toast.error("Error al conectar con el servidor.");
     }
   };
 
