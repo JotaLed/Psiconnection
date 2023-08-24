@@ -59,11 +59,11 @@ const RegistroUsuario = () => {
       );
 
       if (response.status === 200) {
-        toast.success("¡Bienvenid@ ${formData.nombre}! Registro exitoso");
+        toast.success(`¡Bienvenid@, ${formData.nombre}! Registro exitoso`);
         setTimeout(() => {
           navigate("/loginUsuario");
           setImage("");
-        }, 2000); // Espera 2 segundos antes de redirigir
+        }, 4000); // Espera 2 segundos antes de redirigir
       }
     } catch (error) {
       handleErrorResponse(error);
@@ -71,14 +71,23 @@ const RegistroUsuario = () => {
   };
 
   const shouldShowErrorToast = (formData) => {
-    if (formData.nombre === "" || formData.apellido === "" 
-    || formData.fecha_nacimiento === ""  || formData.genero === ""  
-    || formData.pais === ""  || formData.telefono === "" 
-    || formData.foto === ""  || formData.email === ""  || formData.contraseña === ""
-    ) {
-      toast.error("Por favor completa todos los campos obligatorios.");
+    const requiredFields = [
+      "nombre",
+      "apellido",
+      "genero",
+      "fecha_nacimiento",
+      "pais",
+      "telefono",
+      "email",
+      "contraseña",
+    ];
+
+    const missingFields = requiredFields.filter(field => !formData[field]);
+    if (missingFields.length > 0) {
+      toast.error(`Por favor completa los campos obligatorios: ${missingFields.join(', ')}`);
       return true;
     }
+
     if (errors.email?.type === "pattern") {
       toast.error("Formato de correo electrónico incorrecto.");
       return true;
@@ -93,6 +102,7 @@ const RegistroUsuario = () => {
     }
     return false;
   };
+
 
   const handleErrorResponse = (error) => {
     if (error.response) {
@@ -239,18 +249,20 @@ const RegistroUsuario = () => {
                     },
                   }}
                   render={({ field }) => (
-                    <input
-                      {...field}
-                      type="date"
-                      placeholder="Selecciona tu fecha de nacimiento"
-                    />
+                    <div>
+                      <input
+                        {...field}
+                        type="date"
+                        placeholder="Selecciona tu fecha de nacimiento"
+                        className={errors.fecha_nacimiento ? "input-error" : ""}
+                      />
+                      {errors.fecha_nacimiento && (
+                        <p className="errores">{errors.fecha_nacimiento.message}</p>
+                      )}
+                    </div>
                   )}
                 />
-              
-              {errors.fechaNacimiento && (
-                <p className="errores">{errors.fechaNacimiento.message}</p>
-              )}
-            </div>
+              </div>
  
 {/* //* TELEFONO*/}
 
@@ -355,25 +367,24 @@ const RegistroUsuario = () => {
               rules={{ validate: isValidPassword }}
               render={({ field }) => (
             <div>
-              <input
-                {...field}
-                placeholder="Crea una contraseña"
-                type={showPassword ? "text" : "password"} // Cambio de tipo aquí
-              />
-              <i
-                className={`bx ${showPassword ? "bxs-hide" : "bxs-show"
-                }`}
-                onClick={() => setShowPassword(!showPassword)}
-              ></i>
-            </div>
-                )}
-                />
-              {errors.password && (
-                <p className="errores">
-                  Debe tener más de 6 caracteres alfanuméricos
-                </p>
-              )}
-            </div>
+   <input
+          {...field}
+          placeholder="Crea una contraseña"
+          type={showPassword ? "text" : "password"} // Cambio de tipo aquí
+          className={errors.contraseña ? "input-error" : ""}
+        />
+        {errors.contraseña && (
+          <p className="errores">
+            Debe tener más de 6 caracteres alfanuméricos
+          </p>
+        )}
+      </div>
+    )}
+  />
+</div>
+
+
+
 </div>
 
             <div className="col-12">
@@ -387,12 +398,12 @@ const RegistroUsuario = () => {
               </Link>
             </div>
           </div>
-        </form>
       <ToastContainer
           position="bottom-right"
           autoClose={3000}
           style={{ zIndex: 5000 }} // Ajusta el valor según tus necesidades
         />
+        </form>
       </div>
     </div>
   );
