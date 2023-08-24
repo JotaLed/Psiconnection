@@ -55,6 +55,8 @@ server.use(cors({
     "http://localhost:3001",
     "http://localhost:5173",
     "https://psiconnectiondev.vercel.app",
+    "https://psiconnection-production.up.railway.app/"
+
     // Agrega más orígenes si es necesario
   ],
   credentials: true
