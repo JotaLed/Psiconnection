@@ -542,7 +542,7 @@ const RegistroPsicologo = () => {
                       label: "Psicología de pareja",
                     },
                     {
-                      value: "Psicología infantil",
+                      value: "Psicología cognitivo-conductual",
                       label: "Psicología cognitivo-conductual",
                     },
                     { value: "Psicoanálisis", label: "Psicoanálisis" },

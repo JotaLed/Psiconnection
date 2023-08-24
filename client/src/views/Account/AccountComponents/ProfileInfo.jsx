@@ -64,7 +64,8 @@ const ProfileInfo = ({ psicology, imagen, client, id}) => {
                 {psicology && <>
                     <h2 className={styles.subtitle}><b>Tarifa:</b> ${psicology.tarifa}</h2>
 
-                    <h2 className={styles.subtitle}><b>Whatsapp:</b> <a href={psicology.whatsapp_url} target="_blank" rel="noopener noreferrer"> {psicology.whatsapp_url}</a></h2></>}
+                    {/* <h2 className={styles.subtitle}><b>Whatsapp:</b> <a href={psicology.whatsapp_url} target="_blank" rel="noopener noreferrer"> {psicology.whatsapp_url}</a></h2> */}
+                    </>}
                 <h2 className={styles.subtitle}><b>Telefono:</b> {usuario.telefono}</h2>
                 <h2 className={styles.subtitle}><b>Fecha de registro:</b> {formatDate(usuario.fecha_registro)}</h2>
             </div>
