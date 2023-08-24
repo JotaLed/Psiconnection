@@ -125,7 +125,7 @@ const Account = () => {
         return <div>Cargando...</div>; // Mostrar un mensaje de carga mientras se busca el psicólogo
     }
 
-    console.log(opcionesEspecialidades)
+    console.log(psicology)
 
     const logout = async () => {
         await window.localStorage.clear()

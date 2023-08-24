@@ -33,7 +33,8 @@ const RegistroPsicologo = () => {
 
   useEffect(() => {
     const fetchCountries = async () => {
-      const countries = await fetchCountriesList();
+      // const countries = await fetchCountriesList();
+      const countries = [{name: "Colombia", alpha2Code: "CO"}, {name: "Argentina", alpha2Code: "ARG"}, {name: "Mexico", alpha2Code: "MX"}, {name: "Venezuela", alpha2Code: "VZ"}]
       setCountriesList(countries);
     };
     fetchCountries();

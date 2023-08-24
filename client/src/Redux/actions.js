@@ -282,6 +282,15 @@ export const getDetailClientAdmin = (id) => {
     };
 };
 
+export const cancelCita = (IdCita) => {
+    return async function () {
+        const cita = {id : IdCita, estado: "cancelado"}
+        await axios.put("/psiconection/citas/reservarCita", cita)
+            .then(response => console.log(response))
+            .catch(error => console.log("Error en la solicitud PUT", error));
+    }
+}
+
 //-----------------------obtener el detail del USUARIO CON PROTECCION-----------------------------//
 
 // export const getDetailAuthUSuario = (id) => {
