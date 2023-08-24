@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail, getDetailAuthPsicologo, getDetailAuthPsicologoCitas } from "../../../Redux/actions";
+import { cancelCita, getDetail, getDetailAuthPsicologo, getDetailAuthPsicologoCitas } from "../../../Redux/actions";
 import { Table, Button } from "react-bootstrap";
 
 const CitasPsic = () => {
@@ -20,7 +20,11 @@ const CitasPsic = () => {
     }, [dispatch, id]);
 
     const handleCancelCita = (idCita) => {
-        
+        const confirmacion = window.confirm('¿Estás seguro de que deseas cancelar la cita? Esta acción no se puede deshacer.');
+        if (confirmacion) {
+            dispatch(cancelCita(idCita))
+            window.location.reload()
+        }
     };
     
     function capitalizeFirstLetter(name) {
@@ -54,7 +58,7 @@ const CitasPsic = () => {
                             <td>{cita.Hora}</td>
                             <td>{capitalizeFirstLetter(cita.Estado)}</td>
                             <td>
-                                {cita.Estado.toLowerCase() !== "finalizado" && <Button variant="danger" onClick={() => handleCancelCita(cita.IdCita)}>
+                                {cita.Estado.toLowerCase() !== "finalizado" && cita.Estado.toLowerCase() !== "cancelado" && <Button variant="danger" onClick={() => handleCancelCita(cita.IdCita)}>
                                     Cancelar Cita
                                 </Button>}
                             </td>

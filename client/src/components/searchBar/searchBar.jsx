@@ -3,29 +3,33 @@ import { useDispatch } from 'react-redux';
 import { searchByName } from '../../Redux/actions';
 import './searchBar.css';
 
-export default function SearchBar() {
+export default function SearchBar(props) {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
 
     const handleSearch = () => {
         dispatch(searchByName(searchValue));
+        props.update()
     };
 
     const handleKeyDown = (event) => {
         if (event.keyCode === 13) {
             dispatch(searchByName(searchValue));
+            props.update()
         }
     };
 
     const handleEnter = (event) => {
         if (event.key === 'Enter') {
             dispatch(searchByName(searchValue));
+            props.update()
         }
     };
 
     const handleInput = (event) => {
         setSearchValue(event.target.value);
         dispatch(searchByName(event.target.value));
+        props.update()
     };
 
     return (
