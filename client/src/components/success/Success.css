@@ -5,20 +5,58 @@
     width: 100%;
     height: 100%;
     margin-top: 140px;
+    
 }
+
+
 .success-container .container-message {
-    background-color: red;
-    padding: 10px 25px 10px 25px;
+
+    /* padding: 10px 25px 10px 25px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: gray;
-    border-radius: 15px;
+    background-color: none;
+    border-radius: 1.45em;
+    border: 0.4em black solid;
 }
 
-.success-container .container-message img{
-    width: 380px;
-    height: 300px;
-    margin-bottom: 30px;
+.container-message h2{
+    color: #3c096c;
+    text-decoration: underline;
+    font-weight: 600;
 }
+
+.container-message h5 {
+    color: #3c096c;
+}
+
+
+.title-success {
+    width: 100% !important;
+    height: 100%;
+    background-color: #706AD4 ;
+    border-radius: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: #fff;
+    padding-bottom: 0.5rem;
+    font-weight: 600;
+    border: 0.3em black solid;
+    border-bottom: solid 0.5rem solid black;
+}
+
+.title-success .logo-success {
+    text-align: center;
+    font-size: 3rem;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.boton-success {
+    margin-bottom: 2em;
+    background-color: #706AD4;
+    padding: 15px;
+    border-radius: 10px;
+}
+
