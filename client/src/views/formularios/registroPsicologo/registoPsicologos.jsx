@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useForm, Controller } from "react-hook-form";
+import { Form } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "boxicons/css/boxicons.min.css";
@@ -71,15 +74,16 @@ const RegistroPsicologo = () => {
         setSelectedDays([]);
         setSelectedHours([]);
         setImage("");
-        alert("¡Registro exitoso!");
+        // Toast de éxito
+      toast.success(`¡Bienvenid@, ${formData.nombre}! Registro exitoso`);
         navigate("/loginPsicologo");
         // Resetea el formulario después de un registro exitoso
         reset();
       }
     } catch (error) {
-      // Maneja los errores
-      console.error("Error al registrar:", error);
-    }
+    // Toast de error
+    toast.error("Hubo un error al registrar. Por favor, inténtalo de nuevo.");
+  }
   };
 
   const handleDaySelect = (day) => {
@@ -145,8 +149,7 @@ const RegistroPsicologo = () => {
     <div className="containerFormPsico">
       <div className="registro-formPsico">
         <h2>¡Regístrate como Psicólogo!</h2>
-        {/* Formulario de registro */}
-        <form onSubmit={handleSubmit(onSubmit)} noValidate className="row">
+          <form onSubmit={handleSubmit(onSubmit)} noValidate className= "row">
           <div className="form-columnPsico col-md-6">
             {/* //* Nombre */}
             <div className="form-groupRegPsico">
@@ -313,10 +316,11 @@ const RegistroPsicologo = () => {
                 <p className="errores">{errors.telefono.message}</p>
               )}
             </div>
-            {/* //* EMAIL */}
-            <div className="form-groupRegPsico">
+    {/*//* Email */}
+    <div className="form-groupRegUsu">
               <label>
-                <i className="bx bxs-envelope"></i>
+                <i className="bx bxs-envelope"></i> Correo electrónico:
+              </label>
                 <Controller
                   name="email"
                   control={control}
@@ -326,49 +330,41 @@ const RegistroPsicologo = () => {
                     <input
                       {...field}
                       type="email"
-                      placeholder="Email del Psicologo"
+                      placeholder="Ingresa tu correo electrónico"
                     />
                   )}
                 />
-              </label>
               {errors.email?.type === "pattern" && (
                 <p className="errores">Formato de email incorrecto</p>
               )}
-
-              {/* //* contraseña */}
-              <div className="form-groupRegPsico">
-              <label>
-                <i className="bx bxs-lock-alt"></i>
-                <Controller
-                  name="password"
-                  control={control}
-                  defaultValue=""
-                  rules={{ validate: isValidPassword }}
-                  render={({ field }) => (
-                    <div className="password-input">
-                      <input
-                        {...field}
-                        type={showPassword ? "text" : "password"} // Cambio de tipo aquí
-                        placeholder="Contraseña"
-                      />
-
-                      <i
-                        className={`bx ${
-                          showPassword ? "bxs-hide" : "bxs-show"
-                        }`}
-                        onClick={() => setShowPassword(!showPassword)}
-                      ></i>
-                    </div>
-                  )}
-                />
-              </label>
               </div>
-              {errors.password && (
-                <p className="errores">
-                  Debe tener más de 6 caracteres alfanuméricos
-                </p>
-              )}
-            </div>
+ {/*//* Contraseña */}
+        <div className="form-groupRegUsu">
+            <label>
+              <i className="bx bxs-lock-alt"></i> Contraseña:
+            </label>
+            <Controller
+              name="contraseña"
+              control={control}
+              defaultValue=""
+              rules={{ validate: isValidPassword }}
+              render={({ field }) => (
+            <div>
+   <input
+          {...field}
+          placeholder="Crea una contraseña"
+          type={showPassword ? "text" : "password"} // Cambio de tipo aquí
+          className={errors.contraseña ? "input-error" : ""}
+        />
+        {errors.contraseña && (
+          <p className="errores">
+            Debe tener más de 6 caracteres alfanuméricos
+          </p>
+        )}
+      </div>
+    )}
+  />
+</div>
             {/* //*DESCRIPCION*/}
             <div className="form-groupRegPsico">
               <label>
@@ -388,7 +384,7 @@ const RegistroPsicologo = () => {
               </label>
             </div>
           </div>
-
+          </div>
           <div className="form-columnPsico col-md-6">
             {/* //?????Campos de la segunda columna */}
             {/*//* Foto */}
@@ -396,8 +392,8 @@ const RegistroPsicologo = () => {
               <label>
                 <i className="bx bxs-camera"></i> Foto de perfil:
                 <input type="file" name="file" onChange={upLoadImage} />
-                /(
-                <img src={image} style={{ width: "150px" }} />)
+
+                <img src={image} style={{ width: "150px" }} /> 
               </label>
             </div>
 
@@ -415,70 +411,128 @@ const RegistroPsicologo = () => {
 
             {/* //* días */}
             <div className="form-groupRegPsico">
-              <label>
-                <i className="bx bxs-calendar"></i> Días disponibles:
-              </label>
-              <div className="day-selection">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={selectedDays.includes("Mon")}
-                    onChange={() => handleDaySelect("Mon")}
-                  />
-                  Lunes
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={selectedDays.includes("Tue")}
-                    onChange={() => handleDaySelect("Tue")}
-                  />
-                  Martes
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={selectedDays.includes("Wed")}
-                    onChange={() => handleDaySelect("Wed")}
-                  />
-                  Miercoles
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={selectedDays.includes("Thu")}
-                    onChange={() => handleDaySelect("Thu")}
-                  />
-                  Jueves
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={selectedDays.includes("Fri")}
-                    onChange={() => handleDaySelect("Fri")}
-                  />
-                  Viernes
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={selectedDays.includes("Sat")}
-                    onChange={() => handleDaySelect("Sat")}
-                  />
-                  Sabado
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={selectedDays.includes("Sun")}
-                    onChange={() => handleDaySelect("Sun")}
-                  />
-                  Domingo
-                </label>
-
-                {/* Repite para los otros días */}
-              </div>
-            </div>
+  <label>
+    <i className="bx bxs-calendar"></i> Días disponibles:
+  </label>
+  <div className="day-selection" style={{ display: 'inline-block', marginLeft: '10px' }}>    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Mon")}
+        onChange={() => handleDaySelect("Mon")}
+      />
+      Lunes
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Tue")}
+        onChange={() => handleDaySelect("Tue")}
+      />
+      Martes
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Wed")}
+        onChange={() => handleDaySelect("Wed")}
+      />
+      Miércoles
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Thu")}
+        onChange={() => handleDaySelect("Thu")}
+      />
+      Jueves
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Fri")}
+        onChange={() => handleDaySelect("Fri")}
+      />
+      Viernes
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Sat")}
+        onChange={() => handleDaySelect("Sat")}
+      />
+      Sábado
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Sun")}
+        onChange={() => handleDaySelect("Sun")}
+      />
+      Domingo
+    </label>
+<div className="form-groupRegPsico">
+  <label>
+    <i className="bx bxs-calendar"></i> Días disponibles:
+  </label>
+  <div className="day-selection" style="display: inline-block; margin-left: 10px;">
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Mon")}
+        onChange={() => handleDaySelect("Mon")}
+      />
+      Lunes
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Tue")}
+        onChange={() => handleDaySelect("Tue")}
+      />
+      Martes
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Wed")}
+        onChange={() => handleDaySelect("Wed")}
+      />
+      Miércoles
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Thu")}
+        onChange={() => handleDaySelect("Thu")}
+      />
+      Jueves
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Fri")}
+        onChange={() => handleDaySelect("Fri")}
+      />
+      Viernes
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Sat")}
+        onChange={() => handleDaySelect("Sat")}
+      />
+      Sábado
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={selectedDays.includes("Sun")}
+        onChange={() => handleDaySelect("Sun")}
+      />
+      Domingo
+    </label>
+    </div> 
+     </div>
 
             {/* //*horas */}
             <div className="form-groupRegPsico">
@@ -568,7 +622,7 @@ const RegistroPsicologo = () => {
 
           {/* //!!! Botón de registro */}
           <div className="col-12">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btnPsico btn-primary">
               Registrarse
             </button>
 
@@ -579,6 +633,11 @@ const RegistroPsicologo = () => {
               </Link>
             </div>
           </div>
+          <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          style={{ zIndex: 5000 }} // Ajusta el valor según tus necesidades
+        />
         </form>
       </div>
     </div>

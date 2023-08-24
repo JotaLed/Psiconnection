@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import { Form, Button } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -15,7 +16,6 @@ import {
 import "./registroUsuario.css";
 import fetchCountriesList from "../registroPsicologo/fetchCountriesList";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
 
 const RegistroUsuario = () => {
   const {
@@ -147,7 +147,7 @@ const RegistroUsuario = () => {
       <div className="containerFormUsu">
         <div className="registro-formUsu">
           <h2 className="form-title">¡Regístrate como Usuario!</h2>
-          <form onSubmit={handleSubmit(onSubmit)} noValidate className="row">
+          <Form onSubmit={handleSubmit(onSubmit)} noValidate className="row">
             <div className="form-columnUsu col-md-6">
               <div className="form-groupRegUsu">
                 <label>
@@ -403,7 +403,7 @@ const RegistroUsuario = () => {
           autoClose={3000}
           style={{ zIndex: 5000 }} // Ajusta el valor según tus necesidades
         />
-        </form>
+        </Form>
       </div>
     </div>
   );

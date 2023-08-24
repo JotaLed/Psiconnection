@@ -1,5 +1,95 @@
 /* Ajustes para Bootstrap */
 .containerFormPsico {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.registro-formPsico {
+  margin-top: 8%;
+  width: 60%; /* Cambio el ancho al 100% */
+  max-width: 1200px; /* Agrego un ancho máximo */
+  background-color: #F1F0EA;
+  border-radius: 10px;
+  padding: 20px;
+  color: #5e5f5e;
+  margin-top: -5px;
+  font-size: 15px;
+  font-family: 'Quicksand', sans-serif;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-columnPsico {
+  margin-bottom: 20px;
+}
+.form-groupRegPsico {
+  margin-bottom: 20px;
+}
+
+.form-groupRegPsico label {
+  display: block;
+  margin-bottom: 3px;
+}
+.form-groupRegPsico label .bx {
+  margin-right: 5px;
+  color: #706AD4;
+}
+.form-groupRegPsico select {
+  width: 42%; /* Puedes ajustar este valor según tus necesidades */
+}
+
+.form-groupRegPsico input{
+  width: 250px;
+}
+
+.btnPsico {
+  display: block;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 10px 20px;
+  width: 150px; /* Cambia el valor del ancho según prefieras */
+  color: #ffffff;
+  background-color: #706AD4;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s; /* Agregamos una transición suave para el cambio de color */
+}
+
+.btnPsico:hover {
+  background-color: #5c59b1; /* Cambia el color de fondo al pasar el mouse por encima */
+}
+
+.btnPsico:active {
+  background-color: #4b48a0; /* Cambia el color de fondo cuando se hace clic */
+}
+
+.link-back {
+  text-align: left; /* Centramos el enlace "Volver" */
+  margin-top: 8px; /* Agregamos un margen superior para separar del botón */
+}
+
+.form-title {
+  font-size: 30px;
+  font-family: 'Quicksand', sans-serif;
+ color:  #706AD4;
+  margin-bottom: 30px; /* Agrega espacio debajo del título */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+.containerFormPsico {
     position: relative;
     top: 80px;
     display: flex;
@@ -9,8 +99,8 @@
   }
   
   .registro-formPsico {
-    width: 100%; /* Cambio el ancho al 100% */
-    max-width: 1200px; /* Agrego un ancho máximo */
+    width: 100%; 
+    max-width: 1200px; 
     background-color: #fff;
     border-radius: 10px;
     padding: 30px;
@@ -54,7 +144,7 @@
   @media (max-width: 768px) {
     .form-groupRegPsico select,
     .form-groupRegPsico input[type="tel"] {
-      width: 100%; /* Cambia a ancho completo en pantallas pequeñas */
+      width: 100%; 
     }
 
-  }
+  } */
