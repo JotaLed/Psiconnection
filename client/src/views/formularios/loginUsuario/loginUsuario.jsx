@@ -42,18 +42,17 @@ const LoginUsuario = () => {
 
 
   const onSubmit = async (formData) => {
-    if (!formData.email || !formData.contraseña) {
-      setErrorMessage("Todos los campos son requeridos");
-      toast.error("Por favor completa todos los campos.");
+    if (!formData.email) {
+      toast.error("Por favor ingresa tu correo electrónico.");
+      return;
+    }
+    if (!formData.contraseña) {
+      toast.error("Por favor ingresa tu contraseña.");
       return;
     }
 
     try {
       const response = await axios.post("/psiconection/login", formData);
-      
-      console.log(response);
-      console.log("Response from server:", response.data);
-      console.log("Token:", response.data.info.tokenSessionUser);
 
       if (response.status === 200) {
         const userRole = response.data.info.roll;
@@ -68,7 +67,7 @@ const LoginUsuario = () => {
         localStorage.setItem("authToken", tokenString);
   
         // Muestra el toast de inicio de sesión exitoso y redirige al usuario después de cerrarlo
-        toast.success("Inicio de sesión exitoso. ¡Bienvenido!", {
+        toast.success(`¡Bienvenid@, ${response.data.info.nombre}! Inicio de sesión exitoso.`, {
           autoClose: 2000,
           onClose: () => {
             navigate("/home");
@@ -76,16 +75,22 @@ const LoginUsuario = () => {
         });
       }
     } catch (error) {
-    console.error("Error al realizar la solicitud:", error);
-    if (error.response && error.response.status === 401) {
-      toast.error("Email o contraseña incorrectos");
-    } else if (error.response && error.response.status === 404) {
-      toast.error("Email no registrado. Regístrate para crear una cuenta.");
-    } else {
-      toast.error("Hubo un problema al procesar la solicitud. Inténtalo de nuevo más tarde.");
+      console.error("Error al realizar la solicitud:", error);
+      console.log("Error status:", error.response ? error.response.status : "No response status");
+      console.error("Error al realizar la solicitud:", error);
+      if (error.response) {
+        if (error.response.status === 404) {
+          toast.error("No encontramos un correo registrado. Regístrate para crear una cuenta.");
+        } else if (error.response.status === 401) {
+          toast.error("El correo o la contraseña son incorrectos. Inténtalo nuevamente.");
+        } else {
+          toast.error("Hubo un problema al procesar la solicitud. Por favor, intenta nuevamente más tarde.");
+        }
+      } else {
+        toast.error("Hubo un problema al conectar con el servidor.");
+      }
     }
   }
-};
   return (
     <div className="containerLoginUsuario">
       <div className="login-formUsu">
