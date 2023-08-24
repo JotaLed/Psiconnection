@@ -92,7 +92,7 @@ const BasicInfo = ({ handleChange, psicology, client }) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group>
+                    {/* <Form.Group>
                         <Form.Label className={styles.prop}>Whatsapp:</Form.Label>
                         <Form.Control
                             type="text"
@@ -105,7 +105,7 @@ const BasicInfo = ({ handleChange, psicology, client }) => {
                                 }
                             }}
                         />
-                    </Form.Group>
+                    </Form.Group> */}
                 </>
             )}
             <Form.Group>
