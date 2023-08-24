@@ -57,7 +57,7 @@ const loginController = async ({email, contraseña}) => {
         
             }};
         } else {
-            throw new Error('Tu cuenta a sido baneada por un moderador, porfavor ponte en contacto con nosotros para mas informacion...')
+            throw new Error('Tu cuenta a sido baneada por un moderador, por favor ponte en contacto con nosotros para mas información...')
         }
     }
 };

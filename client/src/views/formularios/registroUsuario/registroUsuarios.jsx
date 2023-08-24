@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import { Form, Button } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -15,7 +16,6 @@ import {
 import "./registroUsuario.css";
 import fetchCountriesList from "../registroPsicologo/fetchCountriesList";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
 
 const RegistroUsuario = () => {
   const {
@@ -24,8 +24,8 @@ const RegistroUsuario = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      genero: "", // Valor inicial para el género
-      pais: "", // Valor inicial para el país
+      genero: "",
+      pais: "",
     },
   });
 
@@ -45,28 +45,13 @@ const RegistroUsuario = () => {
   }, []);
 
   const onSubmit = async (formData) => {
-    console.log("Form Data:", formData);
     formData.roll = "usuario";
     formData.foto = image;
-    if (!formData.nombre || !formData.apellido || !formData.genero || !formData.fecha_nacimiento || !formData.telefono || !formData.pais || !formData.email || !formData.contraseña) {
-      console.log("Campos obligatorios faltantes");
-      toast.error("Por favor completa todos los campos obligatorios.");
+
+    if (shouldShowErrorToast(formData)) {
       return;
     }
-    if (errors.email?.type === "pattern") {
-      toast.error("Formato de correo electrónico incorrecto.");
-      return;
-    }
-    if (errors.fecha_nacimiento?.type === "validate") {
-      toast.error("Debes tener al menos 18 años para registrarte.");
-      return;
-    }
-    if (errors.contraseña) {
-      toast.error("La contraseña debe tener al menos 6 caracteres alfanuméricos.");
-      return;
-    }
-  
-  
+
     try {
       const response = await axios.post(
         "/psiconection/registerUsuario",
@@ -74,31 +59,69 @@ const RegistroUsuario = () => {
       );
 
       if (response.status === 200) {
-        toast.success("¡Registro exitoso!");
-        navigate("/loginUsuario");
-
-        setImage("");
-       
+        toast.success(`¡Bienvenid@, ${formData.nombre}! Registro exitoso`);
+        setTimeout(() => {
+          navigate("/loginUsuario");
+          setImage("");
+        }, 4000); // Espera 2 segundos antes de redirigir
       }
     } catch (error) {
-      if (error.response) {
-        if (error.response.status === 400) {
-          if (error.response.data.errors) {
-            const errorMessages = Object.values(error.response.data.errors)
-              .map((errorMessage) => `• ${errorMessage}`)
-              .join("\n");
-            toast.error(`Error en el formulario:\n${errorMessages}`);
-          } else if (error.response.data.message === "Correo ya registrado") {
-            toast.error("El correo electrónico ya está registrado. Por favor, usa otro correo.");
-          } else {
-            toast.error("Error en el formulario. Verifica los datos.");
-          }
+      handleErrorResponse(error);
+    }
+  };
+
+  const shouldShowErrorToast = (formData) => {
+    const requiredFields = [
+      "nombre",
+      "apellido",
+      "genero",
+      "fecha_nacimiento",
+      "pais",
+      "telefono",
+      "email",
+      "contraseña",
+    ];
+
+    const missingFields = requiredFields.filter(field => !formData[field]);
+    if (missingFields.length > 0) {
+      toast.error(`Por favor completa los campos obligatorios: ${missingFields.join(', ')}`);
+      return true;
+    }
+
+    if (errors.email?.type === "pattern") {
+      toast.error("Formato de correo electrónico incorrecto.");
+      return true;
+    }
+    if (errors.fecha_nacimiento?.type === "validate") {
+      toast.error("Debes tener al menos 18 años para registrarte.");
+      return true;
+    }
+    if (errors.contraseña) {
+      toast.error("La contraseña debe tener al menos 6 caracteres alfanuméricos.");
+      return true;
+    }
+    return false;
+  };
+
+
+  const handleErrorResponse = (error) => {
+    if (error.response) {
+      if (error.response.status === 400) {
+        if (error.response.data.errors) {
+          const errorMessages = Object.values(error.response.data.errors)
+            .map((errorMessage) => `• ${errorMessage}`)
+            .join("\n");
+          toast.error(`Error en el formulario:\n${errorMessages}`);
+        } else if (error.response.data.message === "Correo ya registrado") {
+          toast.error("El correo electrónico ya está registrado. Por favor, usa otro correo.");
         } else {
-          toast.error("Error al registrar. Inténtalo de nuevo más tarde.");
+          toast.error("Error en el formulario. Verifica los datos.");
         }
       } else {
-        toast.error("Error al conectar con el servidor.");
+        toast.error("Error al registrar. Inténtalo de nuevo más tarde.");
       }
+    } else {
+      toast.error("Error al conectar con el servidor.");
     }
   };
 
@@ -124,7 +147,7 @@ const RegistroUsuario = () => {
       <div className="containerFormUsu">
         <div className="registro-formUsu">
           <h2 className="form-title">¡Regístrate como Usuario!</h2>
-          <form onSubmit={handleSubmit(onSubmit)} noValidate className="row">
+          <Form onSubmit={handleSubmit(onSubmit)} noValidate className="row">
             <div className="form-columnUsu col-md-6">
               <div className="form-groupRegUsu">
                 <label>
@@ -226,18 +249,20 @@ const RegistroUsuario = () => {
                     },
                   }}
                   render={({ field }) => (
-                    <input
-                      {...field}
-                      type="date"
-                      placeholder="Selecciona tu fecha de nacimiento"
-                    />
+                    <div>
+                      <input
+                        {...field}
+                        type="date"
+                        placeholder="Selecciona tu fecha de nacimiento"
+                        className={errors.fecha_nacimiento ? "input-error" : ""}
+                      />
+                      {errors.fecha_nacimiento && (
+                        <p className="errores">{errors.fecha_nacimiento.message}</p>
+                      )}
+                    </div>
                   )}
                 />
-              
-              {errors.fechaNacimiento && (
-                <p className="errores">{errors.fechaNacimiento.message}</p>
-              )}
-            </div>
+              </div>
  
 {/* //* TELEFONO*/}
 
@@ -342,25 +367,24 @@ const RegistroUsuario = () => {
               rules={{ validate: isValidPassword }}
               render={({ field }) => (
             <div>
-              <input
-                {...field}
-                placeholder="Crea una contraseña"
-                type={showPassword ? "text" : "password"} // Cambio de tipo aquí
-              />
-              <i
-                className={`bx ${showPassword ? "bxs-hide" : "bxs-show"
-                }`}
-                onClick={() => setShowPassword(!showPassword)}
-              ></i>
-            </div>
-                )}
-                />
-              {errors.password && (
-                <p className="errores">
-                  Debe tener más de 6 caracteres alfanuméricos
-                </p>
-              )}
-            </div>
+   <input
+          {...field}
+          placeholder="Crea una contraseña"
+          type={showPassword ? "text" : "password"} // Cambio de tipo aquí
+          className={errors.contraseña ? "input-error" : ""}
+        />
+        {errors.contraseña && (
+          <p className="errores">
+            Debe tener más de 6 caracteres alfanuméricos
+          </p>
+        )}
+      </div>
+    )}
+  />
+</div>
+
+
+
 </div>
 
             <div className="col-12">
@@ -374,12 +398,12 @@ const RegistroUsuario = () => {
               </Link>
             </div>
           </div>
-        </form>
       <ToastContainer
           position="bottom-right"
           autoClose={3000}
           style={{ zIndex: 5000 }} // Ajusta el valor según tus necesidades
         />
+        </Form>
       </div>
     </div>
   );
