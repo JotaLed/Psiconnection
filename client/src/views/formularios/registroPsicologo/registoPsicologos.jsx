@@ -345,7 +345,7 @@ const RegistroPsicologo = () => {
               <i className="bx bxs-lock-alt"></i> Contraseña:
             </label>
             <Controller
-              name="contraseña"
+              name="password"
               control={control}
               defaultValue=""
               rules={{ validate: isValidPassword }}
