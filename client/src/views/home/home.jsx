@@ -97,7 +97,7 @@ export default function Home() {
         <div className={style.search_conteinerHome}>
         <p>¡Comienza tu búsqueda ahora mismo!</p>
 
-          <SearchBar />
+          <SearchBar update={updateCurrentPage}/>
         </div>
         <Pagination currentPage={currentPage} nextHandler={nextHandler}
         prevHandler={prevHandler} items={currentItems} />
