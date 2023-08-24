@@ -1,7 +1,12 @@
+.header-container{
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
 .header-logo {
     height: 80px; 
     margin-top: 2%; 
     margin-left: 1%;
+  
 }
 
 .logoName {

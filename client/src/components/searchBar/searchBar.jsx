@@ -29,27 +29,27 @@ export default function SearchBar() {
     };
 
     return (
-        <div className="Container">
-        <div className='search-bar'>
-            <div className="input-group">
-                <input
-                    type='search'
-                    className='form-control custom-inputBusqueda'
-                    placeholder='Ej: "Fernandez"'
-                    value={searchValue}
-                    onKeyDown={handleKeyDown}
-                    onKeyUp={handleEnter}
-                    onInput={handleInput}
-                />
-                <div className="input-group-append">
-                    <button onClick={handleSearch} className='btn custom-buttonBusqueda'>
-                        <i className='bx bx-search'></i>
-                    </button>
+        <div className="Conteiner">
+            <div className='search-bar'>
+                <div className="input-group">
+                    <input
+                        type='search'
+                        className='form-control custom-inputBusqueda'
+                        placeholder='Ej: "Fernandez"'
+                        value={searchValue}
+                        onKeyDown={handleKeyDown}
+                        onKeyUp={handleEnter}
+                        onInput={handleInput}
+                    />
+                    <div className="input-group-append">
+                        <button onClick={handleSearch} className='btn custom-buttonBusqueda'>
+                            <i className='bx bx-search'></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-           
+
         </div>
     )
 }

@@ -47,7 +47,8 @@ const createOrder = async (req, res) => {
         pending: "",
       },
       auto_return: "approved",
-      notification_url: `https://ae95-2a09-bac5-d381-aa-00-11-180.ngrok.io/psiconnection/payment/webhook`,
+      // notification_url: `https://ae95-2a09-bac5-d381-aa-00-11-180.ngrok.io/psiconnection/payment/webhook`,
+      notification_url: `${PAGO_BACK_URL_BASE}/psiconnection/payment/webhook`,
     });
 
     return res.status(200).json({ id: result.body.id });
@@ -62,7 +63,6 @@ const receiveWebhook = async (req, res) => {
   const payment = req.query;
 
   const cita = citaObj;
-
 
   const newCita = {
     hora: cita.hora,
