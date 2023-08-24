@@ -6,11 +6,11 @@ import "react-toastify/dist/ReactToastify.css"; // Importamos el CSS de react-to
 import s from "./detail.module.css";
 import Turnos from "../../components/turnos/Turnos";
 import Rating from "../../components/starRating/Rating";
+import { loadDetail } from "../../Redux/actions";
 
-//importamos las estrellas 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faStar } from "@fortawesome/free-solid-svg-icons"
-
+//importamos las estrellas
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Detail = () => {
   const { detailID } = useParams();
@@ -18,7 +18,7 @@ const Detail = () => {
   console.log(psicology);
   const dispatch = useDispatch();
 
-  // Con este estado se controla la carga 
+  // Con este estado se controla la carga
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true); // Comienza la carga
@@ -31,14 +31,12 @@ const Detail = () => {
   function capitalizeFirstLetter(name) {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
-  //logica para las estrellas 
+  //logica para las estrellas
   const valores = psicology.valoracion || [];
   const suma = valores.reduce((acumulador, valor) => acumulador + valor, 0);
   const media = suma / valores.length;
   const result = parseFloat(media.toFixed(1));
-  console.log("SUMA:"+suma+"MEDIA"+media+"RESULT"+result);
-
-  
+  console.log("SUMA:" + suma + "MEDIA" + media + "RESULT" + result);
 
   return (
     <div className={s.detail}>
@@ -55,21 +53,35 @@ const Detail = () => {
           <div className={s.info_psyco}>
             <h1 className={s.name}>
               {psicology.nombre
-                ? capitalizeFirstLetter(psicology.nombre + " " + psicology.apellido)
+                ? capitalizeFirstLetter(
+                    psicology.nombre + " " + psicology.apellido
+                  )
                 : ""}
             </h1>
             <h2 className={s.especialidades}>Especialidades:</h2>
             {psicology.especialidad?.map((espe, index) => {
               return (
                 <p key={index} className={s.especialidad}>
-                  ◉{espe}<br></br>
+                  ◉{espe}
+                  <br></br>
                 </p>
               );
             })}
-            <h2 className={s.time}>Cuenta creada el {psicology.fecha_registro?.split("T")[0]}</h2>
+            <h2 className={s.time}>
+              Cuenta creada el {psicology.fecha_registro?.split("T")[0]}
+            </h2>
             <span className={s.tarifa}>{`Tarifa: ${psicology.tarifa}$`}</span>
             <div className={s.contactar}>
-              {!psicology.valoracion?.length ? <div>4<FontAwesomeIcon icon={faStar}/></div>:<div>{`${result}`}<FontAwesomeIcon icon={faStar}/></div> }
+              {!psicology.valoracion?.length ? (
+                <div>
+                  4<FontAwesomeIcon icon={faStar} />
+                </div>
+              ) : (
+                <div>
+                  {`${result}`}
+                  <FontAwesomeIcon icon={faStar} />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -91,7 +103,9 @@ const Detail = () => {
         </div>
         <div className={s.row3}>
           <label className={s.label}>Descripción:</label>
-          <div><p className={s.descripcion}>{psicology.descripcion}</p></div>
+          <div>
+            <p className={s.descripcion}>{psicology.descripcion}</p>
+          </div>
         </div>
         <div className={s.rating_conteiner}>
           <Rating id={psicology.id} />
@@ -103,10 +117,8 @@ const Detail = () => {
         {psicology.nombre ? (
           <Turnos dias={psicology.dias} horas={psicology.horas} />
         ) : null}
-
       </div>
     </div>
-
   );
 };
 
