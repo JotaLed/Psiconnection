@@ -1,6 +1,6 @@
 import React from "react";
 import logoPsiconnetion from "./logoPsiconnetion.png"; 
-import "./Header.css"; // Importa tus estilos CSS
+import "./header.css"; // Importa tus estilos CSS
 
 const Header = () => {
   return (
