@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { loadDetail } from "../../Redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify"; // Importamos componentes de react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Importamos el CSS de react-toastify
