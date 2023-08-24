@@ -27,25 +27,25 @@ export default function Card(props) {
         </div>
         <ul className="list-group list-group-flush">
           {!props.valoracion.length || props.valoracion.length < 20 ? 
-           <li className="list-group-item">
-           <span>
+          <li className="list-group-item">
+            <span>
             </span> Valoración:
             
             <span>
               </span> {`4.0`} 
               
-             <FontAwesomeIcon icon={faStar} />
-           </li>
-           : 
-           <li className="list-group-item">
-           <span>
+              <FontAwesomeIcon icon={faStar} />
+            </li>
+            : 
+            <li className="list-group-item">
+            <span>
             </span> Valoración:
             
             <span>
               </span> {`${result}`} 
               
-             <FontAwesomeIcon icon={faStar} />
-           </li> }
+              <FontAwesomeIcon icon={faStar} />
+            </li> }
           
           <li className="list-group-item">
             <span className="item-label">Tarifa:</span>
