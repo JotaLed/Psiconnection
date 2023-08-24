@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
-
+import { toast, ToastContainer } from "react-toastify"; // Importamos componentes de react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Importamos el CSS de react-toastify
 import s from "./detail.module.css";
 import Turnos from "../../components/turnos/Turnos";
 import Rating from "../../components/starRating/Rating";
-import { loadDetail } from "../../Redux/actions";
+
 //importamos las estrellas 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faStar } from "@fortawesome/free-solid-svg-icons"
@@ -32,13 +32,12 @@ const Detail = () => {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
   //logica para las estrellas 
-  console.log(psicology.valoracion);
   const valores = psicology.valoracion || [];
-  console.log(valores);
   const suma = valores.reduce((acumulador, valor) => acumulador + valor, 0);
   const media = suma / valores.length;
-  const result = Math.floor(media)
-  console.log(psicology.valoracion);
+  const result = parseFloat(media.toFixed(1));
+  console.log("SUMA:"+suma+"MEDIA"+media+"RESULT"+result);
+
   
 
   return (
@@ -70,7 +69,7 @@ const Detail = () => {
             <h2 className={s.time}>Cuenta creada el {psicology.fecha_registro?.split("T")[0]}</h2>
             <span className={s.tarifa}>{`Tarifa: ${psicology.tarifa}$`}</span>
             <div className={s.contactar}>
-              {!psicology.valoracion?.length ? <div>4<FontAwesomeIcon icon={faStar}/></div>:<div>{`${result}.0`}<FontAwesomeIcon icon={faStar}/></div> }
+              {!psicology.valoracion?.length ? <div>4<FontAwesomeIcon icon={faStar}/></div>:<div>{`${result}`}<FontAwesomeIcon icon={faStar}/></div> }
             </div>
           </div>
         </div>

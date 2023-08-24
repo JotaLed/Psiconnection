@@ -29,11 +29,9 @@ body {
 }
 
 .navbar-container {
-
   background-color: #fff;
-  position: relative;
-
-  width: 100%;
+  position: absolute;
+  width: 38%;
   margin-top: -60px;
   margin-left: 60%;
   margin-bottom: 40px;

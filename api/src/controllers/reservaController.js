@@ -3,36 +3,60 @@ const { Psicologo, Usuario, Reserva } = require("../db");
 const emailer = require("../helpers/emailers.js");
 
 const reservaCita = async (newCita) => {
-  const cita = { 
+
+  console.log('newCitaaa', newCita);
+    const cita = { 
     idPsico: newCita.idPsico, 
     idUser: newCita.idUser, 
     fecha: newCita.fecha, 
     hora: newCita.hora,
     estado: newCita.estado 
   }
+
+
+  
+
+  const psicologo = await Psicologo.findByPk(cita.idPsico);
+  const usuario = await Usuario.findByPk(cita.idUser);
   try {
-    const psicologo = await Psicologo.findByPk(cita.idPsico);
-    const usuario = await Usuario.findByPk(cita.idUser);
 
-    const nuevaReserva = {
-      fecha: cita.fecha,
-      hora: cita.hora,
-      estado: cita.estado,
-    };
+    if(psicologo && usuario){
+  
+      const newReserva = await Reserva.create({
+        fecha: cita.fecha,
+        hora: cita.hora,
+        estado: cita.estado,
+        PsicologoId: cita.idPsico,
+        UsuarioId: cita.idUser
+      })
+     
+      
+      if (newReserva) {
+        const data = newReserva
+        console.log('data', data);
+        
+        // console.log('data', data);
+        // console.log(newReserva[0].dataValues.fecha);
+        // console.log(newReserva[0].dataValues.hora);
+        // console.log(newReserva[0].dataValues.estado);
+        await emailer.sendMailReserva({ newReserva: data, psicologo, usuario });
+  
+        return newReserva;
+      }
 
-    const newReserva = await psicologo.addUsuario(usuario, {
-      through: nuevaReserva,
-    });
-    if (newReserva) {
-      const data = newReserva[0].dataValues;
-      // console.log('data', data);
-      // console.log(newReserva[0].dataValues.fecha);
-      // console.log(newReserva[0].dataValues.hora);
-      // console.log(newReserva[0].dataValues.estado);
-      await emailer.sendMailReserva({ newReserva: data, psicologo, usuario });
-
-      return newReserva;
     }
+
+    // const nuevaReserva = {
+    //   fecha: cita.fecha,
+    //   hora: cita.hora,
+    //   estado: cita.estado,
+    // };
+
+    // const newReserva = await psicologo.addUsuario(usuario, {
+    //   through: nuevaReserva,
+    // });
+    
+   
   } catch (error) {
     console.log(error);
     throw new Error("Error al intentar reservar la cita");

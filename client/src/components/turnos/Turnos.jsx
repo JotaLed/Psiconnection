@@ -16,6 +16,7 @@ import logoPaypal from '../../imagenes/logoPaypal.png'
 
 //! mercado pago
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Turnos({ dias, horas }) {
   const dispatch = useDispatch();
@@ -184,8 +185,14 @@ export default function Turnos({ dias, horas }) {
       window.location.href = `${
         import.meta.env.VITE_URL_AXIOS_URL_FRONT
       }/loginUsuario`;
+      return null
       // window.location.href = "http://localhost:5173/loginUsuario";
     }
+    if(tokenData.roll === "psicologo"){
+      
+      
+    }
+    
     if (!newTurno.fecha || !newTurno.hora) {
       return null;
     }
@@ -223,6 +230,10 @@ export default function Turnos({ dias, horas }) {
   console.log(paypalID);
 
   const handleBuy = async () => {
+    if(tokenData &&tokenData.roll === "psicologo"){
+      toast.error("Debe ingresar con una cuenta de usuario")
+      return null
+    }
     const id = await handleCheckoutClick();
     if (id) {
       setPreferenceId(id);
@@ -242,7 +253,6 @@ export default function Turnos({ dias, horas }) {
       clearID();
     }
   };
-
   // console.log(buttonActive);
   return (
     <div className="turnos">
@@ -278,7 +288,7 @@ export default function Turnos({ dias, horas }) {
                   <div
                     key={index}
                     className={
-                      buttonActive[hora] ? "validate_active" : "validate"
+                      buttonActive[hora]  ? "validate_active" : "validate"
                     }
                   >
                     <label onClick={() => addTurno(hora)}>{hora}</label>
@@ -290,7 +300,7 @@ export default function Turnos({ dias, horas }) {
           <div
             onClick={handleBuy}
             className={
-              !newTurno.hora || !buttonActive ? "no_pedir_turno" : "pedir_turno"
+              !newTurno.hora || !buttonActive  ? "no_pedir_turno" : "pedir_turno"
             }
           >
             <span className="emoji">📅</span>
@@ -311,6 +321,7 @@ export default function Turnos({ dias, horas }) {
           Seleccione un dia en el calendario para consultar sus horarios
         </div>
       )}
+      {/* <ToastContainer position="bottom-right" autoClose={3000}/> */}
     </div>
   );
 }
