@@ -26,9 +26,9 @@ export default function Turnos({ dias, horas }) {
   const id = location.pathname.split("/").at(-1);
   const queryParam = new URLSearchParams(location.search).get("queryEjemplo");
 
-  //! mercadoPago y paypal
+  // //! mercadoPago y paypal
   const [preferenceId, setPreferenceId] = useState(null);
-  initMercadoPago("TEST-442f1db5-f1a8-4d3e-aad6-5dd4d161c61c");
+  // initMercadoPago("TEST-442f1db5-f1a8-4d3e-aad6-5dd4d161c61c");
 
   //! paypal
   const [paypalID, setPaypalID] = useState(null);
@@ -206,11 +206,13 @@ export default function Turnos({ dias, horas }) {
     };
     try {
       // mercadoPago
-      const response = await axios.post(
-        `/psiconnection/payment/create-order`,
-        reserva
-      );
-      // Paypal
+      // const response = await axios.post(
+      //   `/psiconnection/payment/create-order`,
+      //   reserva
+      // );
+
+
+      // !Paypal
       const { data } = await axios.post(
         `/pay/paymentOrder`,
         reserva
@@ -220,8 +222,8 @@ export default function Turnos({ dias, horas }) {
       // window.location.href = link
       console.log({ data: data });
       setPaypalID(data);
-      const { id } = response.data;
-      return id;
+      return data;
+
     } catch (error) {
       console.log("salio mál");
     }
@@ -249,7 +251,8 @@ export default function Turnos({ dias, horas }) {
     if (paypalID.status === "CREATED") {
       const link = paypalID.links[1].href;
       console.log("link", link);
-      window.open(link, "_blank");
+      // window.open(link, "_blank");
+      window.location.href = link;
       clearID();
     }
   };
@@ -306,14 +309,14 @@ export default function Turnos({ dias, horas }) {
             <span className="emoji">📅</span>
             <span className="text">Pedir turno</span>
           </div>
-          {preferenceId && (
+          {/* {preferenceId && (
             <Wallet
               initialization={{ preferenceId, redirectMode: "blank" }}
               onClick={() => {
                 clearID;
               }}
             />
-          )}
+          )} */}
           {paypalID && <Paypal handleBuyPaypal={handleBuyPaypal} />}
         </div>
       ) : (
