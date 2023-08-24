@@ -77,9 +77,20 @@
   margin-bottom: 30px; /* Agrega espacio debajo del título */
 }
 
+.day-selection {
+  align-items: center;
+}
 
+.daylabel {
+  display: flex;
+  align-items: center;
+  
+}
 
-
+/* Estilos específicos para los checkboxes */
+.daylabel input[type="checkbox"] {
+  margin-right: -100px; /* Ajusta el espaciado entre el checkbox y el texto */
+}
 
 
 

@@ -149,7 +149,7 @@ const RegistroPsicologo = () => {
     <div className="containerFormPsico">
       <div className="registro-formPsico">
         <h2>¡Regístrate como Psicólogo!</h2>
-          <form onSubmit={handleSubmit(onSubmit)} noValidate className= "row">
+        <Form onSubmit={handleSubmit(onSubmit)} noValidate className="row">
           <div className="form-columnPsico col-md-6">
             {/* //* Nombre */}
             <div className="form-groupRegPsico">
@@ -317,7 +317,7 @@ const RegistroPsicologo = () => {
               )}
             </div>
     {/*//* Email */}
-    <div className="form-groupRegUsu">
+            <div className="form-groupRegUsu">
               <label>
                 <i className="bx bxs-envelope"></i> Correo electrónico:
               </label>
@@ -384,7 +384,7 @@ const RegistroPsicologo = () => {
               </label>
             </div>
           </div>
-          </div>
+
           <div className="form-columnPsico col-md-6">
             {/* //?????Campos de la segunda columna */}
             {/*//* Foto */}
@@ -392,8 +392,8 @@ const RegistroPsicologo = () => {
               <label>
                 <i className="bx bxs-camera"></i> Foto de perfil:
                 <input type="file" name="file" onChange={upLoadImage} />
-
-                <img src={image} style={{ width: "150px" }} /> 
+                /(
+                <img src={image} style={{ width: "150px" }} />)
               </label>
             </div>
 
@@ -411,128 +411,70 @@ const RegistroPsicologo = () => {
 
             {/* //* días */}
             <div className="form-groupRegPsico">
-  <label>
-    <i className="bx bxs-calendar"></i> Días disponibles:
+              <label>
+                <i className="bx bxs-calendar"></i> Días disponibles:
+              </label>
+              <div className="day-selection">
+  <label className="daylabel">
+    <input
+      type="checkbox"
+      checked={selectedDays.includes("Mon")}
+      onChange={() => handleDaySelect("Mon")}
+    />
+    Lunes
   </label>
-  <div className="day-selection" style={{ display: 'inline-block', marginLeft: '10px' }}>    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Mon")}
-        onChange={() => handleDaySelect("Mon")}
-      />
-      Lunes
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Tue")}
-        onChange={() => handleDaySelect("Tue")}
-      />
-      Martes
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Wed")}
-        onChange={() => handleDaySelect("Wed")}
-      />
-      Miércoles
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Thu")}
-        onChange={() => handleDaySelect("Thu")}
-      />
-      Jueves
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Fri")}
-        onChange={() => handleDaySelect("Fri")}
-      />
-      Viernes
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Sat")}
-        onChange={() => handleDaySelect("Sat")}
-      />
-      Sábado
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Sun")}
-        onChange={() => handleDaySelect("Sun")}
-      />
-      Domingo
-    </label>
-<div className="form-groupRegPsico">
-  <label>
-    <i className="bx bxs-calendar"></i> Días disponibles:
+  <label className="daylabel">
+    <input
+      type="checkbox"
+      checked={selectedDays.includes("Tue")}
+      onChange={() => handleDaySelect("Tue")}
+    />
+    Martes
   </label>
-  <div className="day-selection" style="display: inline-block; margin-left: 10px;">
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Mon")}
-        onChange={() => handleDaySelect("Mon")}
-      />
-      Lunes
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Tue")}
-        onChange={() => handleDaySelect("Tue")}
-      />
-      Martes
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Wed")}
-        onChange={() => handleDaySelect("Wed")}
-      />
-      Miércoles
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Thu")}
-        onChange={() => handleDaySelect("Thu")}
-      />
-      Jueves
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Fri")}
-        onChange={() => handleDaySelect("Fri")}
-      />
-      Viernes
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Sat")}
-        onChange={() => handleDaySelect("Sat")}
-      />
-      Sábado
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        checked={selectedDays.includes("Sun")}
-        onChange={() => handleDaySelect("Sun")}
-      />
-      Domingo
-    </label>
-    </div> 
-     </div>
+  <label className="daylabel">
+    <input
+      type="checkbox"
+      checked={selectedDays.includes("Wed")}
+      onChange={() => handleDaySelect("Wed")}
+    />
+    Miércoles
+  </label>
+  <label className="daylabel">
+    <input
+      type="checkbox"
+      checked={selectedDays.includes("Thu")}
+      onChange={() => handleDaySelect("Thu")}
+    />
+    Jueves
+  </label>
+  <label className="daylabel">
+    <input
+      type="checkbox"
+      checked={selectedDays.includes("Fri")}
+      onChange={() => handleDaySelect("Fri")}
+    />
+    Viernes
+  </label>
+  <label className="daylabel">
+    <input
+      type="checkbox"
+      checked={selectedDays.includes("Sat")}
+      onChange={() => handleDaySelect("Sat")}
+    />
+    Sábado
+  </label>
+  <label className="daylabel">
+    <input
+      type="checkbox"
+      checked={selectedDays.includes("Sun")}
+      onChange={() => handleDaySelect("Sun")}
+    />
+    Domingo
+  </label>
+</div>
+
+</div>
+
 
             {/* //*horas */}
             <div className="form-groupRegPsico">
@@ -638,7 +580,7 @@ const RegistroPsicologo = () => {
           autoClose={3000}
           style={{ zIndex: 5000 }} // Ajusta el valor según tus necesidades
         />
-        </form>
+        </Form>
       </div>
     </div>
   );
